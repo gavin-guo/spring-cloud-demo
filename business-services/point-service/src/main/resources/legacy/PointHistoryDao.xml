@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gavin.dao.PointHistoryDao">
+
+    <insert id="create" parameterType="com.gavin.model.domain.point.PointHistory">
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO point_history (
+            account_id,
+            order_id,
+            amount,
+            action,
+            created_time)
+        VALUES (
+            ${accountId},
+            ${orderId},
+            ${amount},
+            ${action},
+            NOW()
+        )
+    </insert>
+
+    <select id="searchByAccountId" resultType="com.gavin.model.domain.point.PointHistory">
+        SELECT
+            account_id   AS accountId,
+            order_id     AS orderId,
+            amount       AS amount,
+            action       AS action,
+            created_time AS createdTime
+        FROM point_history
+        WHERE account_id = ${accountId}
+        ORDER BY created_time;
+    </select>
+</mapper>

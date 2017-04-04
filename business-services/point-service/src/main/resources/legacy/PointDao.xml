@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gavin.dao.PointDao">
+
+    <insert id="create" parameterType="com.gavin.model.domain.point.Point">
+        <selectKey resultType="java.lang.Long" keyProperty="point.id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO point (
+            account_id,
+            amount,
+            expire_date,
+            created_time,
+            modified_time)
+        VALUES (
+            ${point.accountId},
+            ${point.amount},
+            DATE_FORMAT(DATE_ADD(NOW(), INTERVAL ${period} DAY), '%Y-%m-%d'),
+            NOW(),
+            NOW()
+        )
+    </insert>
+
+    <insert id="replicate" parameterType="com.gavin.model.domain.point.Point">
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO point (
+            account_id,
+            amount,
+            expire_date,
+            created_time,
+            modified_time)
+        VALUES (
+            ${accountId},
+            ${amount},
+            "${expireDate}",
+            NOW(),
+            NOW()
+        )
+    </insert>
+
+    <select id="searchById" resultType="com.gavin.model.domain.point.Point">
+        SELECT
+            id                AS id,
+            account_id        AS accountId,
+            amount            AS amount,
+            expire_date       AS expireDate,
+            lock_for_order_id AS lockForOrderId,
+            created_time      AS createdTime,
+            modified_time     AS modifiedTime
+        FROM point
+        WHERE id = ${pointId}
+    </select>
+
+    <select id="searchUsableByAccountId" resultType="com.gavin.model.domain.point.Point">
+        SELECT
+            id            AS id,
+            account_id    AS accountId,
+            amount        AS amount,
+            expire_date   AS expireDate,
+            created_time  AS createdTime,
+            modified_time AS modifiedTime
+        FROM point
+        WHERE account_id = ${accountId}
+              AND STR_TO_DATE(expire_date, '%Y-%m-%d') &gt;= NOW()
+              AND lock_for_order_id IS NULL
+        ORDER BY expire_date
+    </select>
+
+    <select id="searchUsableSumByAccountId" resultType="java.math.BigDecimal">
+        SELECT SUM(amount)
+        FROM point
+        WHERE account_id = ${accountId}
+              AND STR_TO_DATE(expire_date, '%Y-%m-%d') &gt;= NOW()
+              AND lock_for_order_id IS NULL
+    </select>
+
+    <select id="searchExpiredByAccountId" resultType="com.gavin.model.domain.point.Point">
+        SELECT
+            id            AS id,
+            amount        AS amount,
+            expire_date   AS expireDate,
+            created_time  AS createdTime,
+            modified_time AS modifiedTime
+        FROM point
+        WHERE account_id = ${accountId}
+              AND STR_TO_DATE(expire_date, '%Y-%m-%d') &lt; NOW()
+              AND lock_for_order_id IS NULL
+    </select>
+
+    <update id="lockWithOrderId">
+        UPDATE point
+        SET
+        lock_for_order_id = ${orderId},
+        modified_time = NOW()
+        WHERE id IN
+        <foreach collection="ids" item="id" index="idx" open="(" separator="," close=")">
+            ${id}
+        </foreach>
+    </update>
+
+    <update id="releaseByOrderId">
+        UPDATE point
+        SET
+            lock_for_order_id = NULL,
+            modified_time     = NOW()
+        WHERE lock_for_order_id = ${orderId}
+    </update>
+
+    <update id="updateAmount">
+        UPDATE point
+        SET
+            amount        = ${amount},
+            modified_time = NOW()
+        WHERE id = ${id}
+    </update>
+
+    <delete id="deleteByOrderId">
+        DELETE FROM point
+        WHERE lock_for_order_id = ${orderId}
+    </delete>
+
+    <delete id="deleteExpiredByAccountId">
+        DELETE FROM point
+        WHERE account_id = ${accountId}
+              AND STR_TO_DATE(expire_date, '%Y-%m-%d') &lt; NOW()
+              AND lock_for_order_id IS NULL
+    </delete>
+
+</mapper>
