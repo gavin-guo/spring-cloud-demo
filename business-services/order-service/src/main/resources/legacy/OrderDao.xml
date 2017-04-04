@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gavin.dao.OrderDao">
+
+    <insert id="create" parameterType="com.gavin.model.domain.order.Order">
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO `order` (
+            account_id,
+            address_id,
+            total_price,
+            status,
+            created_time,
+            modified_time
+        ) VALUES (
+            ${accountId},
+            ${addressId},
+            ${totalPrice},
+            ${status},
+            NOW(),
+            NOW()
+        )
+    </insert>
+
+    <resultMap id="orderModelMap" type="com.gavin.model.response.order.OrderDetailModel">
+        <id property="order.id" column="order_id"/>
+        <result property="order.accountId" column="account_id"/>
+        <result property="order.addressId" column="address_id"/>
+        <result property="order.status" column="status"/>
+        <result property="order.totalPrice" column="total_price"/>
+        <result property="order.redeemPoints" column="redeem_points"/>
+        <result property="order.cash" column="cash"/>
+        <result property="order.rewardPoints" column="reward_points"/>
+        <result property="order.createdTime" column="created_time"/>
+        <result property="order.modifiedTime" column="modified_time"/>
+        <collection property="items" ofType="com.gavin.model.domain.order.Item" javaType="ArrayList">
+            <id property="id" column="item_id"/>
+            <result property="productId" column="product_id"/>
+            <result property="quantity" column="quantity"/>
+        </collection>
+    </resultMap>
+
+    <select id="searchById" resultMap="orderModelMap">
+        SELECT
+            `order`.id            AS order_id,
+            `order`.account_id    AS account_id,
+            `order`.address_id    AS address_id,
+            `order`.status        AS status,
+            `order`.total_price   AS total_price,
+            `order`.redeem_points AS redeem_points,
+            `order`.cash          AS cash,
+            `order`.reward_points AS reward_points,
+            `order`.created_time  AS created_time,
+            `order`.modified_time AS modified_time,
+            item.id               AS item_id,
+            item.product_id       AS product_id,
+            item.quantity         AS quantity
+        FROM `order`
+            LEFT JOIN item ON `order`.id = item.order_id
+        WHERE `order`.id = ${orderId}
+    </select>
+
+    <select id="searchByAccountId" resultMap="orderModelMap">
+        SELECT
+            `order`.id            AS order_id,
+            `order`.account_id    AS account_id,
+            `order`.address_id    AS address_id,
+            `order`.status        AS status,
+            `order`.total_price   AS total_price,
+            `order`.redeem_points AS redeem_points,
+            `order`.cash          AS cash,
+            `order`.reward_points AS reward_points,
+            `order`.created_time  AS created_time,
+            `order`.modified_time AS modified_time,
+            item.id               AS item_id,
+            item.product_id       AS product_id,
+            item.quantity         AS quantity
+        FROM `order`
+            LEFT JOIN item ON `order`.id = item.order_id
+        WHERE `order`.account_id = ${accountId}
+    </select>
+
+    <update id="update" parameterType="com.gavin.model.domain.order.Order">
+        UPDATE `order`
+        <set>
+            <if test="addressId != null and addressId != '' ">
+                address_id = ${addressId},
+            </if>
+            <if test="status != null and status != '' ">
+                status = ${status},
+            </if>
+            <if test="totalPrice != null and totalPrice != '' ">
+                total_price = ${totalPrice},
+            </if>
+            <if test="redeemPoints != null and redeemPoints != '' ">
+                redeem_points = ${redeemPoints},
+            </if>
+            <if test="cash != null and cash != '' ">
+                cash = ${cash},
+            </if>
+            <if test="rewardPoints != null and rewardPoints != '' ">
+                reward_points = ${rewardPoints},
+            </if>
+            modified_time = NOW()
+        </set>
+        WHERE id = ${id}
+    </update>
+
+    <update id="updateStatus" parameterType="com.gavin.model.domain.order.Order">
+        UPDATE `order`
+        SET status        = ${status},
+            modified_time = NOW()
+        WHERE
+            id = ${id}
+    </update>
+
+</mapper>
