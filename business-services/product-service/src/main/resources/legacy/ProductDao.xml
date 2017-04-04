@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gavin.dao.ProductDao">
+
+    <insert id="create" parameterType="com.gavin.model.domain.product.Product">
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO product (
+            title,
+            category_id,
+            price,
+            stock,
+            comment,
+            created_time,
+            modified_time)
+        VALUES (
+            "${title}",
+            ${categoryId},
+            ${price},
+            ${stock},
+            "${comment}",
+            NOW(),
+            NOW()
+        )
+    </insert>
+
+    <select id="searchById" parameterType="java.lang.Long" resultType="com.gavin.model.domain.product.Product">
+        SELECT
+            id            AS id,
+            title         AS title,
+            price         AS price,
+            stock         AS stock,
+            comment       AS comment,
+            created_time  AS createdTime,
+            modified_time AS modifiedTime
+        FROM product
+        WHERE id = ${productId}
+    </select>
+
+    <select id="searchByIds" resultType="com.gavin.model.domain.product.Product">
+        SELECT
+            id            AS id,
+            title         AS title,
+            price         AS price,
+            stock         AS stock,
+            comment       AS comment,
+            created_time  AS createdTime,
+            modified_time AS modifiedTime
+        FROM product
+        WHERE id IN
+        <foreach collection="productIds" item="productId" index="idx" open="(" separator="," close=")">
+            ${productId}
+        </foreach>
+    </select>
+
+    <update id="decreaseStock" parameterType="com.gavin.model.domain.product.Product">
+        UPDATE product
+        SET stock         = stock - ${quantity},
+            modified_time = NOW()
+        WHERE id = ${productId}
+    </update>
+
+    <update id="increaseStock" parameterType="com.gavin.model.domain.product.Product">
+        UPDATE product
+        SET stock         = stock + ${quantity},
+            modified_time = NOW()
+        WHERE id = ${productId}
+    </update>
+
+</mapper>

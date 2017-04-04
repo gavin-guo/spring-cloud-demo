@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gavin.dao.PointRewardPlanDao">
+
+    <select id="searchApplicativeByProductId" resultType="com.gavin.model.domain.product.PointRewardPlan">
+        SELECT
+            ratio      AS ratio,
+            start_date AS startDate,
+            end_date   AS endDate
+        FROM point_reward_plan
+        WHERE product_id = ${productId}
+              AND NOW() BETWEEN STR_TO_DATE(start_date, '%Y-%m-%d') AND STR_TO_DATE(end_date, '%Y-%m-%d')
+    </select>
+</mapper>

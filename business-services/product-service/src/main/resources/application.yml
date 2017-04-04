@@ -1,0 +1,8 @@
+
+---
+spring:
+  profiles: development
+
+---
+spring:
+  profiles: test

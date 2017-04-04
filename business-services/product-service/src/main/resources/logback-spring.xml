@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    ​
+    <springProperty scope="context" name="serviceName" source="spring.application.name"/>
+    <property name="logstashHost" value="192.168.1.88"/>​
+    <property name="logstashPort" value="4560"/>​
+
+    <property name="LOG_FILE" value="/var/log/microservice-demo/${serviceName}"/>​
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="PLAINTEXT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashSocketAppender">
+        <host>${logstashHost}</host>
+        <port>${logstashPort}</port>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+    </root>
+    ​
+    <springProfile name="development">
+        <logger name="com.gavin" level="DEBUG">
+            <appender-ref ref="PLAINTEXT"/>
+            <appender-ref ref="LOGSTASH"/>
+        </logger>
+
+        <logger name="org.springframework" level="INFO"/>
+    </springProfile>
+
+    <logger name="javax" level="ERROR"/>
+
+    <logger name="springfox" level="WARN"/>
+
+    <logger name="net.sf.ehcache" level="ERROR"/>
+
+    <logger name="org.hibernate" level="ERROR"/>
+
+    <logger name="org.apache" level="ERROR"/>
+
+    <logger name="com.google.code" level="ERROR"/>
+
+    <logger name="com.netflix" level="ERROR"/>
+
+</configuration>
