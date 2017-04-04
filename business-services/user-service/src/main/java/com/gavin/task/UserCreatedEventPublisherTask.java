@@ -2,7 +2,7 @@ package com.gavin.task;
 
 
 import com.gavin.base.EventPublisherTask;
-import com.gavin.constant.DistributedLockKeyConstants;
+import com.gavin.constants.DistributedLockKeyConstants;
 import com.gavin.enums.MessageableEventStatusEnums;
 import com.gavin.event.UserCreatedEvent;
 import com.gavin.lock.DistributedLockCallback;

@@ -1,6 +1,6 @@
 package com.gavin.controller;
 
-import com.gavin.constant.ResponseCodeConstants;
+import com.gavin.constants.ResponseCodeConstants;
 import com.gavin.exception.LoginNameExistingException;
 import com.gavin.exception.RecordNotFoundException;
 import com.gavin.model.Response;

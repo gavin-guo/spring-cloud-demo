@@ -1,6 +1,6 @@
 package com.gavin.controller.advice;
 
-import com.gavin.constant.ResponseCodeConstants;
+import com.gavin.constants.ResponseCodeConstants;
 import com.gavin.exception.RemoteCallException;
 import com.gavin.exception.RemoteProcessException;
 import com.gavin.model.Response;
