@@ -1,6 +1,6 @@
 spring:
   application:
-    name: zuul-service
+    name: oauth2-service
 
 eureka:
   client:

@@ -18,7 +18,14 @@
     </parent>
 
     <modules>
+        <module>common</module>
         <module>business-services</module>
+        <module>eureka-service</module>
+        <module>config-service</module>
+        <module>zuul-service</module>
+        <module>oauth2-service</module>
+        <module>zipkin-service</module>
+        <module>hystrix-dashboard-service</module>
     </modules>
 
     <properties>
@@ -28,6 +35,7 @@
         <hibernate.validator.version>5.2.4.Final</hibernate.validator.version>
         <spotify.version>0.4.11</spotify.version>
         <lombok.version>1.16.10</lombok.version>
+
         <registry.host>192.168.1.88</registry.host>
         <registry.port>5000</registry.port>
     </properties>
@@ -41,7 +49,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-stream-dependencies</artifactId>
@@ -51,7 +58,22 @@
             </dependency>
             <dependency>
                 <groupId>com.gavin</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>constant-library</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gavin</groupId>
+                <artifactId>model-library</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gavin</groupId>
+                <artifactId>utility-library</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gavin</groupId>
+                <artifactId>message-library</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
@@ -66,6 +88,11 @@
                 <version>8.18.0</version>
             </dependency>
             <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.10</version>
+            </dependency>
+            <dependency>
                 <groupId>org.modelmapper</groupId>
                 <artifactId>modelmapper</artifactId>
                 <version>0.7.7</version>
@@ -73,7 +100,7 @@
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
-                <version>RELEASE</version>
+                <version>2.9.4</version>
             </dependency>
             <dependency>
                 <groupId>net.logstash.logback</groupId>
@@ -83,17 +110,17 @@
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
-                <version>2.6.0</version>
+                <version>2.5.0</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
-                <version>2.6.0</version>
+                <version>2.5.0</version>
             </dependency>
             <dependency>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-core</artifactId>
-                <version>RELEASE</version>
+                <version>4.0.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -107,24 +134,24 @@
     </dependencies>
 
     <!--<distributionManagement>-->
-    <!--<repository>-->
-    <!--<id>nexus</id>-->
-    <!--<name>Releases</name>-->
-    <!--<url>http://localhost:8081/repository/maven-releases</url>-->
-    <!--</repository>-->
-    <!--<snapshotRepository>-->
-    <!--<id>nexus</id>-->
-    <!--<name>Snapshot</name>-->
-    <!--<url>http://localhost:8081/repository/maven-snapshots</url>-->
-    <!--</snapshotRepository>-->
+        <!--<repository>-->
+            <!--<id>nexus</id>-->
+            <!--<name>Releases</name>-->
+            <!--<url>http://localhost:8081/repository/maven-releases</url>-->
+        <!--</repository>-->
+        <!--<snapshotRepository>-->
+            <!--<id>nexus</id>-->
+            <!--<name>Snapshot</name>-->
+            <!--<url>http://localhost:8081/repository/maven-snapshots</url>-->
+        <!--</snapshotRepository>-->
     <!--</distributionManagement>-->
 
     <!--<repositories>-->
-    <!--<repository>-->
-    <!--<id>nexus</id>-->
-    <!--<name>Releases</name>-->
-    <!--<url>http://localhost:8081/repository/maven-releases</url>-->
-    <!--</repository>-->
+        <!--<repository>-->
+            <!--<id>nexus</id>-->
+            <!--<name>Releases</name>-->
+            <!--<url>http://localhost:8081/repository/maven-releases</url>-->
+        <!--</repository>-->
     <!--</repositories>-->
 
 </project>

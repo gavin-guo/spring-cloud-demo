@@ -1,0 +1,119 @@
+version: '2'
+
+networks:
+
+  demo-net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+
+services:
+
+  account-service:
+    image: 192.168.1.88:5000/account-service
+    networks:
+      - demo-net
+    ports:
+      - 10110:10110
+    environment:
+      - RABBITMQ_HOST=192.168.1.88
+      - MYSQL_HOST=192.168.1.88
+      - REDIS_HOST=192.168.1.88
+      - LOGSTASH_HOST=192.168.1.88
+      - EUREKA_HOST=eureka-server
+    depends_on:
+      - eureka-server
+      - config-server
+      - queue-server
+    restart: always
+
+  product-service:
+    image: 192.168.1.88:5000/product-service
+    networks:
+      - demo-net
+    ports:
+      - 10120:10120
+    environment:
+      - RABBITMQ_HOST=192.168.1.88
+      - MYSQL_HOST=192.168.1.88
+      - REDIS_HOST=192.168.1.88
+      - LOGSTASH_HOST=192.168.1.88
+      - EUREKA_HOST=eureka-server
+    depends_on:
+      - eureka-server
+      - config-server
+      - queue-server
+    restart: always
+
+  order-service:
+    image: 192.168.1.88:5000/order-service
+    networks:
+      - demo-net
+    ports:
+      - 10130:10130
+    environment:
+      - RABBITMQ_HOST=192.168.1.88
+      - MYSQL_HOST=192.168.1.88
+      - REDIS_HOST=192.168.1.88
+      - LOGSTASH_HOST=192.168.1.88
+      - EUREKA_HOST=eureka-server
+    depends_on:
+      - eureka-server
+      - config-server
+      - queue-server
+    restart: always
+
+  payment-service:
+    image: 192.168.1.88:5000/payment-service
+    networks:
+      - demo-net
+    ports:
+      - 10140:10140
+    environment:
+      - RABBITMQ_HOST=192.168.1.88
+      - MYSQL_HOST=192.168.1.88
+      - REDIS_HOST=192.168.1.88
+      - LOGSTASH_HOST=192.168.1.88
+      - EUREKA_HOST=eureka-server
+    depends_on:
+      - eureka-server
+      - config-server
+      - queue-server
+    restart: always
+
+  delivery-service:
+    image: 192.168.1.88:5000/delivery-service
+    networks:
+      - demo-net
+    ports:
+      - 10150:10150
+    environment:
+      - RABBITMQ_HOST=192.168.1.88
+      - MYSQL_HOST=192.168.1.88
+      - REDIS_HOST=192.168.1.88
+      - LOGSTASH_HOST=192.168.1.88
+      - EUREKA_HOST=eureka-server
+    depends_on:
+      - eureka-server
+      - config-server
+      - queue-server
+    restart: always
+
+  point-service:
+    image: 192.168.1.88:5000/point-service
+    networks:
+      - demo-net
+    ports:
+      - 10160:10160
+    environment:
+      - RABBITMQ_HOST=192.168.1.88
+      - MYSQL_HOST=192.168.1.88
+      - REDIS_HOST=192.168.1.88
+      - LOGSTASH_HOST=192.168.1.88
+      - EUREKA_HOST=eureka-server
+    depends_on:
+      - eureka-server
+      - config-server
+      - queue-server
+    restart: always
+

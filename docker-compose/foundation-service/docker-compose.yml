@@ -1,0 +1,60 @@
+version: '2'
+
+services:
+
+  eureka-service:
+    image: 192.168.1.88:5000/eureka-service
+    ports:
+      - 8761:8761
+    restart: always
+
+  config-service:
+    image: 192.168.1.88:5000/config-service
+    ports:
+      - 8888:8888
+    environment:
+      - RABBITMQ_HOST=192.168.1.88
+      - EUREKA_HOST=192.168.1.88
+    depends_on:
+      - eureka-service
+    restart: always
+
+  zuul-service:
+    image: 192.168.1.88:5000/zuul-service
+    ports:
+      - 8000:8000
+    environment:
+      - EUREKA_HOST=192.168.1.88
+    depends_on:
+      - eureka-service
+      - config-service
+    restart: always
+
+  oauth2-service:
+    image: 192.168.1.88:5000/oauth2-service
+    ports:
+      - 9999:9999
+    environment:
+      - EUREKA_HOST=192.168.1.88
+    depends_on:
+      - eureka-service
+      - config-service
+    restart: always
+
+  zipkin-service:
+    image: 192.168.1.88:5000/zipkin-service
+    ports:
+      - 9411:9411
+    environment:
+      - RABBITMQ_HOST=192.168.1.88
+      - EUREKA_HOST=192.168.1.88
+    depends_on:
+      - eureka-service
+    restart: always
+
+  hystrix-dashboard-service:
+    image: 192.168.1.88:5000/hystrix-dashboard-service
+    ports:
+      - 8989:8989
+      - 8990:8990
+    restart: always

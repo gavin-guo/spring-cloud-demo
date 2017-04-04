@@ -1,0 +1,46 @@
+server:
+  port: 9999
+  context-path: /uaa # 此处必须设定，否则无法获得token。
+
+#security:
+#  ignored: /css/**,/js/**,/favicon.ico,/webjars/**
+
+security:
+  basic:
+    enabled: false
+
+feign:
+  hystrix:
+    enabled: false
+
+flyway:
+  enabled: true
+  user: root
+  password: root
+  encoding: utf8
+  validate-on-migrate: true
+
+spring:
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: 6379
+    database: 1
+    pool:
+      max-active: 10
+      max-idle: 10
+      max-wait: -1
+      min-idle: 0
+  cache:
+    type: redis
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_AUTHORIZATION
+    username: root
+    password: root
+  thymeleaf:
+    check-template-location: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
