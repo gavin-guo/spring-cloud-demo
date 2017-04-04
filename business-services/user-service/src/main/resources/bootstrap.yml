@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: user-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+encrypt:
+  fail-on-error: false
+
+---
+spring:
+  profiles: development
+  cloud:
+    config:
+      uri: http://${EUREKA_HOST:localhost}:8888
+      profile: development
+      label: master
+      username: gavin
+      password: gavin
+      allow-override: true
+
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-service
+      profile: test
+      label: master
+      username: gavin
+      password: gavin
+      allow-override: true
