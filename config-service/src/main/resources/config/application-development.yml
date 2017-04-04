@@ -1,0 +1,69 @@
+spring:
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    jackson:
+      time-zone: GMT+8
+    serialization:
+      write_dates_as_timestamps: false
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: 5672
+    username: guest
+    password: guest
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: 6379
+    database: 1
+    pool:
+      max-active: 10
+      max-idle: 10
+      max-wait: -1
+      min-idle: 0
+  cache:
+    type: redis
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  sleuth:
+    sampler:
+      percentage: 1
+
+security:
+  user:
+    name: gavin
+    password: gavin
+  basic:
+    enabled: false
+  ignored: /swagger**,/swagger**/**,/webjars/**,/v2/**
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+ribbon:
+  ConnectTimeout: 600000
+  ReadTimeout: 600000
+  eureka:
+    enabled: true
+
+feign:
+  hystrix:
+    enabled: true
+  httpclient:
+    enabled: false
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 60000

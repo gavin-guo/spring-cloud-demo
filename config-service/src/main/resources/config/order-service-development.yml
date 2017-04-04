@@ -1,0 +1,57 @@
+server:
+  port: 9105
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        cancel_reservation_output:
+          destination: cancelReservation
+          group: default
+          content-type: application/json
+          producer:
+            required-groups: default
+        waiting_for_payment_output:
+          destination: waitingForPayment
+          group: default
+          content-type: application/json
+          producer:
+            required-groups: default
+        arrange_shipment_output:
+          destination: arrangeShipment
+          group: default
+          content-type: application/json
+          producer:
+            required-groups: default
+        payment_succeeded_input:
+          destination: paymentSucceeded
+          group: default
+          content-type: application/json
+          consumer:
+            max-attempts: 3
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_ORDER?useUnicode=true&amp;characterEncoding=utf8
+    username: root
+    password: root
+    dbcp2:
+      test-while-idle: true
+      validation-query: SELECT 1
+
+security:
+  oauth2:
+    client:
+      client-id: order-service
+      client-secret: secret
+      access-token-uri: http://localhost:9999/uaa/oauth/token
+      grant-type: client_credentials
+    resource:
+      token-info-uri: http://localhost:9999/uaa/oauth/check_token
+
+flyway:
+  enabled: true
+  user: root
+  password: root
+  encoding: utf8
+  validate-on-migrate: true
