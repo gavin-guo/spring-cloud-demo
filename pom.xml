@@ -58,22 +58,7 @@
             </dependency>
             <dependency>
                 <groupId>com.gavin</groupId>
-                <artifactId>constant-library</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.gavin</groupId>
-                <artifactId>model-library</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.gavin</groupId>
-                <artifactId>utility-library</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.gavin</groupId>
-                <artifactId>message-library</artifactId>
+                <artifactId>common</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
