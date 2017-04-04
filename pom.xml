@@ -14,11 +14,10 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.2.RELEASE</version>
+        <version>1.4.2.RELEASE</version>
     </parent>
 
     <modules>
-        <module>common</module>
         <module>business-services</module>
     </modules>
 
@@ -38,7 +37,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Dalston.RC1</version>
+                <version>Camden.SR2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -107,34 +106,25 @@
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <repository>
-            <id>nexus</id>
-            <name>Releases</name>
-            <url>http://localhost:8081/repository/maven-releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus</id>
-            <name>Snapshot</name>
-            <url>http://localhost:8081/repository/maven-snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
+    <!--<distributionManagement>-->
+    <!--<repository>-->
+    <!--<id>nexus</id>-->
+    <!--<name>Releases</name>-->
+    <!--<url>http://localhost:8081/repository/maven-releases</url>-->
+    <!--</repository>-->
+    <!--<snapshotRepository>-->
+    <!--<id>nexus</id>-->
+    <!--<name>Snapshot</name>-->
+    <!--<url>http://localhost:8081/repository/maven-snapshots</url>-->
+    <!--</snapshotRepository>-->
+    <!--</distributionManagement>-->
 
-    <repositories>
-        <repository>
-            <id>nexus</id>
-            <name>Releases</name>
-            <url>http://localhost:8081/repository/maven-releases</url>
-        </repository>
-    </repositories>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <!--<repositories>-->
+    <!--<repository>-->
+    <!--<id>nexus</id>-->
+    <!--<name>Releases</name>-->
+    <!--<url>http://localhost:8081/repository/maven-releases</url>-->
+    <!--</repository>-->
+    <!--</repositories>-->
 
 </project>
