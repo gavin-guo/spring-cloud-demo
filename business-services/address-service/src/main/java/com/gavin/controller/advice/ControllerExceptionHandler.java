@@ -1,6 +1,6 @@
 package com.gavin.controller.advice;
 
-import com.gavin.constant.ResponseCodeConstants;
+import com.gavin.constants.ResponseCodeConstants;
 import com.gavin.model.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

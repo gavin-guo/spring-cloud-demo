@@ -1,6 +1,6 @@
 package com.gavin.controller;
 
-import com.gavin.constant.ResponseCodeConstants;
+import com.gavin.constants.ResponseCodeConstants;
 import com.gavin.model.Response;
 import com.gavin.model.dto.address.RegisterAddressDto;
 import com.gavin.model.vo.address.AddressVo;
