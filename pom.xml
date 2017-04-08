@@ -25,7 +25,7 @@
         <module>zuul-service</module>
         <module>oauth2-service</module>
         <module>zipkin-service</module>
-        <module>hystrix-dashboard-service</module>
+        <module>hystrix-dashboard</module>
     </modules>
 
     <properties>
