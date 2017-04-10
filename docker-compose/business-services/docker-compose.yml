@@ -20,11 +20,10 @@ services:
       - MYSQL_HOST=192.168.1.88
       - REDIS_HOST=192.168.1.88
       - LOGSTASH_HOST=192.168.1.88
-      - EUREKA_HOST=eureka-server
+      - EUREKA_HOST=eureka-service
     depends_on:
-      - eureka-server
-      - config-server
-      - queue-server
+      - eureka-service
+      - config-service
     restart: always
 
   product-service:
@@ -38,11 +37,10 @@ services:
       - MYSQL_HOST=192.168.1.88
       - REDIS_HOST=192.168.1.88
       - LOGSTASH_HOST=192.168.1.88
-      - EUREKA_HOST=eureka-server
+      - EUREKA_HOST=eureka-service
     depends_on:
-      - eureka-server
-      - config-server
-      - queue-server
+      - eureka-service
+      - config-service
     restart: always
 
   order-service:
@@ -56,11 +54,10 @@ services:
       - MYSQL_HOST=192.168.1.88
       - REDIS_HOST=192.168.1.88
       - LOGSTASH_HOST=192.168.1.88
-      - EUREKA_HOST=eureka-server
+      - EUREKA_HOST=eureka-service
     depends_on:
-      - eureka-server
-      - config-server
-      - queue-server
+      - eureka-service
+      - config-service
     restart: always
 
   payment-service:
@@ -74,11 +71,10 @@ services:
       - MYSQL_HOST=192.168.1.88
       - REDIS_HOST=192.168.1.88
       - LOGSTASH_HOST=192.168.1.88
-      - EUREKA_HOST=eureka-server
+      - EUREKA_HOST=eureka-service
     depends_on:
-      - eureka-server
-      - config-server
-      - queue-server
+      - eureka-service
+      - config-service
     restart: always
 
   delivery-service:
@@ -92,11 +88,10 @@ services:
       - MYSQL_HOST=192.168.1.88
       - REDIS_HOST=192.168.1.88
       - LOGSTASH_HOST=192.168.1.88
-      - EUREKA_HOST=eureka-server
+      - EUREKA_HOST=eureka-service
     depends_on:
-      - eureka-server
-      - config-server
-      - queue-server
+      - eureka-service
+      - config-service
     restart: always
 
   point-service:
@@ -110,10 +105,9 @@ services:
       - MYSQL_HOST=192.168.1.88
       - REDIS_HOST=192.168.1.88
       - LOGSTASH_HOST=192.168.1.88
-      - EUREKA_HOST=eureka-server
+      - EUREKA_HOST=eureka-service
     depends_on:
-      - eureka-server
-      - config-server
-      - queue-server
+      - eureka-service
+      - config-service
     restart: always
 
