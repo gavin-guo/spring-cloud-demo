@@ -2,11 +2,9 @@ package com.gavin.controller;
 
 import com.gavin.constants.ResponseCodeConstants;
 import com.gavin.exception.LoginNameExistingException;
-import com.gavin.exception.RecordNotFoundException;
 import com.gavin.model.Response;
 import com.gavin.model.dto.user.AuthorityDto;
 import com.gavin.model.dto.user.CreateUserDto;
-import com.gavin.model.dto.user.UserDto;
 import com.gavin.model.vo.user.UserVo;
 import com.gavin.service.UserService;
 import io.swagger.annotations.*;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -76,23 +73,6 @@ public class UserController {
         Response response = new Response(ResponseCodeConstants.SUCCESS);
         userService.updateAuthorities(_userId, _authorities);
         return response;
-    }
-
-    @RequestMapping(value = "/users/loading/{login_name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ApiIgnore
-    public Response<UserDto> loadUserByLoginName(
-            @PathVariable("login_name") String _loginName) {
-        Response<UserDto> response = new Response<>(ResponseCodeConstants.SUCCESS);
-
-        try {
-            UserDto userDto = userService.findUserByLoginName(_loginName);
-            response.setContents(userDto);
-            return response;
-        } catch (RecordNotFoundException e) {
-            // 用户不存在。
-            response.setCode(ResponseCodeConstants.USER_NOT_FOUND);
-            return response;
-        }
     }
 
 }
