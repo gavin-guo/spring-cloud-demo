@@ -11,7 +11,6 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -66,7 +65,6 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "header", name = "Authorization", dataType = "String", required = true, value = "Token", defaultValue = "bearer ")
     })
-    @PreAuthorize(value = "hasAuthority('AUTHORITY_SUPER')")
     public Response grantAuthorities(
             @ApiParam(name = "user_id", value = "对象用户", required = true) @PathVariable("user_id") String _userId,
             @ApiParam(name = "authorities", value = "要赋予的权限", required = true) @Valid @RequestBody List<AuthorityDto> _authorities) {
