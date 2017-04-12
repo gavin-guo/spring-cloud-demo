@@ -8,20 +8,14 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-@EnableTransactionManagement
 @EnableAsync
 @EnableScheduling
 @EnableCaching
 @EnableCircuitBreaker
-@EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class PointServiceApplication {
 
     public static void main(String[] args) {
