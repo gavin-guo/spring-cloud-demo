@@ -1,6 +1,5 @@
 package com.gavin.client.product;
 
-import com.gavin.config.OAuth2FeignConfiguration;
 import com.gavin.model.Response;
 import com.gavin.model.dto.order.ItemDto;
 import com.gavin.model.dto.product.ProductReservationDto;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient(value = "product-service", fallback = ProductClientFallback.class, configuration = {OAuth2FeignConfiguration.class})
+@FeignClient(value = "product-service", fallback = ProductClientFallback.class)
 public interface ProductClient {
 
     @RequestMapping(value = "/products/reservation/{order_id}", method = RequestMethod.PUT)
