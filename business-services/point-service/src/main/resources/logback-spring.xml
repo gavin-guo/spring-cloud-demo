@@ -6,7 +6,7 @@
     <property name="logstashHost" value="192.168.1.88"/>​
     <property name="logstashPort" value="4560"/>​
 
-    <property name="LOG_FILE" value="/var/log/microservice-demo/${serviceName}"/>​
+    <property name="LOG_FILE" value="/var/log/spring-cloud-demo/${serviceName}"/>​
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
