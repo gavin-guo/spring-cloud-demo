@@ -38,6 +38,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private UserDetailsService userDetailsService;
 
     @Autowired
+    @Qualifier("customClientDetailsService")
     private ClientDetailsService clientDetailsService;
 
     @Autowired
@@ -54,14 +55,16 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+
 /*        clients.inMemory()
                 .withClient("acme")
+                .secret("secret")
                 .authorizedGrantTypes("authorization_code", "refresh_token", "password", "client_credentials")
                 .scopes("server")
                 .autoApprove(true)
                 .and()
-                .withClient("account-service")
-                .secret("gavin")
+                .withClient("acme2")
+                .secret("secret")
                 .authorizedGrantTypes("client_credentials", "refresh_token")
                 .scopes("server")
                 .accessTokenValiditySeconds(300)
@@ -90,6 +93,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     }
 
     @Bean
+    @Qualifier("customClientDetailsService")
     public ClientDetailsService clientDetailsService() {
         return new JdbcClientDetailsService(dataSource);
     }

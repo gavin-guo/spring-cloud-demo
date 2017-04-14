@@ -35,11 +35,9 @@ spring:
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_AUTHORIZATION
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_AUTH
     username: root
     password: root
-  thymeleaf:
-    check-template-location: true
 
 logging:
   level:

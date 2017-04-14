@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "user-service", fallback = UserClientFallback.class)
 public interface UserClient {
 
-    @RequestMapping(value = "/auth/{login_name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/user/loading/{login_name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     UserDto loadUserByLoginName(@PathVariable("login_name") String _loginName);
 
 }

@@ -23,7 +23,7 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/auth/{login_name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/user/loading/{login_name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiIgnore
     public UserDto loadUserByLoginName(
             @PathVariable("login_name") String _loginName) {
@@ -32,7 +32,6 @@ public class AuthController {
             return userDto;
         } catch (RecordNotFoundException e) {
             UserDto userDto = new UserDto();
-            userDto.setId(null);
             return userDto;
         }
     }
