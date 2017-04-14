@@ -10,7 +10,7 @@ http://localhost:9999/uaa/oauth/authorize?client_id=acme&response_type=code&redi
 地址栏显示的url中显示了授权code。
 ![](https://raw.githubusercontent.com/gavin-guo/spring-cloud-demo/master/oauth2-service/example-images/auth-3.png)
 
-以此授权code去换取access token。
+以此授权code去换取access token。  
 POST http://acme:secret@localhost:9999/uaa/oauth/token
 - header
 ```
