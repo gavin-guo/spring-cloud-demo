@@ -72,8 +72,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    @Qualifier("customClientDetailsService")
+    @Bean("customClientDetailsService")
     public ClientDetailsService clientDetailsService() {
         return new JdbcClientDetailsService(dataSource);
     }
