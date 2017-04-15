@@ -8,7 +8,7 @@
 	<packaging>jar</packaging>
 
 	<name>zuul-service</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Demo project for Spring Cloud Zuul</description>
 
 	<parent>
 		<groupId>com.gavin</groupId>
@@ -38,31 +38,31 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!--<plugin>-->
-			<!--<groupId>com.spotify</groupId>-->
-			<!--<artifactId>docker-maven-plugin</artifactId>-->
-			<!--<version>${spotify.version}</version>-->
-			<!--<executions>-->
-			<!--<execution>-->
-			<!--<id>build-image</id>-->
-			<!--<phase>package</phase>-->
-			<!--<goals>-->
-			<!--<goal>build</goal>-->
-			<!--</goals>-->
-			<!--<configuration>-->
-			<!--<imageName>${registry.host}:${registry.port}/${project.artifactId}</imageName>-->
-			<!--<dockerDirectory>${project.basedir}/docker</dockerDirectory>-->
-			<!--<resources>-->
-			<!--<resource>-->
-			<!--<targetPath>/</targetPath>-->
-			<!--<directory>${project.build.directory}</directory>-->
-			<!--<include>${project.build.finalName}.jar</include>-->
-			<!--</resource>-->
-			<!--</resources>-->
-			<!--</configuration>-->
-			<!--</execution>-->
-			<!--</executions>-->
-			<!--</plugin>-->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${spotify.version}</version>
+				<executions>
+					<execution>
+						<id>build-image</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<configuration>
+							<imageName>${registry.host}:${registry.port}/${project.artifactId}</imageName>
+							<dockerDirectory>${project.basedir}/docker</dockerDirectory>
+							<resources>
+								<resource>
+									<targetPath>/</targetPath>
+									<directory>${project.build.directory}</directory>
+									<include>${project.build.finalName}.jar</include>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
