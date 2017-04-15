@@ -1,4 +1,6 @@
-## 获取access token
+#获取access token
+
+## grant_type=authorization_code
 
 在浏览器地址栏中输入
 http://localhost:9999/uaa/oauth/authorize?client_id=acme&response_type=code&redirect_uri=http://www.baidu.com
@@ -24,13 +26,30 @@ code : ${code}
 redirect_uri : http://www.baidu.com
 ```
 
-- response
+## grant_type=password
+
+POST http://acme:secret@localhost:9999/uaa/oauth/token
+- header
 ```
-{
-  "access_token": "f12e5cfb-8933-4412-b9f7-236800318232",
-  "token_type": "bearer",
-  "refresh_token": "9769c702-6bf4-4da2-af9c-33dcb3355820",
-  "expires_in": 29999,
-  "scope": "ui-scope"
-}
+Content-Type:application/x-www-form-urlencoded
+```
+
+- body
+```
+grant_type : password
+username : ${username}
+password : ${password}
+```
+
+## grant_type=client_credentials
+
+POST http://acme:secret@localhost:9999/uaa/oauth/token
+- header
+```
+Content-Type:application/x-www-form-urlencoded
+```
+
+- body
+```
+grant_type : client_credentials
 ```
