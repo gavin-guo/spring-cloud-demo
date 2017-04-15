@@ -3,7 +3,7 @@ server:
 
 zuul:
   routes:
-    authorization-service:
+    oauth2-service:
       path: /uaa/**
       service-id: oauth2-service
       strip-prefix: false
@@ -44,7 +44,7 @@ zuul:
 proxy:
   auth:
     routes:
-      authorization-service: oauth2
+      oauth2-service: oauth2
       user-service: oauth2
       account-service: oauth2
       address-service: oauth2

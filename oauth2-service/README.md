@@ -53,3 +53,17 @@ Content-Type:application/x-www-form-urlencoded
 ```
 grant_type : client_credentials
 ```
+
+## grant_type=refresh_token
+
+POST http://acme:secret@localhost:9999/uaa/oauth/token
+- header
+```
+Content-Type:application/x-www-form-urlencoded
+```
+
+- body
+```
+grant_type : refresh_token
+refresh_token : ${refresh_token}
+```
