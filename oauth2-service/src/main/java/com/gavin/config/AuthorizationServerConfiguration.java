@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
@@ -52,6 +51,33 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Autowired
     private TokenStore tokenStore;
 
+    @Bean
+    public TokenStore tokenStore() {
+        return new JdbcTokenStore(dataSource);
+/*        return new InMemoryTokenStore();*/
+    }
+
+    @Bean
+    public ApprovalStore approvalStore() {
+        return new JdbcApprovalStore(dataSource);
+    }
+
+    @Bean
+    public AuthorizationCodeServices authorizationCodeServices() {
+        return new JdbcAuthorizationCodeServices(dataSource);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @Qualifier("customClientDetailsService")
+    public ClientDetailsService clientDetailsService() {
+        return new JdbcClientDetailsService(dataSource);
+    }
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
@@ -91,17 +117,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .checkTokenAccess("isAuthenticated()");
     }
 
-    @Bean
-    @Qualifier("customClientDetailsService")
-    public ClientDetailsService clientDetailsService() {
-        return new JdbcClientDetailsService(dataSource);
-    }
-
-    @Bean
-    public AuthorizationCodeServices authorizationCodeServices() {
-        return new JdbcAuthorizationCodeServices(dataSource);
-    }
-
 /*    @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         // keytool -genkeypair -alias jwt -keyalg RSA -dname "CN=Gavin, L=Shanghai, C=CN" -keypass secret -keystore keystore.jks -storepass secret
@@ -110,21 +125,5 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         converter.setKeyPair(keyStoreKeyFactory.getKeyPair("jwt"));
         return converter;
     }*/
-
-    @Bean
-    public TokenStore tokenStore() {
-/*        return new InMemoryTokenStore();*/
-        return new JdbcTokenStore(dataSource);
-    }
-
-    @Bean
-    public ApprovalStore approvalStore() {
-        return new JdbcApprovalStore(dataSource);
-    }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 }
