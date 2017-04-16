@@ -41,18 +41,18 @@ zuul:
       service-id: delivery-service
       strip-prefix: false
 
-proxy:
-  auth:
-    routes:
-      oauth2-service: oauth2
-      user-service: oauth2
-      account-service: oauth2
-      address-service: oauth2
-      point-service: oauth2
-      product-service: oauth2
-      order-service: oauth2
-      payment-service: oauth2
-      delivery-service: oauth2
+#proxy:
+#  auth:
+#    routes:
+#      oauth2-service: oauth2
+#      user-service: oauth2
+#      account-service: oauth2
+#      address-service: oauth2
+#      point-service: oauth2
+#      product-service: oauth2
+#      order-service: oauth2
+#      payment-service: oauth2
+#      delivery-service: oauth2
 
 security:
   basic:

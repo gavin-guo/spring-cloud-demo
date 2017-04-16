@@ -4,20 +4,25 @@ services:
 
   eureka-service:
     image: 192.168.1.88:5000/eureka-service
+    container_name: eureka-service
+    restart: always
     ports:
       - 8761:8761
-    restart: always
 
   config-service:
     image: 192.168.1.88:5000/config-service
+    container_name: config-service
+    restart: always
     ports:
       - 8888:8888
+    links:
+      - eureka-service
+      - rabbitmq
     environment:
-      - RABBITMQ_HOST=192.168.1.88
-      - EUREKA_HOST=192.168.1.88
+      - EUREKA_HOST=eureka-service
+      - RABBITMQ_HOST=rabbitmq
     depends_on:
       - eureka-service
-    restart: always
 
   zuul-service:
     image: 192.168.1.88:5000/zuul-service
@@ -52,7 +57,7 @@ services:
       - eureka-service
     restart: always
 
-  hystrix-dashboard-service:
+  hystrix-dashboard:
     image: 192.168.1.88:5000/hystrix-dashboard
     ports:
       - 8989:8989
