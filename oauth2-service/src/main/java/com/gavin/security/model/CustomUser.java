@@ -1,4 +1,4 @@
-package com.gavin.model;
+package com.gavin.security.model;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

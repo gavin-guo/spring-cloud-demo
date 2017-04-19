@@ -1,8 +1,8 @@
-package com.gavin.service;
+package com.gavin.security.service;
 
 import com.gavin.client.UserClient;
-import com.gavin.model.CustomUser;
 import com.gavin.model.UserDto;
+import com.gavin.security.model.CustomUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
