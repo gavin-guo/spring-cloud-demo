@@ -1,7 +1,7 @@
 package com.gavin.security.authentication;
 
 import com.gavin.security.model.CustomUser;
-import org.springframework.data.redis.core.BoundHashOperations;
+import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -27,9 +27,11 @@ public class CustomAuthenticationManagerDelegator implements AuthenticationManag
 
         if (principal instanceof CustomUser) {
             CustomUser customUser = (CustomUser) principal;
-            BoundHashOperations boundHashOperations = redisTemplate.boundHashOps("login_user");
-            boundHashOperations.put(customUser.getUsername(), customUser);
-            boundHashOperations.expire(1, TimeUnit.HOURS);
+
+            String loginName = String.format("login_user:%s", customUser.getUsername());
+            BoundValueOperations boundValueOperations = redisTemplate.boundValueOps(loginName);
+            boundValueOperations.set(customUser);
+            boundValueOperations.expire(1, TimeUnit.HOURS);
         }
 
         return result;
