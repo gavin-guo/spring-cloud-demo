@@ -13,13 +13,6 @@ feign:
   hystrix:
     enabled: false
 
-flyway:
-  enabled: true
-  user: root
-  password: root
-  encoding: utf8
-  validate-on-migrate: true
-
 spring:
   redis:
     host: ${REDIS_HOST:localhost}
@@ -30,14 +23,19 @@ spring:
       max-idle: 10
       max-wait: -1
       min-idle: 0
-  cache:
-    type: redis
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_AUTH
     username: root
     password: root
+
+flyway:
+  enabled: true
+  user: root
+  password: root
+  encoding: utf8
+  validate-on-migrate: true
 
 logging:
   level:

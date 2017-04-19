@@ -1,9 +1,11 @@
 package com.gavin.config;
 
+import com.gavin.security.authentication.CustomAuthenticationManagerDelegator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -52,9 +54,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private TokenStore tokenStore;
 
     @Bean
-    public TokenStore tokenStore() {
+    public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
+//        return new InMemoryTokenStore();
         return new JdbcTokenStore(dataSource);
-/*        return new InMemoryTokenStore();*/
+//        return new RedisTokenStore(connectionFactory);
     }
 
     @Bean
@@ -100,7 +103,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-                .authenticationManager(authenticationManager)
+                .authenticationManager(new CustomAuthenticationManagerDelegator(authenticationManager))
                 .userDetailsService(userDetailsService)
                 .authorizationCodeServices(authorizationCodeServices)
 //                .accessTokenConverter(jwtAccessTokenConverter)
