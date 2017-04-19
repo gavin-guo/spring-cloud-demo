@@ -17,7 +17,7 @@ spring:
   redis:
     host: ${REDIS_HOST:localhost}
     port: 6379
-    database: 1
+    database: 0
     pool:
       max-active: 10
       max-idle: 10

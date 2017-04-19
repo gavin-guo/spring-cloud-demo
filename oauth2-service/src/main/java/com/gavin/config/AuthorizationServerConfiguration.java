@@ -20,7 +20,7 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
 
@@ -56,8 +56,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Bean
     public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
 //        return new InMemoryTokenStore();
-        return new JdbcTokenStore(dataSource);
-//        return new RedisTokenStore(connectionFactory);
+//        return new JdbcTokenStore(dataSource);
+        return new RedisTokenStore(connectionFactory);
     }
 
     @Bean
@@ -75,7 +75,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         return new BCryptPasswordEncoder();
     }
 
-    @Bean("customClientDetailsService")
+    @Bean(name = "customClientDetailsService")
     public ClientDetailsService clientDetailsService() {
         return new JdbcClientDetailsService(dataSource);
     }
@@ -106,9 +106,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .authenticationManager(new CustomAuthenticationManagerDelegator(authenticationManager))
                 .userDetailsService(userDetailsService)
                 .authorizationCodeServices(authorizationCodeServices)
-//                .accessTokenConverter(jwtAccessTokenConverter)
                 .approvalStore(approvalStore)
                 .tokenStore(tokenStore)
+        //                .accessTokenConverter(jwtAccessTokenConverter)
         ;
     }
 
