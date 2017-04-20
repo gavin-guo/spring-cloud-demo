@@ -32,9 +32,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private DataSource dataSource;
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -48,9 +45,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Autowired
     private AuthorizationCodeServices authorizationCodeServices;
 
-/*    @Autowired
-    private JwtAccessTokenConverter jwtAccessTokenConverter;*/
-
     @Autowired
     private ApprovalStore approvalStore;
 
@@ -58,7 +52,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private TokenStore tokenStore;
 
     @Bean
-    public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
+    public TokenStore tokenStore(RedisConnectionFactory connectionFactory,
+                                 RedisTemplate<String, Object> redisTemplate) {
 //        return new InMemoryTokenStore();
 //        return new JdbcTokenStore(dataSource);
         return new CustomTokenStoreDelegator(new RedisTokenStore(connectionFactory), redisTemplate);
@@ -111,9 +106,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .userDetailsService(userDetailsService)
                 .authorizationCodeServices(authorizationCodeServices)
                 .approvalStore(approvalStore)
-                .tokenStore(tokenStore)
-        //                .accessTokenConverter(jwtAccessTokenConverter)
-        ;
+                .tokenStore(tokenStore);
     }
 
     @Override
@@ -122,14 +115,5 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()");
     }
-
-/*    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        // keytool -genkeypair -alias jwt -keyalg RSA -dname "CN=Gavin, L=Shanghai, C=CN" -keypass secret -keystore keystore.jks -storepass secret
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("keystore.jks"), "secret".toCharArray());
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("jwt"));
-        return converter;
-    }*/
 
 }
