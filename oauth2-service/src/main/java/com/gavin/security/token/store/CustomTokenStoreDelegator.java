@@ -2,7 +2,7 @@ package com.gavin.security.token.store;
 
 import com.gavin.security.model.CustomUser;
 import lombok.AllArgsConstructor;
-import org.springframework.data.redis.core.BoundValueOperations;
+import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
@@ -15,14 +15,23 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class CustomTokenStoreDelegator implements TokenStore {
 
-    private static final String LOGIN_USER = "login_user:%s";
+    private static final String LOGIN_USER = "login_user:";
 
     private TokenStore delegate;
     private RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public OAuth2Authentication readAuthentication(OAuth2AccessToken token) {
-        return delegate.readAuthentication(token);
+        OAuth2Authentication authentication = delegate.readAuthentication(token);
+
+        Object principal = authentication.getUserAuthentication().getPrincipal();
+        CustomUser customUser = (CustomUser) principal;
+
+        BoundHashOperations<String, String, Object> boundHashOperations = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
+        boundHashOperations.put(token.getValue(), customUser);
+        boundHashOperations.expire(1, TimeUnit.HOURS);
+
+        return authentication;
     }
 
     @Override
@@ -37,10 +46,9 @@ public class CustomTokenStoreDelegator implements TokenStore {
         Object principal = authentication.getUserAuthentication().getPrincipal();
         if (principal instanceof CustomUser) {
             CustomUser customUser = (CustomUser) principal;
-            String loginName = String.format(LOGIN_USER, customUser.getUsername());
-            BoundValueOperations<String, Object> boundValueOperations = redisTemplate.boundValueOps(loginName);
-            boundValueOperations.set(customUser);
-            boundValueOperations.expire(1, TimeUnit.HOURS);
+            BoundHashOperations<String, String, Object> boundHashOperations = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
+            boundHashOperations.put(token.getValue(), customUser);
+            boundHashOperations.expire(1, TimeUnit.HOURS);
         }
     }
 
