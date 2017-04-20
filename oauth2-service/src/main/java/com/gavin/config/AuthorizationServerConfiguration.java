@@ -1,6 +1,6 @@
 package com.gavin.config;
 
-import com.gavin.security.authentication.CustomAuthenticationManagerDelegator;
+import com.gavin.security.token.store.CustomTokenStoreDelegator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -61,7 +61,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
 //        return new InMemoryTokenStore();
 //        return new JdbcTokenStore(dataSource);
-        return new RedisTokenStore(connectionFactory);
+        return new CustomTokenStoreDelegator(new RedisTokenStore(connectionFactory), redisTemplate);
     }
 
     @Bean
@@ -107,7 +107,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-                .authenticationManager(new CustomAuthenticationManagerDelegator(authenticationManager, redisTemplate))
+                .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
                 .authorizationCodeServices(authorizationCodeServices)
                 .approvalStore(approvalStore)
