@@ -11,11 +11,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class TaskExecutorConfiguration {
 
     private final int corePoolSize = 10;
-
     private final int maxPoolSize = 200;
-
     private final int queueCapacity = 10;
-
     private final String ThreadNamePrefix = "PoolTaskExecutor-";
 
     @Bean

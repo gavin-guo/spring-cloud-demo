@@ -29,9 +29,9 @@ public class SwaggerConfiguration {
 
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfoBuilder()
-                .title("Micro Service Demo REST APIs")
-                .description("Micro Service Demo提供的API接口")
-                .version("1.0")
+                .title("Spring Cloud Demo REST APIs")
+                .description("Spring Cloud Demo提供的API接口")
+                .version("0.0.1")
                 .build();
         return apiInfo;
     }
