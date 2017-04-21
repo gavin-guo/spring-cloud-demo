@@ -27,7 +27,8 @@ public class CustomTokenStoreDelegator implements TokenStore {
         Object principal = authentication.getUserAuthentication().getPrincipal();
         CustomUser customUser = (CustomUser) principal;
 
-        BoundHashOperations<String, String, Object> boundHashOperations = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
+        BoundHashOperations<String, String, Object> boundHashOperations
+                = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
         boundHashOperations.put(token.getValue(), customUser);
         boundHashOperations.expire(1, TimeUnit.HOURS);
 
@@ -46,7 +47,8 @@ public class CustomTokenStoreDelegator implements TokenStore {
         Object principal = authentication.getUserAuthentication().getPrincipal();
         if (principal instanceof CustomUser) {
             CustomUser customUser = (CustomUser) principal;
-            BoundHashOperations<String, String, Object> boundHashOperations = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
+            BoundHashOperations<String, String, Object> boundHashOperations
+                    = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
             boundHashOperations.put(token.getValue(), customUser);
             boundHashOperations.expire(1, TimeUnit.HOURS);
         }
