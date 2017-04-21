@@ -3,6 +3,7 @@ package com.gavin.config;
 import com.gavin.lock.DistributedLockTemplate;
 import com.gavin.lock.redis.RedisLockTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,14 +11,11 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
+@ConditionalOnClass({RedisProperties.class})
 public class DistributedLockConfiguration {
 
-    private final RedisProperties redisProperties;
-
     @Autowired
-    public DistributedLockConfiguration(RedisProperties redisProperties) {
-        this.redisProperties = redisProperties;
-    }
+    private RedisProperties redisProperties;
 
     @Bean
     public DistributedLockTemplate distributedLockTemplate() {

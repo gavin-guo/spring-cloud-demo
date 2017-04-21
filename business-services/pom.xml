@@ -28,7 +28,11 @@
     <dependencies>
         <dependency>
             <groupId>com.gavin</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>common-basic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gavin</groupId>
+            <artifactId>common-event</artifactId>
         </dependency>
 
         <dependency>

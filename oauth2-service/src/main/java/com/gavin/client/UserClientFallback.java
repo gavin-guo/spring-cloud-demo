@@ -1,7 +1,6 @@
 package com.gavin.client;
 
-
-import com.gavin.model.UserDto;
+import com.gavin.model.dto.user.UserDto;
 import org.springframework.stereotype.Component;
 
 @Component

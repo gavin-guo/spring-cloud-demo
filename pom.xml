@@ -56,9 +56,15 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>com.gavin</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>common-basic</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gavin</groupId>
+                <artifactId>common-event</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
@@ -119,24 +125,24 @@
     </dependencies>
 
     <!--<distributionManagement>-->
-        <!--<repository>-->
-            <!--<id>nexus</id>-->
-            <!--<name>Releases</name>-->
-            <!--<url>http://localhost:8081/repository/maven-releases</url>-->
-        <!--</repository>-->
-        <!--<snapshotRepository>-->
-            <!--<id>nexus</id>-->
-            <!--<name>Snapshot</name>-->
-            <!--<url>http://localhost:8081/repository/maven-snapshots</url>-->
-        <!--</snapshotRepository>-->
+    <!--<repository>-->
+    <!--<id>nexus</id>-->
+    <!--<name>Releases</name>-->
+    <!--<url>http://localhost:8081/repository/maven-releases</url>-->
+    <!--</repository>-->
+    <!--<snapshotRepository>-->
+    <!--<id>nexus</id>-->
+    <!--<name>Snapshot</name>-->
+    <!--<url>http://localhost:8081/repository/maven-snapshots</url>-->
+    <!--</snapshotRepository>-->
     <!--</distributionManagement>-->
 
     <!--<repositories>-->
-        <!--<repository>-->
-            <!--<id>nexus</id>-->
-            <!--<name>Releases</name>-->
-            <!--<url>http://localhost:8081/repository/maven-releases</url>-->
-        <!--</repository>-->
+    <!--<repository>-->
+    <!--<id>nexus</id>-->
+    <!--<name>Releases</name>-->
+    <!--<url>http://localhost:8081/repository/maven-releases</url>-->
+    <!--</repository>-->
     <!--</repositories>-->
 
 </project>
