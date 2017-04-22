@@ -32,6 +32,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private DataSource dataSource;
 
     @Autowired
+    @Qualifier("customRedisTemplate")
+    private RedisTemplate redisTemplate;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -52,8 +56,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private TokenStore tokenStore;
 
     @Bean
-    public TokenStore tokenStore(RedisConnectionFactory connectionFactory,
-                                 RedisTemplate<String, Object> redisTemplate) {
+    public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
 //        return new InMemoryTokenStore();
 //        return new JdbcTokenStore(dataSource);
         return new CustomTokenStoreDelegator(new RedisTokenStore(connectionFactory), redisTemplate);
