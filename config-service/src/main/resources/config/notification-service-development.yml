@@ -29,16 +29,6 @@ spring:
       test-while-idle: true
       validation-query: SELECT 1
 
-security:
-  oauth2:
-    client:
-      client-id: notification-service
-      client-secret: secret
-      access-token-uri: http://localhost:9999/uaa/oauth/token
-      grant-type: client_credentials
-    resource:
-      token-info-uri: http://localhost:9999/uaa/oauth/check_token
-
 flyway:
   enabled: true
   user: root
