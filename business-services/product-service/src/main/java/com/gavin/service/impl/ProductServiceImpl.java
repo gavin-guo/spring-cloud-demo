@@ -153,8 +153,8 @@ public class ProductServiceImpl implements ProductService {
                     productReservationDto.setQuantity(item.getQuantity());
 
                     // 查找该商品是否有处于有效期内的返点比例设置。
-                    pointRewardPlanRepository.findApplicablePlanByProductId(productId)
-                            .ifPresent(pointRewardPlanEntity -> productReservationDto.setRatio(pointRewardPlanEntity.getRatio()));
+//                    Optional.of(pointRewardPlanRepository.findApplicablePlanByProductId(productId))
+//                            .ifPresent(pointRewardPlanEntity -> productReservationDto.setRatio(pointRewardPlanEntity.getRatio()));
 
                     productReservationDtos.add(productReservationDto);
                 }

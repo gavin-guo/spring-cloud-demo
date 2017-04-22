@@ -12,10 +12,6 @@ zuul:
       path: /users/**
       service-id: user-service
       strip-prefix: false
-    account-service:
-      path: /accounts/**
-      service-id: account-service
-      strip-prefix: false
     address-service:
       path: /addresses/**
       service-id: address-service
@@ -46,7 +42,6 @@ proxy:
     routes:
       oauth2-service: oauth2
       user-service: oauth2
-      account-service: oauth2
       address-service: oauth2
       point-service: oauth2
       product-service: oauth2
