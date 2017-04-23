@@ -3,7 +3,7 @@ package com.gavin.model.dto.security;
 import lombok.Data;
 
 @Data
-public class CustomCurrentUser {
+public class CurrentUser {
 
     private String userId;
 
