@@ -1,9 +1,11 @@
 package com.gavin.controller;
 
+import com.gavin.constants.RequestAttributeConstants;
 import com.gavin.constants.ResponseCodeConstants;
 import com.gavin.model.PageArgument;
 import com.gavin.model.Response;
 import com.gavin.model.dto.order.CreateOrderDto;
+import com.gavin.model.dto.security.CurrentUser;
 import com.gavin.model.vo.order.OrderDetailsVo;
 import com.gavin.model.vo.order.OrderVo;
 import com.gavin.service.OrderService;
@@ -31,7 +33,11 @@ public class OrderController {
             @ApiImplicitParam(paramType = "header", name = "Authorization", dataType = "String", required = true, value = "Token", defaultValue = "bearer ")
     })
     public Response<OrderDetailsVo> createOrder(
-            @ApiParam(name = "order", value = "订单信息", required = true) @Valid @RequestBody CreateOrderDto _order) {
+            @ApiParam(name = "order", value = "订单信息", required = true) @Valid @RequestBody CreateOrderDto _order,
+            @RequestAttribute(name = RequestAttributeConstants.CURRENT_USER) CurrentUser _currentUser) {
+
+        System.out.println("--------" + _currentUser.getUserName());
+
         Response<OrderDetailsVo> response = new Response<>(ResponseCodeConstants.SUCCESS);
 
         OrderDetailsVo orderDetailsVo = orderService.createOrder(_order);
