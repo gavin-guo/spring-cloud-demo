@@ -1,7 +1,7 @@
 package com.gavin.interceptor;
 
 import com.gavin.constants.RequestAttributeConstants;
-import com.gavin.model.dto.security.CustomUser;
+import com.gavin.model.dto.security.CurrentUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -48,7 +48,7 @@ public class ExtractLoginInfoInterceptor implements HandlerInterceptor {
 
         Object obj = redisTemplate.opsForHash().get(loginUser, accessToken);
         if (obj != null) {
-            CustomUser currentUser = (CustomUser) obj;
+            CurrentUser currentUser = (CurrentUser) obj;
             request.setAttribute(RequestAttributeConstants.CURRENT_USER, currentUser);
         }
 
