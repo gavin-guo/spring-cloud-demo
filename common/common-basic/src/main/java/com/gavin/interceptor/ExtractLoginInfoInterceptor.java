@@ -1,5 +1,6 @@
 package com.gavin.interceptor;
 
+import com.gavin.constants.RequestAttributeConstants;
 import com.gavin.model.dto.security.CustomUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,13 +43,13 @@ public class ExtractLoginInfoInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        String loginUser = loginInfo[0];
+        String loginUser = String.format("login_user:%s", loginInfo[0]);
         String accessToken = loginInfo[1];
 
         Object obj = redisTemplate.opsForHash().get(loginUser, accessToken);
         if (obj != null) {
             CustomUser currentUser = (CustomUser) obj;
-            request.setAttribute("login-info", currentUser);
+            request.setAttribute(RequestAttributeConstants.CURRENT_USER, currentUser);
         }
 
         return true;
