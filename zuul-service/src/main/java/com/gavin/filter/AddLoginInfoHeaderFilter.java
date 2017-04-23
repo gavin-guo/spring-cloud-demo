@@ -43,15 +43,15 @@ public class AddLoginInfoHeaderFilter extends ZuulFilter {
 
                     String loginInfo = String.format("%s:%s", loginUser, token);
 
-                    String encodedInfo;
+                    String encoded;
                     try {
-                        encodedInfo = new String(Base64.encode(loginInfo.getBytes("UTF-8")));
+                        encoded = new String(Base64.encode(loginInfo.getBytes("UTF-8")));
                     } catch (UnsupportedEncodingException e) {
                         throw new IllegalStateException("Could not convert String");
                     }
 
                     RequestContext ctx = RequestContext.getCurrentContext();
-                    ctx.set(LOGIN_INFO, encodedInfo);
+                    ctx.set(LOGIN_INFO, encoded);
                     return true;
                 }
             }
