@@ -1,6 +1,6 @@
 package com.gavin.config;
 
-import com.gavin.security.token.store.CustomTokenStoreDelegator;
+import com.gavin.security.tokenstore.CustomTokenStoreDelegator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

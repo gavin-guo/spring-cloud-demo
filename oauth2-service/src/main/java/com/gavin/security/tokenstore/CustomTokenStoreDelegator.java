@@ -1,6 +1,6 @@
-package com.gavin.security.token.store;
+package com.gavin.security.tokenstore;
 
-import com.gavin.security.model.CustomUser;
+import com.gavin.model.dto.security.CustomUser;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
