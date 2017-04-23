@@ -2,12 +2,12 @@ server:
   port: 8000
 
 zuul:
+  sensitive-headers: Cookie,Set-Cookie,Authorization
   routes:
     oauth2-service:
       path: /uaa/**
       service-id: oauth2-service
       strip-prefix: false
-      sensitive-headers: Cookie,Set-Cookie,Authorization
     user-service:
       path: /users/**
       service-id: user-service
@@ -37,17 +37,17 @@ zuul:
       service-id: delivery-service
       strip-prefix: false
 
-proxy:
-  auth:
-    routes:
-      oauth2-service: oauth2
-      user-service: oauth2
-      address-service: oauth2
-      point-service: oauth2
-      product-service: oauth2
-      order-service: oauth2
-      payment-service: oauth2
-      delivery-service: oauth2
+#proxy:
+#  auth:
+#    routes:
+#      oauth2-service: oauth2
+#      user-service: oauth2
+#      address-service: oauth2
+#      point-service: oauth2
+#      product-service: oauth2
+#      order-service: oauth2
+#      payment-service: oauth2
+#      delivery-service: oauth2
 
 security:
   basic:
