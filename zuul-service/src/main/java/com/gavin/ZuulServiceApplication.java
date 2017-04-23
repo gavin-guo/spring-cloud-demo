@@ -16,16 +16,5 @@ public class ZuulServiceApplication {
         SpringApplication.run(ZuulServiceApplication.class, args);
     }
 
-//    @Bean
-//    public CorsFilter corsFilter() {
-//        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration corsConfiguration = new CorsConfiguration();
-//        corsConfiguration.setAllowCredentials(true);
-//        corsConfiguration.addAllowedOrigin("*");
-//        corsConfiguration.addAllowedHeader("*");
-//        corsConfiguration.addAllowedMethod("*");
-//        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
-//        return new CorsFilter(urlBasedCorsConfigurationSource);
-//    }
 
 }
