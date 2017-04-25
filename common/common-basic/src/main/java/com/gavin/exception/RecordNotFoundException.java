@@ -3,10 +3,15 @@ package com.gavin.exception;
 /**
  * 数据库中找不到对应的记录。
  */
-public class RecordNotFoundException extends RuntimeException {
+public class RecordNotFoundException extends CustomException {
 
-    public RecordNotFoundException(String _name, String _value) {
-        super(String.format("%s %s not exist.", _name, _value));
+    public RecordNotFoundException(String _recordName, String _recordValue) {
+        super(String.format("%s(%s) not found.", _recordName, _recordValue));
+    }
+
+    @Override
+    public String getErrorCode() {
+        return "no_record";
     }
 
 }
