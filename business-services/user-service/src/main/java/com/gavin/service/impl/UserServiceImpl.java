@@ -7,7 +7,7 @@ import com.gavin.enums.MessageableEventStatusEnums;
 import com.gavin.enums.UserStatusEnums;
 import com.gavin.event.UserActivatedEvent;
 import com.gavin.event.UserCreatedEvent;
-import com.gavin.exception.LoginNameExistingException;
+import com.gavin.exception.UserExistingException;
 import com.gavin.exception.RecordNotFoundException;
 import com.gavin.message.producer.UserActivatedMessageProducer;
 import com.gavin.message.producer.UserCreatedMessageProducer;
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
         Optional.ofNullable(userRepository.findByLoginName(_user.getLoginName()))
                 .ifPresent(
                         userEntity -> {
-                            throw new LoginNameExistingException(String.format("user with login name %s already exists.", _user.getLoginName()));
+                            throw new UserExistingException(String.format("user with login name %s already exists.", _user.getLoginName()));
                         }
                 );
 
@@ -88,11 +88,11 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(userEntity);
 
-        // 记录到消息事件表。
-        UserCreatedEvent userCreatedEvent = modelMapper.map(userEntity, UserCreatedEvent.class);
-        userCreatedEvent.setUserId(userEntity.getId());
-
-        userCreatedEventService.saveEvent(userCreatedEvent, MessageableEventStatusEnums.NEW);
+//        // 记录到消息事件表。
+//        UserCreatedEvent userCreatedEvent = modelMapper.map(userEntity, UserCreatedEvent.class);
+//        userCreatedEvent.setUserId(userEntity.getId());
+//
+//        userCreatedEventService.saveEvent(userCreatedEvent, MessageableEventStatusEnums.NEW);
 
         return modelMapper.map(userEntity, UserVo.class);
     }
@@ -111,10 +111,10 @@ public class UserServiceImpl implements UserService {
         userEntity.setStatus(UserStatusEnums.ENABLED);
         userRepository.save(userEntity);
 
-        // 记录到消息事件表。
-        UserActivatedEvent userActivatedEvent = new UserActivatedEvent();
-        userActivatedEvent.setUserId(userEntity.getId());
-        userActivatedEventService.saveEvent(userActivatedEvent, MessageableEventStatusEnums.NEW);
+//        // 记录到消息事件表。
+//        UserActivatedEvent userActivatedEvent = new UserActivatedEvent();
+//        userActivatedEvent.setUserId(userEntity.getId());
+//        userActivatedEventService.saveEvent(userActivatedEvent, MessageableEventStatusEnums.NEW);
     }
 
     @Override
