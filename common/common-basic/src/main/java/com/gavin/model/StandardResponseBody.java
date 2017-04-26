@@ -6,16 +6,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "code",
-        "details",
+        "message",
         "contents",
         "page"})
 @Data
+@NoArgsConstructor
 @ApiModel(value = "StandardResponseBody", description = "返回结果")
 public class StandardResponseBody<T> implements Serializable {
 
@@ -27,15 +29,12 @@ public class StandardResponseBody<T> implements Serializable {
     @ApiModelProperty(value = "详细信息", position = 2)
     private String message;
 
-    @JsonProperty("data")
+    @JsonProperty("contents")
     @ApiModelProperty(value = "内容", position = 3)
-    private T data;
+    private T contents;
 
     @JsonProperty("page")
     @ApiModelProperty(value = "分页参数", position = 4)
     private PageArgument page;
-
-    public StandardResponseBody() {
-    }
 
 }

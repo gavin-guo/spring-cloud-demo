@@ -8,7 +8,7 @@ public interface ResponseCodeConstants {
     /**
      * 执行成功
      */
-    String SUCCESS = "success";
+    String OK = "ok";
 
     /**
      * 调用远程服务失败
