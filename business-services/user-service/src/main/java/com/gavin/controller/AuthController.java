@@ -5,7 +5,6 @@ import com.gavin.model.dto.user.UserDto;
 import com.gavin.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,22 +15,16 @@ import springfox.documentation.annotations.ApiIgnore;
 @Slf4j
 public class AuthController {
 
-    private final UserService userService;
-
     @Autowired
-    public AuthController(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
-    @RequestMapping(value = "/user/loading", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/user/loading", method = RequestMethod.GET)
     @ApiIgnore
     public UserDto loadUserByLoginName(@RequestParam("login_name") String _loginName) {
         try {
-            UserDto userDto = userService.findUserByLoginName(_loginName);
-            return userDto;
+            return userService.findUserByLoginName(_loginName);
         } catch (RecordNotFoundException e) {
-            UserDto userDto = new UserDto();
-            return userDto;
+            return new UserDto();
         }
     }
 

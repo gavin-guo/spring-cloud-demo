@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,17 +31,17 @@ public class UserController {
         return userVo;
     }
 
-    @RequestMapping(value = "/users/activation/{user_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/activation", method = RequestMethod.GET)
     @ApiOperation(value = "激活用户")
     public void activateUser(
-            @ApiParam(name = "user_id", value = "要激活的用户ID", required = true) @Valid @PathVariable("user_id") String _userId) {
+            @ApiParam(name = "user_id", value = "要激活的用户ID", required = true) @Valid @RequestParam("user_id") String _userId) {
         userService.activateUser(_userId);
     }
 
-    @RequestMapping(value = "/users/{user_id}/grant", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/users/grant", method = RequestMethod.PUT)
     @ApiOperation(value = "授予用户权限")
     public void grantAuthorities(
-            @ApiParam(name = "user_id", value = "对象用户", required = true) @PathVariable("user_id") String _userId,
+            @ApiParam(name = "user_id", value = "对象用户", required = true) @RequestParam("user_id") String _userId,
             @ApiParam(name = "authorities", value = "要赋予的权限", required = true) @Valid @RequestBody List<AuthorityDto> _authorities) {
         userService.updateAuthorities(_userId, _authorities);
     }
