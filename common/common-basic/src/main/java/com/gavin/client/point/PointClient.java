@@ -1,6 +1,6 @@
 package com.gavin.client.point;
 
-import com.gavin.model.StandardResponseBody;
+import com.gavin.model.response.ExecutionResponseBody;
 import com.gavin.model.dto.point.FreezePointsDto;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;
@@ -16,9 +16,9 @@ import java.math.BigDecimal;
 public interface PointClient {
 
     @RequestMapping(value = "/points/usable", method = RequestMethod.GET)
-    StandardResponseBody<BigDecimal> queryUsableAmount(@RequestParam(value = "account_id") String _accountId);
+    ExecutionResponseBody<BigDecimal> queryUsableAmount(@RequestParam(value = "account_id") String _accountId);
 
     @RequestMapping(value = "/points/freeze", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    StandardResponseBody freezePoints(@Valid @RequestBody FreezePointsDto _freeze);
+    ExecutionResponseBody freezePoints(@Valid @RequestBody FreezePointsDto _freeze);
 
 }
