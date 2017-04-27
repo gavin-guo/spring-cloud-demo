@@ -1,6 +1,5 @@
 package com.gavin.controller;
 
-import com.gavin.model.dto.user.AuthorityDto;
 import com.gavin.model.dto.user.CreateUserDto;
 import com.gavin.model.vo.user.UserVo;
 import com.gavin.service.UserService;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -42,7 +40,7 @@ public class UserController {
     @ApiOperation(value = "授予用户权限")
     public void grantAuthorities(
             @ApiParam(name = "user_id", value = "对象用户", required = true) @RequestParam("user_id") String _userId,
-            @ApiParam(name = "authorities", value = "要赋予的权限", required = true) @Valid @RequestBody List<AuthorityDto> _authorities) {
+            @ApiParam(name = "authorities", value = "要赋予的权限", required = true) @Valid @RequestBody String[] _authorities) {
         userService.updateAuthorities(_userId, _authorities);
     }
 

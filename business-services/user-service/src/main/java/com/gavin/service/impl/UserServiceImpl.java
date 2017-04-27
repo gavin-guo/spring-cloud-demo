@@ -6,7 +6,6 @@ import com.gavin.enums.AuthorityEnums;
 import com.gavin.enums.UserStatusEnums;
 import com.gavin.exception.RecordNotFoundException;
 import com.gavin.exception.UserExistingException;
-import com.gavin.model.dto.user.AuthorityDto;
 import com.gavin.model.dto.user.CreateUserDto;
 import com.gavin.model.dto.user.UserDto;
 import com.gavin.model.vo.user.UserVo;
@@ -19,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         Optional.ofNullable(userRepository.findByLoginName(_user.getLoginName()))
                 .ifPresent(
                         userEntity -> {
-                            throw new UserExistingException(String.format("user with login name %s already exists.", _user.getLoginName()));
+                            throw new UserExistingException(String.format("user(login_name = %s) already exists.", _user.getLoginName()));
                         }
                 );
 
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void updateAuthorities(String _userId, List<AuthorityDto> _authorities) {
+    public void updateAuthorities(String _userId, String[] _authorities) {
         UserEntity userEntity = Optional.ofNullable(userRepository.findOne(_userId))
                 .orElseThrow(() -> new RecordNotFoundException("user", _userId));
 
@@ -110,13 +110,17 @@ public class UserServiceImpl implements UserService {
         List<UserAuthorityEntity> userAuthorityEntities = userEntity.getUserAuthorityEntities();
         userAuthorityRepository.delete(userAuthorityEntities);
 
-        _authorities.forEach(
-                authorityDto -> {
-                    UserAuthorityEntity userAuthorityEntity = new UserAuthorityEntity();
-                    userAuthorityEntity.setAuthority(AuthorityEnums.valueOf(authorityDto.getAuthority()));
-                    userEntity.addUserAuthorityEntity(userAuthorityEntity);
-                }
-        );
+        userEntity.setUserAuthorityEntities(null);
+
+        if (_authorities != null && _authorities.length > 0) {
+            Arrays.stream(_authorities).forEach(
+                    authority -> {
+                        UserAuthorityEntity userAuthorityEntity = new UserAuthorityEntity();
+                        userAuthorityEntity.setAuthority(AuthorityEnums.valueOf(authority));
+                        userEntity.addUserAuthorityEntity(userAuthorityEntity);
+                    }
+            );
+        }
 
         userRepository.save(userEntity);
     }
@@ -124,7 +128,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findUserByLoginName(String _loginName) {
         UserEntity userEntity = Optional.ofNullable(userRepository.findByLoginName(_loginName))
-                .orElseThrow(() -> new RecordNotFoundException("user with login name", _loginName));
+                .orElseThrow(() -> new RecordNotFoundException("user", _loginName));
 
         return modelMapper.map(userEntity, UserDto.class);
     }

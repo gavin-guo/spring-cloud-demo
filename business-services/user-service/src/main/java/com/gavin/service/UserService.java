@@ -1,11 +1,8 @@
 package com.gavin.service;
 
-import com.gavin.model.dto.user.AuthorityDto;
 import com.gavin.model.dto.user.CreateUserDto;
 import com.gavin.model.dto.user.UserDto;
 import com.gavin.model.vo.user.UserVo;
-
-import java.util.List;
 
 public interface UserService {
 
@@ -38,7 +35,7 @@ public interface UserService {
      * @param _userId
      * @param _authorities
      */
-    void updateAuthorities(String _userId, List<AuthorityDto> _authorities);
+    void updateAuthorities(String _userId, String[] _authorities);
 
 /*    *//**
      * 发布用户帐号创建成功的事件
