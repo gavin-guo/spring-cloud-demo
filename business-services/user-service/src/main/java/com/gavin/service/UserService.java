@@ -2,7 +2,6 @@ package com.gavin.service;
 
 import com.gavin.model.dto.user.CreateUserDto;
 import com.gavin.model.dto.user.UserDto;
-import com.gavin.model.vo.user.UserVo;
 
 public interface UserService {
 
@@ -12,7 +11,7 @@ public interface UserService {
      * @param _user
      * @return
      */
-    UserVo createUser(CreateUserDto _user);
+    UserDto createUser(CreateUserDto _user);
 
     /**
      * 激活用户

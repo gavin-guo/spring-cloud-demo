@@ -8,10 +8,11 @@ import com.gavin.exception.RecordNotFoundException;
 import com.gavin.exception.UserExistingException;
 import com.gavin.model.dto.user.CreateUserDto;
 import com.gavin.model.dto.user.UserDto;
-import com.gavin.model.vo.user.UserVo;
 import com.gavin.repository.UserAuthorityRepository;
 import com.gavin.repository.UserRepository;
 import com.gavin.service.UserService;
+import com.google.gson.Gson;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -50,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserVo createUser(CreateUserDto _user) {
+    public UserDto createUser(CreateUserDto _user) {
         // 判断用户名是否已经存在。
         Optional.ofNullable(userRepository.findByLoginName(_user.getLoginName()))
                 .ifPresent(
@@ -71,13 +73,17 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(userEntity);
 
+        UserDto userDto = modelMapper.map(userEntity, UserDto.class);
+        userDto.setPassword(null);
+        log.debug("create user successfully. {}", new Gson().toJson(userDto));
+
 //        // 记录到消息事件表。
 //        UserCreatedEvent userCreatedEvent = modelMapper.map(userEntity, UserCreatedEvent.class);
 //        userCreatedEvent.setUserId(userEntity.getId());
 //
 //        userCreatedEventService.saveEvent(userCreatedEvent, MessageableEventStatusEnums.NEW);
 
-        return modelMapper.map(userEntity, UserVo.class);
+        return userDto;
     }
 
     @Override

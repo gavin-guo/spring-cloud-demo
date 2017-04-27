@@ -2,7 +2,7 @@ package com.gavin.controller.advice;
 
 
 import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.model.response.ExecutionResponseBody;
+import com.gavin.model.response.StandardResponseBody;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -23,14 +23,19 @@ public class CustomResponseAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
 
         if (body == null) {
-            ExecutionResponseBody<Object> responseBody = new ExecutionResponseBody<>();
-            responseBody.setCode(ResponseCodeConstants.OK);
+            StandardResponseBody<Object> responseBody = new StandardResponseBody<>();
+            responseBody.setResultCode(ResponseCodeConstants.OK);
             return responseBody;
-        } else if (body instanceof ExecutionResponseBody) {
+        } else if (body instanceof StandardResponseBody) {
             // already processed by ExceptionHandler
-            if (!((ExecutionResponseBody) body).getCode().equalsIgnoreCase(ResponseCodeConstants.OK)) {
+            if (!((StandardResponseBody) body).getResultCode().equalsIgnoreCase(ResponseCodeConstants.OK)) {
                 return body;
             }
+        } else {
+            StandardResponseBody<Object> responseBody = new StandardResponseBody<>();
+            responseBody.setResultCode(ResponseCodeConstants.OK);
+            responseBody.setContents(body);
+            return responseBody;
         }
 
         return body;

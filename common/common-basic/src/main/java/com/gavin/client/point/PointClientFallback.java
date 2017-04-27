@@ -1,8 +1,8 @@
 package com.gavin.client.point;
 
 import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.model.response.ExecutionResponseBody;
 import com.gavin.model.dto.point.FreezePointsDto;
+import com.gavin.model.response.StandardResponseBody;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -11,16 +11,16 @@ import java.math.BigDecimal;
 public class PointClientFallback implements PointClient {
 
     @Override
-    public ExecutionResponseBody<BigDecimal> queryUsableAmount(String _accountId) {
-        ExecutionResponseBody<BigDecimal> response = new ExecutionResponseBody<>();
-        response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
+    public StandardResponseBody<BigDecimal> queryUsableAmount(String _accountId) {
+        StandardResponseBody<BigDecimal> response = new StandardResponseBody<>();
+        response.setResultCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
         return response;
     }
 
     @Override
-    public ExecutionResponseBody freezePoints(FreezePointsDto _freeze) {
-        ExecutionResponseBody response = new ExecutionResponseBody<>();
-        response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
+    public StandardResponseBody freezePoints(FreezePointsDto _freeze) {
+        StandardResponseBody response = new StandardResponseBody<>();
+        response.setResultCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
         return response;
     }
 

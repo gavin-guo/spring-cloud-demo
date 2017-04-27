@@ -1,7 +1,7 @@
 package com.gavin.controller;
 
 import com.gavin.model.dto.user.CreateUserDto;
-import com.gavin.model.vo.user.UserVo;
+import com.gavin.model.dto.user.UserDto;
 import com.gavin.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,11 +22,9 @@ public class UserController {
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     @ApiOperation(value = "创建用户")
-    public UserVo createUser(
+    public UserDto createUser(
             @ApiParam(name = "user", value = "要创建的用户信息", required = true) @Valid @RequestBody CreateUserDto _user) {
-        UserVo userVo = userService.createUser(_user);
-        log.info("create user {} successfully.", userVo.getId());
-        return userVo;
+        return userService.createUser(_user);
     }
 
     @RequestMapping(value = "/users/activation", method = RequestMethod.PUT)
