@@ -21,14 +21,19 @@ public class CustomResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        // already processed by ExceptionHandler
-        if (body instanceof ExecutionResponseBody) {
-            return body;
+
+        if (body == null) {
+            ExecutionResponseBody<Object> responseBody = new ExecutionResponseBody<>();
+            responseBody.setCode(ResponseCodeConstants.OK);
+            return responseBody;
+        } else if (body instanceof ExecutionResponseBody) {
+            // already processed by ExceptionHandler
+            if (!((ExecutionResponseBody) body).getCode().equalsIgnoreCase(ResponseCodeConstants.OK)) {
+                return body;
+            }
         }
 
-        ExecutionResponseBody<Object> responseBody = new ExecutionResponseBody<>();
-        responseBody.setCode(ResponseCodeConstants.OK);
-        return responseBody;
+        return body;
     }
 
 }

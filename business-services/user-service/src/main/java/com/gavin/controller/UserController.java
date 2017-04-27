@@ -31,7 +31,7 @@ public class UserController {
         return userVo;
     }
 
-    @RequestMapping(value = "/users/activation", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/activation", method = RequestMethod.PUT)
     @ApiOperation(value = "激活用户")
     public void activateUser(
             @ApiParam(name = "user_id", value = "要激活的用户ID", required = true) @Valid @RequestParam("user_id") String _userId) {
