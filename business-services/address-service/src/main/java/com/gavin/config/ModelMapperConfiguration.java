@@ -1,7 +1,7 @@
 package com.gavin.config;
 
 import com.gavin.entity.AddressEntity;
-import com.gavin.model.vo.address.AddressVo;
+import com.gavin.model.dto.address.AddressDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +15,9 @@ public class ModelMapperConfiguration {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        modelMapper.createTypeMap(AddressEntity.class, AddressVo.class).setConverter(context -> {
+        modelMapper.createTypeMap(AddressEntity.class, AddressDto.class).setConverter(context -> {
             AddressEntity source = context.getSource();
-            AddressVo destination = new AddressVo();
+            AddressDto destination = new AddressDto();
 
             destination.setId(source.getId());
             destination.setUserId(source.getUserId());

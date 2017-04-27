@@ -1,7 +1,7 @@
 package com.gavin.service;
 
 import com.gavin.model.dto.address.RegisterAddressDto;
-import com.gavin.model.vo.address.AddressVo;
+import com.gavin.model.dto.address.AddressDto;
 
 public interface AddressService {
 
@@ -11,7 +11,7 @@ public interface AddressService {
      * @param _address
      * @return
      */
-    AddressVo registerAddress(RegisterAddressDto _address);
+    AddressDto registerAddress(RegisterAddressDto _address);
 
     /**
      * 根据地址ID查询地址信息
@@ -19,6 +19,6 @@ public interface AddressService {
      * @param _addressId
      * @return
      */
-    AddressVo findAddressById(String _addressId);
+    AddressDto findAddressById(String _addressId);
 
 }

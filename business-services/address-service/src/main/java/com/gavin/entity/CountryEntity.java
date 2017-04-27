@@ -2,11 +2,13 @@ package com.gavin.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "COUNTRY", schema = "SCHEMA_ADDRESS")
-@NamedQuery(name = "CountryEntity.findAll", query = "SELECT c FROM CountryEntity c")
+@Table(name = "COUNTRY")
 @Data
 public class CountryEntity {
 

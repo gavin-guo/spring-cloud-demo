@@ -5,8 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "DISTRICT", schema = "SCHEMA_ADDRESS")
-@NamedQuery(name = "DistrictEntity.findAll", query = "SELECT d FROM DistrictEntity d")
+@Table(name = "DISTRICT")
 @Data
 public class DistrictEntity {
 
