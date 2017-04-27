@@ -13,8 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "USER", schema = "SCHEMA_USER")
-@NamedQuery(name = "UserEntity.findAll", query = "SELECT u FROM UserEntity u")
+@Table(name = "USER")
 @DynamicInsert
 @DynamicUpdate
 @Data

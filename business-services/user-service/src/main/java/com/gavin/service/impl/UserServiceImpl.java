@@ -3,21 +3,15 @@ package com.gavin.service.impl;
 import com.gavin.entity.UserAuthorityEntity;
 import com.gavin.entity.UserEntity;
 import com.gavin.enums.AuthorityEnums;
-import com.gavin.enums.MessageableEventStatusEnums;
 import com.gavin.enums.UserStatusEnums;
-import com.gavin.event.UserActivatedEvent;
-import com.gavin.event.UserCreatedEvent;
-import com.gavin.exception.UserExistingException;
 import com.gavin.exception.RecordNotFoundException;
-import com.gavin.message.producer.UserActivatedMessageProducer;
-import com.gavin.message.producer.UserCreatedMessageProducer;
+import com.gavin.exception.UserExistingException;
 import com.gavin.model.dto.user.AuthorityDto;
 import com.gavin.model.dto.user.CreateUserDto;
 import com.gavin.model.dto.user.UserDto;
 import com.gavin.model.vo.user.UserVo;
 import com.gavin.repository.UserAuthorityRepository;
 import com.gavin.repository.UserRepository;
-import com.gavin.service.EventService;
 import com.gavin.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,39 +25,28 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final ModelMapper modelMapper;
+    @Autowired
+    private ModelMapper modelMapper;
 
-    private final UserCreatedMessageProducer userCreatedMessageProducer;
-
-    private final UserActivatedMessageProducer userActivatedMessageProducer;
-
-    private final EventService<UserCreatedEvent> userCreatedEventService;
-
-    private final EventService<UserActivatedEvent> userActivatedEventService;
-
-    private final UserRepository userRepository;
-
-    private final UserAuthorityRepository userAuthorityRepository;
-
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//    @Autowired
+//    private UserCreatedMessageProducer userCreatedMessageProducer;
+//
+//    @Autowired
+//    private final UserActivatedMessageProducer userActivatedMessageProducer;
+//
+//    @Autowired
+//    private final EventService<UserCreatedEvent> userCreatedEventService;
+//
+//    @Autowired
+//    private final EventService<UserActivatedEvent> userActivatedEventService;
 
     @Autowired
-    public UserServiceImpl(
-            ModelMapper modelMapper,
-            UserCreatedMessageProducer userCreatedMessageProducer,
-            UserActivatedMessageProducer userActivatedMessageProducer,
-            EventService<UserCreatedEvent> userCreatedEventService,
-            EventService<UserActivatedEvent> userActivatedEventService,
-            UserRepository userRepository,
-            UserAuthorityRepository userAuthorityRepository) {
-        this.modelMapper = modelMapper;
-        this.userCreatedMessageProducer = userCreatedMessageProducer;
-        this.userActivatedMessageProducer = userActivatedMessageProducer;
-        this.userCreatedEventService = userCreatedEventService;
-        this.userActivatedEventService = userActivatedEventService;
-        this.userRepository = userRepository;
-        this.userAuthorityRepository = userAuthorityRepository;
-    }
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserAuthorityRepository userAuthorityRepository;
+
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
     @Transactional
@@ -146,24 +129,24 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(userEntity, UserDto.class);
     }
 
-    @Override
-    @Transactional
-    public boolean publishUserCreatedEvent(UserCreatedEvent _event) {
-        userCreatedEventService.updateEventStatusById(
-                _event.getOriginId(),
-                MessageableEventStatusEnums.PUBLISHED);
-
-        return userCreatedMessageProducer.sendMessage(_event);
-    }
-
-    @Override
-    @Transactional
-    public boolean publishUserActivatedEvent(UserActivatedEvent _event) {
-        userActivatedEventService.updateEventStatusById(
-                _event.getOriginId(),
-                MessageableEventStatusEnums.PUBLISHED);
-
-        return userActivatedMessageProducer.sendMessage(_event);
-    }
+//    @Override
+//    @Transactional
+//    public boolean publishUserCreatedEvent(UserCreatedEvent _event) {
+//        userCreatedEventService.updateEventStatusById(
+//                _event.getOriginId(),
+//                MessageableEventStatusEnums.PUBLISHED);
+//
+//        return userCreatedMessageProducer.sendMessage(_event);
+//    }
+//
+//    @Override
+//    @Transactional
+//    public boolean publishUserActivatedEvent(UserActivatedEvent _event) {
+//        userActivatedEventService.updateEventStatusById(
+//                _event.getOriginId(),
+//                MessageableEventStatusEnums.PUBLISHED);
+//
+//        return userActivatedMessageProducer.sendMessage(_event);
+//    }
 
 }

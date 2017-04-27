@@ -7,8 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USER_AUTHORITY", schema = "SCHEMA_USER")
-@NamedQuery(name = "UserAuthorityEntity.findAll", query = "SELECT u FROM UserAuthorityEntity u")
+@Table(name = "USER_AUTHORITY")
 @Data
 public class UserAuthorityEntity {
 

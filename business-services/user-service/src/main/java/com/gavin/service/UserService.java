@@ -1,7 +1,5 @@
 package com.gavin.service;
 
-import com.gavin.event.UserActivatedEvent;
-import com.gavin.event.UserCreatedEvent;
 import com.gavin.model.dto.user.AuthorityDto;
 import com.gavin.model.dto.user.CreateUserDto;
 import com.gavin.model.dto.user.UserDto;
@@ -42,20 +40,20 @@ public interface UserService {
      */
     void updateAuthorities(String _userId, List<AuthorityDto> _authorities);
 
-    /**
+/*    *//**
      * 发布用户帐号创建成功的事件
      *
      * @param _event
      * @return
-     */
+     *//*
     boolean publishUserCreatedEvent(UserCreatedEvent _event);
 
-    /**
+    *//**
      * 发布用户帐号已激活的事件
      *
      * @param _event
      * @return
-     */
-    boolean publishUserActivatedEvent(UserActivatedEvent _event);
+     *//*
+    boolean publishUserActivatedEvent(UserActivatedEvent _event);*/
 
 }
