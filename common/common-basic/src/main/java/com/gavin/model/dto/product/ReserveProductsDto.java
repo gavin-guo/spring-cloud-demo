@@ -1,27 +1,25 @@
-package com.gavin.model.vo.order;
+package com.gavin.model.dto.product;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
 import java.io.Serializable;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-        "id",
-        "productId",
-        "quantity"})
 @Data
-public class ItemVo implements Serializable {
-
-    @JsonProperty("id")
-    private String id;
+public class ReserveProductsDto implements Serializable {
 
     @JsonProperty("product_id")
     private String productId;
 
     @JsonProperty("quantity")
     private Integer quantity;
+
+    @JsonProperty("price")
+    private Float price;
+
+    @JsonProperty("ratio")
+    private Float ratio;
 
 }

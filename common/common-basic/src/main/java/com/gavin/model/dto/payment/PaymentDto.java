@@ -1,4 +1,4 @@
-package com.gavin.model.vo.product;
+package com.gavin.model.dto.payment;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,42 +6,39 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "id",
-        "name",
-        "categoryId",
-        "categoryName",
-        "price",
-        "stocks",
-        "comment",
+        "type",
+        "accountId",
+        "orderId",
+        "amount",
+        "status",
         "createdTime",
         "modifiedTime"})
 @Data
-public class ProductVo implements Serializable {
+public class PaymentDto implements Serializable {
 
     @JsonProperty("id")
     private String id;
 
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("type")
+    private String type;
 
-    @JsonProperty("category_id")
-    private String categoryId;
+    @JsonProperty("account_id")
+    private String accountId;
 
-    @JsonProperty("category_name")
-    private String categoryName;
+    @JsonProperty("order_id")
+    private String orderId;
 
-    @JsonProperty("price")
-    private Float price;
+    @JsonProperty("amount")
+    private BigDecimal amount;
 
-    @JsonProperty("stocks")
-    private Integer stocks;
-
-    @JsonProperty("comment")
-    private String comment;
+    @JsonProperty("status")
+    private String status;
 
     @JsonProperty("created_time")
     private Date createdTime;

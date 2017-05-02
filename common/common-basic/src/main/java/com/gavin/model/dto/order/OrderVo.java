@@ -1,4 +1,4 @@
-package com.gavin.model.vo.order;
+package com.gavin.model.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,22 +7,19 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "id",
         "userId",
-        "addressId",
         "status",
         "totalAmount",
         "rewardPoints",
-        "consignee",
-        "address",
-        "phoneNumber",
-        "items"})
+        "createdTime",
+        "modifiedTime"})
 @Data
-public class OrderDetailsVo implements Serializable {
+public class OrderVo implements Serializable {
 
     @JsonProperty("id")
     private String id;
@@ -39,16 +36,10 @@ public class OrderDetailsVo implements Serializable {
     @JsonProperty("reward_points")
     private BigDecimal rewardPoints;
 
-    @JsonProperty("consignee")
-    private String consignee;
+    @JsonProperty("created_time")
+    private Date createdTime;
 
-    @JsonProperty("address")
-    private String address;
-
-    @JsonProperty("phone_number")
-    private String phoneNumber;
-
-    @JsonProperty("items")
-    private List<ItemVo> items;
+    @JsonProperty("modified_time")
+    private Date modifiedTime;
 
 }

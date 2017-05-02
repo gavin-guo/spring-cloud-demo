@@ -1,4 +1,4 @@
-package com.gavin.model.vo.address;
+package com.gavin.model.dto.address;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,8 +19,8 @@ import java.io.Serializable;
         "defaultFlag",
         "comment"})
 @Data
-@ApiModel(value = "AddressVo", description = "地址信息")
-public class AddressVo implements Serializable {
+@ApiModel(value = "AddressDto", description = "地址信息")
+public class AddressDto implements Serializable {
 
     @JsonProperty("id")
     private String id;

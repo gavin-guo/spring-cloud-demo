@@ -1,4 +1,4 @@
-package com.gavin.model.vo.point;
+package com.gavin.model.dto.point;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,7 +21,7 @@ import java.util.Date;
         "modifiedTime"})
 @Data
 @ApiModel(value = "Point", description = "积分信息")
-public class PointVo implements Serializable {
+public class PointDto implements Serializable {
 
     @JsonProperty("id")
     @ApiModelProperty(value = "积分ID", position = 1)

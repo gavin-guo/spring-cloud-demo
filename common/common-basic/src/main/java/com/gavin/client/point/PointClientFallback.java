@@ -2,7 +2,7 @@ package com.gavin.client.point;
 
 import com.gavin.constants.ResponseCodeConstants;
 import com.gavin.model.dto.point.FreezePointsDto;
-import com.gavin.model.response.StandardResponseBody;
+import com.gavin.model.StandardResponseBody;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
