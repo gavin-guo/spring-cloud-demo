@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
 
         UserDto userDto = modelMapper.map(userEntity, UserDto.class);
         userDto.setPassword(null);
-        log.debug("create user successfully. {}", new Gson().toJson(userDto));
+        log.info("create user successfully. {}", new Gson().toJson(userDto));
 
 //        // 记录到消息事件表。
 //        UserCreatedEvent userCreatedEvent = modelMapper.map(userEntity, UserCreatedEvent.class);

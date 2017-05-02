@@ -18,7 +18,7 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/user/loading", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/loading", method = RequestMethod.GET)
     @ApiIgnore
     public UserDto loadUserByLoginName(@RequestParam("login_name") String _loginName) {
         try {
