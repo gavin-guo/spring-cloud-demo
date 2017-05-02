@@ -8,8 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "POINT_REWARD_PLAN", schema = "SCHEMA_PRODUCT")
-@NamedQuery(name = "PointRewardPlanEntity.findAll", query = "SELECT p FROM PointRewardPlanEntity p")
+@Table(name = "POINT_REWARD_PLAN")
 @DynamicInsert
 @Data
 public class PointRewardPlanEntity {

@@ -9,8 +9,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "PRODUCT", schema = "SCHEMA_PRODUCT")
-@NamedQuery(name = "ProductEntity.findAll", query = "SELECT p FROM ProductEntity p")
+@Table(name = "PRODUCT")
 @DynamicInsert
 @DynamicUpdate
 @Data
