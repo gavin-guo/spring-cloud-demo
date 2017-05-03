@@ -48,7 +48,7 @@ public class ProductController {
             @ApiParam(name = "page_size", value = "每页显示记录数", required = true) @RequestParam("page_size") Integer _pageSize) {
 
         PageRequest pageRequest = new PageRequest(
-                _currentPage,
+                _currentPage - 1,
                 _pageSize,
                 new Sort(Sort.Direction.ASC, "id")
         );

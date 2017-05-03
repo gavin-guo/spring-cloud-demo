@@ -134,7 +134,7 @@ public class ProductServiceImpl implements ProductService {
                     }
 
                     // 从该商品的库存中冻结与订单相应的数目。
-                    productEntity.setStocks(productEntity.getStocks() - item.getQuantity());
+//                    productEntity.setStocks(productEntity.getStocks() - item.getQuantity());
                     productRepository.save(productEntity);
 
                     // 记录到预约信息表中。
@@ -157,7 +157,7 @@ public class ProductServiceImpl implements ProductService {
                 }
         );
 
-        log.info("create products successfully. {}", new Gson().toJson(reserveProductsDtos));
+        log.info("reserve products successfully. {}", new Gson().toJson(reserveProductsDtos));
 
         return reserveProductsDtos;
     }
