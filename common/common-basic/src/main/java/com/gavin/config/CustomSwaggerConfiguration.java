@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 
 @Configuration
 @ConditionalOnClass({EnableSwagger2.class})
-public class SwaggerConfiguration {
+public class CustomSwaggerConfiguration {
 
     @Bean
     public Docket customImplementation() {

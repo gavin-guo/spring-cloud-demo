@@ -10,7 +10,7 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
-public class DistributedLockConfiguration {
+public class CustomDistributedLockConfiguration {
 
     @Autowired
     private RedisProperties redisProperties;

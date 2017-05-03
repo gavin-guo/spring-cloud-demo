@@ -8,7 +8,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 @Configuration
-public class TaskExecutorConfiguration {
+public class CustomTaskExecutorConfiguration {
 
     private final int corePoolSize = 10;
     private final int maxPoolSize = 200;

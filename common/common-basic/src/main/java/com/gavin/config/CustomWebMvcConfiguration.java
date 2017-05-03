@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 //@ConditionalOnBean(name = "customRedisTemplate")
-public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
+public class CustomWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired
     @Qualifier("customRedisTemplate")
