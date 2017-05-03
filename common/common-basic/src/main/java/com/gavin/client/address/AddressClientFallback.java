@@ -1,7 +1,7 @@
 package com.gavin.client.address;
 
 import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.model.StandardResponseBody;
+import com.gavin.model.CustomResponseBody;
 import com.gavin.model.dto.address.AddressDto;
 import org.springframework.stereotype.Component;
 
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 public class AddressClientFallback implements AddressClient {
 
     @Override
-    public StandardResponseBody<AddressDto> findAddressById(String _addressId) {
-        StandardResponseBody<AddressDto> response = new StandardResponseBody<>();
+    public CustomResponseBody<AddressDto> findAddressById(String _addressId) {
+        CustomResponseBody<AddressDto> response = new CustomResponseBody<>();
         response.setResultCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
         return response;
     }

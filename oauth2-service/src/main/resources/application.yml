@@ -40,3 +40,4 @@ flyway:
 logging:
   level:
     org.springframework.security: DEBUG
+    com.gavin.client.UserClient: DEBUG

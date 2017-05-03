@@ -1,22 +1,22 @@
 package com.gavin.utility;
 
 import com.gavin.exception.CustomException;
-import com.gavin.model.StandardResponseBody;
+import com.gavin.model.CustomResponseBody;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public class ResponseExceptionTranslator {
 
-    public static ResponseEntity<StandardResponseBody> translate(Exception e) {
+    public static ResponseEntity<CustomResponseBody> translate(Exception e) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Cache-Control", "no-store");
         headers.set("Pragma", "no-cache");
 
-        StandardResponseBody body = new StandardResponseBody();
+        CustomResponseBody body = new CustomResponseBody();
 
-        ResponseEntity<StandardResponseBody> response;
+        ResponseEntity<CustomResponseBody> response;
         HttpStatus httpStatus;
         if (e instanceof CustomException) {
             CustomException ce = (CustomException) e;

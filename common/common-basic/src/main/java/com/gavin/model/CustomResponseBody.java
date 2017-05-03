@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @ApiModel(value = "Response", description = "返回结果")
-public class StandardResponseBody<T> implements Serializable {
+public class CustomResponseBody<T> implements Serializable {
 
     @JsonProperty("result_code")
     @ApiModelProperty(value = "执行结果CODE", position = 1)
