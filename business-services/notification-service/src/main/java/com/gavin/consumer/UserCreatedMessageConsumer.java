@@ -1,5 +1,6 @@
-package com.gavin.message.consumer;
+package com.gavin.consumer;
 
+import com.gavin.base.MessageConsumer;
 import com.gavin.enums.MessageableEventStatusEnums;
 import com.gavin.event.UserCreatedEvent;
 import com.gavin.exception.EmailSendingException;
@@ -25,27 +26,16 @@ import java.util.concurrent.Executor;
 @EnableBinding(UserCreatedProcessor.class)
 @Component
 @Slf4j
-public class UserCreatedMessageConsumer {
-
-    private final Executor executor;
-
-    private final ModelMapper modelMapper;
-
-    private final MailService mailService;
-
-    private final EventService<UserCreatedEvent> eventService;
+public class UserCreatedMessageConsumer implements MessageConsumer<UserCreatedPayload> {
 
     @Autowired
-    public UserCreatedMessageConsumer(
-            @Qualifier("poolTaskExecutor") Executor executor,
-            ModelMapper modelMapper,
-            MailService mailService,
-            EventService<UserCreatedEvent> eventService) {
-        this.executor = executor;
-        this.modelMapper = modelMapper;
-        this.mailService = mailService;
-        this.eventService = eventService;
-    }
+    private Executor executor;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private MailService mailService;
 
     @StreamListener(UserCreatedProcessor.INPUT)
     @Transactional
@@ -80,5 +70,6 @@ public class UserCreatedMessageConsumer {
             throw new EmailSendingException();
         }
     }
+
 
 }
