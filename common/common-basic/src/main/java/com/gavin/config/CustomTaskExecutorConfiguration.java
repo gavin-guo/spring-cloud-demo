@@ -1,5 +1,6 @@
 package com.gavin.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -16,6 +17,7 @@ public class CustomTaskExecutorConfiguration {
     private final String ThreadNamePrefix = "PoolTaskExecutor-";
 
     @Bean
+    @Qualifier("poolTaskExecutor")
     public Executor poolTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(corePoolSize);

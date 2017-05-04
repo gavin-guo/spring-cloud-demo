@@ -1,8 +1,10 @@
 package com.gavin.service;
 
 import com.gavin.model.UserCreatedMailDto;
+import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 public interface MailService {
@@ -14,6 +16,6 @@ public interface MailService {
      * @throws MessagingException
      * @throws UnsupportedEncodingException
      */
-    void sendUserCreatedNotificationMail(UserCreatedMailDto _mailDto) throws MessagingException, UnsupportedEncodingException;
+    void sendUserCreatedNotificationMail(UserCreatedMailDto _mailDto) throws MessagingException, IOException, TemplateException;
 
 }

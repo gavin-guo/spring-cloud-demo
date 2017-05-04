@@ -2,8 +2,8 @@ package com.gavin.service.impl;
 
 import com.gavin.model.UserCreatedMailDto;
 import com.gavin.service.MailService;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -13,11 +13,15 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.StringWriter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RefreshScope
@@ -27,7 +31,7 @@ public class MailServiceImpl implements MailService {
     private JavaMailSender mailSender;
 
     @Autowired
-    private VelocityEngine velocityEngine;
+    private FreeMarkerConfigurer freeMarkerConfigurer;
 
     @Value("${mail.from}")
     private String mailFrom;
@@ -39,7 +43,7 @@ public class MailServiceImpl implements MailService {
             maxAttempts = 5,
             backoff = @Backoff(delay = 100, maxDelay = 500))
     @Override
-    public void sendUserCreatedNotificationMail(UserCreatedMailDto _mailDto) throws MessagingException, UnsupportedEncodingException {
+    public void sendUserCreatedNotificationMail(UserCreatedMailDto _mailDto) throws MessagingException, IOException, TemplateException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
@@ -47,12 +51,12 @@ public class MailServiceImpl implements MailService {
         helper.setTo(_mailDto.getEmail());
         helper.setSubject("您的帐号创建成功");
 
-        VelocityContext context = new VelocityContext();
-        context.put("param", _mailDto);
+        Template template = freeMarkerConfigurer.getConfiguration().getTemplate("user_created_notification.ftl");
 
-        StringWriter stringWriter = new StringWriter();
-        velocityEngine.mergeTemplate("user_created_notification.vm", mailEncoding, context, stringWriter);
-        helper.setText(stringWriter.toString(), true);
+        Map<String, UserCreatedMailDto> map = new HashMap<>();
+        map.put("param", _mailDto);
+        String text = FreeMarkerTemplateUtils.processTemplateIntoString(template, map);
+        helper.setText(text, true);
 
         mailSender.send(mimeMessage);
     }
