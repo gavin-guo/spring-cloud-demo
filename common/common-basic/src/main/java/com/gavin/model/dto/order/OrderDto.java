@@ -19,7 +19,7 @@ import java.util.Date;
         "createdTime",
         "modifiedTime"})
 @Data
-public class OrderVo implements Serializable {
+public class OrderDto implements Serializable {
 
     @JsonProperty("id")
     private String id;
