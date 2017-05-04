@@ -20,8 +20,10 @@ import com.gavin.model.PageArgument;
 import com.gavin.model.Response;
 import com.gavin.model.dto.order.CreateOrderDto;
 import com.gavin.model.dto.order.ItemDto;
+import com.gavin.model.dto.order.OrderDetailsDto;
 import com.gavin.model.dto.point.FreezePointsDto;
 import com.gavin.model.dto.product.ProductReservationDto;
+import com.gavin.model.dto.product.ReserveProductsDto;
 import com.gavin.model.vo.address.AddressVo;
 import com.gavin.model.vo.order.OrderDetailsVo;
 import com.gavin.model.vo.order.OrderVo;
@@ -34,8 +36,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -48,56 +52,41 @@ import java.util.stream.Collectors;
 @Slf4j
 public class OrderServiceImpl implements OrderService {
 
-    private final ModelMapper modelMapper;
-
-    private final AddressClient addressClient;
-
-    private final ProductClient productClient;
-
-    private final PointClient pointClient;
-
-    private final CancelReservationMessageProducer cancelReservationMessageProducer;
-
-    private final WaitingForPaymentMessageProducer waitingForPaymentMessageProducer;
-
-    private final ArrangeShipmentMessageProducer arrangeShipmentMessageProducer;
-
-    private final EventService<CancelReservationEvent> cancelReservationEventService;
-
-    private final EventService<ArrangeShipmentEvent> arrangeShipmentEventService;
-
-    private final EventService<WaitingForPaymentEvent> waitingForPaymentEventService;
-
-    private final OrderRepository orderRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Autowired
-    public OrderServiceImpl(
-            ModelMapper modelMapper,
-            AddressClient addressClient,
-            ProductClient productClient,
-            PointClient pointClient,
-            CancelReservationMessageProducer cancelReservationMessageProducer,
-            WaitingForPaymentMessageProducer waitingForPaymentMessageProducer,
-            ArrangeShipmentMessageProducer arrangeShipmentMessageProducer,
-            EventService<CancelReservationEvent> cancelReservationEventService,
-            EventService<ArrangeShipmentEvent> arrangeShipmentEventService,
-            EventService<WaitingForPaymentEvent> waitingForPaymentEventService,
-            OrderRepository orderRepository) {
-        this.modelMapper = modelMapper;
-        this.addressClient = addressClient;
-        this.productClient = productClient;
-        this.pointClient = pointClient;
-        this.cancelReservationMessageProducer = cancelReservationMessageProducer;
-        this.waitingForPaymentMessageProducer = waitingForPaymentMessageProducer;
-        this.arrangeShipmentMessageProducer = arrangeShipmentMessageProducer;
-        this.cancelReservationEventService = cancelReservationEventService;
-        this.arrangeShipmentEventService = arrangeShipmentEventService;
-        this.waitingForPaymentEventService = waitingForPaymentEventService;
-        this.orderRepository = orderRepository;
-    }
+    private AddressClient addressClient;
+
+    @Autowired
+    private ProductClient productClient;
+
+    @Autowired
+    private PointClient pointClient;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+//    private final CancelReservationMessageProducer cancelReservationMessageProducer;
+//
+//    private final WaitingForPaymentMessageProducer waitingForPaymentMessageProducer;
+//
+//    private final ArrangeShipmentMessageProducer arrangeShipmentMessageProducer;
+//
+//    private final EventService<CancelReservationEvent> cancelReservationEventService;
+//
+//    private final EventService<ArrangeShipmentEvent> arrangeShipmentEventService;
+//
+//    private final EventService<WaitingForPaymentEvent> waitingForPaymentEventService;
 
     @Override
-    public OrderDetailsVo createOrder(CreateOrderDto _order) {
+    public OrderDetailsDto createOrder(CreateOrderDto _order) {
+
+        return new OrderBuilder(_order.getUserId())
+                .direction(_order.getAddressId())
+                .reserveProducts(_order.getItems())
+                .build();
+
         // 获得收件人姓名和地址。
         DirectionDto direction = getRecipientDirection(_order.getAddressId());
         // 创建临时订单。
@@ -128,12 +117,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 创建的订单ID
      */
     private String createProvisionalOrder(String _userId) {
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setUserId(_userId);
-        orderEntity.setStatus(OrderStatusEnums.CREATED);
 
-        orderRepository.save(orderEntity);
-        return orderEntity.getId();
     }
 
     /**
@@ -399,6 +383,45 @@ public class OrderServiceImpl implements OrderService {
                 MessageableEventStatusEnums.PUBLISHED);
 
         return waitingForPaymentMessageProducer.sendMessage(_event);
+    }
+
+    private class OrderBuilder {
+
+        private String orderId;
+
+        private DirectionDto direction;
+
+        private List<ReserveProductsDto> products;
+
+        private OrderEntity orderEntity;
+
+        OrderBuilder(String _userId) {
+            orderEntity = new OrderEntity();
+            orderEntity.setUserId(_userId);
+            orderEntity.setStatus(OrderStatusEnums.CREATED);
+
+            orderRepository.save(orderEntity);
+            this.orderId = orderEntity.getId();
+        }
+
+        OrderBuilder direction(String _addressId) {
+
+            return this;
+        }
+
+        OrderBuilder reserveProducts(List<ItemDto> _items) {
+            Assert.notNull(orderId, "orderId must not be null");
+            Assert.notNull(direction, "direction must not be null");
+
+            return this;
+        }
+
+        private OrderDetailsDto build() {
+
+            return null;
+        }
+
+
     }
 
 }

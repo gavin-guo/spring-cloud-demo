@@ -7,6 +7,7 @@ import com.gavin.event.CancelReservationEvent;
 import com.gavin.event.WaitingForPaymentEvent;
 import com.gavin.model.PageArgument;
 import com.gavin.model.dto.order.CreateOrderDto;
+import com.gavin.model.dto.order.OrderDetailsDto;
 import com.gavin.model.vo.order.OrderDetailsVo;
 import com.gavin.model.vo.order.OrderVo;
 
@@ -21,7 +22,7 @@ public interface OrderService {
      * @param _order
      * @return
      */
-    OrderDetailsVo createOrder(CreateOrderDto _order);
+    OrderDetailsDto createOrder(CreateOrderDto _order);
 
     /**
      * 更新订单状态。
