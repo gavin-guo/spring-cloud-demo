@@ -6,8 +6,12 @@ import com.gavin.enums.AuthorityEnums;
 import com.gavin.enums.UserStatusEnums;
 import com.gavin.exception.RecordNotFoundException;
 import com.gavin.exception.UserExistingException;
+import com.gavin.messaging.UserActivatedProcessor;
+import com.gavin.messaging.UserCreatedProcessor;
 import com.gavin.model.dto.user.CreateUserDto;
 import com.gavin.model.dto.user.UserDto;
+import com.gavin.payload.UserActivatedPayload;
+import com.gavin.payload.UserCreatedPayload;
 import com.gavin.repository.UserAuthorityRepository;
 import com.gavin.repository.UserRepository;
 import com.gavin.service.UserService;
@@ -15,6 +19,8 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,17 +36,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-//    @Autowired
-//    private UserCreatedMessageProducer userCreatedMessageProducer;
-//
-//    @Autowired
-//    private final UserActivatedMessageProducer userActivatedMessageProducer;
-//
-//    @Autowired
-//    private final EventService<UserCreatedEvent> userCreatedEventService;
-//
-//    @Autowired
-//    private final EventService<UserActivatedEvent> userActivatedEventService;
+    @Autowired
+    private UserCreatedProcessor userCreatedProcessor;
+
+    @Autowired
+    private UserActivatedProcessor userActivatedProcessor;
 
     @Autowired
     private UserRepository userRepository;
@@ -77,11 +77,11 @@ public class UserServiceImpl implements UserService {
         userDto.setPassword(null);
         log.info("create user successfully. {}", new Gson().toJson(userDto));
 
-//        // 记录到消息事件表。
-//        UserCreatedEvent userCreatedEvent = modelMapper.map(userEntity, UserCreatedEvent.class);
-//        userCreatedEvent.setUserId(userEntity.getId());
-//
-//        userCreatedEventService.saveEvent(userCreatedEvent, MessageableEventStatusEnums.NEW);
+        // 发送消息至notification-service。
+        UserCreatedPayload payload = modelMapper.map(userEntity, UserCreatedPayload.class);
+        payload.setUserId(userEntity.getId());
+        Message<UserCreatedPayload> message = MessageBuilder.withPayload(payload).build();
+        userCreatedProcessor.output().send(message);
 
         return userDto;
     }
@@ -100,10 +100,11 @@ public class UserServiceImpl implements UserService {
         userEntity.setStatus(UserStatusEnums.ENABLED);
         userRepository.save(userEntity);
 
-//        // 记录到消息事件表。
-//        UserActivatedEvent userActivatedEvent = new UserActivatedEvent();
-//        userActivatedEvent.setUserId(userEntity.getId());
-//        userActivatedEventService.saveEvent(userActivatedEvent, MessageableEventStatusEnums.NEW);
+        UserActivatedPayload payload = new UserActivatedPayload();
+        payload.setUserId(_userId);
+
+        Message<UserActivatedPayload> message = MessageBuilder.withPayload(payload).build();
+        userActivatedProcessor.output().send(message);
     }
 
     @Override
@@ -138,25 +139,5 @@ public class UserServiceImpl implements UserService {
 
         return modelMapper.map(userEntity, UserDto.class);
     }
-
-//    @Override
-//    @Transactional
-//    public boolean publishUserCreatedEvent(UserCreatedEvent _event) {
-//        userCreatedEventService.updateEventStatusById(
-//                _event.getOriginId(),
-//                MessageableEventStatusEnums.PUBLISHED);
-//
-//        return userCreatedMessageProducer.sendMessage(_event);
-//    }
-//
-//    @Override
-//    @Transactional
-//    public boolean publishUserActivatedEvent(UserActivatedEvent _event) {
-//        userActivatedEventService.updateEventStatusById(
-//                _event.getOriginId(),
-//                MessageableEventStatusEnums.PUBLISHED);
-//
-//        return userActivatedMessageProducer.sendMessage(_event);
-//    }
 
 }
