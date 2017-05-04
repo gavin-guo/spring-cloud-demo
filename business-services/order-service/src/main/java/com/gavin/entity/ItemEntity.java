@@ -6,8 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ITEM", schema = "SCHEMA_ORDER")
-@NamedQuery(name = "ItemEntity.findAll", query = "SELECT i FROM ItemEntity i")
+@Table(name = "ITEM")
 @Data
 public class ItemEntity {
 

@@ -1,8 +1,8 @@
 package com.gavin.config;
 
 import com.gavin.entity.OrderEntity;
-import com.gavin.model.vo.order.ItemVo;
-import com.gavin.model.vo.order.OrderDetailsVo;
+import com.gavin.model.dto.order.ItemDto;
+import com.gavin.model.dto.order.OrderDetailsDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -19,9 +19,9 @@ public class ModelMapperConfiguration {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        modelMapper.createTypeMap(OrderEntity.class, OrderDetailsVo.class).setConverter(context -> {
+        modelMapper.createTypeMap(OrderEntity.class, OrderDetailsDto.class).setConverter(context -> {
             OrderEntity source = context.getSource();
-            OrderDetailsVo destination = new OrderDetailsVo();
+            OrderDetailsDto destination = new OrderDetailsDto();
 
             destination.setId(source.getId());
             destination.setUserId(source.getUserId());
@@ -32,10 +32,10 @@ public class ModelMapperConfiguration {
             destination.setAddress(source.getAddress());
             destination.setPhoneNumber(source.getPhoneNumber());
 
-            List<ItemVo> itemVos = new ArrayList<>();
+            List<ItemDto> itemVos = new ArrayList<>();
             source.getItemEntities().forEach(
                     itemEntity -> {
-                        ItemVo itemVo = new ItemVo();
+                        ItemDto itemVo = new ItemDto();
                         itemVo.setId(itemEntity.getId());
                         itemVo.setProductId(itemEntity.getProductId());
                         itemVo.setQuantity(itemEntity.getQuantity());

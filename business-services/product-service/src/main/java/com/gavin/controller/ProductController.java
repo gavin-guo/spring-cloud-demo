@@ -4,7 +4,7 @@ import com.gavin.model.PageResult;
 import com.gavin.model.dto.order.ItemDto;
 import com.gavin.model.dto.product.CreateProductDto;
 import com.gavin.model.dto.product.ProductDto;
-import com.gavin.model.dto.product.ReserveProductsDto;
+import com.gavin.model.dto.product.ReservedProductDto;
 import com.gavin.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -58,7 +58,7 @@ public class ProductController {
 
     @RequestMapping(value = "/products/reservation", method = RequestMethod.PUT)
     @ApiOperation(value = "为订单保留指定类型和数量的商品")
-    public List<ReserveProductsDto> reserveProducts(
+    public List<ReservedProductDto> reserveProducts(
             @ApiParam(name = "order_id", value = "订单ID", required = true) @RequestParam("order_id") String _orderId,
             @ApiParam(name = "items", value = "要预约的商品", required = true) @Valid @RequestBody List<ItemDto> _items) {
         return productService.reserveProducts(_orderId, _items);

@@ -14,8 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "`ORDER`", schema = "SCHEMA_ORDER")
-@NamedQuery(name = "OrderEntity.findAll", query = "SELECT o FROM OrderEntity o")
+@Table(name = "`ORDER`")
 @DynamicInsert
 @DynamicUpdate
 @Data

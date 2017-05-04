@@ -4,7 +4,7 @@ import com.gavin.model.PageResult;
 import com.gavin.model.dto.order.ItemDto;
 import com.gavin.model.dto.product.CreateProductDto;
 import com.gavin.model.dto.product.ProductDto;
-import com.gavin.model.dto.product.ReserveProductsDto;
+import com.gavin.model.dto.product.ReservedProductDto;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public interface ProductService {
      * @param _items
      * @return
      */
-    List<ReserveProductsDto> reserveProducts(String _orderId, List<ItemDto> _items);
+    List<ReservedProductDto> reserveProducts(String _orderId, List<ItemDto> _items);
 
     /**
      * 取消商品的预约。

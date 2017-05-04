@@ -9,7 +9,7 @@ import com.gavin.model.PageResult;
 import com.gavin.model.dto.order.ItemDto;
 import com.gavin.model.dto.product.CreateProductDto;
 import com.gavin.model.dto.product.ProductDto;
-import com.gavin.model.dto.product.ReserveProductsDto;
+import com.gavin.model.dto.product.ReservedProductDto;
 import com.gavin.repository.CategoryRepository;
 import com.gavin.repository.PointRewardPlanRepository;
 import com.gavin.repository.ProductRepository;
@@ -104,7 +104,7 @@ public class ProductServiceImpl implements ProductService {
         );
 
         PageResult<ProductDto> pageResult = new PageResult<>();
-        pageResult.setContents(productDtos);
+        pageResult.setRecords(productDtos);
         pageResult.setTotalPages(productEntities.getTotalPages());
         pageResult.setTotalElements(productEntities.getTotalElements());
 
@@ -113,14 +113,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public List<ReserveProductsDto> reserveProducts(String _orderId, List<ItemDto> _items) {
+    public List<ReservedProductDto> reserveProducts(String _orderId, List<ItemDto> _items) {
         List<String> productIds = _items.stream().map(ItemDto::getProductId).collect(Collectors.toList());
 
         List<ProductEntity> productEntities = productRepository.findAll(productIds);
         Map<String, ProductEntity> productIdEntityMap = productEntities.stream().collect(
                 Collectors.toMap(ProductEntity::getId, productEntity -> productEntity));
 
-        List<ReserveProductsDto> reserveProductsDtos = new ArrayList<>();
+        List<ReservedProductDto> reservedProductDtos = new ArrayList<>();
 
         _items.forEach(
                 item -> {
@@ -144,22 +144,22 @@ public class ProductServiceImpl implements ProductService {
                     productReservationEntity.setQuantity(item.getQuantity());
                     productReservationRepository.save(productReservationEntity);
 
-                    ReserveProductsDto reserveProductsDto = new ReserveProductsDto();
-                    reserveProductsDto.setProductId(productId);
-                    reserveProductsDto.setPrice(productEntity.getPrice());
-                    reserveProductsDto.setQuantity(item.getQuantity());
+                    ReservedProductDto reservedProductDto = new ReservedProductDto();
+                    reservedProductDto.setProductId(productId);
+                    reservedProductDto.setPrice(productEntity.getPrice());
+                    reservedProductDto.setQuantity(item.getQuantity());
 
                     // 查找该商品是否有处于有效期内的返点比例设置。
                     pointRewardPlanRepository.findApplicablePlanByProductId(productId)
-                            .ifPresent(pointRewardPlanEntity -> reserveProductsDto.setRatio(pointRewardPlanEntity.getRatio()));
+                            .ifPresent(pointRewardPlanEntity -> reservedProductDto.setRatio(pointRewardPlanEntity.getRatio()));
 
-                    reserveProductsDtos.add(reserveProductsDto);
+                    reservedProductDtos.add(reservedProductDto);
                 }
         );
 
-        log.info("reserve products successfully. {}", new Gson().toJson(reserveProductsDtos));
+        log.info("reserve products successfully. {}", new Gson().toJson(reservedProductDtos));
 
-        return reserveProductsDtos;
+        return reservedProductDtos;
     }
 
     @Override
