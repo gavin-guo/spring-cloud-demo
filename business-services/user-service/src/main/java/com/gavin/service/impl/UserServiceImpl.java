@@ -37,16 +37,16 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
 
     @Autowired
-    private UserCreatedProcessor userCreatedProcessor;
-
-    @Autowired
-    private UserActivatedProcessor userActivatedProcessor;
-
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private UserAuthorityRepository userAuthorityRepository;
+
+    @Autowired
+    private UserCreatedProcessor userCreatedProcessor;
+
+    @Autowired
+    private UserActivatedProcessor userActivatedProcessor;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -100,9 +100,9 @@ public class UserServiceImpl implements UserService {
         userEntity.setStatus(UserStatusEnums.ENABLED);
         userRepository.save(userEntity);
 
+        // 发送消息至point-service。
         UserActivatedPayload payload = new UserActivatedPayload();
         payload.setUserId(_userId);
-
         Message<UserActivatedPayload> message = MessageBuilder.withPayload(payload).build();
         userActivatedProcessor.output().send(message);
     }
