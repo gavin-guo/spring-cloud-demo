@@ -16,7 +16,7 @@
 
     <modules>
         <module>common-basic</module>
-        <module>common-event</module>
+        <module>common-stream</module>
     </modules>
 
 </project>
