@@ -64,7 +64,7 @@
             </dependency>
             <dependency>
                 <groupId>com.gavin</groupId>
-                <artifactId>common-event</artifactId>
+                <artifactId>common-stream</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
