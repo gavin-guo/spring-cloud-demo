@@ -36,7 +36,5 @@ flyway:
   encoding: utf8
   validate-on-migrate: true
 
-micro:
-  service:
-    mail:
-      from: micro_service@yeah.net
+mail:
+  from: micro_service@yeah.net

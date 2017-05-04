@@ -1,7 +1,18 @@
 package com.gavin.model;
 
-/**
- * Created by Gavin on 04/05/2017.
- */
+import lombok.Data;
+
+@Data
 public class UserCreatedMailDto {
+
+    private String userId;
+
+    private String loginName;
+
+    private String nickName;
+
+    private String email;
+
+    private String phone;
+
 }

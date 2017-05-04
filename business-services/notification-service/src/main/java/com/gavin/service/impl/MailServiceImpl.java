@@ -1,6 +1,6 @@
 package com.gavin.service.impl;
 
-import com.gavin.event.UserCreatedEvent;
+import com.gavin.model.UserCreatedMailDto;
 import com.gavin.service.MailService;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -23,38 +23,32 @@ import java.io.UnsupportedEncodingException;
 @RefreshScope
 public class MailServiceImpl implements MailService {
 
-    private final JavaMailSender mailSender;
+    @Autowired
+    private JavaMailSender mailSender;
 
-    private final VelocityEngine velocityEngine;
+    @Autowired
+    private VelocityEngine velocityEngine;
 
-    @Value("${micro.service.mail.from}")
+    @Value("${mail.from}")
     private String mailFrom;
 
     private final String mailEncoding = "UTF-8";
-
-    @Autowired
-    public MailServiceImpl(
-            JavaMailSender mailSender,
-            VelocityEngine velocityEngine) {
-        this.mailSender = mailSender;
-        this.velocityEngine = velocityEngine;
-    }
 
     @Retryable(
             value = {MessagingException.class, UnsupportedEncodingException.class, MailException.class},
             maxAttempts = 5,
             backoff = @Backoff(delay = 100, maxDelay = 500))
     @Override
-    public void sendUserCreatedNotificationMail(UserCreatedEvent _event) throws MessagingException, UnsupportedEncodingException {
+    public void sendUserCreatedNotificationMail(UserCreatedMailDto _mailDto) throws MessagingException, UnsupportedEncodingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-        helper.setFrom(mailFrom, "Microservice Demo");
-        helper.setTo(_event.getEmail());
-        helper.setSubject("您在Microservice的帐号创建成功");
+        helper.setFrom(mailFrom, "Spring Cloud Demo");
+        helper.setTo(_mailDto.getEmail());
+        helper.setSubject("您的帐号创建成功");
 
         VelocityContext context = new VelocityContext();
-        context.put("param", _event);
+        context.put("param", _mailDto);
 
         StringWriter stringWriter = new StringWriter();
         velocityEngine.mergeTemplate("user_created_notification.vm", mailEncoding, context, stringWriter);

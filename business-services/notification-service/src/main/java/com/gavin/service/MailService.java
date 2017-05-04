@@ -1,6 +1,6 @@
 package com.gavin.service;
 
-import com.gavin.event.UserCreatedEvent;
+import com.gavin.model.UserCreatedMailDto;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -10,10 +10,10 @@ public interface MailService {
     /**
      * 发送用户帐号已创建的通知邮件。
      *
-     * @param _event
+     * @param _mailDto
      * @throws MessagingException
      * @throws UnsupportedEncodingException
      */
-    void sendUserCreatedNotificationMail(UserCreatedEvent _event) throws MessagingException, UnsupportedEncodingException;
+    void sendUserCreatedNotificationMail(UserCreatedMailDto _mailDto) throws MessagingException, UnsupportedEncodingException;
 
 }

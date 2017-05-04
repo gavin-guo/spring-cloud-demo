@@ -2,12 +2,12 @@ package com.gavin.exception;
 
 public abstract class CustomException extends RuntimeException {
 
-    protected CustomException(String msg, Throwable t) {
-        super(msg, t);
+    public CustomException(String message, Throwable t) {
+        super(message, t);
     }
 
-    protected CustomException(String msg) {
-        super(msg);
+    public CustomException(String message) {
+        super(message);
     }
 
     public int getHttpCode() {
