@@ -1,0 +1,134 @@
+version: '2'
+
+services:
+
+  mysql:
+    image: mysql:5.6
+    container_name: mysql
+    restart: always
+    volumes:
+      - /Users/Gavin/Developer/storage/mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=mysql
+      - MYSQL_ROOT_PASSWORD=root
+
+  rabbitmq:
+    image: rabbitmq:3.6.5-management
+    container_name: rabbitmq
+    restart: always
+    volumes:
+      - /Users/Gavin/Developer/storage/rabbitmq:/var/lib/rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  redis:
+    image: redis
+    container_name: redis
+    restart: always
+    volumes:
+      - /Users/Gavin/Developer/storage/redis:/data
+    ports:
+      - 6379:6379
+
+  zookeeper:
+    image: zookeeper
+    container_name: zookeeper
+    restart: always
+    ports:
+      - 2181:2181
+
+  eureka-service:
+    image: 192.168.1.88:5000/eureka-service
+    container_name: eureka-service
+    restart: always
+    ports:
+      - 8761:8761
+
+  config-service:
+    image: 192.168.1.88:5000/config-service
+    container_name: config-service
+    restart: always
+    ports:
+      - 8888:8888
+    links:
+      - eureka-service
+      - rabbitmq
+    environment:
+      - EUREKA_HOST=eureka-service
+      - RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - eureka-service
+
+  oauth2-service:
+    image: 192.168.1.88:5000/oauth2-service
+    container_name: oauth2-service
+    restart: always
+    ports:
+      - 9999:9999
+    links:
+      - eureka-service
+      - mysql
+      - redis
+    environment:
+      - EUREKA_HOST=eureka-service
+      - MYSQL_HOST=mysql
+      - REDIS_HOST=redis
+    depends_on:
+      - eureka-service
+      - mysql
+      - redis
+
+  zuul-service:
+    image: 192.168.1.88:5000/zuul-service
+    container_name: zuul-service
+    restart: always
+    ports:
+      - 8000:8000
+    links:
+      - eureka-service
+      - oauth2-service
+    environment:
+      - EUREKA_HOST=eureka-service
+      - OAUTH_HOST=oauth2-service
+    depends_on:
+      - eureka-service
+      - oauth2-service
+
+      
+#  registry:
+#    image: registry
+#    container_name: registry
+#    volumes:
+#      - /Users/Gavin/Developer/storage/registry:/var/lib/registry
+#    ports:
+#      - 5000:5000
+
+#  elasticsearch:
+#    image: elasticsearch
+#    container_name: elasticsearch
+#    volumes:
+#      - /Users/Gavin/Developer/storage/elasticsearch:/usr/share/elasticsearch/data
+#    ports:
+#      - 9200:9200
+#      - 9300:9300
+#
+#  logstash:
+#    image: logstash
+#    container_name: logstash
+#    command: logstash -e 'input { udp { port => 4560 codec => json } } output { elasticsearch { hosts => "elasticsearch:9200" } }'
+#    ports:
+#      - 4560:4560/udp
+#    links:
+#      - elasticsearch
+#
+#  kibana:
+#    image: kibana
+#    container_name: kibana
+#    ports:
+#      - 5601:5601
+#    links:
+#      - elasticsearch
