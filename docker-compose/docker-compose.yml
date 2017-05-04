@@ -98,7 +98,28 @@ services:
       - eureka-service
       - oauth2-service
 
-      
+  zipkin-service:
+    image: 192.168.1.88:5000/zipkin-service
+    container_name: zipkin-service
+    restart: always
+    ports:
+      - 9411:9411
+    environment:
+      - RABBITMQ_HOST=192.168.1.88
+      - EUREKA_HOST=192.168.1.88
+    depends_on:
+      - eureka-service
+
+  hystrix-dashboard:
+    image: 192.168.1.88:5000/hystrix-dashboard
+    container_name: hystrix-dashboard
+    restart: always
+    ports:
+      - 8989:8989
+      - 8990:8990
+
+
+
 #  registry:
 #    image: registry
 #    container_name: registry
