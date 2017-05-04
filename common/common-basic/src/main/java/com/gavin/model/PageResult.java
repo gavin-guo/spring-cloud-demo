@@ -13,6 +13,6 @@ public class PageResult<T> {
 
     int currentPage;
 
-    List<T> contents;
+    List<T> records;
 
 }

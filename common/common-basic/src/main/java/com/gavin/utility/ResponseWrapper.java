@@ -20,7 +20,7 @@ public class ResponseWrapper {
         } else if (body instanceof PageResult) {
             PageResult page = (PageResult) body;
             CustomResponseBody<Object> responseBody = new CustomResponseBody<>();
-            responseBody.setContents(page.getContents());
+            responseBody.setContents(page.getRecords());
             responseBody.setTotalRecords(page.getTotalElements());
             responseBody.setTotalPages(page.getCurrentPage());
             responseBody.setCurrentPage(page.getCurrentPage());

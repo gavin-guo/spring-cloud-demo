@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-public class ReserveProductsDto implements Serializable {
+public class ReservedProductDto implements Serializable {
 
     @JsonProperty("product_id")
     private String productId;
