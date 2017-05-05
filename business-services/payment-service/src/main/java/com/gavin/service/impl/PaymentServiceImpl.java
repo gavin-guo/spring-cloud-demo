@@ -68,6 +68,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         // 发送消息至order-service。
         PaymentSucceededPayload payload = new PaymentSucceededPayload();
+        payload.setOrderId(paymentEntity.getOrderId());
 
         Message<PaymentSucceededPayload> message = MessageBuilder.withPayload(payload).build();
         paymentSucceededProcessor.output().send(message);
