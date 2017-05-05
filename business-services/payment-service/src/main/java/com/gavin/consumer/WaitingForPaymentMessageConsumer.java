@@ -30,7 +30,7 @@ public class WaitingForPaymentMessageConsumer implements MessageConsumer<Waiting
     @StreamListener(WaitingForPaymentProcessor.INPUT)
     @Transactional
     public void receiveMessage(@Payload WaitingForPaymentPayload _payload) {
-        log.info("received waiting_for_payment message.", new Gson().toJson(_payload));
+        log.info("received waiting_for_payment message. {}", new Gson().toJson(_payload));
 
         CompletableFuture
                 .supplyAsync(() -> paymentService.createPayment(
@@ -39,7 +39,7 @@ public class WaitingForPaymentMessageConsumer implements MessageConsumer<Waiting
                         _payload.getAmount()
                 ), executor)
                 .thenAcceptAsync(paymentId ->
-                                log.info("create payment for order({}) successfully. payment_id={}.", _payload.getOrderId(), paymentId)
+                                log.info("create payment for order({}) successfully. payment_id={}", _payload.getOrderId(), paymentId)
                         , executor)
                 .exceptionally(e -> {
                     log.error(e.getMessage(), e);
