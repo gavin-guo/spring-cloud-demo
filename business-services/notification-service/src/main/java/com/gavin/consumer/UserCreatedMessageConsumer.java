@@ -1,9 +1,9 @@
 package com.gavin.consumer;
 
 import com.gavin.base.MessageConsumer;
+import com.gavin.dto.UserCreatedMailDto;
 import com.gavin.exception.EmailSendException;
 import com.gavin.messaging.UserCreatedProcessor;
-import com.gavin.model.UserCreatedMailDto;
 import com.gavin.payload.UserCreatedPayload;
 import com.gavin.service.MailService;
 import com.google.gson.Gson;

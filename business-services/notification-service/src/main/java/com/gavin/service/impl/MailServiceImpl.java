@@ -1,6 +1,6 @@
 package com.gavin.service.impl;
 
-import com.gavin.model.UserCreatedMailDto;
+import com.gavin.dto.UserCreatedMailDto;
 import com.gavin.service.MailService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

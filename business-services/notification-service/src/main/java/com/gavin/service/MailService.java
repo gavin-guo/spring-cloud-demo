@@ -1,6 +1,6 @@
 package com.gavin.service;
 
-import com.gavin.model.UserCreatedMailDto;
+import com.gavin.dto.UserCreatedMailDto;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;

@@ -1,4 +1,4 @@
-package com.gavin.model;
+package com.gavin.dto;
 
 import lombok.Data;
 
