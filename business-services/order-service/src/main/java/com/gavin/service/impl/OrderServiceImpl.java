@@ -207,6 +207,7 @@ public class OrderServiceImpl implements OrderService {
 
         // 发送消息至delivery-service。
         ArrangeShipmentPayload payload = modelMapper.map(orderEntity, ArrangeShipmentPayload.class);
+        payload.setOrderId(orderEntity.getId());
         Message<ArrangeShipmentPayload> message = MessageBuilder.withPayload(payload).build();
         arrangeShipmentProcessor.output().send(message);
     }
