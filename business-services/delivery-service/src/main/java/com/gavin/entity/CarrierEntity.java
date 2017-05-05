@@ -2,11 +2,13 @@ package com.gavin.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "CARRIER", schema = "SCHEMA_DELIVERY")
-@NamedQuery(name = "CarrierEntity.findAll", query = "SELECT c FROM CarrierEntity c")
+@Table(name = "CARRIER")
 @Data
 public class CarrierEntity {
 

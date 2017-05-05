@@ -6,7 +6,6 @@ import com.gavin.payload.ArrangeShipmentPayload;
 import com.gavin.service.DeliveryService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -20,9 +19,6 @@ import java.util.concurrent.Executor;
 @Component
 @Slf4j
 public class ArrangeShipmentMessageConsumer implements MessageConsumer<ArrangeShipmentPayload> {
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     @Autowired
     @Qualifier("poolTaskExecutor")

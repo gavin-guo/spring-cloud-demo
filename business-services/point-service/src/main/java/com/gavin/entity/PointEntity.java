@@ -34,7 +34,7 @@ public class PointEntity {
     @Column(name = "EXPIRE_DATE")
     private String expireDate;
 
-    @Version
+    //@Version
     @Column(name = "VERSION")
     private Long version;
 

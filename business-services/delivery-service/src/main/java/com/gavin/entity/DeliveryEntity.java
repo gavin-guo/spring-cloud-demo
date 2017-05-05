@@ -10,8 +10,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "DELIVERY", schema = "SCHEMA_DELIVERY")
-@NamedQuery(name = "DeliveryEntity.findAll", query = "SELECT d FROM DeliveryEntity d")
+@Table(name = "DELIVERY")
 @DynamicInsert
 @DynamicUpdate
 @Data
@@ -46,7 +45,7 @@ public class DeliveryEntity {
     @Column(name = "STATUS")
     private DeliveryStatusEnums status;
 
-    @Version
+    //@Version
     @Column(name = "VERSION")
     private Long version;
 
