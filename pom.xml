@@ -14,11 +14,11 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.2.RELEASE</version>
+        <version>1.5.3.RELEASE</version>
     </parent>
 
     <modules>
-        <module>common</module>
+        <module>common-library</module>
         <module>business-services</module>
         <module>eureka-service</module>
         <module>config-service</module>
@@ -59,12 +59,7 @@
 
             <dependency>
                 <groupId>com.gavin</groupId>
-                <artifactId>common-basic</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.gavin</groupId>
-                <artifactId>common-stream</artifactId>
+                <artifactId>common-library</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 

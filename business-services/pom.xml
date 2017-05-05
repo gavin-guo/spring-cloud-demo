@@ -28,11 +28,7 @@
     <dependencies>
         <dependency>
             <groupId>com.gavin</groupId>
-            <artifactId>common-basic</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.gavin</groupId>
-            <artifactId>common-stream</artifactId>
+            <artifactId>common-library</artifactId>
         </dependency>
 
         <dependency>
