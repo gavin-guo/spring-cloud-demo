@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,7 +27,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping(value = "/orders", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/orders", method = RequestMethod.POST)
     @ApiOperation(value = "创建订单")
     public OrderDetailsDto createOrder(
             @ApiParam(name = "order", value = "订单信息", required = true) @Valid @RequestBody CreateOrderDto _order,
@@ -36,14 +35,14 @@ public class OrderController {
         return orderService.createOrder(_order);
     }
 
-    @RequestMapping(value = "/orders/{order_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/orders/{order_id}", method = RequestMethod.GET)
     @ApiOperation(value = "查询单个订单信息")
     public OrderDetailsDto findOrderById(
             @ApiParam(name = "order_id", value = "订单ID", required = true) @PathVariable("order_id") String _orderId) {
         return orderService.findOrderById(_orderId);
     }
 
-    @RequestMapping(value = "/orders/user/{user_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/orders/user/{user_id}", method = RequestMethod.GET)
     @ApiOperation(value = "分页查询指定用户帐号下所有订单信息")
     public PageResult<OrderDto> findOrdersByAccountId(
             @ApiParam(name = "user_id", value = "用户ID", required = true) @PathVariable("user_id") String _userId,
