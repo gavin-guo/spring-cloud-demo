@@ -1,11 +1,11 @@
 package com.gavin.controller;
 
 import com.gavin.constants.RequestAttributeConstants;
-import com.gavin.dto.PageResult;
-import com.gavin.dto.dto.order.CreateOrderDto;
-import com.gavin.dto.dto.order.OrderDetailsDto;
-import com.gavin.dto.dto.order.OrderDto;
-import com.gavin.dto.dto.security.CurrentUser;
+import com.gavin.model.PageResult;
+import com.gavin.model.dto.order.CreateOrderDto;
+import com.gavin.model.dto.order.OrderDetailsDto;
+import com.gavin.model.dto.order.OrderDto;
+import com.gavin.model.dto.security.CurrentUser;
 import com.gavin.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 
 @RestController
 @Slf4j
@@ -56,31 +57,19 @@ public class OrderController {
         return orderService.findOrdersByUserId(_userId, pageRequest);
     }
 
-//    @RequestMapping(value = "/orders/{order_id}/cancellation", method = RequestMethod.PUT)
-//    @ApiOperation(value = "取消订单")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(paramType = "header", name = "Authorization", dataType = "String", required = true, value = "Token", defaultValue = "bearer ")
-//    })
-//    public Response cancelOrder(
-//            @ApiParam(name = "order_id", value = "要取消的订单ID", required = true) @PathVariable("order_id") String _orderId) {
-//        Response response = new Response(ResponseCodeConstants.SUCCESS);
-//
-//        orderService.cancelOrder(_orderId);
-//        return response;
-//    }
-//
-//    @RequestMapping(value = "/orders/{order_id}/payment", method = RequestMethod.PUT)
-//    @ApiOperation(value = "支付订单")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(paramType = "header", name = "Authorization", dataType = "String", required = true, value = "Token", defaultValue = "bearer ")
-//    })
-//    public Response payOrder(
-//            @ApiParam(name = "order_id", value = "要支付的订单ID", required = true) @PathVariable("order_id") String _orderId,
-//            @ApiParam(name = "points_amount", value = "使用积分数量") @RequestParam(name = "points_amount", required = false) BigDecimal _pointsAmount) {
-//        Response response = new Response(ResponseCodeConstants.SUCCESS);
-//
-//        orderService.payOrder(_orderId, _pointsAmount);
-//        return response;
-//    }
+    @RequestMapping(value = "/orders/cancellation", method = RequestMethod.PUT)
+    @ApiOperation(value = "取消订单")
+    public void cancelOrder(
+            @ApiParam(name = "order_id", value = "要取消的订单ID", required = true) @RequestParam("order_id") String _orderId) {
+        orderService.cancelOrder(_orderId);
+    }
+
+    @RequestMapping(value = "/orders/payment", method = RequestMethod.PUT)
+    @ApiOperation(value = "支付订单")
+    public void payOrder(
+            @ApiParam(name = "order_id", value = "要支付的订单ID", required = true) @RequestParam("order_id") String _orderId,
+            @ApiParam(name = "points_amount", value = "使用积分数量") @RequestParam(name = "points_amount", required = false) BigDecimal _pointsAmount) {
+        orderService.payOrder(_orderId, _pointsAmount);
+    }
 
 }

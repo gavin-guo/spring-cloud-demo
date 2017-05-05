@@ -1,11 +1,11 @@
 package com.gavin.service;
 
 import com.gavin.dto.DirectionDto;
-import com.gavin.dto.PageResult;
-import com.gavin.dto.dto.order.CreateOrderDto;
-import com.gavin.dto.dto.order.OrderDetailsDto;
-import com.gavin.dto.dto.order.OrderDto;
 import com.gavin.enums.OrderStatusEnums;
+import com.gavin.model.PageResult;
+import com.gavin.model.dto.order.CreateOrderDto;
+import com.gavin.model.dto.order.OrderDetailsDto;
+import com.gavin.model.dto.order.OrderDto;
 import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;

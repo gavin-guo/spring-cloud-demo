@@ -48,7 +48,7 @@ public class OrderEntity {
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
-    @Version
+    //@Version
     @Column(name = "VERSION")
     private Long version;
 
