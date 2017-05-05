@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class PointClientFallback implements PointClient {
 
     @Override
-    public CustomResponseBody<BigDecimal> queryUsableAmount(String _accountId) {
+    public CustomResponseBody<BigDecimal> calculateUsableAmount(String _userId) {
         CustomResponseBody<BigDecimal> response = new CustomResponseBody<>();
         response.setResultCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
         return response;

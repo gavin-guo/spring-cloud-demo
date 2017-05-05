@@ -21,9 +21,8 @@ public class PointController {
     private PointService pointService;
 
     @RequestMapping(value = "/points/calculation", method = RequestMethod.GET)
-//    @PreAuthorize("#oauth2.hasScope('server') or hasAuthority('AUTH_USER_READ')")
     @ApiOperation(value = "查询指定账户内当前可用积分数")
-    public BigDecimal queryUsableAmount(
+    public BigDecimal calculateUsableAmount(
             @ApiParam(name = "account_id", value = "要查询的账户的ID", required = true) @RequestParam(value = "user_id") String _userId) {
         return pointService.calculateUsableAmount(_userId);
     }
