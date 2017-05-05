@@ -52,7 +52,7 @@ zuul:
 security:
   basic:
     enabled: false
-  ignored: /users/activation/**,/uaa/oauth/token/**
+  ignored: /users/activation,/uaa/oauth/token/**
   oauth2:
     client:
       client-id: zuul
