@@ -32,7 +32,7 @@ public class OrderController {
     @ApiOperation(value = "创建订单")
     public OrderDetailsDto createOrder(
             @ApiParam(name = "order", value = "订单信息", required = true) @Valid @RequestBody CreateOrderDto _order,
-            @RequestAttribute(name = RequestAttributeConstants.CURRENT_USER) CurrentUser _currentUser) {
+            @RequestAttribute(name = RequestAttributeConstants.CURRENT_USER, required = false) CurrentUser _currentUser) {
         return orderService.createOrder(_order);
     }
 
