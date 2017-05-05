@@ -1,7 +1,7 @@
 package com.gavin.service;
 
 import com.gavin.model.dto.delivery.AssignCarrierDto;
-import com.gavin.model.vo.delivery.DeliveryVo;
+import com.gavin.model.dto.delivery.DeliveryDto;
 
 public interface DeliveryService {
 
@@ -23,7 +23,7 @@ public interface DeliveryService {
      * @param _assignment 快递公司信息
      * @return
      */
-    DeliveryVo assignCarrier(String _deliveryId, AssignCarrierDto _assignment);
+    DeliveryDto assignCarrier(String _deliveryId, AssignCarrierDto _assignment);
 
     /**
      * 根据订单ID查询物流信息。
@@ -31,7 +31,7 @@ public interface DeliveryService {
      * @param _orderId 订单ID
      * @return
      */
-    DeliveryVo findDeliveryByOrderId(String _orderId);
+    DeliveryDto findDeliveryByOrderId(String _orderId);
 
     /**
      * 更新物流状态。
