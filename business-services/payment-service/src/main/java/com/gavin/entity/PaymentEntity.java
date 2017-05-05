@@ -11,8 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "PAYMENT", schema = "SCHEMA_PAYMENT")
-@NamedQuery(name = "PaymentEntity.findAll", query = "SELECT p FROM PaymentEntity p")
+@Table(name = "PAYMENT")
 @DynamicInsert
 @DynamicUpdate
 @Data
