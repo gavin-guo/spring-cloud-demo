@@ -34,29 +34,20 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProductServiceImpl implements ProductService {
 
-    private final ModelMapper modelMapper;
-
-    private final CategoryRepository categoryRepository;
-
-    private final ProductRepository productRepository;
-
-    private final ProductReservationRepository productReservationRepository;
-
-    private final PointRewardPlanRepository pointRewardPlanRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Autowired
-    public ProductServiceImpl(
-            ModelMapper modelMapper,
-            CategoryRepository categoryRepository,
-            ProductRepository productRepository,
-            ProductReservationRepository productReservationRepository,
-            PointRewardPlanRepository pointRewardPlanRepository) {
-        this.modelMapper = modelMapper;
-        this.categoryRepository = categoryRepository;
-        this.productRepository = productRepository;
-        this.productReservationRepository = productReservationRepository;
-        this.pointRewardPlanRepository = pointRewardPlanRepository;
-    }
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private ProductReservationRepository productReservationRepository;
+
+    @Autowired
+    private PointRewardPlanRepository pointRewardPlanRepository;
 
     @Override
     @Transactional
@@ -134,7 +125,7 @@ public class ProductServiceImpl implements ProductService {
                     }
 
                     // 从该商品的库存中冻结与订单相应的数目。
-//                    productEntity.setStocks(productEntity.getStocks() - item.getQuantity());
+                    productEntity.setStocks(productEntity.getStocks() - item.getQuantity());
                     productRepository.save(productEntity);
 
                     // 记录到预约信息表中。
