@@ -187,7 +187,10 @@ public class OrderServiceImpl implements OrderService {
             orderRepository.save(orderEntity);
 
             // 发送消息至payment-service。
-            WaitingForPaymentPayload payload = modelMapper.map(orderEntity, WaitingForPaymentPayload.class);
+            WaitingForPaymentPayload payload = new WaitingForPaymentPayload();
+            payload.setUserId(orderEntity.getUserId());
+            payload.setOrderId(_orderId);
+            payload.setAmount(payWithMoneyAmount);
             Message<WaitingForPaymentPayload> message = MessageBuilder.withPayload(payload).build();
             waitingForPaymentProcessor.output().send(message);
         }
