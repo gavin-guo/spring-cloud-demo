@@ -38,7 +38,7 @@ public class UserActivatedMessageConsumer implements MessageConsumer<UserActivat
     @StreamListener(UserActivatedProcessor.INPUT)
     @Transactional
     public void receiveMessage(@Payload UserActivatedPayload _payload) {
-        log.info("received user_activated message ({}).", new Gson().toJson(_payload));
+        log.info("received user_activated message. {}", new Gson().toJson(_payload));
 
         ProducePointsDto pointsDto = new ProducePointsDto();
         pointsDto.setUserId(_payload.getUserId());
@@ -63,7 +63,7 @@ public class UserActivatedMessageConsumer implements MessageConsumer<UserActivat
         CompletableFuture.allOf(future).join();
         timer.stop();
 
-        log.info("finished processing user_activated message, elapsed: {} milliseconds. ", timer.elapsed(TimeUnit.MILLISECONDS));
+        log.info("finished processing user_activated message, elapsed {} milliseconds. ", timer.elapsed(TimeUnit.MILLISECONDS));
     }
 
 }
