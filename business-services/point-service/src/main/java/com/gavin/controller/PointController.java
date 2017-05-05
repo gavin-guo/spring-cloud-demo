@@ -42,7 +42,7 @@ public class PointController {
         pointService.unfreezePoints(_orderId);
     }
 
-    @RequestMapping(value = "/points/consume", method = RequestMethod.PUT)
+    @RequestMapping(value = "/points/consumption", method = RequestMethod.PUT)
     @ApiOperation(value = "订单完成后从账户最终扣除消费的积分")
     public void consumePoints(
             @ApiParam(name = "order_id", value = "关联的订单ID", required = true) @RequestParam(value = "order_id") String _orderId) {
