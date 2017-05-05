@@ -52,7 +52,7 @@ public class UserCreatedMessageConsumer implements MessageConsumer<UserCreatedPa
                         throw new EmailSendException(e);
                     }
                 }, executor)
-                .thenRunAsync(() -> log.info("send user_created notification email successfully. user_id = {}", mailDto.getUserId()), executor)
+                .thenRunAsync(() -> log.info("send user_created notification email successfully. user_id={}", mailDto.getUserId()), executor)
                 .exceptionally(e -> {
                     log.error(e.getMessage(), e);
                     log.warn("send user_created notification email failed. user_id={}", mailDto.getUserId());
