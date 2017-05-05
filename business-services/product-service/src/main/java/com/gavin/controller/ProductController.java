@@ -44,16 +44,17 @@ public class ProductController {
     @ApiOperation(value = "查询属于指定类型的所有商品信息")
     public PageResult<ProductDto> findProductByCategoryId(
             @ApiParam(name = "category_id", value = "类型ID", required = true) @PathVariable("category_id") String _categoryId,
-            @ApiParam(name = "current_page", value = "当前页", required = true) @RequestParam("current_page") Integer _currentPage,
-            @ApiParam(name = "page_size", value = "每页显示记录数", required = true) @RequestParam("page_size") Integer _pageSize) {
-
+            @ApiParam(name = "current_page", value = "当前页") @RequestParam(name = "current_page", defaultValue = "1") Integer _currentPage,
+            @ApiParam(name = "page_size", value = "每页显示记录数") @RequestParam(name = "page_size", defaultValue = "10") Integer _pageSize) {
         PageRequest pageRequest = new PageRequest(
                 _currentPage - 1,
                 _pageSize,
                 new Sort(Sort.Direction.ASC, "id")
         );
 
-        return productService.findProductByCategoryId(_categoryId, pageRequest);
+        PageResult<ProductDto> pageResult = productService.findProductByCategoryId(_categoryId, pageRequest);
+        pageResult.setCurrentPage(_currentPage);
+        return pageResult;
     }
 
     @RequestMapping(value = "/products/reservation", method = RequestMethod.PUT)
