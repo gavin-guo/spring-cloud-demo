@@ -46,14 +46,16 @@ public class OrderController {
     @ApiOperation(value = "分页查询指定用户帐号下所有订单信息")
     public PageResult<OrderDto> findOrdersByAccountId(
             @ApiParam(name = "user_id", value = "用户ID", required = true) @PathVariable("user_id") String _userId,
-            @ApiParam(name = "current_page", value = "当前页", required = true) @RequestParam("current_page") Integer _currentPage,
-            @ApiParam(name = "page_size", value = "每页显示记录数", required = true) @RequestParam("page_size") Integer _pageSize) {
+            @ApiParam(name = "current_page", value = "当前页") @RequestParam(name = "current_page", defaultValue = "1") Integer _currentPage,
+            @ApiParam(name = "page_size", value = "每页显示记录数") @RequestParam(name = "page_size", defaultValue = "10") Integer _pageSize) {
         PageRequest pageRequest = new PageRequest(
-                _currentPage,
+                _currentPage - 1,
                 _pageSize,
                 new Sort(Sort.Direction.ASC, "id"));
 
-        return orderService.findOrdersByUserId(_userId, pageRequest);
+        PageResult<OrderDto> pageResult = orderService.findOrdersByUserId(_userId, pageRequest);
+        pageResult.setCurrentPage(_currentPage);
+        return pageResult;
     }
 
     @RequestMapping(value = "/orders/cancellation", method = RequestMethod.PUT)
