@@ -14,7 +14,9 @@ spring:
   profiles: development
   cloud:
     config:
-      uri: http://${EUREKA_HOST:localhost}:8888
+      discovery:
+        enabled: true
+        service-id: config-service
       profile: development
       label: master
       username: gavin
