@@ -40,7 +40,7 @@ public class UserCreatedMessageConsumer implements MessageConsumer<UserCreatedPa
     @StreamListener(UserCreatedProcessor.INPUT)
     @Transactional
     public void receiveMessage(@Payload UserCreatedPayload _payload) {
-        log.info("received message ({}).", new Gson().toJson(_payload));
+        log.info("received user_created message ({}).", new Gson().toJson(_payload));
 
         UserCreatedMailDto mailDto = modelMapper.map(_payload, UserCreatedMailDto.class);
 
