@@ -98,6 +98,167 @@ services:
       - eureka-service
       - oauth2-service
 
+  user-service:
+    image: 192.168.1.88:5000/user-service
+    container_name: user-service
+    restart: always
+    ports:
+      - 9101:9101
+    links:
+      - eureka-service
+      - mysql
+      - redis
+      - rabbitmq
+    environment:
+      - EUREKA_HOST=eureka-service
+      - MYSQL_HOST=mysql
+      - REDIS_HOST=redis
+      - RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - eureka-service
+      - config-service
+      - mysql
+      - redis
+      - rabbitmq
+
+#  point-service:
+#    image: 192.168.1.88:5000/point-service
+#    container_name: point-service
+#    restart: always
+#    ports:
+#      - 9102:9102
+#    links:
+#      - eureka-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+#    environment:
+#      - EUREKA_HOST=eureka-service
+#      - MYSQL_HOST=mysql
+#      - REDIS_HOST=redis
+#      - RABBITMQ_HOST=rabbitmq
+#    depends_on:
+#      - eureka-service
+#      - config-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+#
+#  address-service:
+#    image: 192.168.1.88:5000/address-service
+#    container_name: address-service
+#    restart: always
+#    ports:
+#      - 9103:9103
+#    links:
+#      - eureka-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+#    environment:
+#      - EUREKA_HOST=eureka-service
+#      - MYSQL_HOST=mysql
+#      - REDIS_HOST=redis
+#      - RABBITMQ_HOST=rabbitmq
+#    depends_on:
+#      - eureka-service
+#      - config-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+#
+#  product-service:
+#    image: 192.168.1.88:5000/product-service
+#    container_name: product-service
+#    restart: always
+#    ports:
+#      - 9104:9104
+#    links:
+#      - eureka-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+#    environment:
+#      - EUREKA_HOST=eureka-service
+#      - MYSQL_HOST=mysql
+#      - REDIS_HOST=redis
+#      - RABBITMQ_HOST=rabbitmq
+#    depends_on:
+#      - eureka-service
+#      - config-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+#
+#  order-service:
+#    image: 192.168.1.88:5000/order-service
+#    container_name: order-service
+#    restart: always
+#    ports:
+#      - 9105:9105
+#    links:
+#      - eureka-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+#    environment:
+#      - EUREKA_HOST=eureka-service
+#      - MYSQL_HOST=mysql
+#      - REDIS_HOST=redis
+#      - RABBITMQ_HOST=rabbitmq
+#    depends_on:
+#      - eureka-service
+#      - config-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+#
+#  payment-service:
+#    image: 192.168.1.88:5000/payment-service
+#    container_name: payment-service
+#    restart: always
+#    ports:
+#      - 9106:9106
+#    links:
+#      - eureka-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+#    environment:
+#      - EUREKA_HOST=eureka-service
+#      - MYSQL_HOST=mysql
+#      - REDIS_HOST=redis
+#      - RABBITMQ_HOST=rabbitmq
+#    depends_on:
+#      - eureka-service
+#      - config-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+#
+#  delivery-service:
+#    image: 192.168.1.88:5000/delivery-service
+#    container_name: delivery-service
+#    restart: always
+#    ports:
+#      - 9107:9107
+#    links:
+#      - eureka-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+#    environment:
+#      - EUREKA_HOST=eureka-service
+#      - MYSQL_HOST=mysql
+#      - REDIS_HOST=redis
+#      - RABBITMQ_HOST=rabbitmq
+#    depends_on:
+#      - eureka-service
+#      - config-service
+#      - mysql
+#      - redis
+#      - rabbitmq
+
 #  zipkin-service:
 #    image: 192.168.1.88:5000/zipkin-service
 #    container_name: zipkin-service
