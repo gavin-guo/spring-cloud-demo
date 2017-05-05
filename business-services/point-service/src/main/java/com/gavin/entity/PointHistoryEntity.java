@@ -11,8 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "POINT_HISTORY", schema = "SCHEMA_POINT")
-@NamedQuery(name = "PointHistoryEntity.findAll", query = "SELECT p FROM PointHistoryEntity p")
+@Table(name = "POINT_HISTORY")
 @DynamicInsert
 @DynamicUpdate
 @Data

@@ -3,7 +3,7 @@ package com.gavin.service.impl;
 import com.gavin.entity.PointEntity;
 import com.gavin.entity.PointHistoryEntity;
 import com.gavin.enums.PointActionEnums;
-import com.gavin.exception.PointNotEnoughException;
+import com.gavin.exception.InsufficientPointsException;
 import com.gavin.exception.RecordNotFoundException;
 import com.gavin.model.dto.point.FreezePointsDto;
 import com.gavin.model.dto.point.ProducePointsDto;
@@ -32,24 +32,17 @@ import java.util.stream.Collectors;
 @RefreshScope
 public class PointServiceImpl implements PointService {
 
-    @Value("${micro.service.point.period}")
+    @Value("${points.period}")
     private Integer period;
 
-    private final ModelMapper modelMapper;
-
-    private final PointRepository pointRepository;
-
-    private final PointHistoryRepository pointHistoryRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Autowired
-    public PointServiceImpl(
-            ModelMapper modelMapper,
-            PointHistoryRepository pointHistoryRepository,
-            PointRepository pointRepository) {
-        this.modelMapper = modelMapper;
-        this.pointHistoryRepository = pointHistoryRepository;
-        this.pointRepository = pointRepository;
-    }
+    private PointRepository pointRepository;
+
+    @Autowired
+    private PointHistoryRepository pointHistoryRepository;
 
     @Override
     @Transactional
@@ -81,7 +74,7 @@ public class PointServiceImpl implements PointService {
 
         // 账户内最新的可用积分数小与需要的积分数。
         if (newestAmount.compareTo(_freeze.getAmount()) < 0) {
-            throw new PointNotEnoughException("there is no enough points within account " + _freeze.getUserId() + ".");
+            throw new InsufficientPointsException("insufficient points");
         }
 
         // 需要的积分数量。
@@ -121,6 +114,7 @@ public class PointServiceImpl implements PointService {
                 break;
             }
         }
+        log.info("freeze {} points on account of user({}) for order({}) successfully. ", _freeze.getAmount(), _freeze.getUserId(), _freeze.getOrderId());
     }
 
     @Override
@@ -134,6 +128,7 @@ public class PointServiceImpl implements PointService {
                     pointRepository.save(pointEntity);
                 }
         );
+        log.info("unfreeze points for order({}) successfully. ", _orderId);
     }
 
     @Override
@@ -155,6 +150,7 @@ public class PointServiceImpl implements PointService {
         pointHistoryRepository.save(pointHistoryEntity);
 
         pointRepository.delete(pointEntities);
+        log.info("consume points for order({}) successfully. ", _orderId);
     }
 
     @Override
@@ -177,7 +173,7 @@ public class PointServiceImpl implements PointService {
         // 记录到积分明细表。
         userPointsMap.forEach(
                 (userId, amount) -> {
-                    log.info("用户{}此次过期的积分数为{}。", userId, amount);
+                    log.info("{} points expired, user_id={}.", amount, userId);
                     PointHistoryEntity pointHistoryEntity = new PointHistoryEntity();
                     pointHistoryEntity.setUserId(userId);
                     pointHistoryEntity.setAmount(amount);
