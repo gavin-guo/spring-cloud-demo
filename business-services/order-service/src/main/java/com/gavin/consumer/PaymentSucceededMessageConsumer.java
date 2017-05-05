@@ -41,11 +41,11 @@ public class PaymentSucceededMessageConsumer implements MessageConsumer<PaymentS
                         orderService.succeedInPayment(_payload.getOrderId()
                         ), executor)
                 .thenRunAsync(() -> {
-                    log.info("update status of order({}) to paid successfully.", _payload.getOrderId());
+                    log.info("update the status of order({}) to 'PAID' successfully.", _payload.getOrderId());
                 }, executor)
                 .exceptionally(e -> {
                     log.error(e.getMessage(), e);
-                    log.warn("update status of order({}) to paid failed.", _payload.getOrderId());
+                    log.warn("update the status of order({}) to 'PAID' failed.", _payload.getOrderId());
                     return null;
                 });
     }
