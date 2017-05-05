@@ -4,21 +4,26 @@ import com.gavin.client.address.AddressClient;
 import com.gavin.client.point.PointClient;
 import com.gavin.client.product.ProductClient;
 import com.gavin.constants.ResponseCodeConstants;
+import com.gavin.dto.CustomResponseBody;
 import com.gavin.dto.DirectionDto;
+import com.gavin.dto.PageResult;
+import com.gavin.dto.dto.address.AddressDto;
+import com.gavin.dto.dto.order.CreateOrderDto;
+import com.gavin.dto.dto.order.ItemDto;
+import com.gavin.dto.dto.order.OrderDetailsDto;
+import com.gavin.dto.dto.order.OrderDto;
+import com.gavin.dto.dto.point.FreezePointsDto;
+import com.gavin.dto.dto.product.ReservedProductDto;
 import com.gavin.entity.ItemEntity;
 import com.gavin.entity.OrderEntity;
 import com.gavin.enums.OrderStatusEnums;
-import com.gavin.exception.AddressFetchException;
-import com.gavin.exception.ProductsReserveException;
-import com.gavin.exception.RecordNotFoundException;
-import com.gavin.model.CustomResponseBody;
-import com.gavin.model.PageResult;
-import com.gavin.model.dto.address.AddressDto;
-import com.gavin.model.dto.order.CreateOrderDto;
-import com.gavin.model.dto.order.ItemDto;
-import com.gavin.model.dto.order.OrderDetailsDto;
-import com.gavin.model.dto.order.OrderDto;
-import com.gavin.model.dto.product.ReservedProductDto;
+import com.gavin.exception.*;
+import com.gavin.messaging.ArrangeShipmentProcessor;
+import com.gavin.messaging.CancelReservationProcessor;
+import com.gavin.messaging.WaitingForPaymentProcessor;
+import com.gavin.payload.ArrangeShipmentPayload;
+import com.gavin.payload.CancelReservationPayload;
+import com.gavin.payload.WaitingForPaymentPayload;
 import com.gavin.repository.OrderRepository;
 import com.gavin.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,12 +31,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,19 +61,16 @@ public class OrderServiceImpl implements OrderService {
     private PointClient pointClient;
 
     @Autowired
-    private OrderRepository orderRepository;
+    private ArrangeShipmentProcessor arrangeShipmentProcessor;
 
-//    private final CancelReservationMessageProducer cancelReservationMessageProducer;
-//
-//    private final WaitingForPaymentMessageProducer waitingForPaymentMessageProducer;
-//
-//    private final ArrangeShipmentMessageProducer arrangeShipmentMessageProducer;
-//
-//    private final EventService<CancelReservationEvent> cancelReservationEventService;
-//
-//    private final EventService<ArrangeShipmentEvent> arrangeShipmentEventService;
-//
-//    private final EventService<WaitingForPaymentEvent> waitingForPaymentEventService;
+    @Autowired
+    private CancelReservationProcessor cancelReservationProcessor;
+
+    @Autowired
+    private WaitingForPaymentProcessor waitingForPaymentProcessor;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public OrderDetailsDto createOrder(CreateOrderDto _order) {
@@ -123,122 +128,85 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(orderEntity);
     }
 
-//    @Override
-//    @Transactional
-//    public void cancelOrder(String _orderId) {
-//        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
-//                .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
-//
-//        OrderStatusEnums[] cancelableOrderStatus = new OrderStatusEnums[]{
-//                OrderStatusEnums.CREATED,
-//                OrderStatusEnums.RESERVED};
-//
-//        if (!Arrays.asList(cancelableOrderStatus).contains(orderEntity.getStatus())) {
-//            throw new CannotCancelOrderException();
-//        }
-//
-//        CancelReservationEvent event = new CancelReservationEvent();
-//        event.setOrderId(_orderId);
-//        cancelReservationEventService.saveEvent(event, MessageableEventStatusEnums.NEW);
-//
-//        updateOrderStatus(_orderId, OrderStatusEnums.CANCELED);
-//    }
+    @Override
+    @Transactional
+    public void cancelOrder(String _orderId) {
+        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
+                .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
-//    @Override
-//    @Transactional
-//    public void payOrder(String _orderId, BigDecimal _pointsAmount) {
-//        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
-//                .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
-//
-//        // 用户选择使用积分抵扣。
-//        if (null != _pointsAmount && !_pointsAmount.equals(new BigDecimal("0"))) {
-//            FreezePointsDto freezePointsDto = new FreezePointsDto();
-//            freezePointsDto.setUserId(orderEntity.getUserId());
-//            freezePointsDto.setOrderId(_orderId);
-//            freezePointsDto.setAmount(_pointsAmount);
-//
-//            // 调用积分服务冻结积分。
-//            Response response = pointClient.freezePoints(freezePointsDto);
-//            if (!ResponseCodeConstants.SUCCESS.equals(response.getCode())) {
-//                log.warn("调用积分服务冻结积分失败。");
-//                throw new PointsFreezeException();
-//            }
-//        } else {
-//            _pointsAmount = new BigDecimal("0");
-//        }
-//
-//        // 计算用积分抵扣后还需要支付的金额。
-//        BigDecimal payWithMoneyAmount = orderEntity.getTotalAmount().subtract(_pointsAmount);
-//
-//        // 订单金额全部用积分抵扣，无需另外支付。
-//        if (payWithMoneyAmount.intValue() <= 0) {
-//            log.info("订单{}的费用已全部用积分支付。", _orderId);
-//
-//            // 发送消息至物流服务。
-//            succeedInPayment(_orderId);
-//        } else {
-//            // 发送消息至支付服务。
-//            startWaitingForPayment(orderEntity, payWithMoneyAmount);
-//        }
-//    }
-//
-//    @Override
-//    @Transactional
-//    public void succeedInPayment(String _orderId) {
-//        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
-//                .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
-//
-//        ArrangeShipmentEvent event = modelMapper.map(orderEntity, ArrangeShipmentEvent.class);
-//        event.setOrderId(_orderId);
-//
-//        orderEntity.setStatus(OrderStatusEnums.PAID);
-//        orderRepository.save(orderEntity);
-//
-//        arrangeShipmentEventService.saveEvent(event, MessageableEventStatusEnums.NEW);
-//    }
-//
-//    @Transactional
-//    private void startWaitingForPayment(OrderEntity _entity, BigDecimal _amount) {
-//        WaitingForPaymentEvent event = new WaitingForPaymentEvent();
-//        event.setUserId(_entity.getUserId());
-//        event.setOrderId(_entity.getId());
-//        event.setAmount(_amount);
-//
-//        _entity.setStatus(OrderStatusEnums.PAYING);
-//        orderRepository.save(_entity);
-//
-//        waitingForPaymentEventService.saveEvent(event, MessageableEventStatusEnums.NEW);
-//    }
-//
-//    @Override
-//    @Transactional
-//    public boolean publishCancelReservationEvent(CancelReservationEvent _event) {
-//        cancelReservationEventService.updateEventStatusById(
-//                _event.getOriginId(),
-//                MessageableEventStatusEnums.PUBLISHED);
-//
-//        return cancelReservationMessageProducer.sendMessage(_event);
-//    }
-//
-//    @Override
-//    @Transactional
-//    public boolean publishArrangeShipmentEvent(ArrangeShipmentEvent _event) {
-//        arrangeShipmentEventService.updateEventStatusById(
-//                _event.getOriginId(),
-//                MessageableEventStatusEnums.PUBLISHED);
-//
-//        return arrangeShipmentMessageProducer.sendMessage(_event);
-//    }
-//
-//    @Override
-//    @Transactional
-//    public boolean publishWaitingForPaymentEvent(WaitingForPaymentEvent _event) {
-//        waitingForPaymentEventService.updateEventStatusById(
-//                _event.getOriginId(),
-//                MessageableEventStatusEnums.PUBLISHED);
-//
-//        return waitingForPaymentMessageProducer.sendMessage(_event);
-//    }
+        OrderStatusEnums[] cancelableOrderStatus = new OrderStatusEnums[]{
+                OrderStatusEnums.CREATED,
+                OrderStatusEnums.RESERVED};
+
+        if (!Arrays.asList(cancelableOrderStatus).contains(orderEntity.getStatus())) {
+            throw new OrderCancelException(String.format("can not cancel order(%s) because of order's status(%s).", _orderId, orderEntity.getStatus()));
+        }
+
+        CancelReservationPayload payload = new CancelReservationPayload();
+        payload.setOrderId(_orderId);
+        Message<CancelReservationPayload> message = MessageBuilder.withPayload(payload).build();
+        cancelReservationProcessor.output().send(message);
+
+        updateOrderStatus(_orderId, OrderStatusEnums.CANCELED);
+        log.info("cancel order({}) successfully. ", _orderId);
+    }
+
+    @Override
+    @Transactional
+    public void payOrder(String _orderId, BigDecimal _pointsAmount) {
+        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
+                .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
+
+        // 用户选择使用积分抵扣。
+        if (null != _pointsAmount && !_pointsAmount.equals(new BigDecimal("0"))) {
+            FreezePointsDto freezePointsDto = new FreezePointsDto();
+            freezePointsDto.setUserId(orderEntity.getUserId());
+            freezePointsDto.setOrderId(_orderId);
+            freezePointsDto.setAmount(_pointsAmount);
+
+            // 调用积分服务冻结积分。
+            CustomResponseBody responseBody = pointClient.freezePoints(freezePointsDto);
+            if (!ResponseCodeConstants.OK.equals(responseBody.getResultCode())) {
+                log.warn("call point-service to freeze points failed.");
+                throw new PointsFreezeException("freeze points failed.");
+            }
+        } else {
+            _pointsAmount = new BigDecimal("0");
+        }
+
+        // 计算用积分抵扣后还需要支付的金额。
+        BigDecimal payWithMoneyAmount = orderEntity.getTotalAmount().subtract(_pointsAmount);
+
+        // 订单金额全部用积分抵扣，无需另外支付。
+        if (payWithMoneyAmount.intValue() <= 0) {
+            log.info("pay order({}) all with points.", _orderId);
+
+            this.succeedInPayment(_orderId);
+        } else {
+            orderEntity.setStatus(OrderStatusEnums.PAYING);
+            orderRepository.save(orderEntity);
+
+            // 发送消息至payment-service。
+            WaitingForPaymentPayload payload = modelMapper.map(orderEntity, WaitingForPaymentPayload.class);
+            Message<WaitingForPaymentPayload> message = MessageBuilder.withPayload(payload).build();
+            waitingForPaymentProcessor.output().send(message);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void succeedInPayment(String _orderId) {
+        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
+                .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
+
+        orderEntity.setStatus(OrderStatusEnums.PAID);
+        orderRepository.save(orderEntity);
+
+        // 发送消息至delivery-service。
+        ArrangeShipmentPayload payload = modelMapper.map(orderEntity, ArrangeShipmentPayload.class);
+        Message<ArrangeShipmentPayload> message = MessageBuilder.withPayload(payload).build();
+        arrangeShipmentProcessor.output().send(message);
+    }
 
     private class OrderBuilder {
 

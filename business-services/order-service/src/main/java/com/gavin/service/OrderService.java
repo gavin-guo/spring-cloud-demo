@@ -1,12 +1,14 @@
 package com.gavin.service;
 
 import com.gavin.dto.DirectionDto;
+import com.gavin.dto.PageResult;
+import com.gavin.dto.dto.order.CreateOrderDto;
+import com.gavin.dto.dto.order.OrderDetailsDto;
+import com.gavin.dto.dto.order.OrderDto;
 import com.gavin.enums.OrderStatusEnums;
-import com.gavin.model.PageResult;
-import com.gavin.model.dto.order.CreateOrderDto;
-import com.gavin.model.dto.order.OrderDetailsDto;
-import com.gavin.model.dto.order.OrderDto;
 import org.springframework.data.domain.PageRequest;
+
+import java.math.BigDecimal;
 
 public interface OrderService {
 
@@ -51,53 +53,26 @@ public interface OrderService {
      */
     DirectionDto findDirectionByOrderId(String _orderId);
 
-//    /**
-//     * 取消订单。
-//     *
-//     * @param _orderId 订单ID
-//     */
-//    void cancelOrder(String _orderId);
-//
-//    /**
-//     * 支付订单。
-//     *
-//     * @param _orderId      订单ID
-//     * @param _pointsAmount 使用积分数
-//     */
-//    void payOrder(String _orderId, BigDecimal _pointsAmount);
-//
-//    /**
-//     * 订单支付成功。
-//     *
-//     * @param _orderId 订单ID
-//     */
-//    void succeedInPayment(String _orderId);
-//
-//    /**
-//     *发布取消保留商品的事件。
-//            *
-//            *
-//    @param
-//    _event
-//     *@return
-//             */
-//
-//    boolean publishCancelReservationEvent(CancelReservationEvent _event);
-//
-//    /**
-//     * 发布安排发货的事件。
-//     *
-//     * @param _event
-//     * @return
-//     */
-//    boolean publishArrangeShipmentEvent(ArrangeShipmentEvent _event);
-//
-//    /**
-//     * 发布生成支付请求的事件。
-//     *
-//     * @param _event
-//     * @return
-//     */
-//    boolean publishWaitingForPaymentEvent(WaitingForPaymentEvent _event);
+    /**
+     * 取消订单。
+     *
+     * @param _orderId 订单ID
+     */
+    void cancelOrder(String _orderId);
+
+    /**
+     * 支付订单。
+     *
+     * @param _orderId      订单ID
+     * @param _pointsAmount 使用积分数
+     */
+    void payOrder(String _orderId, BigDecimal _pointsAmount);
+
+    /**
+     * 订单支付成功。
+     *
+     * @param _orderId 订单ID
+     */
+    void succeedInPayment(String _orderId);
 
 }

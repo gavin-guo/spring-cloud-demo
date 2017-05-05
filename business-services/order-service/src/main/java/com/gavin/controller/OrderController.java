@@ -1,11 +1,11 @@
 package com.gavin.controller;
 
 import com.gavin.constants.RequestAttributeConstants;
-import com.gavin.model.PageResult;
-import com.gavin.model.dto.order.CreateOrderDto;
-import com.gavin.model.dto.order.OrderDetailsDto;
-import com.gavin.model.dto.order.OrderDto;
-import com.gavin.model.dto.security.CurrentUser;
+import com.gavin.dto.PageResult;
+import com.gavin.dto.dto.order.CreateOrderDto;
+import com.gavin.dto.dto.order.OrderDetailsDto;
+import com.gavin.dto.dto.order.OrderDto;
+import com.gavin.dto.dto.security.CurrentUser;
 import com.gavin.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,8 +1,8 @@
 package com.gavin.config;
 
 import com.gavin.entity.OrderEntity;
-import com.gavin.model.dto.order.ItemDto;
-import com.gavin.model.dto.order.OrderDetailsDto;
+import com.gavin.dto.dto.order.ItemDto;
+import com.gavin.dto.dto.order.OrderDetailsDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
