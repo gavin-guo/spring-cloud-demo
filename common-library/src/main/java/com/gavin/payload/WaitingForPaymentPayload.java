@@ -12,7 +12,7 @@ public class WaitingForPaymentPayload implements Serializable {
     @JsonProperty("event_id")
     private String eventId;
 
-    @JsonProperty("phone")
+    @JsonProperty("user_id")
     private String userId;
 
     @JsonProperty("order_id")

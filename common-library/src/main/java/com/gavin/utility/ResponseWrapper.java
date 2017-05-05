@@ -22,7 +22,7 @@ public class ResponseWrapper {
             CustomResponseBody<Object> responseBody = new CustomResponseBody<>();
             responseBody.setContents(page.getRecords());
             responseBody.setTotalRecords(page.getTotalElements());
-            responseBody.setTotalPages(page.getCurrentPage());
+            responseBody.setTotalPages(page.getTotalPages());
             responseBody.setCurrentPage(page.getCurrentPage());
             responseBody.setResultCode(ResponseCodeConstants.OK);
             return responseBody;
