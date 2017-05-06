@@ -16,7 +16,7 @@ spring:
     config:
       discovery:
         enabled: true
-        service-id: config-service
+        service-id: config-server
       profile: development
       label: master
       username: gavin
@@ -30,7 +30,7 @@ spring:
     config:
       discovery:
         enabled: true
-        service-id: config-service
+        service-id: config-server
       profile: test
       label: master
       username: gavin
