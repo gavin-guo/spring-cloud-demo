@@ -10,10 +10,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableDiscoveryClient
 @EnableAuthorizationServer
 @EnableFeignClients
-public class Oauth2ServiceApplication {
+public class Oauth2ServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Oauth2ServiceApplication.class, args);
+        SpringApplication.run(Oauth2ServerApplication.class, args);
     }
 
 }
