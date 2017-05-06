@@ -8,9 +8,9 @@ import org.springframework.cloud.sleuth.zipkin.stream.EnableZipkinStreamServer;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableZipkinStreamServer
-public class ZipkinServiceApplication {
+public class ZipkinServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ZipkinServiceApplication.class, args);
+        SpringApplication.run(ZipkinServerApplication.class, args);
     }
 }

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: zipkin-service
+    name: zipkin-server
 
 eureka:
   client:
