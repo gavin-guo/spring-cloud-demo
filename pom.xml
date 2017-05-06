@@ -20,11 +20,11 @@
     <modules>
         <module>common-library</module>
         <module>business-services</module>
-        <module>eureka-service</module>
-        <module>config-service</module>
-        <module>zuul-service</module>
-        <module>oauth2-service</module>
-        <module>zipkin-service</module>
+        <module>eureka-server</module>
+        <module>config-server</module>
+        <module>zuul-server</module>
+        <module>oauth2-server</module>
+        <module>zipkin-server</module>
         <module>hystrix-dashboard</module>
     </modules>
 

@@ -41,62 +41,62 @@ services:
 #    ports:
 #      - 2181:2181
 
-  eureka-service:
-    image: 192.168.1.88:5000/eureka-service
-    container_name: eureka-service
+  eureka-server:
+    image: 192.168.1.88:5000/eureka-server
+    container_name: eureka-server
     restart: always
     ports:
       - 8761:8761
 
-  config-service:
-    image: 192.168.1.88:5000/config-service
-    container_name: config-service
+  config-server:
+    image: 192.168.1.88:5000/config-server
+    container_name: config-server
     restart: always
     ports:
       - 8888:8888
     links:
-      - eureka-service
+      - eureka-server
       - rabbitmq
     environment:
-      - EUREKA_HOST=eureka-service
+      - EUREKA_HOST=eureka-server
       - RABBITMQ_HOST=rabbitmq
     depends_on:
-      - eureka-service
+      - eureka-server
 
-  oauth2-service:
-    image: 192.168.1.88:5000/oauth2-service
-    container_name: oauth2-service
+  oauth2-server:
+    image: 192.168.1.88:5000/oauth2-server
+    container_name: oauth2-server
     restart: always
     ports:
       - 9999:9999
     links:
-      - eureka-service
+      - eureka-server
       - mysql
       - redis
     environment:
-      - EUREKA_HOST=eureka-service
+      - EUREKA_HOST=eureka-server
       - MYSQL_HOST=mysql
       - REDIS_HOST=redis
     depends_on:
-      - eureka-service
+      - eureka-server
       - mysql
       - redis
 
-  zuul-service:
-    image: 192.168.1.88:5000/zuul-service
-    container_name: zuul-service
+  zuul-server:
+    image: 192.168.1.88:5000/zuul-server
+    container_name: zuul-server
     restart: always
     ports:
       - 8000:8000
     links:
-      - eureka-service
-      - oauth2-service
+      - eureka-server
+      - oauth2-server
     environment:
-      - EUREKA_HOST=eureka-service
-      - OAUTH_HOST=oauth2-service
+      - EUREKA_HOST=eureka-server
+      - OAUTH_HOST=oauth2-server
     depends_on:
-      - eureka-service
-      - oauth2-service
+      - eureka-server
+      - oauth2-server
 
   user-service:
     image: 192.168.1.88:5000/user-service
@@ -105,19 +105,19 @@ services:
     ports:
       - 9101:9101
     links:
-      - eureka-service
+      - eureka-server
       - mysql
       - redis
       - rabbitmq
     environment:
       - SPRING_PROFILES_ACTIVE=development
-      - EUREKA_HOST=eureka-service
+      - EUREKA_HOST=eureka-server
       - MYSQL_HOST=mysql
       - REDIS_HOST=redis
       - RABBITMQ_HOST=rabbitmq
     depends_on:
-      - eureka-service
-      - config-service
+      - eureka-server
+      - config-server
       - mysql
       - redis
       - rabbitmq
@@ -129,19 +129,19 @@ services:
 #    ports:
 #      - 9102:9102
 #    links:
-#      - eureka-service
+#      - eureka-server
 #      - mysql
 #      - redis
 #      - rabbitmq
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=development
-#      - EUREKA_HOST=eureka-service
+#      - EUREKA_HOST=eureka-server
 #      - MYSQL_HOST=mysql
 #      - REDIS_HOST=redis
 #      - RABBITMQ_HOST=rabbitmq
 #    depends_on:
-#      - eureka-service
-#      - config-service
+#      - eureka-server
+#      - config-server
 #      - mysql
 #      - redis
 #      - rabbitmq
@@ -153,19 +153,19 @@ services:
 #    ports:
 #      - 9103:9103
 #    links:
-#      - eureka-service
+#      - eureka-server
 #      - mysql
 #      - redis
 #      - rabbitmq
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=development
-#      - EUREKA_HOST=eureka-service
+#      - EUREKA_HOST=eureka-server
 #      - MYSQL_HOST=mysql
 #      - REDIS_HOST=redis
 #      - RABBITMQ_HOST=rabbitmq
 #    depends_on:
-#      - eureka-service
-#      - config-service
+#      - eureka-server
+#      - config-server
 #      - mysql
 #      - redis
 #      - rabbitmq
@@ -177,19 +177,19 @@ services:
 #    ports:
 #      - 9104:9104
 #    links:
-#      - eureka-service
+#      - eureka-server
 #      - mysql
 #      - redis
 #      - rabbitmq
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=development
-#      - EUREKA_HOST=eureka-service
+#      - EUREKA_HOST=eureka-server
 #      - MYSQL_HOST=mysql
 #      - REDIS_HOST=redis
 #      - RABBITMQ_HOST=rabbitmq
 #    depends_on:
-#      - eureka-service
-#      - config-service
+#      - eureka-server
+#      - config-server
 #      - mysql
 #      - redis
 #      - rabbitmq
@@ -201,19 +201,19 @@ services:
 #    ports:
 #      - 9105:9105
 #    links:
-#      - eureka-service
+#      - eureka-server
 #      - mysql
 #      - redis
 #      - rabbitmq
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=development
-#      - EUREKA_HOST=eureka-service
+#      - EUREKA_HOST=eureka-server
 #      - MYSQL_HOST=mysql
 #      - REDIS_HOST=redis
 #      - RABBITMQ_HOST=rabbitmq
 #    depends_on:
-#      - eureka-service
-#      - config-service
+#      - eureka-server
+#      - config-server
 #      - mysql
 #      - redis
 #      - rabbitmq
@@ -225,19 +225,19 @@ services:
 #    ports:
 #      - 9106:9106
 #    links:
-#      - eureka-service
+#      - eureka-server
 #      - mysql
 #      - redis
 #      - rabbitmq
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=development
-#      - EUREKA_HOST=eureka-service
+#      - EUREKA_HOST=eureka-server
 #      - MYSQL_HOST=mysql
 #      - REDIS_HOST=redis
 #      - RABBITMQ_HOST=rabbitmq
 #    depends_on:
-#      - eureka-service
-#      - config-service
+#      - eureka-server
+#      - config-server
 #      - mysql
 #      - redis
 #      - rabbitmq
@@ -249,19 +249,19 @@ services:
 #    ports:
 #      - 9107:9107
 #    links:
-#      - eureka-service
+#      - eureka-server
 #      - mysql
 #      - redis
 #      - rabbitmq
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=development
-#      - EUREKA_HOST=eureka-service
+#      - EUREKA_HOST=eureka-server
 #      - MYSQL_HOST=mysql
 #      - REDIS_HOST=redis
 #      - RABBITMQ_HOST=rabbitmq
 #    depends_on:
-#      - eureka-service
-#      - config-service
+#      - eureka-server
+#      - config-server
 #      - mysql
 #      - redis
 #      - rabbitmq
@@ -276,7 +276,7 @@ services:
 #      - RABBITMQ_HOST=192.168.1.88
 #      - EUREKA_HOST=192.168.1.88
 #    depends_on:
-#      - eureka-service
+#      - eureka-server
 #
 #  hystrix-dashboard:
 #    image: 192.168.1.88:5000/hystrix-dashboard
