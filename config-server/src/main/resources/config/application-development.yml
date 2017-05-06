@@ -41,6 +41,7 @@ spring:
     admin:
       url: http://${ADMIN_HOST:localhost}:8080
       client:
+        enabled: false
         prefer-ip: true
 
 management:
