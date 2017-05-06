@@ -76,8 +76,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDetailsDto createOrder(CreateOrderDto _order) {
         OrderDetailsDto orderDetailsDto = new OrderBuilder()
-                .withUserId(_order.getUserId())
-                .andAddressId(_order.getAddressId())
+                .withUser(_order.getUserId())
+                .andAddress(_order.getAddressId())
                 .andItems(_order.getItems())
                 .build();
 
@@ -222,7 +222,7 @@ public class OrderServiceImpl implements OrderService {
 
         private List<ReservedProductDto> reservedProducts;
 
-        OrderBuilder withUserId(String _userId) {
+        OrderBuilder withUser(String _userId) {
             OrderEntity orderEntity = new OrderEntity();
             orderEntity.setUserId(_userId);
             orderEntity.setStatus(OrderStatusEnums.CREATED);
@@ -232,7 +232,7 @@ public class OrderServiceImpl implements OrderService {
             return this;
         }
 
-        OrderBuilder andAddressId(String _addressId) {
+        OrderBuilder andAddress(String _addressId) {
             Assert.notNull(orderId, "'withUserId' method must be called previously.");
             try {
                 this.direction = getRecipientDirection(_addressId);
@@ -289,7 +289,7 @@ public class OrderServiceImpl implements OrderService {
                 log.info("reserve products successfully. {}", productIds);
             } else {
                 log.error("reserve products failed.");
-                throw new ProductsReserveException("can not reserver product");
+                throw new ProductsReserveException("can not reserve products");
             }
             return reservationResponse.getContents();
         }
