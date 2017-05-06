@@ -26,6 +26,7 @@ import com.gavin.payload.CancelReservationPayload;
 import com.gavin.payload.WaitingForPaymentPayload;
 import com.gavin.repository.OrderRepository;
 import com.gavin.service.OrderService;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,12 +75,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDetailsDto createOrder(CreateOrderDto _order) {
-        OrderDetailsDto orderDetailsDto = new OrderBuilder(_order.getUserId())
-                .direction(_order.getAddressId())
-                .reserveProducts(_order.getItems())
+        OrderDetailsDto orderDetailsDto = new OrderBuilder()
+                .withUserId(_order.getUserId())
+                .andAddressId(_order.getAddressId())
+                .andItems(_order.getItems())
                 .build();
 
-        log.info("reserve products successfully. {}", "xx");
+        log.info("create order successfully. {}", new Gson().toJson(orderDetailsDto));
         return orderDetailsDto;
     }
 
@@ -220,16 +222,18 @@ public class OrderServiceImpl implements OrderService {
 
         private List<ReservedProductDto> reservedProducts;
 
-        OrderBuilder(String _userId) {
+        OrderBuilder withUserId(String _userId) {
             OrderEntity orderEntity = new OrderEntity();
             orderEntity.setUserId(_userId);
             orderEntity.setStatus(OrderStatusEnums.CREATED);
             orderRepository.save(orderEntity);
 
             this.orderId = orderEntity.getId();
+            return this;
         }
 
-        OrderBuilder direction(String _addressId) {
+        OrderBuilder andAddressId(String _addressId) {
+            Assert.notNull(orderId, "'withUserId' method must be called previously.");
             try {
                 this.direction = getRecipientDirection(_addressId);
                 return this;
@@ -239,9 +243,8 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
-        OrderBuilder reserveProducts(List<ItemDto> _items) {
-            Assert.notNull(orderId, "orderId must not be null");
-            Assert.notNull(direction, "direction must not be null");
+        OrderBuilder andItems(List<ItemDto> _items) {
+            Assert.notNull(orderId, "'withUserId' method must be called previously.");
             try {
                 this.reservedProducts = reserveProducts(orderId, _items);
                 return this;
@@ -249,46 +252,6 @@ public class OrderServiceImpl implements OrderService {
                 updateOrderStatus(orderId, OrderStatusEnums.ERROR);
                 throw e;
             }
-        }
-
-        @Transactional
-        private OrderDetailsDto build() {
-            Assert.notNull(orderId, "orderId must not be null");
-            Assert.notNull(direction, "direction must not be null");
-
-            OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(orderId))
-                    .orElseThrow(() -> new RecordNotFoundException("order", orderId));
-
-            orderEntity.setConsignee(direction.getConsignee());
-            orderEntity.setAddress(direction.getAddress());
-            orderEntity.setPhoneNumber(direction.getPhoneNumber());
-
-            BigDecimal totalAmountPerOrder = new BigDecimal("0");
-            BigDecimal totalPointsPerOrder = new BigDecimal("0");
-
-            for (ReservedProductDto reservedProduct : reservedProducts) {
-                ItemEntity itemEntity = modelMapper.map(reservedProduct, ItemEntity.class);
-                orderEntity.addItemEntity(itemEntity);
-
-                // 计算该种商品的总金额。
-                BigDecimal totalAmountPerItem = new BigDecimal(reservedProduct.getPrice() * reservedProduct.getQuantity());
-
-                // 计算该种商品可获得的积分数。
-                BigDecimal totalPointsPerItem = new BigDecimal("0");
-                if (null != reservedProduct.getRatio()) {
-                    totalPointsPerItem = totalAmountPerItem.multiply(new BigDecimal(reservedProduct.getRatio())).setScale(0, BigDecimal.ROUND_HALF_UP);
-                }
-
-                totalAmountPerOrder = totalAmountPerOrder.add(totalAmountPerItem);
-                totalPointsPerOrder = totalPointsPerOrder.add(totalPointsPerItem);
-            }
-
-            orderEntity.setTotalAmount(totalAmountPerOrder);
-            orderEntity.setRewardPoints(totalPointsPerOrder);
-            orderEntity.setStatus(OrderStatusEnums.RESERVED);
-            orderRepository.save(orderEntity);
-
-            return modelMapper.map(orderEntity, OrderDetailsDto.class);
         }
 
         /**
@@ -329,6 +292,43 @@ public class OrderServiceImpl implements OrderService {
                 throw new ProductsReserveException("can not reserver product");
             }
             return reservationResponse.getContents();
+        }
+
+        @Transactional
+        private OrderDetailsDto build() {
+            OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(orderId))
+                    .orElseThrow(() -> new RecordNotFoundException("order", orderId));
+
+            orderEntity.setConsignee(direction.getConsignee());
+            orderEntity.setAddress(direction.getAddress());
+            orderEntity.setPhoneNumber(direction.getPhoneNumber());
+
+            BigDecimal totalAmountPerOrder = new BigDecimal("0");
+            BigDecimal totalPointsPerOrder = new BigDecimal("0");
+
+            for (ReservedProductDto reservedProduct : reservedProducts) {
+                ItemEntity itemEntity = modelMapper.map(reservedProduct, ItemEntity.class);
+                orderEntity.addItemEntity(itemEntity);
+
+                // 计算该种商品的总金额。
+                BigDecimal totalAmountPerItem = new BigDecimal(reservedProduct.getPrice() * reservedProduct.getQuantity());
+
+                // 计算该种商品可获得的积分数。
+                BigDecimal totalPointsPerItem = new BigDecimal("0");
+                if (null != reservedProduct.getRatio()) {
+                    totalPointsPerItem = totalAmountPerItem.multiply(new BigDecimal(reservedProduct.getRatio())).setScale(0, BigDecimal.ROUND_HALF_UP);
+                }
+
+                totalAmountPerOrder = totalAmountPerOrder.add(totalAmountPerItem);
+                totalPointsPerOrder = totalPointsPerOrder.add(totalPointsPerItem);
+            }
+
+            orderEntity.setTotalAmount(totalAmountPerOrder);
+            orderEntity.setRewardPoints(totalPointsPerOrder);
+            orderEntity.setStatus(OrderStatusEnums.RESERVED);
+            orderRepository.save(orderEntity);
+
+            return modelMapper.map(orderEntity, OrderDetailsDto.class);
         }
 
     }
