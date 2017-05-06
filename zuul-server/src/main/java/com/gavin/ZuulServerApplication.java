@@ -10,10 +10,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableDiscoveryClient
 @EnableResourceServer
 @EnableZuulProxy
-public class ZuulServiceApplication {
+public class ZuulServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ZuulServiceApplication.class, args);
+        SpringApplication.run(ZuulServerApplication.class, args);
     }
 
 

@@ -4,9 +4,9 @@ server:
 zuul:
   sensitive-headers: Cookie,Set-Cookie,Authorization
   routes:
-    oauth2-service:
+    oauth2-server:
       path: /uaa/**
-      service-id: oauth2-service
+      service-id: oauth2-server
       strip-prefix: false
     user-service:
       path: /users/**
