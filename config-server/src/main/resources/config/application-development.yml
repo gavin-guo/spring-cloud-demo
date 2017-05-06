@@ -1,3 +1,6 @@
+info:
+  version: @project.version@
+
 spring:
   jackson:
     date-format: "yyyy-MM-dd HH:mm:ss"
@@ -34,6 +37,13 @@ spring:
   sleuth:
     sampler:
       percentage: 1
+  boot:
+    admin:
+      url: http://${ADMIN_HOST:localhost}:8080
+
+management:
+  security:
+    enabled: false
 
 security:
   user:
