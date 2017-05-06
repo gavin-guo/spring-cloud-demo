@@ -40,6 +40,8 @@ spring:
   boot:
     admin:
       url: http://${ADMIN_HOST:localhost}:8080
+      client:
+        prefer-ip: true
 
 management:
   security:
