@@ -1,33 +1,29 @@
-## Eureka 
+### Eureka 
 http://localhost:8761
 
-## Admin
+### Admin
 http://localhost:8080
 
-## Kibana
+### Kibana
 http://localhost:5601
 
-## Rabbitmq
+### Rabbitmq
 http://localhost:15672/#/
 
-## Hystrix Dashboard
+### Hystrix Dashboard
 http://localhost:8990/hystrix
 
-## Zipkin
+### Zipkin
 http://localhost:9411
 
-## Swagger
-- user-service
-http://localhost:9101/swagger-ui.html#/
-- point-service
-http://localhost:9102/swagger-ui.html#/
-- address-service
-http://localhost:9103/swagger-ui.html#/
-- product-service
-http://localhost:9104/swagger-ui.html#/
-- order-service
-http://localhost:9105/swagger-ui.html#/
-- payment-service
-http://localhost:9106/swagger-ui.html#/
-- delivery-service
-http://localhost:9107/swagger-ui.html#/
+### Swagger
+
+| service | swagger-ui |
+| --- | --- |
+| user-service | http://localhost:9101/swagger-ui.html#/ |
+| point-service | http://localhost:9102/swagger-ui.html#/ |
+| address-service | http://localhost:9103/swagger-ui.html#/ |
+| product-service | http://localhost:9104/swagger-ui.html#/ |
+| order-service | http://localhost:9105/swagger-ui.html#/ |
+| payment-service | http://localhost:9106/swagger-ui.html#/ |
+| delivery-service | http://localhost:9107/swagger-ui.html#/ |
