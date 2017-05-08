@@ -36,7 +36,7 @@ public class ProductEntity {
     @Column(name = "COMMENT")
     private String comment;
 
-    //@Version
+    @Version
     @Column(name = "VERSION")
     private Long version;
 

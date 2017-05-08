@@ -28,7 +28,7 @@ public class ProductReservationEntity {
     @Column(name = "QUANTITY")
     private Integer quantity;
 
-    //@Version
+    @Version
     @Column(name = "VERSION")
     private Long version;
 

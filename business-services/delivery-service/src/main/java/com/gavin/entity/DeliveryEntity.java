@@ -45,7 +45,7 @@ public class DeliveryEntity {
     @Column(name = "STATUS")
     private DeliveryStatusEnums status;
 
-    //@Version
+    @Version
     @Column(name = "VERSION")
     private Long version;
 

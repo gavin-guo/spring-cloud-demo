@@ -36,7 +36,7 @@ public class PointHistoryEntity {
     @Column(name = "ACTION")
     private PointActionEnums action;
 
-    //@Version
+    @Version
     @Column(name = "VERSION")
     private Long version;
 

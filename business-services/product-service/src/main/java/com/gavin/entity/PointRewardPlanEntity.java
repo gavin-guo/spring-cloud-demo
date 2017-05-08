@@ -31,7 +31,7 @@ public class PointRewardPlanEntity {
     @Column(name = "END_DATE")
     private String endDate;
 
-    //@Version
+    @Version
     @Column(name = "VERSION")
     private Long version;
 
