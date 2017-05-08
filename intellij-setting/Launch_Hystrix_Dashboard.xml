@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Launch Hystrix Dashboard" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="Launch Server">
+    <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.gavin.HystrixDashboardApplication" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <module name="hystrix-dashboard" />
+    <envs />
+    <method />
+  </configuration>
+</component>
