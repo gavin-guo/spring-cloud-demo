@@ -1,6 +1,6 @@
 package com.gavin.config;
 
-import com.gavin.interceptor.ExtractLoginInfoInterceptor;
+import com.gavin.interceptor.ExtractLoginUserInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ public class CustomWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new ExtractLoginInfoInterceptor(redisTemplate)).addPathPatterns("/**");
+        registry.addInterceptor(new ExtractLoginUserInterceptor(redisTemplate)).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 
