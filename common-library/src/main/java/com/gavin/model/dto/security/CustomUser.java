@@ -9,23 +9,20 @@ import java.util.Collection;
 @Data
 public class CustomUser extends User {
 
-    private String userId;
+    private String nickName;
 
     private Byte grade;
 
-    private boolean admin;
-
-    public CustomUser(String username,
+    public CustomUser(String userId,
+                      String nickName,
                       String password,
                       boolean enabled,
                       boolean accountNonExpired,
                       boolean credentialsNonExpired,
                       boolean accountNonLocked,
                       Collection<? extends GrantedAuthority> authorities,
-                      String userId,
-                      Byte grade,
-                      boolean admin) {
-        super(username,
+                      Byte grade) {
+        super(userId,
                 password,
                 enabled,
                 accountNonExpired,
@@ -33,9 +30,8 @@ public class CustomUser extends User {
                 accountNonLocked,
                 authorities);
 
-        this.userId = userId;
+        this.nickName = nickName;
         this.grade = grade;
-        this.admin = admin;
     }
 
 }

@@ -7,10 +7,8 @@ public class CurrentUser {
 
     private String userId;
 
-    private String userName;
+    private String nickName;
 
     private Byte grade;
-
-    private boolean admin;
 
 }
