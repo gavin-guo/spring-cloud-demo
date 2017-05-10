@@ -4,7 +4,7 @@ import com.gavin.model.dto.security.CurrentUser;
 import com.gavin.model.dto.security.CustomUser;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.redis.core.BoundHashOperations;
+import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
@@ -31,12 +31,16 @@ public class CustomTokenStoreDelegator implements TokenStore {
 
         CurrentUser currentUser = new CurrentUser();
         BeanUtils.copyProperties(customUser, currentUser);
-        currentUser.setUserName(customUser.getUsername());
+        currentUser.setUserId(customUser.getUsername());
 
-        BoundHashOperations<String, String, Object> boundHashOperations
-                = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
-        boundHashOperations.put(token.getValue(), currentUser);
-        boundHashOperations.expire(1, TimeUnit.HOURS);
+//        BoundHashOperations<String, String, Object> boundHashOperations
+//                = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
+//        boundHashOperations.put(token.getValue(), currentUser);
+//        boundHashOperations.expire(1, TimeUnit.HOURS);
+
+        BoundValueOperations<String, Object> boundValueOperations = redisTemplate.boundValueOps("user-id:" + currentUser.getUserId());
+        boundValueOperations.setIfAbsent(currentUser);
+        boundValueOperations.expire(1, TimeUnit.HOURS);
 
         return authentication;
     }
@@ -56,12 +60,16 @@ public class CustomTokenStoreDelegator implements TokenStore {
 
             CurrentUser currentUser = new CurrentUser();
             BeanUtils.copyProperties(customUser, currentUser);
-            currentUser.setUserName(customUser.getUsername());
+            currentUser.setUserId(customUser.getUsername());
 
-            BoundHashOperations<String, String, Object> boundHashOperations
-                    = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
-            boundHashOperations.put(token.getValue(), currentUser);
-            boundHashOperations.expire(1, TimeUnit.HOURS);
+//            BoundHashOperations<String, String, Object> boundHashOperations
+//                    = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
+//            boundHashOperations.put(token.getValue(), currentUser);
+//            boundHashOperations.expire(1, TimeUnit.HOURS);
+
+            BoundValueOperations<String, Object> boundValueOperations = redisTemplate.boundValueOps("user-id:" + currentUser.getUserId());
+            boundValueOperations.setIfAbsent(currentUser);
+            boundValueOperations.expire(1, TimeUnit.HOURS);
         }
     }
 

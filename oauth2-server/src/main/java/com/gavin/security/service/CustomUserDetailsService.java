@@ -42,6 +42,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         );
 
         CustomUser customUser = new CustomUser(
+                userDto.getId(),
                 userDto.getLoginName(),
                 userDto.getPassword(),
                 true,
@@ -49,9 +50,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 true,
                 true,
                 authorities,
-                userDto.getId(),
-                userDto.getGrade(),
-                userDto.getAdminFlag());
+                userDto.getGrade());
 
         return customUser;
     }
