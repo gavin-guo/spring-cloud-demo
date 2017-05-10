@@ -18,7 +18,7 @@ public interface OrderService {
      * @param _order
      * @return
      */
-    OrderDetailsDto createOrder(CreateOrderDto _order);
+    OrderDetailsDto createOrder(String _userId, CreateOrderDto _order);
 
     /**
      * 更新订单状态。

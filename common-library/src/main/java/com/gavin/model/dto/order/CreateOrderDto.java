@@ -14,20 +14,15 @@ import java.util.List;
 @ApiModel(value = "CreateOrderDto", description = "订单创建信息")
 public class CreateOrderDto implements Serializable {
 
-    @JsonProperty("user_id")
-    @NotNull(message = "user_id不能为空。")
-    @ApiModelProperty(value = "账户ID", position = 1, required = true)
-    private String userId;
-
     @JsonProperty("address_id")
     @NotNull(message = "address_id不能为空。")
-    @ApiModelProperty(value = "送货地址ID", position = 2, required = true)
+    @ApiModelProperty(value = "送货地址ID", position = 1, required = true)
     private String addressId;
 
     @JsonProperty("items")
     @NotNull
     @Valid
-    @ApiModelProperty(value = "商品信息", position = 3, required = true)
+    @ApiModelProperty(value = "商品信息", position = 2, required = true)
     private List<ItemDto> items;
 
 }

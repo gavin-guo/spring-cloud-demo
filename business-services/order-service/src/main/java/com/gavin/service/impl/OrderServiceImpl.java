@@ -74,11 +74,11 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Override
-    public OrderDetailsDto createOrder(CreateOrderDto _order) {
+    public OrderDetailsDto createOrder(String _userId, CreateOrderDto _order) {
         OrderDetailsDto orderDetailsDto = new OrderBuilder()
-                .withUser(_order.getUserId())
-                .andAddress(_order.getAddressId())
-                .andItems(_order.getItems())
+                .withUser(_userId)
+                .withAddress(_order.getAddressId())
+                .withItems(_order.getItems())
                 .build();
 
         log.info("create order successfully. {}", new Gson().toJson(orderDetailsDto));
@@ -232,7 +232,7 @@ public class OrderServiceImpl implements OrderService {
             return this;
         }
 
-        OrderBuilder andAddress(String _addressId) {
+        OrderBuilder withAddress(String _addressId) {
             Assert.notNull(orderId, "'withUserId' method must be called previously.");
             try {
                 this.direction = getRecipientDirection(_addressId);
@@ -243,7 +243,7 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
-        OrderBuilder andItems(List<ItemDto> _items) {
+        OrderBuilder withItems(List<ItemDto> _items) {
             Assert.notNull(orderId, "'withUserId' method must be called previously.");
             try {
                 this.reservedProducts = reserveProducts(orderId, _items);

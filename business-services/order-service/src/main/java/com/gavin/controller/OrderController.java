@@ -1,11 +1,9 @@
 package com.gavin.controller;
 
-import com.gavin.constants.RequestAttributeConstants;
 import com.gavin.model.PageResult;
 import com.gavin.model.dto.order.CreateOrderDto;
 import com.gavin.model.dto.order.OrderDetailsDto;
 import com.gavin.model.dto.order.OrderDto;
-import com.gavin.model.dto.security.CurrentUser;
 import com.gavin.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,8 +29,8 @@ public class OrderController {
     @ApiOperation(value = "创建订单")
     public OrderDetailsDto createOrder(
             @ApiParam(name = "order", value = "订单信息", required = true) @Valid @RequestBody CreateOrderDto _order,
-            @RequestAttribute(name = RequestAttributeConstants.CURRENT_USER, required = false) CurrentUser _currentUser) {
-        return orderService.createOrder(_order);
+            @RequestHeader("x-user-id") String _userId) {
+        return orderService.createOrder(_userId, _order);
     }
 
     @RequestMapping(value = "/orders/{order_id}", method = RequestMethod.GET)
