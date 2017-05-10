@@ -44,9 +44,6 @@ public class UserEntity {
     @Column(name = "STATUS")
     private UserStatusEnums status;
 
-    @Column(name = "ADMIN_FLAG")
-    private Boolean adminFlag;
-
     @Column(name = "GRADE")
     private Byte grade;
 
