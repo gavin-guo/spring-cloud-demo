@@ -68,7 +68,7 @@ ribbon:
 
 feign:
   hystrix:
-    enabled: true
+    enabled: false
   httpclient:
     enabled: false
 

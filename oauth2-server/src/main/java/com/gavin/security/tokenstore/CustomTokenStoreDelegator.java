@@ -67,7 +67,7 @@ public class CustomTokenStoreDelegator implements TokenStore {
 //            boundHashOperations.put(token.getValue(), currentUser);
 //            boundHashOperations.expire(1, TimeUnit.HOURS);
 
-            BoundValueOperations<String, Object> boundValueOperations = redisTemplate.boundValueOps("user-id:" + currentUser.getUserId());
+            BoundValueOperations<String, Object> boundValueOperations = redisTemplate.boundValueOps("user_id:" + currentUser.getUserId());
             boundValueOperations.setIfAbsent(currentUser);
             boundValueOperations.expire(1, TimeUnit.HOURS);
         }

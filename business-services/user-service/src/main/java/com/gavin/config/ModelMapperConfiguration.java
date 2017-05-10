@@ -27,7 +27,6 @@ public class ModelMapperConfiguration {
             destination.setLoginName(source.getLoginName());
             destination.setPassword(source.getPassword());
             destination.setGrade(source.getGrade());
-            destination.setAdminFlag(source.getAdminFlag());
 
             List<AuthorityDto> authorityDtos = new ArrayList<>();
             source.getUserAuthorityEntities().forEach(

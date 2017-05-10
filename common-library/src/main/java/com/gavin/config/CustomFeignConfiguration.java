@@ -27,8 +27,7 @@ public class CustomFeignConfiguration {
             Object obj = requestAttributes.getAttribute(RequestAttributeConstants.CURRENT_USER, RequestAttributes.SCOPE_REQUEST);
             if (obj != null) {
                 CurrentUser currentUser = (CurrentUser) obj;
-                template.header("X-USER-ID", currentUser.getUserId());
-                template.header("X-USER-NAME", currentUser.getUserName());
+                template.header("x-user-id", currentUser.getUserId());
             }
         };
     }

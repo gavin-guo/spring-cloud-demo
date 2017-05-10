@@ -46,7 +46,7 @@ public class ExtractLoginUserInterceptor implements HandlerInterceptor {
 //
 //        Object obj = redisTemplate.opsForHash().get(loginUser, accessToken);
 
-        Object obj = redisTemplate.opsForValue().get("user-id:" + userId);
+        Object obj = redisTemplate.opsForValue().get("user_id:" + userId);
         if (obj != null) {
             CurrentUser currentUser = (CurrentUser) obj;
             request.setAttribute(RequestAttributeConstants.CURRENT_USER, currentUser);
