@@ -6,7 +6,6 @@ import com.gavin.payload.PaymentSucceededPayload;
 import com.gavin.service.OrderService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -26,9 +25,6 @@ public class PaymentSucceededMessageConsumer implements MessageConsumer<PaymentS
     private Executor executor;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private OrderService orderService;
 
     @StreamListener(PaymentSucceededProcessor.INPUT)
@@ -40,9 +36,7 @@ public class PaymentSucceededMessageConsumer implements MessageConsumer<PaymentS
                 .runAsync(() ->
                         orderService.succeedInPayment(_payload.getOrderId()
                         ), executor)
-                .thenRunAsync(() -> {
-                    log.info("update the status of order({}) to 'PAID' successfully.", _payload.getOrderId());
-                }, executor)
+                .thenRunAsync(() -> log.info("update the status of order({}) to 'PAID' successfully.", _payload.getOrderId()), executor)
                 .exceptionally(e -> {
                     log.error(e.getMessage(), e);
                     log.warn("update the status of order({}) to 'PAID' failed.", _payload.getOrderId());
