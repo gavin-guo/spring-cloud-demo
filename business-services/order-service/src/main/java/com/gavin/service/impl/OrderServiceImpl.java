@@ -76,8 +76,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDetailsDto createOrder(String _userId, CreateOrderDto _order) {
         OrderDetailsDto orderDetailsDto = new OrderBuilder()
-                .withUser(_userId)
-                .withAddress(_order.getAddressId())
+                .withUserId(_userId)
+                .withAddressId(_order.getAddressId())
                 .withItems(_order.getItems())
                 .build();
 
@@ -222,7 +222,7 @@ public class OrderServiceImpl implements OrderService {
 
         private List<ReservedProductDto> reservedProducts;
 
-        OrderBuilder withUser(String _userId) {
+        OrderBuilder withUserId(String _userId) {
             OrderEntity orderEntity = new OrderEntity();
             orderEntity.setUserId(_userId);
             orderEntity.setStatus(OrderStatusEnums.CREATED);
@@ -232,7 +232,7 @@ public class OrderServiceImpl implements OrderService {
             return this;
         }
 
-        OrderBuilder withAddress(String _addressId) {
+        OrderBuilder withAddressId(String _addressId) {
             Assert.notNull(orderId, "'withUserId' method must be called previously.");
             try {
                 this.direction = getRecipientDirection(_addressId);
