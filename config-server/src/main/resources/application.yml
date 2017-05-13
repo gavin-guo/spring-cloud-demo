@@ -9,10 +9,6 @@ spring:
       server:
         native:
           search-locations: classpath:/config
-#        git:
-#          uri: https://github.com/gavin-guo/config-repo
-#          username:
-#          password:
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: 5672
