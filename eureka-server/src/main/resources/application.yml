@@ -19,10 +19,12 @@ server:
 eureka:
   instance:
     hostname: peer1
-#    prefer-ip-address: true
+    prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://${EUREKA_HOST:localhost}:8762/eureka/
+  server:
+    enable-self-preservation: false
 
 ---
 spring:
@@ -34,7 +36,9 @@ server:
 eureka:
   instance:
     hostname: peer2
-#    prefer-ip-address: true
+    prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
+  server:
+    enable-self-preservation: false
