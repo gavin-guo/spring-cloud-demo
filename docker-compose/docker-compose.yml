@@ -42,28 +42,52 @@ services:
 #    ports:
 #      - 2181:2181
 
-#  eureka-server:
+  eureka-server:
+    image: 192.168.1.88:5000/eureka-server
+    container_name: eureka-server
+    restart: always
+    ports:
+      - 8761:8761
+
+#  eureka-server-1:
 #    image: 192.168.1.88:5000/eureka-server
-#    container_name: eureka-server
+#    container_name: eureka-server-1
 #    restart: always
 #    ports:
 #      - 8761:8761
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=peer1
+#      - EUREKA_HOST1=eureka-server-1
+#      - EUREKA_HOST2=eureka-server-2
 #
-#  config-server:
-#    image: 192.168.1.88:5000/config-server
-#    container_name: config-server
+#  eureka-server-2:
+#    image: 192.168.1.88:5000/eureka-server
+#    container_name: eureka-server-2
 #    restart: always
 #    ports:
-#      - 8888:8888
-#    links:
-#      - eureka-server
-#      - rabbitmq
+#      - 8762:8762
 #    environment:
-#      - EUREKA_HOST=eureka-server
-#      - RABBITMQ_HOST=rabbitmq
+#      - SPRING_PROFILES_ACTIVE=peer2
+#      - EUREKA_HOST1=eureka-server-1
+#      - EUREKA_HOST2=eureka-server-2
 #    depends_on:
-#      - eureka-server
-#
+#      - eureka-server-1
+      
+  config-server:
+    image: 192.168.1.88:5000/config-server
+    container_name: config-server
+    restart: always
+    ports:
+      - 8888:8888
+    links:
+      - eureka-server
+      - rabbitmq
+    environment:
+      - EUREKA_HOST=eureka-server
+      - RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - eureka-server
+
 #  oauth2-server:
 #    image: 192.168.1.88:5000/oauth2-server
 #    container_name: oauth2-server
