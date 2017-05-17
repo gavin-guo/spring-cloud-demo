@@ -2,6 +2,10 @@ spring:
   application:
     name: eureka-server
 
+management:
+  security:
+    enabled: false
+
 ---
 spring:
   profiles: default
