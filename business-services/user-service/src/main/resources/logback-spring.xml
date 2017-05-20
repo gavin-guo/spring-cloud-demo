@@ -3,10 +3,9 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     ​
     <springProperty scope="context" name="serviceName" source="spring.application.name"/>
+    <property name="logfile" value="/var/log/spring-cloud-demo/${serviceName}/${serviceName}.log"/>​
     <property name="stashHost" value="192.168.1.88"/>​
     <property name="stashPort" value="4560"/>​
-
-    <property name="logfile" value="/var/log/spring-cloud-demo/${serviceName}/${serviceName}.log"/>​
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
