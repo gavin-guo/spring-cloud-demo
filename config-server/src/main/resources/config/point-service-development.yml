@@ -1,6 +1,3 @@
-server:
-  port: 9102
-
 spring:
   cloud:
     stream:

@@ -1,6 +1,3 @@
-server:
-  port: 9101
-
 spring:
   messages:
     basename: i18n/messages

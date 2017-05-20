@@ -1,6 +1,3 @@
-server:
-  port: 9201
-
 spring:
   mail:
     host: smtp.yeah.net

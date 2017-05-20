@@ -3,6 +3,9 @@
 spring:
   profiles: development
 
+server:
+  port: 9105
+
 ---
 spring:
   profiles: test
