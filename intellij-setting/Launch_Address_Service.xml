@@ -7,7 +7,7 @@
     <additionalParameters>
       <param>
         <option name="name" value="server.port" />
-        <option name="value" value="1112" />
+        <option name="value" value="" />
       </param>
     </additionalParameters>
     <module name="address-service" />
