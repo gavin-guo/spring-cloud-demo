@@ -35,21 +35,6 @@ services:
     ports:
       - 6379:6379
 
-#  zookeeper:
-#    image: zookeeper
-#    container_name: zookeeper
-#    restart: always
-#    ports:
-#      - 2181:2181
-
-#  registry:
-#    image: registry
-#    container_name: registry
-#    volumes:
-#      - /Users/Gavin/Developer/storage/registry:/var/lib/registry
-#    ports:
-#      - 5000:5000
-
   logstash:
     image: logstash
     container_name: logstash
@@ -78,6 +63,21 @@ services:
       - 5601:5601
     links:
       - elasticsearch
+
+#  zookeeper:
+#    image: zookeeper
+#    container_name: zookeeper
+#    restart: always
+#    ports:
+#      - 2181:2181
+
+#  registry:
+#    image: registry
+#    container_name: registry
+#    volumes:
+#      - /Users/Gavin/Developer/storage/registry:/var/lib/registry
+#    ports:
+#      - 5000:5000
 
 #  eureka-server:
 #    image: 192.168.1.88:5000/eureka-server
