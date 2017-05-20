@@ -1,6 +1,8 @@
 spring:
   application:
     name: eureka-server
+  profiles:
+    active: development
 
 management:
   security:
@@ -8,7 +10,7 @@ management:
 
 ---
 spring:
-  profiles: default
+  profiles: development
 
 server:
   port: 8761
