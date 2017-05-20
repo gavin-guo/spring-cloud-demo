@@ -42,6 +42,43 @@ services:
 #    ports:
 #      - 2181:2181
 
+#  registry:
+#    image: registry
+#    container_name: registry
+#    volumes:
+#      - /Users/Gavin/Developer/storage/registry:/var/lib/registry
+#    ports:
+#      - 5000:5000
+
+  logstash:
+    image: logstash
+    container_name: logstash
+    restart: always
+    command: logstash -e 'input { udp { port => 4560 codec => json } } output { elasticsearch { hosts => "elasticsearch:9200" } }'
+    ports:
+      - 4560:4560/udp
+    links:
+      - elasticsearch
+
+  elasticsearch:
+    image: elasticsearch
+    container_name: elasticsearch
+    restart: always
+    volumes:
+      - /Users/Gavin/Developer/storage/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  kibana:
+    image: kibana
+    container_name: kibana
+    restart: always
+    ports:
+      - 5601:5601
+    links:
+      - elasticsearch
+
 #  eureka-server:
 #    image: 192.168.1.88:5000/eureka-server
 #    container_name: eureka-server
@@ -310,37 +347,3 @@ services:
 #    ports:
 #      - 8989:8989
 #      - 8990:8990
-
-#  registry:
-#    image: registry
-#    container_name: registry
-#    volumes:
-#      - /Users/Gavin/Developer/storage/registry:/var/lib/registry
-#    ports:
-#      - 5000:5000
-
-#  elasticsearch:
-#    image: elasticsearch
-#    container_name: elasticsearch
-#    volumes:
-#      - /Users/Gavin/Developer/storage/elasticsearch:/usr/share/elasticsearch/data
-#    ports:
-#      - 9200:9200
-#      - 9300:9300
-#
-#  logstash:
-#    image: logstash
-#    container_name: logstash
-#    command: logstash -e 'input { udp { port => 4560 codec => json } } output { elasticsearch { hosts => "elasticsearch:9200" } }'
-#    ports:
-#      - 4560:4560/udp
-#    links:
-#      - elasticsearch
-#
-#  kibana:
-#    image: kibana
-#    container_name: kibana
-#    ports:
-#      - 5601:5601
-#    links:
-#      - elasticsearch
