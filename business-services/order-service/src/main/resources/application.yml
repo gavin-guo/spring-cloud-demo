@@ -2,6 +2,17 @@
 ---
 spring:
   profiles: development
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+
+product-service:
+  ribbon:
+    ConnectTimeout: 250
+    ReadTimeout: 1000
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 1
 
 server:
   port: 9105
