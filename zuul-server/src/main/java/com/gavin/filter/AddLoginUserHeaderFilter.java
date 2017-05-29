@@ -3,6 +3,7 @@ package com.gavin.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.netflix.zuul.util.ZuulRuntimeException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -24,7 +25,7 @@ public class AddLoginUserHeaderFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 1;
+        return 8;
     }
 
     @Override
@@ -62,8 +63,12 @@ public class AddLoginUserHeaderFilter extends ZuulFilter {
 
     @Override
     public Object run() {
-        RequestContext ctx = RequestContext.getCurrentContext();
-        ctx.addZuulRequestHeader("x-user-id", (String) ctx.get(LOGIN_USER_ID));
+        try {
+            RequestContext ctx = RequestContext.getCurrentContext();
+            ctx.addZuulRequestHeader("x-user-id", (String) ctx.get(LOGIN_USER_ID));
+        } catch (Exception ex) {
+            throw new ZuulRuntimeException(ex);
+        }
         return null;
     }
 
