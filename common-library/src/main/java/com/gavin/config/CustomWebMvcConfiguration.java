@@ -1,24 +1,29 @@
 package com.gavin.config;
 
-import com.gavin.interceptor.ExtractLoginUserInterceptor;
+import com.gavin.interceptor.RequestLogEnhancerInterceptor;
+import com.gavin.interceptor.UserInfoExtractorInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-//@ConditionalOnBean(name = "customRedisTemplate")
 public class CustomWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired
     @Qualifier("customRedisTemplate")
     private RedisTemplate<String, Object> redisTemplate;
 
+    @Autowired
+    private DiscoveryClient discoveryClient;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new ExtractLoginUserInterceptor(redisTemplate)).addPathPatterns("/**");
+        registry.addInterceptor(new UserInfoExtractorInterceptor(redisTemplate)).addPathPatterns("/**");
+        registry.addInterceptor(new RequestLogEnhancerInterceptor(discoveryClient)).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @AllArgsConstructor
-public class ExtractLoginUserInterceptor implements HandlerInterceptor {
+public class UserInfoExtractorInterceptor implements HandlerInterceptor {
 
     private RedisTemplate<String, Object> redisTemplate;
 
