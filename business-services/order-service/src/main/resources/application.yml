@@ -11,8 +11,8 @@ product-service:
   ribbon:
     ConnectTimeout: 250
     ReadTimeout: 1000
-    MaxAutoRetries: 2
-    MaxAutoRetriesNextServer: 1
+    MaxAutoRetries: 1
+    MaxAutoRetriesNextServer: 2
 
 server:
   port: 9105

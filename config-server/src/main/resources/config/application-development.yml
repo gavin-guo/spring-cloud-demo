@@ -68,7 +68,7 @@ ribbon:
 
 feign:
   hystrix:
-    enabled: true
+    enabled: false
   httpclient:
     enabled: true
 
@@ -76,7 +76,15 @@ hystrix:
   command:
     default:
       execution:
+        timeout:
+          enabled: true
         isolation:
           strategy: THREAD
           thread:
             timeoutInMilliseconds: 60000
+            interruptOnTimeout: true
+      circuitBreaker:
+        enabled: true
+        errorThresholdPercentage: 60
+      fallback:
+        enabled: true

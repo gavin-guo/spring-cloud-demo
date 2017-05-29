@@ -29,6 +29,7 @@ public class RequestLogEnhancerInterceptor implements HandlerInterceptor {
         MDC.put(HOST, serviceInstance.getHost());
         MDC.put(PORT, String.valueOf(serviceInstance.getPort()));
         MDC.put(SERVICE, serviceInstance.getServiceId());
+        log.info("{} {}", request.getRequestURI(), request.getMethod());
         return true;
     }
 
