@@ -2,7 +2,9 @@ server:
   port: 8000
 
 zuul:
+  ignored-services: zuul-server, config-server
   sensitive-headers: Cookie,Set-Cookie,Authorization
+  retryable: true
   routes:
     oauth2-server:
       path: /uaa/**
@@ -69,3 +71,18 @@ logging:
 management:
   security:
     enabled: false
+
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 80000
