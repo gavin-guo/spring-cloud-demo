@@ -6,5 +6,20 @@ eureka:
   client:
     service-url:
       defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
+    registry-fetch-interval-seconds: 20
   instance:
     prefer-ip-address: true
+
+---
+spring:
+  profiles: development
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      profile: development
+      label: master
+      username: gavin
+      password: gavin
+      allow-override: true
