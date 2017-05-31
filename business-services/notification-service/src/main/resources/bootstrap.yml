@@ -26,6 +26,7 @@ spring:
       username: gavin
       password: gavin
       allow-override: true
+      fail-fast: true
 
 ---
 spring:
