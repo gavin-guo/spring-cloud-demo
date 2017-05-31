@@ -19,3 +19,7 @@ security:
   user:
     name: gavin
     password: gavin
+
+management:
+  security:
+    enabled: false
