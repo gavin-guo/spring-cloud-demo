@@ -6,8 +6,9 @@
     <option name="ALTERNATIVE_JRE_PATH" />
     <additionalParameters>
       <param>
+        <option name="enabled" value="true" />
         <option name="name" value="server.port" />
-        <option name="value" value="" />
+        <option name="value" value="9103" />
       </param>
     </additionalParameters>
     <module name="address-service" />
