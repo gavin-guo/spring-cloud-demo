@@ -8,6 +8,16 @@ spring:
       time-zone: GMT+8
     serialization:
       write_dates_as_timestamps: false
+  cloud:
+    stream:
+      defaultBinder: rabbit
+      kafka:
+        binder:
+          brokers: localhost
+          defaultBrokerPort: 9092
+          zkNodes: localhost
+          defaultZkPort: 2181
+          autoCreateTopics: true
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: 5672
@@ -26,7 +36,6 @@ spring:
       retry:
         enabled: true
         max-attempts: 3
-
   redis:
     host: ${REDIS_HOST:localhost}
     port: 6379
