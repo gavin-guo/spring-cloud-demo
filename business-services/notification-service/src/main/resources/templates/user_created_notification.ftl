@@ -2,7 +2,7 @@
 <body>
 亲爱的${param.nickName}:<br>
 <br>
-您在Microservice Demo系统的帐号已创建成功。<br>
+您在Spring Cloud Demo系统的帐号已创建成功。<br>
 登录名：${param.loginName}<br>
 <br>
 请点击以下链接来激活您的帐号。<br>
