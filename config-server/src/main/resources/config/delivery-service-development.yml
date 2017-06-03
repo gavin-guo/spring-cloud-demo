@@ -3,6 +3,7 @@ spring:
     stream:
       bindings:
         arrange_shipment_input:
+          binder: rabbit
           destination: arrangeShipment
           group: default
           content-type: application/json

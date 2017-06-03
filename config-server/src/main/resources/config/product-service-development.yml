@@ -3,6 +3,7 @@ spring:
     stream:
       bindings:
         cancel_reservation_input:
+          binder: rabbit
           destination: cancelReservation
           group: default
           content-type: application/json

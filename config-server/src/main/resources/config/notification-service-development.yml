@@ -11,11 +11,24 @@ spring:
     stream:
       bindings:
         user_created_input:
+          binder: rabbit
           destination: userCreated
           group: default
           content-type: application/json
           consumer:
             max-attempts: 3
+      rabbit:
+        bindings:
+          user_created_input:
+            consumer:
+              acknowledgeMode: AUTO
+              durableSubscription: true
+              prefetch: 1
+              requeueRejected: true
+              autoBindDlq: true
+              republishToDlq: true
+              transacted: true
+
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver

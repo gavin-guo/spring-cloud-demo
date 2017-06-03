@@ -6,12 +6,14 @@ spring:
     stream:
       bindings:
         user_created_output:
+          binder: rabbit
           destination: userCreated
-          group: default #this is important for having persistent messages otherwise messages are lost
+          group: default
           content-type: application/json
           producer:
             required-groups: default
         user_activated_output:
+          binder: rabbit
           destination: userActivated
           group: default
           content-type: application/json

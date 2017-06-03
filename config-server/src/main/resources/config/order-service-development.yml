@@ -3,24 +3,28 @@ spring:
     stream:
       bindings:
         cancel_reservation_output:
+          binder: rabbit
           destination: cancelReservation
           group: default
           content-type: application/json
           producer:
             required-groups: default
         waiting_for_payment_output:
+          binder: rabbit
           destination: waitingForPayment
           group: default
           content-type: application/json
           producer:
             required-groups: default
         arrange_shipment_output:
+          binder: rabbit
           destination: arrangeShipment
           group: default
           content-type: application/json
           producer:
             required-groups: default
         payment_succeeded_input:
+          binder: rabbit
           destination: paymentSucceeded
           group: default
           content-type: application/json

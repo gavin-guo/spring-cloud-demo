@@ -3,12 +3,14 @@ spring:
     stream:
       bindings:
         waiting_for_payment_input:
+          binder: rabbit
           destination: waitingForPayment
           group: default
           content-type: application/json
           consumer:
             max-attempts: 3
         payment_succeeded_output:
+          binder: rabbit
           destination: paymentSucceeded
           group: default
           content-type: application/json

@@ -3,6 +3,7 @@ spring:
     stream:
       bindings:
         user_activated_input:
+          binder: rabbit
           destination: userActivated
           group: default
           content-type: application/json
