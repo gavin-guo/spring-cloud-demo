@@ -13,10 +13,10 @@ spring:
       defaultBinder: rabbit
       kafka:
         binder:
-          brokers: localhost
-          defaultBrokerPort: 9092
-          zkNodes: localhost
+          zkNodes: ${KAFKA_HOST:localhost}
           defaultZkPort: 2181
+          brokers: ${KAFKA_HOST:localhost}
+          defaultBrokerPort: 9092
           autoCreateTopics: true
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
