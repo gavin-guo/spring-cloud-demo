@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Remove Untagged Images" type="BashConfigurationType" factoryName="Bash" singleton="true">
+  <configuration default="false" name="Start Kafka" type="BashConfigurationType" factoryName="Bash" singleton="true">
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="INTERPRETER_PATH" value="/bin/bash" />
     <option name="WORKING_DIRECTORY" value="" />
     <option name="PARENT_ENVS" value="true" />
-    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/remove-untagged-images.sh" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/start-kafka.sh" />
     <option name="PARAMETERS" value="" />
     <module name="" />
     <envs />
