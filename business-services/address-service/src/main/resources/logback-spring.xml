@@ -3,7 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     ​
     <springProperty scope="context" name="serviceName" source="spring.application.name"/>
-    <property name="logfile" value="/var/log/spring-cloud-demo/${serviceName}/${serviceName}.log"/>​
+    <property name="logFile" value="/var/log/spring-cloud-demo/${serviceName}/${serviceName}.log"/>​
     <property name="stashHost" value="192.168.1.88"/>​
     <property name="stashPort" value="4560"/>​
 
@@ -15,13 +15,13 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${logfile}</file>
+        <file>${logFile}</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logfile}.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <fileNamePattern>${logFile}.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
     </appender>
@@ -29,6 +29,16 @@
     <appender name="STASH" class="net.logstash.logback.appender.LogstashSocketAppender">
         <host>${stashHost}</host>
         <port>${stashPort}</port>
+        <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
+            <pattern>
+                {
+                "service": "${serviceName:-}",
+                "level": "%level",
+                "trace": "%X{X-B3-TraceId:-}",
+                "span": "%X{X-B3-SpanId:-}"
+                }
+            </pattern>
+        </provider>
     </appender>
 
     <root level="INFO">
