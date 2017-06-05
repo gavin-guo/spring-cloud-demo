@@ -1,7 +1,7 @@
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
   default-schema: SCHEMA_ADDRESS
-  drop-first: true
+  drop-first: false
   enabled: true
 
 ---
