@@ -8,10 +8,3 @@ spring:
     dbcp2:
       test-while-idle: true
       validation-query: SELECT 1
-
-flyway:
-  enabled: true
-  user: root
-  password: root
-  encoding: utf8
-  validate-on-migrate: true
