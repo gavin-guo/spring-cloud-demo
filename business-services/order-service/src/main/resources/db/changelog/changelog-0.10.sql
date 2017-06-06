@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `SCHEMA_ORDER`;
-USE `SCHEMA_ORDER`;
+--liquibase formatted sql
 
+--changeset gavin:1
 DROP TABLE IF EXISTS `ORDER`;
 CREATE TABLE `ORDER` (
   `ID`            CHAR(36)    NOT NULL,

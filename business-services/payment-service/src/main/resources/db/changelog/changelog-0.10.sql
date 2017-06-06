@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `SCHEMA_PAYMENT`;
-USE `SCHEMA_PAYMENT`;
+--liquibase formatted SQL
 
+--changeset gavin:1
 DROP TABLE IF EXISTS `PAYMENT`;
 CREATE TABLE `PAYMENT` (
   `ID`            CHAR(36)       NOT NULL,

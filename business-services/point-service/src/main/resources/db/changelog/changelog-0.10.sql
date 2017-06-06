@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `SCHEMA_POINT`;
-USE `SCHEMA_POINT`;
+--liquibase formatted SQL
 
+--changeset gavin:1
 DROP TABLE IF EXISTS `POINT`;
 CREATE TABLE `POINT` (
   `ID`                CHAR(36)       NOT NULL,

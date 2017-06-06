@@ -11,7 +11,7 @@ security:
 
 feign:
   hystrix:
-    enabled: false
+    enabled: true
 
 spring:
   redis:
@@ -30,12 +30,11 @@ spring:
     username: root
     password: root
 
-flyway:
+liquibase:
+  change-log: classpath:db/changelog/changelog.xml
+  default-schema: SCHEMA_AUTH
+  drop-first: false
   enabled: true
-  user: root
-  password: root
-  encoding: utf8
-  validate-on-migrate: true
 
 logging:
   level:

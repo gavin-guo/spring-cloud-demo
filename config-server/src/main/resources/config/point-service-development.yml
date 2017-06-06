@@ -19,13 +19,6 @@ spring:
       test-while-idle: true
       validation-query: SELECT 1
 
-flyway:
-  enabled: true
-  user: root
-  password: root
-  encoding: utf8
-  validate-on-migrate: true
-
 # 积分有效期限,单位:日
 points:
   period: 60

@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `SCHEMA_USER`;
-USE `SCHEMA_USER`;
+--liquibase formatted SQL
 
+--changeset gavin:1
 DROP TABLE IF EXISTS `USER`;
 CREATE TABLE `USER` (
   `ID`            CHAR(36)     NOT NULL,
@@ -33,10 +33,11 @@ CREATE TABLE `USER_AUTHORITY` (
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
+--changeset gavin:2
 INSERT INTO SCHEMA_USER.USER (ID, LOGIN_NAME, PASSWORD, NICK_NAME, EMAIL, PHONE, STATUS, GRADE, VERSION, CREATED_TIME, MODIFIED_TIME)
 VALUES ('806f0ac6-a3e4-42a1-8dfc-1a3e56002881', 'gavin', '$2a$10$lZtZ84C7opaUODCAdYzhwuNOuGqpSVjZLiM/gcZiAqEDDI/Vfq/Vu',
-                                                'gavin-guo', 'gavin.guo@msn.com', '13621670031', 'ENABLED', 1, 1,
-                                                '2016-11-03 07:25:03', '2016-11-03 07:25:03');
+'gavin-guo', 'gavin.guo@msn.com', '13621670031', 'ENABLED', 1, 1,
+'2016-11-03 07:25:03', '2016-11-03 07:25:03');
 
 INSERT INTO SCHEMA_USER.USER_AUTHORITY (ID, USER_ID, AUTHORITY)
 VALUES ('bca21a1c-2afe-4305-875d-ee5ec5ac395f', '806f0ac6-a3e4-42a1-8dfc-1a3e56002881', 'AUTHORITY_SUPER');
