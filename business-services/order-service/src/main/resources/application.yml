@@ -1,8 +1,8 @@
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
   default-schema: SCHEMA_ORDER
-  drop-first: false
-  enabled: true
+  drop-first: true
+  enabled: false
 
 ---
 spring:
@@ -20,7 +20,7 @@ product-service:
     MaxAutoRetriesNextServer: 2
 
 server:
-  port: ${random.int[9050,9059]}
+  port: 9050
 
 ---
 spring:

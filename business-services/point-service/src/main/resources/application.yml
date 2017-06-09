@@ -1,15 +1,15 @@
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
   default-schema: SCHEMA_POINT
-  drop-first: false
-  enabled: true
+  drop-first: true
+  enabled: false
 
 ---
 spring:
   profiles: development
 
 server:
-  port: ${random.int[9020,9029]}
+  port: 9020
 
 ---
 spring:
