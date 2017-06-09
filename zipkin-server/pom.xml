@@ -33,7 +33,6 @@
         <dependency>
             <groupId>io.zipkin.java</groupId>
             <artifactId>zipkin-autoconfigure-ui</artifactId>
-            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
