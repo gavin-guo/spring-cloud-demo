@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create table country" author="gavin">
+        <preConditions>
+            <not>
+                <tableExists tableName="country"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="country">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="initialize table country" author="gavin">
+        <preConditions>
+            <tableIsEmpty tableName="country"/>
+        </preConditions>
+
+        <loadData tableName="country" encoding="UTF-8" file="classpath:db/changelog/data/country.csv" separator=","
+                  quotchar="'"/>
+    </changeSet>
+
+    <changeSet id="create table province" author="gavin">
+        <preConditions>
+            <not>
+                <tableExists tableName="province"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="province">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_id" type="int">
+                <constraints foreignKeyName="fk_province_country" references="country(id)" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="initialize table province" author="gavin">
+        <preConditions>
+            <tableIsEmpty tableName="province"/>
+        </preConditions>
+
+        <loadData tableName="province" encoding="UTF-8" file="classpath:db/changelog/data/province.csv" separator=","
+                  quotchar="'"/>
+    </changeSet>
+
+    <changeSet id="create table city" author="gavin">
+        <preConditions>
+            <not>
+                <tableExists tableName="city"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="city">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="province_id" type="int">
+                <constraints foreignKeyName="fk_city_province" references="province(id)" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="initialize table city" author="gavin">
+        <preConditions>
+            <tableIsEmpty tableName="city"/>
+        </preConditions>
+
+        <loadData tableName="city" encoding="UTF-8" file="classpath:db/changelog/data/city.csv" separator=","
+                  quotchar="'"/>
+    </changeSet>
+
+    <changeSet id="create table district" author="gavin">
+        <preConditions>
+            <not>
+                <tableExists tableName="district"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="district">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city_id" type="int">
+                <constraints foreignKeyName="fk_district_city" references="city(id)" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="initialize table district" author="gavin">
+        <preConditions>
+            <tableIsEmpty tableName="district"/>
+        </preConditions>
+
+        <loadData tableName="district" encoding="UTF-8" file="classpath:db/changelog/data/district.csv" separator=","
+                  quotchar="'"/>
+    </changeSet>
+
+    <changeSet id="create table address" author="gavin">
+        <preConditions>
+            <not>
+                <tableExists tableName="address"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="address">
+            <column name="id" type="char(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="char(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="consignee" type="varchar(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="district_id" type="int">
+                <constraints foreignKeyName="fk_address_district" references="district(id)" nullable="false"/>
+            </column>
+            <column name="zip_code" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="building" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="room" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="default" type="boolean" defaultValueBoolean="false"/>
+            <column name="comment" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="initialize table address" author="gavin">
+        <preConditions>
+            <tableIsEmpty tableName="address"/>
+        </preConditions>
+
+        <loadData tableName="address" encoding="UTF-8" file="classpath:db/changelog/data/address.csv" separator=","
+                  quotchar="'"/>
+    </changeSet>
+
+</databaseChangeLog>
