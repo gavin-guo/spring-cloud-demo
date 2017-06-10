@@ -6,45 +6,45 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ADDRESS")
+@Table(name = "address")
 @Data
 public class AddressEntity {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @Column(name = "ID")
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private String userId;
 
-    @Column(name = "CONSIGNEE")
+    @Column(name = "consignee")
     private String consignee;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "ZIP_CODE")
+    @Column(name = "zip_code")
     private String zipCode;
 
     @ManyToOne
-    @JoinColumn(name = "DISTRICT_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "district_id", referencedColumnName = "id")
     private DistrictEntity districtEntity;
 
-    @Column(name = "STREET")
+    @Column(name = "street")
     private String street;
 
-    @Column(name = "BUILDING")
+    @Column(name = "building")
     private String building;
 
-    @Column(name = "ROOM")
+    @Column(name = "room")
     private String room;
 
-    @Column(name = "DEFAULT_FLAG")
-    private Boolean defaultFlag;
+    @Column(name = "default_flag")
+    private boolean defaultFlag;
 
-    @Column(name = "COMMENT")
+    @Column(name = "comment")
     private String comment;
 
 }

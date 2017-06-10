@@ -8,15 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "COUNTRY")
+@Table(name = "country")
 @Data
 public class CountryEntity {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
 }

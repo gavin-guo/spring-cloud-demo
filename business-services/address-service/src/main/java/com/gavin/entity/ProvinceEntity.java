@@ -5,19 +5,19 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PROVINCE")
+@Table(name = "province")
 @Data
 public class ProvinceEntity {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "COUNTRY_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
     private CountryEntity countryEntity;
 
 }

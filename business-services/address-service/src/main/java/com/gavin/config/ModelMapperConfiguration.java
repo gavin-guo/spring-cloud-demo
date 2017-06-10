@@ -24,7 +24,7 @@ public class ModelMapperConfiguration {
             destination.setConsignee(source.getConsignee());
             destination.setPhoneNumber(source.getPhoneNumber());
             destination.setZipCode(source.getZipCode());
-            destination.setDefaultFlag(source.getDefaultFlag());
+            destination.setDefaultFlag(source.isDefaultFlag());
             destination.setComment(source.getComment());
 
             StringBuilder stringBuilder = new StringBuilder();
