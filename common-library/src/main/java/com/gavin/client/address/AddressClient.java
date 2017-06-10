@@ -13,4 +13,7 @@ public interface AddressClient {
     @RequestMapping(value = "/addresses/{address_id}", method = RequestMethod.GET)
     CustomResponseBody<AddressDto> findAddressById(@PathVariable("address_id") String _addressId);
 
+    @RequestMapping(value = "/addresses/default", method = RequestMethod.GET)
+    CustomResponseBody<AddressDto> findDefaultAddress();
+
 }

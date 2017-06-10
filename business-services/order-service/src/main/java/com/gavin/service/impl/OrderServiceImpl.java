@@ -28,6 +28,7 @@ import com.gavin.repository.OrderRepository;
 import com.gavin.service.OrderService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -262,7 +263,13 @@ public class OrderServiceImpl implements OrderService {
          */
         private DirectionDto getRecipientDirection(String _addressId) {
             // 调用地址服务查询收件人详细地址。
-            CustomResponseBody<AddressDto> addressResponse = addressClient.findAddressById(_addressId);
+            CustomResponseBody<AddressDto> addressResponse;
+            if (StringUtils.isNotBlank(_addressId)) {
+                addressResponse = addressClient.findAddressById(_addressId);
+            } else {
+                addressResponse = addressClient.findDefaultAddress();
+            }
+
             if (!ResponseCodeConstants.OK.equals(addressResponse.getResultCode())) {
                 throw new AddressFetchException(String.format("can not fetch address(%s)", _addressId));
             }

@@ -15,8 +15,7 @@ import java.util.List;
 public class CreateOrderDto implements Serializable {
 
     @JsonProperty("address_id")
-    @NotNull(message = "address_id不能为空。")
-    @ApiModelProperty(value = "送货地址ID", position = 1, required = true)
+    @ApiModelProperty(value = "送货地址ID", position = 1)
     private String addressId;
 
     @JsonProperty("items")

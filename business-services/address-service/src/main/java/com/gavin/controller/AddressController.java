@@ -1,5 +1,6 @@
 package com.gavin.controller;
 
+import com.gavin.constants.RequestHeaderConstants;
 import com.gavin.model.dto.address.AddressDto;
 import com.gavin.model.dto.address.RegisterAddressDto;
 import com.gavin.service.AddressService;
@@ -32,6 +33,13 @@ public class AddressController {
     public AddressDto findAddressById(
             @ApiParam(name = "address_id", value = "要查询的地址ID", required = true) @PathVariable("address_id") String _addressId) {
         return addressService.findAddressById(_addressId);
+    }
+
+    @RequestMapping(value = "/addresses/default", method = RequestMethod.GET)
+    @ApiOperation(value = "查询用户的默认地址")
+    public AddressDto findDefaultAddress(
+            @ApiParam(name = "user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.CURRENT_USER_ID) String _userId) {
+        return addressService.findDefaultAddressByUserId(_userId);
     }
 
 }

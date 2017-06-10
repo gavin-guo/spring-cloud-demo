@@ -15,4 +15,11 @@ public class AddressClientFallback implements AddressClient {
         return response;
     }
 
+    @Override
+    public CustomResponseBody<AddressDto> findDefaultAddress() {
+        CustomResponseBody<AddressDto> response = new CustomResponseBody<>();
+        response.setResultCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
+        return response;
+    }
+
 }

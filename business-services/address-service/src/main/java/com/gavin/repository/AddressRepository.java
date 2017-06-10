@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AddressRepository extends JpaRepository<AddressEntity, String> {
+
+    AddressEntity findByUserIdAndDefaultFlag(String _userId, boolean _defaultFlag);
+
 }

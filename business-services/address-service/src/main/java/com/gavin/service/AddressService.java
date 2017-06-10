@@ -1,7 +1,7 @@
 package com.gavin.service;
 
-import com.gavin.model.dto.address.RegisterAddressDto;
 import com.gavin.model.dto.address.AddressDto;
+import com.gavin.model.dto.address.RegisterAddressDto;
 
 public interface AddressService {
 
@@ -20,5 +20,13 @@ public interface AddressService {
      * @return
      */
     AddressDto findAddressById(String _addressId);
+
+    /**
+     * 根据用户ID查询该用户的默认地址信息
+     *
+     * @param _userId
+     * @return
+     */
+    AddressDto findDefaultAddressByUserId(String _userId);
 
 }

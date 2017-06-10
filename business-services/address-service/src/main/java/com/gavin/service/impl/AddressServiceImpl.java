@@ -54,4 +54,12 @@ public class AddressServiceImpl implements AddressService {
         return modelMapper.map(addressEntity, AddressDto.class);
     }
 
+    @Override
+    public AddressDto findDefaultAddressByUserId(String _userId) {
+        AddressEntity addressEntity = Optional.ofNullable(addressRepository.findByUserIdAndDefaultFlag(_userId, true))
+                .orElseThrow(() -> new RecordNotFoundException("address", String.format("userId=%s", _userId)));
+
+        return modelMapper.map(addressEntity, AddressDto.class);
+    }
+
 }

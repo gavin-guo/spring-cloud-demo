@@ -1,5 +1,6 @@
 package com.gavin.controller;
 
+import com.gavin.constants.RequestHeaderConstants;
 import com.gavin.model.PageResult;
 import com.gavin.model.dto.order.CreateOrderDto;
 import com.gavin.model.dto.order.OrderDetailsDto;
@@ -29,7 +30,7 @@ public class OrderController {
     @ApiOperation(value = "创建订单")
     public OrderDetailsDto createOrder(
             @ApiParam(name = "order", value = "订单信息", required = true) @Valid @RequestBody CreateOrderDto _order,
-            @RequestHeader("x-user-id") String _userId) {
+            @RequestHeader(RequestHeaderConstants.CURRENT_USER_ID) String _userId) {
         return orderService.createOrder(_userId, _order);
     }
 
@@ -40,10 +41,10 @@ public class OrderController {
         return orderService.findOrderById(_orderId);
     }
 
-    @RequestMapping(value = "/orders/user/{user_id}", method = RequestMethod.GET)
-    @ApiOperation(value = "分页查询指定用户帐号下所有订单信息")
-    public PageResult<OrderDto> findOrdersByAccountId(
-            @ApiParam(name = "user_id", value = "用户ID", required = true) @PathVariable("user_id") String _userId,
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    @ApiOperation(value = "分页查询当前用户的所有订单信息")
+    public PageResult<OrderDto> findOrders(
+            @ApiParam(name = "x-user-id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.CURRENT_USER_ID) String _userId,
             @ApiParam(name = "current_page", value = "当前页") @RequestParam(name = "current_page", defaultValue = "1") Integer _currentPage,
             @ApiParam(name = "page_size", value = "每页显示记录数") @RequestParam(name = "page_size", defaultValue = "10") Integer _pageSize) {
         PageRequest pageRequest = new PageRequest(
