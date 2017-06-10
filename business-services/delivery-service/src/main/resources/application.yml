@@ -2,7 +2,7 @@ liquibase:
   change-log: classpath:db/changelog/changelog.xml
   default-schema: SCHEMA_DELIVERY
   drop-first: true
-  enabled: false
+  enabled: true
 
 ---
 spring:

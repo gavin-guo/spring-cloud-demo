@@ -33,7 +33,7 @@ spring:
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
   default-schema: SCHEMA_AUTH
-  drop-first: false
+  drop-first: true
   enabled: true
 
 logging:
