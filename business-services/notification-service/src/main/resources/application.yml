@@ -1,3 +1,5 @@
+liquibase:
+  enabled: false
 
 ---
 spring:
