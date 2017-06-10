@@ -1,6 +1,7 @@
 package com.gavin.interceptor;
 
 import com.gavin.constants.RequestAttributeConstants;
+import com.gavin.constants.RequestHeaderConstants;
 import com.gavin.model.dto.security.CurrentUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * added to registry on {@link com.gavin.config.CustomWebMvcConfiguration}
+ */
 @Slf4j
 @AllArgsConstructor
 public class UserInfoExtractorInterceptor implements HandlerInterceptor {
@@ -19,7 +23,7 @@ public class UserInfoExtractorInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String userId = request.getHeader("x-user-id");
+        String userId = request.getHeader(RequestHeaderConstants.CURRENT_USER_ID);
 
         if (userId == null) {
             return true;

@@ -1,6 +1,7 @@
 package com.gavin.config;
 
 import com.gavin.interceptor.RequestLogEnhancerInterceptor;
+import com.gavin.interceptor.UserIdPropagatorInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -21,8 +22,9 @@ public class CustomWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new UserInfoExtractorInterceptor(redisTemplate)).addPathPatterns("/**");
+        registry.addInterceptor(new UserIdPropagatorInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(new RequestLogEnhancerInterceptor(discoveryClient)).addPathPatterns("/**");
+        //        registry.addInterceptor(new UserInfoExtractorInterceptor(redisTemplate)).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 

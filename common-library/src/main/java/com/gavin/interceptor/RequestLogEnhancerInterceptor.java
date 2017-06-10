@@ -11,6 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * added to registry on {@link com.gavin.config.CustomWebMvcConfiguration}
+ */
 @Slf4j
 @AllArgsConstructor
 public class RequestLogEnhancerInterceptor implements HandlerInterceptor {
