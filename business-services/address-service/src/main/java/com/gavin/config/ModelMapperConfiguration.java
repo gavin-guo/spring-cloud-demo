@@ -29,17 +29,13 @@ public class ModelMapperConfiguration {
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(source.getDistrictEntity().getCityEntity().getProvinceEntity().getCountryEntity().getName());
-            stringBuilder.append(" ");
             stringBuilder.append(source.getDistrictEntity().getCityEntity().getProvinceEntity().getName());
-            stringBuilder.append(" ");
-            stringBuilder.append(source.getDistrictEntity().getCityEntity().getName());
-            stringBuilder.append(" ");
+            if (!source.getDistrictEntity().getCityEntity().isMunicipality()) {
+                stringBuilder.append(source.getDistrictEntity().getCityEntity().getName());
+            }
             stringBuilder.append(source.getDistrictEntity().getName());
-            stringBuilder.append(" ");
             stringBuilder.append(source.getStreet());
-            stringBuilder.append(" ");
             stringBuilder.append(source.getBuilding());
-            stringBuilder.append(" ");
             stringBuilder.append(source.getRoom());
 
             destination.setAddress(stringBuilder.toString());

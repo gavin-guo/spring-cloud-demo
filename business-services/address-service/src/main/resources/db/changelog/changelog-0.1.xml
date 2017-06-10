@@ -78,6 +78,7 @@
             <column name="province_id" type="int">
                 <constraints foreignKeyName="fk_city_province" references="province(id)" nullable="false"/>
             </column>
+            <column name="municipality" type="tinyint" defaultValueBoolean="0"/>
         </createTable>
     </changeSet>
 
@@ -152,9 +153,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="room" type="varchar(50)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
-            <column name="default_flag" type="boolean" defaultValueBoolean="false"/>
+            <column name="default_flag" type="tinyint" defaultValueBoolean="false"/>
             <column name="comment" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>

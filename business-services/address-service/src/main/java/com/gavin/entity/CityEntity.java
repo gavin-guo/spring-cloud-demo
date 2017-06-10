@@ -16,6 +16,9 @@ public class CityEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "municipality")
+    private boolean municipality;
+
     @ManyToOne
     @JoinColumn(name = "province_id", referencedColumnName = "id")
     private ProvinceEntity provinceEntity;
