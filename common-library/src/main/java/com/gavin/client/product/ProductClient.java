@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(value = "product-service", fallback = ProductClientFallback.class)
+@FeignClient(value = "product-service", fallbackFactory = ProductClientFallbackFactory.class)
 public interface ProductClient {
 
     @RequestMapping(value = "/products/reservation", method = RequestMethod.PUT)

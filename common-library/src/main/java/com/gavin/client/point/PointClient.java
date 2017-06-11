@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 
-@FeignClient(value = "point-service", fallback = PointClientFallback.class)
+@FeignClient(value = "point-service", fallbackFactory = PointClientFallbackFactory.class)
 public interface PointClient {
 
     @RequestMapping(value = "/points/calculation", method = RequestMethod.GET)
