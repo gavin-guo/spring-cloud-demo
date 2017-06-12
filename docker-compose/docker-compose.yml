@@ -37,6 +37,19 @@ services:
       - ADVERTISED_HOST=localhost
       - ADVERTISED_PORT=9092
 
+  kafdrop:
+    image: gaven/kafdrop
+    container_name: kafdrop
+    restart: always
+    ports:
+      - 9000:9000
+    links:
+      - kafka:zookeeper
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper:2181
+    depends_on:
+      - kafka
+
   redis:
     image: redis
     container_name: redis
