@@ -27,28 +27,16 @@ services:
       - 15672:15672
 
   kafka:
-    image: spotify/kafka
+    image: gaven/kafka
     container_name: kafka
     restart: always
     ports:
       - 2181:2181
       - 9092:9092
+      - 9000:9000
     environment:
       - ADVERTISED_HOST=localhost
       - ADVERTISED_PORT=9092
-
-  kafdrop:
-    image: gaven/kafdrop
-    container_name: kafdrop
-    restart: always
-    ports:
-      - 9000:9000
-    links:
-      - kafka:zookeeper
-    environment:
-      - ZOOKEEPER_CONNECT=zookeeper:2181
-    depends_on:
-      - kafka
 
   redis:
     image: redis
