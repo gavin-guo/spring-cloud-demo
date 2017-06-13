@@ -10,7 +10,7 @@ spring:
       write_dates_as_timestamps: false
   cloud:
     stream:
-      defaultBinder: rabbit
+      defaultBinder: kafka
       kafka:
         binder:
           zkNodes: ${KAFKA_HOST:localhost}

@@ -27,7 +27,6 @@ spring:
               requeueRejected: true
               autoBindDlq: true
               republishToDlq: true
-              transacted: true
 
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
