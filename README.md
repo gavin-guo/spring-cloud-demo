@@ -8,7 +8,10 @@ http://localhost:8080
 http://localhost:5601
 
 ### Rabbitmq
-http://localhost:15672/#/
+http://localhost:15672
+
+### Kafdrop
+http://localhost:9000
 
 ### Hystrix Dashboard
 http://localhost:8990/hystrix
