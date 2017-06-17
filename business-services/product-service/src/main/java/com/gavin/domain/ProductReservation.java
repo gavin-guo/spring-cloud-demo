@@ -1,4 +1,4 @@
-package com.gavin.entity;
+package com.gavin.domain;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
@@ -8,31 +8,31 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "PRODUCT_RESERVATION")
+@Table(name = "product_reservation")
 @DynamicInsert
 @Data
-public class ProductReservationEntity {
+public class ProductReservation {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @Column(name = "ID")
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "ORDER_ID")
+    @Column(name = "order_id")
     private String orderId;
 
-    @Column(name = "PRODUCT_ID")
+    @Column(name = "product_id")
     private String productId;
 
-    @Column(name = "QUANTITY")
+    @Column(name = "quantity")
     private Integer quantity;
 
     @Version
-    @Column(name = "VERSION")
+    @Column(name = "version")
     private Long version;
 
-    @Column(name = "CREATED_TIME", updatable = false)
+    @Column(name = "created_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
 

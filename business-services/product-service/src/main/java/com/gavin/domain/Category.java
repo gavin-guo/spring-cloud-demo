@@ -1,4 +1,4 @@
-package com.gavin.entity;
+package com.gavin.domain;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -6,20 +6,20 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CATEGORY")
+@Table(name = "category")
 @Data
-public class CategoryEntity {
+public class Category {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @Column(name = "ID")
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "PARENT_ID")
+    @Column(name = "parent_id")
     private String parentId;
 
 }

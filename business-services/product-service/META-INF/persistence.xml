@@ -2,10 +2,10 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="persistenceUnit">
-        <class>com.gavin.entity.CategoryEntity</class>
-        <class>com.gavin.entity.ProductEntity</class>
-        <class>com.gavin.entity.PointRewardPlanEntity</class>
-        <class>com.gavin.entity.ProductReservationEntity</class>
+        <class>com.gavin.domain.Category</class>
+        <class>com.gavin.domain.Product</class>
+        <class>com.gavin.domain.PointRewardPlan</class>
+        <class>com.gavin.domain.ProductReservation</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/SCHEMA_PRODUCT"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
