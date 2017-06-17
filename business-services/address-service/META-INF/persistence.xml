@@ -2,11 +2,11 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="persistenceUnit">
-        <class>com.gavin.entity.AddressEntity</class>
-        <class>com.gavin.entity.CityEntity</class>
-        <class>com.gavin.entity.CountryEntity</class>
-        <class>com.gavin.entity.DistrictEntity</class>
-        <class>com.gavin.entity.ProvinceEntity</class>
+        <class>com.gavin.domain.Address</class>
+        <class>com.gavin.domain.City</class>
+        <class>com.gavin.domain.Country</class>
+        <class>com.gavin.domain.District</class>
+        <class>com.gavin.domain.Province</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/SCHEMA_ADDRESS"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

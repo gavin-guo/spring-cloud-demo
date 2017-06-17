@@ -1,13 +1,13 @@
-package com.gavin.entity;
+package com.gavin.domain;
 
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "province")
+@Table(name = "district")
 @Data
-public class ProvinceEntity {
+public class District {
 
     @Id
     @Column(name = "id")
@@ -17,7 +17,7 @@ public class ProvinceEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "id")
-    private CountryEntity countryEntity;
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
+    private City city;
 
 }

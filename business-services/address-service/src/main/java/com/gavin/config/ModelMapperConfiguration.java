@@ -1,6 +1,6 @@
 package com.gavin.config;
 
-import com.gavin.entity.AddressEntity;
+import com.gavin.domain.Address;
 import com.gavin.model.dto.address.AddressDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -15,8 +15,8 @@ public class ModelMapperConfiguration {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        modelMapper.createTypeMap(AddressEntity.class, AddressDto.class).setConverter(context -> {
-            AddressEntity source = context.getSource();
+        modelMapper.createTypeMap(Address.class, AddressDto.class).setConverter(context -> {
+            Address source = context.getSource();
             AddressDto destination = new AddressDto();
 
             destination.setId(source.getId());
@@ -28,12 +28,12 @@ public class ModelMapperConfiguration {
             destination.setComment(source.getComment());
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(source.getDistrictEntity().getCityEntity().getProvinceEntity().getCountryEntity().getName());
-            stringBuilder.append(source.getDistrictEntity().getCityEntity().getProvinceEntity().getName());
-            if (!source.getDistrictEntity().getCityEntity().isMunicipality()) {
-                stringBuilder.append(source.getDistrictEntity().getCityEntity().getName());
+            stringBuilder.append(source.getDistrict().getCity().getProvince().getCountry().getName());
+            stringBuilder.append(source.getDistrict().getCity().getProvince().getName());
+            if (!source.getDistrict().getCity().isMunicipality()) {
+                stringBuilder.append(source.getDistrict().getCity().getName());
             }
-            stringBuilder.append(source.getDistrictEntity().getName());
+            stringBuilder.append(source.getDistrict().getName());
             stringBuilder.append(source.getStreet());
             stringBuilder.append(source.getBuilding());
             stringBuilder.append(source.getRoom());

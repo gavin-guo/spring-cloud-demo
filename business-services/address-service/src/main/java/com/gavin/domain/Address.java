@@ -1,4 +1,4 @@
-package com.gavin.entity;
+package com.gavin.domain;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "address")
 @Data
-public class AddressEntity {
+public class Address {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -30,7 +30,7 @@ public class AddressEntity {
 
     @ManyToOne
     @JoinColumn(name = "district_id", referencedColumnName = "id")
-    private DistrictEntity districtEntity;
+    private District district;
 
     @Column(name = "street")
     private String street;

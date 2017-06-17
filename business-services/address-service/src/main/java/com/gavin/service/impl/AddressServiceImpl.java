@@ -1,12 +1,12 @@
 package com.gavin.service.impl;
 
-import com.gavin.entity.AddressEntity;
-import com.gavin.entity.DistrictEntity;
+import com.gavin.domain.Address;
+import com.gavin.domain.District;
 import com.gavin.exception.RecordNotFoundException;
 import com.gavin.model.dto.address.AddressDto;
 import com.gavin.model.dto.address.RegisterAddressDto;
-import com.gavin.repository.AddressRepository;
-import com.gavin.repository.DistrictRepository;
+import com.gavin.repository.jpa.AddressRepository;
+import com.gavin.repository.jpa.DistrictRepository;
 import com.gavin.service.AddressService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -32,15 +32,15 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressDto registerAddress(RegisterAddressDto _address) {
         String districtId = _address.getDistrictId();
-        DistrictEntity districtEntity = Optional.ofNullable(districtRepository.findOne(districtId))
+        District district = Optional.ofNullable(districtRepository.findOne(districtId))
                 .orElseThrow(() -> new RecordNotFoundException("district", districtId));
 
-        AddressEntity addressEntity = modelMapper.map(_address, AddressEntity.class);
-        addressEntity.setDistrictEntity(districtEntity);
+        Address address = modelMapper.map(_address, Address.class);
+        address.setDistrict(district);
 
-        addressRepository.save(addressEntity);
+        addressRepository.save(address);
 
-        AddressDto addressDto = modelMapper.map(addressEntity, AddressDto.class);
+        AddressDto addressDto = modelMapper.map(address, AddressDto.class);
         log.debug("register address successfully. {}", new Gson().toJson(addressDto));
 
         return addressDto;
@@ -48,18 +48,18 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressDto findAddressById(String _addressId) {
-        AddressEntity addressEntity = Optional.ofNullable(addressRepository.findOne(_addressId))
+        Address address = Optional.ofNullable(addressRepository.findOne(_addressId))
                 .orElseThrow(() -> new RecordNotFoundException("address", _addressId));
 
-        return modelMapper.map(addressEntity, AddressDto.class);
+        return modelMapper.map(address, AddressDto.class);
     }
 
     @Override
     public AddressDto findDefaultAddressByUserId(String _userId) {
-        AddressEntity addressEntity = Optional.ofNullable(addressRepository.findByUserIdAndDefaultFlag(_userId, true))
+        Address address = Optional.ofNullable(addressRepository.findByUserIdAndDefaultFlag(_userId, true))
                 .orElseThrow(() -> new RecordNotFoundException("address", String.format("userId=%s", _userId)));
 
-        return modelMapper.map(addressEntity, AddressDto.class);
+        return modelMapper.map(address, AddressDto.class);
     }
 
 }

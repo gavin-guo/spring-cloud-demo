@@ -1,4 +1,4 @@
-package com.gavin.entity;
+package com.gavin.domain;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "country")
 @Data
-public class CountryEntity {
+public class Country {
 
     @Id
     @Column(name = "id")
