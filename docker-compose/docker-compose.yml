@@ -8,7 +8,7 @@ services:
     restart: always
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --character-set-client-handshake=0
     volumes:
-      - /Users/Gavin/Developer/storage/mysql:/var/lib/mysql
+      - ~/Developer/storage/mysql:/var/lib/mysql
     ports:
       - 3306:3306
     environment:
@@ -16,12 +16,21 @@ services:
       - MYSQL_PASSWORD=mysql
       - MYSQL_ROOT_PASSWORD=root
 
+  redis:
+    image: redis:3-alpine
+    container_name: redis
+    restart: always
+    volumes:
+      - ~/Developer/storage/redis:/data
+    ports:
+      - 6379:6379
+
   rabbitmq:
-    image: rabbitmq:3.6.5-management
+    image: rabbitmq:management-alpine
     container_name: rabbitmq
     restart: always
     volumes:
-      - /Users/Gavin/Developer/storage/rabbitmq:/var/lib/rabbitmq
+      - ~/Developer/storage/rabbitmq:/var/lib/rabbitmq
     ports:
       - 5672:5672
       - 15672:15672
@@ -38,34 +47,17 @@ services:
       - ADVERTISED_HOST=localhost
       - ADVERTISED_PORT=9092
 
-  redis:
-    image: redis
-    container_name: redis
-    restart: always
-    volumes:
-      - /Users/Gavin/Developer/storage/redis:/data
-    ports:
-      - 6379:6379
-
-  logstash:
-    image: logstash
-    container_name: logstash
-    restart: always
-    command: logstash -e 'input { udp { port => 4560 codec => json } } output { elasticsearch { hosts => "elasticsearch:9200" } }'
-    ports:
-      - 4560:4560/udp
-    links:
-      - elasticsearch
-
   elasticsearch:
-    image: elasticsearch
+    image: elasticsearch:alpine
     container_name: elasticsearch
     restart: always
     volumes:
-      - /Users/Gavin/Developer/storage/elasticsearch:/usr/share/elasticsearch/data
+      - ~/Developer/storage/elasticsearch:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
-      - 9300:9300
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=127.0.0.1
 
   kibana:
     image: kibana
@@ -76,17 +68,20 @@ services:
     links:
       - elasticsearch
 
-#  zookeeper:
-#    image: zookeeper
-#    container_name: zookeeper
+#  logstash:
+#    image: logstash
+#    container_name: logstash
 #    restart: always
+#    command: logstash -e 'input { udp { port => 4560 codec => json } } output { elasticsearch { hosts => "elasticsearch:9200" } }'
 #    ports:
-#      - 2181:2181
+#      - 4560:4560/udp
+#    links:
+#      - elasticsearch
 
 #  registry:
 #    image: registry
 #    container_name: registry
 #    volumes:
-#      - /Users/Gavin/Developer/storage/registry:/var/lib/registry
+#      - ~/Developer/storage/registry:/var/lib/registry
 #    ports:
 #      - 5000:5000
