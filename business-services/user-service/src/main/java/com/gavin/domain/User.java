@@ -1,4 +1,4 @@
-package com.gavin.entity;
+package com.gavin.domain;
 
 import com.gavin.enums.UserStatusEnums;
 import lombok.Data;
@@ -13,68 +13,68 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "user")
 @DynamicInsert
 @DynamicUpdate
 @Data
-public class UserEntity {
+public class User {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @Column(name = "ID")
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "LOGIN_NAME")
+    @Column(name = "login_name")
     private String loginName;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "NICK_NAME")
+    @Column(name = "nick_name")
     private String nickName;
 
-    @Column(name = "EMAIL")
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "PHONE")
+    @Column(name = "phone")
     private String phone;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS")
+    @Column(name = "status")
     private UserStatusEnums status;
 
-    @Column(name = "GRADE")
+    @Column(name = "grade")
     private Byte grade;
 
-    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<UserAuthorityEntity> userAuthorityEntities;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<UserAuthority> userAuthorityEntities;
 
     @Version
-    @Column(name = "VERSION")
+    @Column(name = "version")
     private Long version;
 
-    @Column(name = "CREATED_TIME", updatable = false)
+    @Column(name = "created_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
 
-    @Column(name = "MODIFIED_TIME", updatable = false)
+    @Column(name = "modified_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedTime;
 
-    public UserAuthorityEntity addUserAuthorityEntity(UserAuthorityEntity userAuthority) {
+    public UserAuthority addUserAuthorityEntity(UserAuthority userAuthority) {
         if (CollectionUtils.isEmpty(userAuthorityEntities)) {
             userAuthorityEntities = new ArrayList<>();
         }
         userAuthorityEntities.add(userAuthority);
-        userAuthority.setUserEntity(this);
+        userAuthority.setUser(this);
 
         return userAuthority;
     }
 
-    public UserAuthorityEntity removeUserAuthorityEntity(UserAuthorityEntity userAuthority) {
+    public UserAuthority removeUserAuthorityEntity(UserAuthority userAuthority) {
         userAuthorityEntities.remove(userAuthority);
-        userAuthority.setUserEntity(null);
+        userAuthority.setUser(null);
 
         return userAuthority;
     }

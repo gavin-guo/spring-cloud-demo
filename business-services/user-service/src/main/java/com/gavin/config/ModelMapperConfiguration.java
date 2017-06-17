@@ -1,6 +1,6 @@
 package com.gavin.config;
 
-import com.gavin.entity.UserEntity;
+import com.gavin.domain.User;
 import com.gavin.model.dto.user.AuthorityDto;
 import com.gavin.model.dto.user.UserDto;
 import org.modelmapper.ModelMapper;
@@ -19,8 +19,8 @@ public class ModelMapperConfiguration {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        modelMapper.createTypeMap(UserEntity.class, UserDto.class).setConverter(context -> {
-            UserEntity source = context.getSource();
+        modelMapper.createTypeMap(User.class, UserDto.class).setConverter(context -> {
+            User source = context.getSource();
             UserDto destination = new UserDto();
 
             destination.setId(source.getId());

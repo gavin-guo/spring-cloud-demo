@@ -1,7 +1,7 @@
 package com.gavin.service.impl;
 
-import com.gavin.entity.UserAuthorityEntity;
-import com.gavin.entity.UserEntity;
+import com.gavin.domain.UserAuthority;
+import com.gavin.domain.User;
 import com.gavin.enums.AuthorityEnums;
 import com.gavin.enums.UserStatusEnums;
 import com.gavin.exception.RecordNotFoundException;
@@ -12,8 +12,8 @@ import com.gavin.model.dto.user.CreateUserDto;
 import com.gavin.model.dto.user.UserDto;
 import com.gavin.payload.UserActivatedPayload;
 import com.gavin.payload.UserCreatedPayload;
-import com.gavin.repository.UserAuthorityRepository;
-import com.gavin.repository.UserRepository;
+import com.gavin.repository.jpa.UserAuthorityRepository;
+import com.gavin.repository.jpa.UserRepository;
 import com.gavin.service.UserService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -56,30 +56,30 @@ public class UserServiceImpl implements UserService {
         // 判断用户名是否已经存在。
         Optional.ofNullable(userRepository.findByLoginName(_user.getLoginName()))
                 .ifPresent(
-                        userEntity -> {
+                        user -> {
                             throw new UserExistingException(String.format("user(login_name = %s) already exists.", _user.getLoginName()));
                         }
                 );
 
-        UserEntity userEntity = modelMapper.map(_user, UserEntity.class);
+        User user = modelMapper.map(_user, User.class);
         String encodedPassword = encoder.encode(_user.getPassword());
-        userEntity.setPassword(encodedPassword);
-        userEntity.setStatus(UserStatusEnums.CREATED);
+        user.setPassword(encodedPassword);
+        user.setStatus(UserStatusEnums.CREATED);
 
         // 赋予用户默认权限。
-        UserAuthorityEntity userAuthorityEntity = new UserAuthorityEntity();
-        userAuthorityEntity.setAuthority(AuthorityEnums.AUTHORITY_DEFAULT);
-        userEntity.addUserAuthorityEntity(userAuthorityEntity);
+        UserAuthority userAuthority = new UserAuthority();
+        userAuthority.setAuthority(AuthorityEnums.AUTHORITY_DEFAULT);
+        user.addUserAuthorityEntity(userAuthority);
 
-        userRepository.save(userEntity);
+        userRepository.save(user);
 
-        UserDto userDto = modelMapper.map(userEntity, UserDto.class);
+        UserDto userDto = modelMapper.map(user, UserDto.class);
         userDto.setPassword(null);
         log.info("create user successfully. {}", new Gson().toJson(userDto));
 
         // 发送消息至notification-service。
-        UserCreatedPayload payload = modelMapper.map(userEntity, UserCreatedPayload.class);
-        payload.setUserId(userEntity.getId());
+        UserCreatedPayload payload = modelMapper.map(user, UserCreatedPayload.class);
+        payload.setUserId(user.getId());
         Message<UserCreatedPayload> message = MessageBuilder.withPayload(payload).build();
         userCreatedProcessor.output().send(message);
 
@@ -89,16 +89,16 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void activateUser(String _userId) {
-        UserEntity userEntity = Optional.ofNullable(userRepository.findOne(_userId))
+        User user = Optional.ofNullable(userRepository.findOne(_userId))
                 .orElseThrow(() -> new RecordNotFoundException("user", _userId));
 
         // 该用户已经被激活。
-        if (UserStatusEnums.ENABLED.equals(userEntity.getStatus())) {
+        if (UserStatusEnums.ENABLED.equals(user.getStatus())) {
             return;
         }
 
-        userEntity.setStatus(UserStatusEnums.ENABLED);
-        userRepository.save(userEntity);
+        user.setStatus(UserStatusEnums.ENABLED);
+        userRepository.save(user);
 
         // 发送消息至point-service。
         UserActivatedPayload payload = new UserActivatedPayload();
@@ -110,34 +110,34 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateAuthorities(String _userId, String[] _authorities) {
-        UserEntity userEntity = Optional.ofNullable(userRepository.findOne(_userId))
+        User user = Optional.ofNullable(userRepository.findOne(_userId))
                 .orElseThrow(() -> new RecordNotFoundException("user", _userId));
 
         // 删除原来所有权限。
-        List<UserAuthorityEntity> userAuthorityEntities = userEntity.getUserAuthorityEntities();
+        List<UserAuthority> userAuthorityEntities = user.getUserAuthorityEntities();
         userAuthorityRepository.delete(userAuthorityEntities);
 
-        userEntity.setUserAuthorityEntities(null);
+        user.setUserAuthorityEntities(null);
 
         if (_authorities != null && _authorities.length > 0) {
             Arrays.stream(_authorities).forEach(
                     authority -> {
-                        UserAuthorityEntity userAuthorityEntity = new UserAuthorityEntity();
-                        userAuthorityEntity.setAuthority(AuthorityEnums.valueOf(authority));
-                        userEntity.addUserAuthorityEntity(userAuthorityEntity);
+                        UserAuthority userAuthority = new UserAuthority();
+                        userAuthority.setAuthority(AuthorityEnums.valueOf(authority));
+                        user.addUserAuthorityEntity(userAuthority);
                     }
             );
         }
 
-        userRepository.save(userEntity);
+        userRepository.save(user);
     }
 
     @Override
     public UserDto findUserByLoginName(String _loginName) {
-        UserEntity userEntity = Optional.ofNullable(userRepository.findByLoginName(_loginName))
+        User user = Optional.ofNullable(userRepository.findByLoginName(_loginName))
                 .orElseThrow(() -> new RecordNotFoundException("user", _loginName));
 
-        return modelMapper.map(userEntity, UserDto.class);
+        return modelMapper.map(user, UserDto.class);
     }
 
 }

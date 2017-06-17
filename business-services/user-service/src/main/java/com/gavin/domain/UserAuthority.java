@@ -1,4 +1,4 @@
-package com.gavin.entity;
+package com.gavin.domain;
 
 import com.gavin.enums.AuthorityEnums;
 import lombok.Data;
@@ -7,22 +7,22 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USER_AUTHORITY")
+@Table(name = "user_authority")
 @Data
-public class UserAuthorityEntity {
+public class UserAuthority {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @Column(name = "ID")
+    @Column(name = "id")
     private String id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "AUTHORITY")
+    @Column(name = "authority")
     private AuthorityEnums authority;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID", referencedColumnName = "id")
-    private UserEntity userEntity;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
 }
