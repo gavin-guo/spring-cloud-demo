@@ -17,15 +17,10 @@
     <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${logfile}.log</file>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-            <charset>utf8</charset>
             <includeMdc>true</includeMdc>
             <customFields>
                 {
-                "env": "${env:-}",
-                "service": "${service:-}",
-                "level": "%level",
-                "trace": "%X{X-B3-TraceId:-}",
-                "span": "%X{X-B3-SpanId:-}"
+                "env": "${env:-}"
                 }
             </customFields>
         </encoder>
