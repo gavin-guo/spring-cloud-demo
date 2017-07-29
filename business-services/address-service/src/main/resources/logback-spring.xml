@@ -3,9 +3,9 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     ​
     <springProperty scope="context" name="service" source="spring.application.name"/>
-    <property name="logfile" value="/Users/Gavin/Developer/log/${service}/${service}"/>​
-    <property name="host" value="192.168.1.88"/>​
-    <property name="port" value="4560"/>​
+    <springProperty scope="context" name="env" source="spring.profiles"/>
+
+    <property name="logfile" value="/opt/log/stash/${service}/${service}"/>​
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -14,11 +14,20 @@
         </encoder>
     </appender>
 
-    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${logfile}.log</file>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>UTF-8</charset>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <charset>utf8</charset>
+            <includeMdc>true</includeMdc>
+            <customFields>
+                {
+                "env": "${env:-}",
+                "service": "${service:-}",
+                "level": "%level",
+                "trace": "%X{X-B3-TraceId:-}",
+                "span": "%X{X-B3-SpanId:-}"
+                }
+            </customFields>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${logfile}.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
@@ -26,36 +35,21 @@
         </rollingPolicy>
     </appender>
 
-    <appender name="logstash" class="net.logstash.logback.appender.LogstashSocketAppender">
-        <host>${host}</host>
-        <port>${port}</port>
-        <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
-            <pattern>
-                {
-                "service": "${service:-}",
-                "level": "%level",
-                "trace": "%X{X-B3-TraceId:-}",
-                "span": "%X{X-B3-SpanId:-}"
-                }
-            </pattern>
-        </provider>
-    </appender>
-
-    <root level="INFO">
+    <root level="info">
         <appender-ref ref="console"/>
     </root>
     ​
     <springProfile name="development">
-        <logger name="com.gavin" level="DEBUG">
-            <appender-ref ref="file"/>
+        <logger name="com.gavin" level="debug">
+            <appender-ref ref="console"/>
             <appender-ref ref="logstash"/>
         </logger>
 
-        <logger name="org.springframework" level="INFO"/>
+        <logger name="org.springframework" level="info"/>
     </springProfile>
 
-    <logger name="com.gavin" level="DEBUG"/>
+    <logger name="com.gavin" level="debug"/>
 
-    <logger name="org.hibernate" level="ERROR"/>
+    <logger name="org.hibernate" level="error"/>
 
 </configuration>
