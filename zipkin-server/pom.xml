@@ -55,6 +55,16 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>clean-image</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>removeImage</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${docker.registry}/${project.artifactId}</imageName>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>build-image</id>
                         <phase>package</phase>
                         <goals>
@@ -81,6 +91,16 @@
                         <configuration>
                             <image>${project.artifactId}</image>
                             <newName>${docker.registry}/${project.artifactId}</newName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>remove-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>removeImage</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${project.artifactId}</imageName>
                         </configuration>
                     </execution>
                     <execution>
