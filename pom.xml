@@ -39,8 +39,7 @@
         <spotify.version>0.4.13</spotify.version>
         <lombok.version>1.16.10</lombok.version>
 
-        <registry.host>192.168.1.88</registry.host>
-        <registry.port>5000</registry.port>
+        <docker.registry>registry.gavin.com</docker.registry>
     </properties>
 
     <dependencyManagement>
