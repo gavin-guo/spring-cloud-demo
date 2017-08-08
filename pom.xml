@@ -40,6 +40,7 @@
         <lombok.version>1.16.10</lombok.version>
 
         <docker.registry>registry.gavin.com</docker.registry>
+        <docker.registry.url>https://registry.gavin.com</docker.registry.url>
     </properties>
 
     <dependencyManagement>
@@ -124,25 +125,25 @@
         </dependency>
     </dependencies>
 
-    <!--<distributionManagement>-->
-    <!--<repository>-->
-    <!--<id>nexus</id>-->
-    <!--<name>Releases</name>-->
-    <!--<url>http://localhost:8081/repository/maven-releases</url>-->
-    <!--</repository>-->
-    <!--<snapshotRepository>-->
-    <!--<id>nexus</id>-->
-    <!--<name>Snapshot</name>-->
-    <!--<url>http://localhost:8081/repository/maven-snapshots</url>-->
-    <!--</snapshotRepository>-->
-    <!--</distributionManagement>-->
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>Releases</name>
+            <url>http://nexus.gavin.com:8081/repository/maven-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>Snapshot</name>
+            <url>http://nexus.gavin.com:8081/repository/maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
-    <!--<repositories>-->
-    <!--<repository>-->
-    <!--<id>nexus</id>-->
-    <!--<name>Releases</name>-->
-    <!--<url>http://localhost:8081/repository/maven-releases</url>-->
-    <!--</repository>-->
-    <!--</repositories>-->
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>Releases</name>
+            <url>http://nexus.gavin.com:8081/repository/maven-releases</url>
+        </repository>
+    </repositories>
 
 </project>

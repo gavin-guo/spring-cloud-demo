@@ -42,7 +42,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
@@ -52,18 +51,10 @@
                     <imageTags>
                         <imageTag>latest</imageTag>
                     </imageTags>
+                    <serverId>docker-hub</serverId>
+                    <registryUrl>${docker.registry.url}</registryUrl>
                 </configuration>
                 <executions>
-                    <execution>
-                        <id>clean-image</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>removeImage</goal>
-                        </goals>
-                        <configuration>
-                            <imageName>${docker.registry}/${project.artifactId}</imageName>
-                        </configuration>
-                    </execution>
                     <execution>
                         <id>build-image</id>
                         <phase>package</phase>
@@ -94,7 +85,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>remove-image</id>
+                        <id>clean-image</id>
                         <phase>package</phase>
                         <goals>
                             <goal>removeImage</goal>
