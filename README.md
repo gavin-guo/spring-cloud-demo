@@ -1,6 +1,3 @@
-运行所需要的后台服务（mysql,redis,elk等）可以通过运行我这个工程根目录下的docker-compose文件开箱即用。
-https://github.com/gavin-guo/docker-library
-
 ### Eureka 
 http://localhost:8761
 
