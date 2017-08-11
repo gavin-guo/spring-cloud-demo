@@ -211,9 +211,26 @@
 
     <repositories>
         <repository>
-            <id>nexus</id>
+            <id>nexus-releases</id>
             <name>Releases</name>
             <url>http://nexus.gavin.com:8081/repository/maven-releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>nexus-snapshots</id>
+            <name>Snapshot</name>
+            <url>http://nexus.gavin.com:8081/repository/maven-snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
