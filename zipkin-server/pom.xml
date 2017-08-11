@@ -45,66 +45,6 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>${spotify.version}</version>
-                <configuration>
-                    <forceTags>true</forceTags>
-                    <imageTags>
-                        <imageTag>latest</imageTag>
-                    </imageTags>
-                    <serverId>docker-hub</serverId>
-                    <registryUrl>${docker.registry.url}</registryUrl>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>build-image</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <configuration>
-                            <imageName>${project.artifactId}</imageName>
-                            <dockerDirectory>${project.basedir}/docker</dockerDirectory>
-                            <resources>
-                                <resource>
-                                    <targetPath>/</targetPath>
-                                    <directory>${project.build.directory}</directory>
-                                    <include>${project.build.finalName}.jar</include>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>tag-image</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>tag</goal>
-                        </goals>
-                        <configuration>
-                            <image>${project.artifactId}</image>
-                            <newName>${docker.registry}/${project.artifactId}</newName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>clean-image</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>removeImage</goal>
-                        </goals>
-                        <configuration>
-                            <imageName>${project.artifactId}</imageName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>push-image</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>push</goal>
-                        </goals>
-                        <configuration>
-                            <imageName>${docker.registry}/${project.artifactId}</imageName>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
