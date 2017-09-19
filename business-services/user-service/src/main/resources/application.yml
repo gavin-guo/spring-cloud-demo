@@ -1,15 +1,37 @@
+server:
+  port: 9100
+
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
-  default-schema: SCHEMA_USER
+  default-schema: schema_user
   drop-first: true
   enabled: true
+
+spring:
+  messages:
+    basename: i18n/messages
+    cache-seconds: 3600
+  cloud:
+    stream:
+      bindings:
+        user_created_output:
+          binder: rabbit
+          destination: userCreated
+          group: default
+          content-type: application/json
+          producer:
+            required-groups: default
+        user_activated_output:
+          binder: rabbit
+          destination: userActivated
+          group: default
+          content-type: application/json
+          producer:
+            required-groups: default
 
 ---
 spring:
   profiles: development
-
-server:
-  port: 9010
 
 ---
 spring:

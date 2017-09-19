@@ -48,7 +48,7 @@ public class User {
     private Byte grade;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<UserAuthority> userAuthorityEntities;
+    private List<UserAuthority> userAuthorities;
 
     @Version
     @Column(name = "version")
@@ -62,18 +62,18 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedTime;
 
-    public UserAuthority addUserAuthorityEntity(UserAuthority userAuthority) {
-        if (CollectionUtils.isEmpty(userAuthorityEntities)) {
-            userAuthorityEntities = new ArrayList<>();
+    public UserAuthority addUserAuthority(UserAuthority userAuthority) {
+        if (CollectionUtils.isEmpty(userAuthorities)) {
+            userAuthorities = new ArrayList<>();
         }
-        userAuthorityEntities.add(userAuthority);
+        userAuthorities.add(userAuthority);
         userAuthority.setUser(this);
 
         return userAuthority;
     }
 
-    public UserAuthority removeUserAuthorityEntity(UserAuthority userAuthority) {
-        userAuthorityEntities.remove(userAuthority);
+    public UserAuthority removeUserAuthority(UserAuthority userAuthority) {
+        userAuthorities.remove(userAuthority);
         userAuthority.setUser(null);
 
         return userAuthority;

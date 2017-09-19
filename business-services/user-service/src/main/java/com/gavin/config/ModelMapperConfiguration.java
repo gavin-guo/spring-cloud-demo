@@ -29,7 +29,7 @@ public class ModelMapperConfiguration {
             destination.setGrade(source.getGrade());
 
             List<AuthorityDto> authorityDtos = new ArrayList<>();
-            source.getUserAuthorityEntities().forEach(
+            source.getUserAuthorities().forEach(
                     userAuthorityEntity -> {
                         AuthorityDto authorityDto = new AuthorityDto();
                         authorityDto.setAuthority(userAuthorityEntity.getAuthority().name());

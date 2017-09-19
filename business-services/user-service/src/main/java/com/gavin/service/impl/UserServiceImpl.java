@@ -1,7 +1,7 @@
 package com.gavin.service.impl;
 
-import com.gavin.domain.UserAuthority;
 import com.gavin.domain.User;
+import com.gavin.domain.UserAuthority;
 import com.gavin.enums.AuthorityEnums;
 import com.gavin.enums.UserStatusEnums;
 import com.gavin.exception.RecordNotFoundException;
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         // 赋予用户默认权限。
         UserAuthority userAuthority = new UserAuthority();
         userAuthority.setAuthority(AuthorityEnums.AUTHORITY_DEFAULT);
-        user.addUserAuthorityEntity(userAuthority);
+        user.addUserAuthority(userAuthority);
 
         userRepository.save(user);
 
@@ -114,17 +114,17 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RecordNotFoundException("user", _userId));
 
         // 删除原来所有权限。
-        List<UserAuthority> userAuthorityEntities = user.getUserAuthorityEntities();
+        List<UserAuthority> userAuthorityEntities = user.getUserAuthorities();
         userAuthorityRepository.delete(userAuthorityEntities);
 
-        user.setUserAuthorityEntities(null);
+        user.setUserAuthorities(null);
 
         if (_authorities != null && _authorities.length > 0) {
             Arrays.stream(_authorities).forEach(
                     authority -> {
                         UserAuthority userAuthority = new UserAuthority();
                         userAuthority.setAuthority(AuthorityEnums.valueOf(authority));
-                        user.addUserAuthorityEntity(userAuthority);
+                        user.addUserAuthority(userAuthority);
                     }
             );
         }
