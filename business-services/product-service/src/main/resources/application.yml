@@ -1,15 +1,27 @@
+server:
+  port: 9104
+
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
   default-schema: SCHEMA_PRODUCT
   drop-first: true
   enabled: true
 
+spring:
+  cloud:
+    stream:
+      bindings:
+        cancel_reservation_input:
+          binder: rabbit
+          destination: cancelReservation
+          group: default
+          content-type: application/json
+          consumer:
+            max-attempts: 3
+
 ---
 spring:
   profiles: development
-
-server:
-  port: 9040
 
 ---
 spring:

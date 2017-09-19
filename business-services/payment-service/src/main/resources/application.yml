@@ -1,15 +1,34 @@
+server:
+  port: 9106
+
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
-  default-schema: SCHEMA_PAYMENT
+  default-schema: schema_payment
   drop-first: true
   enabled: true
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        waiting_for_payment_input:
+          binder: rabbit
+          destination: waitingForPayment
+          group: default
+          content-type: application/json
+          consumer:
+            max-attempts: 3
+        payment_succeeded_output:
+          binder: rabbit
+          destination: paymentSucceeded
+          group: default
+          content-type: application/json
+          producer:
+            required-groups: default
 
 ---
 spring:
   profiles: development
-
-server:
-  port: 9060
 
 ---
 spring:

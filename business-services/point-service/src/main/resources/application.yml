@@ -1,15 +1,32 @@
+server:
+  port: 9102
+
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
   default-schema: SCHEMA_POINT
   drop-first: true
   enabled: true
 
+spring:
+  cloud:
+    stream:
+      bindings:
+        user_activated_input:
+          binder: rabbit
+          destination: userActivated
+          group: default
+          content-type: application/json
+          consumer:
+            max-attempts: 3
+
+# 积分有效期限,单位:日
+points:
+  period: 60
+  user-activated-rewards: 1000
+
 ---
 spring:
   profiles: development
-
-server:
-  port: 9020
 
 ---
 spring:
