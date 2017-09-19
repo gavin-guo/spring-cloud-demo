@@ -1,12 +1,42 @@
+server:
+  port: 9101
+
 liquibase:
   enabled: false
+
+spring:
+  mail:
+    host: smtp.yeah.net
+    username: micro_service
+    password: 1qaz2wsx
+    properties:
+      mail:
+        smtp:
+          auth: true
+  cloud:
+    stream:
+      bindings:
+        user_created_input:
+          binder: rabbit
+          destination: userCreated
+          group: default
+          content-type: application/json
+          consumer:
+            max-attempts: 3
+      rabbit:
+        bindings:
+          user_created_input:
+            consumer:
+              acknowledgeMode: AUTO
+              durableSubscription: true
+              prefetch: 1
+              requeueRejected: true
+              autoBindDlq: true
+              republishToDlq: true
 
 ---
 spring:
   profiles: development
-
-server:
-  port: 9080
 
 ---
 spring:
