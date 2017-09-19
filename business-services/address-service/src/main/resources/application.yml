@@ -1,15 +1,15 @@
+server:
+  port: 9103
+
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
-  default-schema: SCHEMA_ADDRESS
-  drop-first: true
+  default-schema: schema_address
+  drop-first: false
   enabled: true
 
 ---
 spring:
   profiles: development
-
-server:
-  port: 9030
 
 ---
 spring:

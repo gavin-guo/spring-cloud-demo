@@ -8,7 +8,7 @@
         <class>com.gavin.domain.District</class>
         <class>com.gavin.domain.Province</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/SCHEMA_ADDRESS"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/schema_address"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="root"/>
