@@ -1,39 +1,8 @@
 spring:
-  cloud:
-    stream:
-      bindings:
-        cancel_reservation_output:
-          binder: rabbit
-          destination: cancelReservation
-          group: default
-          content-type: application/json
-          producer:
-            required-groups: default
-        waiting_for_payment_output:
-          binder: rabbit
-          destination: waitingForPayment
-          group: default
-          content-type: application/json
-          producer:
-            required-groups: default
-        arrange_shipment_output:
-          binder: rabbit
-          destination: arrangeShipment
-          group: default
-          content-type: application/json
-          producer:
-            required-groups: default
-        payment_succeeded_input:
-          binder: rabbit
-          destination: paymentSucceeded
-          group: default
-          content-type: application/json
-          consumer:
-            max-attempts: 3
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_ORDER?useUnicode=true&amp;characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/schema_order?useUnicode=true&amp;characterEncoding=utf8
     username: root
     password: root
     dbcp2:

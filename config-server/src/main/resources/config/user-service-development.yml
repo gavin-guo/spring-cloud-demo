@@ -1,28 +1,8 @@
 spring:
-  messages:
-    basename: i18n/messages
-    cache-seconds: 3600
-  cloud:
-    stream:
-      bindings:
-        user_created_output:
-          binder: rabbit
-          destination: userCreated
-          group: default
-          content-type: application/json
-          producer:
-            required-groups: default
-        user_activated_output:
-          binder: rabbit
-          destination: userActivated
-          group: default
-          content-type: application/json
-          producer:
-            required-groups: default
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_USER?useUnicode=true&amp;characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/schema_user?useUnicode=true&amp;characterEncoding=utf8
     username: root
     password: root
     dbcp2:

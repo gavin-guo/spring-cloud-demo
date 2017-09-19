@@ -1,25 +1,8 @@
 spring:
-  cloud:
-    stream:
-      bindings:
-        waiting_for_payment_input:
-          binder: rabbit
-          destination: waitingForPayment
-          group: default
-          content-type: application/json
-          consumer:
-            max-attempts: 3
-        payment_succeeded_output:
-          binder: rabbit
-          destination: paymentSucceeded
-          group: default
-          content-type: application/json
-          producer:
-            required-groups: default
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_PAYMENT?useUnicode=true&amp;characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/schema_payment?useUnicode=true&amp;characterEncoding=utf8
     username: root
     password: root
     dbcp2:

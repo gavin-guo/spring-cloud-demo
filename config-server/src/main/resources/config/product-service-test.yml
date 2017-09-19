@@ -2,12 +2,9 @@ spring:
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/schema_notification?useUnicode=true&amp;characterEncoding=utf8
+    url: jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/schema_product?useUnicode=true&amp;characterEncoding=utf8
     username: root
     password: root
     dbcp2:
       test-while-idle: true
       validation-query: SELECT 1
-
-mail:
-  from: micro_service@yeah.net

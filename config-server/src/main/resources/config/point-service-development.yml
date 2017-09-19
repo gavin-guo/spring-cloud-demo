@@ -1,25 +1,10 @@
 spring:
-  cloud:
-    stream:
-      bindings:
-        user_activated_input:
-          binder: rabbit
-          destination: userActivated
-          group: default
-          content-type: application/json
-          consumer:
-            max-attempts: 3
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_POINT?useUnicode=true&amp;characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/schema_point?useUnicode=true&amp;characterEncoding=utf8
     username: root
     password: root
     dbcp2:
       test-while-idle: true
       validation-query: SELECT 1
-
-# 积分有效期限,单位:日
-points:
-  period: 60
-  user-activated-rewards: 1000

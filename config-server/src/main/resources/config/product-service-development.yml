@@ -1,18 +1,8 @@
 spring:
-  cloud:
-    stream:
-      bindings:
-        cancel_reservation_input:
-          binder: rabbit
-          destination: cancelReservation
-          group: default
-          content-type: application/json
-          consumer:
-            max-attempts: 3
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_PRODUCT?useUnicode=true&amp;characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/schema_product?useUnicode=true&amp;characterEncoding=utf8
     username: root
     password: root
     dbcp2:

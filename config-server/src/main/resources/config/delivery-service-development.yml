@@ -1,18 +1,8 @@
 spring:
-  cloud:
-    stream:
-      bindings:
-        arrange_shipment_input:
-          binder: rabbit
-          destination: arrangeShipment
-          group: default
-          content-type: application/json
-          consumer:
-            max-attempts: 3
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_DELIVERY?useUnicode=true&amp;characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/schema_delivery?useUnicode=true&amp;characterEncoding=utf8
     username: root
     password: root
     dbcp2:
