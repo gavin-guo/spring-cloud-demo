@@ -1,4 +1,4 @@
-package com.gavin.entity;
+package com.gavin.domain;
 
 import com.gavin.enums.OrderStatusEnums;
 import lombok.Data;
@@ -14,70 +14,70 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "`ORDER`")
+@Table(name = "`order`")
 @DynamicInsert
 @DynamicUpdate
 @Data
-public class OrderEntity {
+public class Order {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @Column(name = "ID")
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private String userId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS")
+    @Column(name = "status")
     private OrderStatusEnums status;
 
-    @Column(name = "TOTAL_AMOUNT")
+    @Column(name = "total_amount")
     private BigDecimal totalAmount;
 
-    @Column(name = "REWARD_POINTS")
+    @Column(name = "reward_points")
     private BigDecimal rewardPoints;
 
-    @Column(name = "CONSIGNEE")
+    @Column(name = "consignee")
     private String consignee;
 
-    @Column(name = "ADDRESS")
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Version
-    @Column(name = "VERSION")
+    @Column(name = "version")
     private Long version;
 
-    @Column(name = "CREATED_TIME", updatable = false)
+    @Column(name = "created_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
 
-    @Column(name = "MODIFIED_TIME", updatable = false)
+    @Column(name = "modified_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedTime;
 
-    @OneToMany(mappedBy = "orderEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<ItemEntity> itemEntities;
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Item> items;
 
-    public ItemEntity addItemEntity(ItemEntity itemEntity) {
-        if (CollectionUtils.isEmpty(itemEntities)) {
-            itemEntities = new ArrayList<>();
+    public Item addItem(Item item) {
+        if (CollectionUtils.isEmpty(items)) {
+            items = new ArrayList<>();
         }
-        itemEntities.add(itemEntity);
-        itemEntity.setOrderEntity(this);
+        items.add(item);
+        item.setOrder(this);
 
-        return itemEntity;
+        return item;
     }
 
-    public ItemEntity removeItemEntity(ItemEntity itemEntity) {
-        itemEntities.remove(itemEntity);
-        itemEntity.setOrderEntity(null);
+    public Item removeItem(Item item) {
+        items.remove(item);
+        item.setOrder(null);
 
-        return itemEntity;
+        return item;
     }
 
 }

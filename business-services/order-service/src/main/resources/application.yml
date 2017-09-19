@@ -1,13 +1,44 @@
+server:
+  port: 9105
+
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
-  default-schema: SCHEMA_ORDER
-  drop-first: true
+  default-schema: schema_order
+  drop-first: false
   enabled: true
 
----
 spring:
-  profiles: development
   cloud:
+    stream:
+      bindings:
+        cancel_reservation_output:
+          binder: rabbit
+          destination: cancelReservation
+          group: default
+          content-type: application/json
+          producer:
+            required-groups: default
+        waiting_for_payment_output:
+          binder: rabbit
+          destination: waitingForPayment
+          group: default
+          content-type: application/json
+          producer:
+            required-groups: default
+        arrange_shipment_output:
+          binder: rabbit
+          destination: arrangeShipment
+          group: default
+          content-type: application/json
+          producer:
+            required-groups: default
+        payment_succeeded_input:
+          binder: rabbit
+          destination: paymentSucceeded
+          group: default
+          content-type: application/json
+          consumer:
+            max-attempts: 3
     loadbalancer:
       retry:
         enabled: true
@@ -19,8 +50,9 @@ product-service:
     MaxAutoRetries: 1
     MaxAutoRetriesNextServer: 2
 
-server:
-  port: 9050
+---
+spring:
+  profiles: development
 
 ---
 spring:

@@ -4,9 +4,9 @@ import com.gavin.client.address.AddressClient;
 import com.gavin.client.point.PointClient;
 import com.gavin.client.product.ProductClient;
 import com.gavin.constants.ResponseCodeConstants;
+import com.gavin.domain.Item;
+import com.gavin.domain.Order;
 import com.gavin.dto.DirectionDto;
-import com.gavin.entity.ItemEntity;
-import com.gavin.entity.OrderEntity;
 import com.gavin.enums.OrderStatusEnums;
 import com.gavin.exception.*;
 import com.gavin.messaging.ArrangeShipmentProcessor;
@@ -88,20 +88,20 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDetailsDto findOrderById(String _orderId) {
-        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
-        return modelMapper.map(orderEntity, OrderDetailsDto.class);
+        return modelMapper.map(order, OrderDetailsDto.class);
     }
 
     @Override
     public PageResult<OrderDto> findOrdersByUserId(String _userId, PageRequest _pageRequest) {
-        Page<OrderEntity> orderEntities = orderRepository.findByUserId(_userId, _pageRequest);
+        Page<Order> orderEntities = orderRepository.findByUserId(_userId, _pageRequest);
 
         List<OrderDto> orderDtos = new ArrayList<>();
         orderEntities.forEach(
-                orderEntity -> {
-                    OrderDto orderDto = modelMapper.map(orderEntity, OrderDto.class);
+                order -> {
+                    OrderDto orderDto = modelMapper.map(order, OrderDto.class);
                     orderDtos.add(orderDto);
                 }
         );
@@ -116,33 +116,33 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public DirectionDto findDirectionByOrderId(String _orderId) {
-        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
-        return modelMapper.map(orderEntity, DirectionDto.class);
+        return modelMapper.map(order, DirectionDto.class);
     }
 
     @Override
     public void updateOrderStatus(String _orderId, OrderStatusEnums _status) {
-        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
-        orderEntity.setStatus(_status);
-        orderRepository.save(orderEntity);
+        order.setStatus(_status);
+        orderRepository.save(order);
     }
 
     @Override
     @Transactional
     public void cancelOrder(String _orderId) {
-        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
         OrderStatusEnums[] cancelableOrderStatus = new OrderStatusEnums[]{
                 OrderStatusEnums.CREATED,
                 OrderStatusEnums.RESERVED};
 
-        if (!Arrays.asList(cancelableOrderStatus).contains(orderEntity.getStatus())) {
-            throw new OrderCancelException(String.format("can not cancel order(%s) because of order's status(%s).", _orderId, orderEntity.getStatus()));
+        if (!Arrays.asList(cancelableOrderStatus).contains(order.getStatus())) {
+            throw new OrderCancelException(String.format("can not cancel order(%s) because of order's status(%s).", _orderId, order.getStatus()));
         }
 
         CancelReservationPayload payload = new CancelReservationPayload();
@@ -157,13 +157,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void payOrder(String _orderId, BigDecimal _pointsAmount) {
-        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
         // 用户选择使用积分抵扣。
         if (null != _pointsAmount && !_pointsAmount.equals(new BigDecimal("0"))) {
             FreezePointsDto freezePointsDto = new FreezePointsDto();
-            freezePointsDto.setUserId(orderEntity.getUserId());
+            freezePointsDto.setUserId(order.getUserId());
             freezePointsDto.setOrderId(_orderId);
             freezePointsDto.setAmount(_pointsAmount);
 
@@ -178,7 +178,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         // 计算用积分抵扣后还需要支付的金额。
-        BigDecimal payWithMoneyAmount = orderEntity.getTotalAmount().subtract(_pointsAmount);
+        BigDecimal payWithMoneyAmount = order.getTotalAmount().subtract(_pointsAmount);
 
         // 订单金额全部用积分抵扣，无需另外支付。
         if (payWithMoneyAmount.intValue() <= 0) {
@@ -186,12 +186,12 @@ public class OrderServiceImpl implements OrderService {
 
             this.succeedInPayment(_orderId);
         } else {
-            orderEntity.setStatus(OrderStatusEnums.PAYING);
-            orderRepository.save(orderEntity);
+            order.setStatus(OrderStatusEnums.PAYING);
+            orderRepository.save(order);
 
             // 发送消息至payment-service。
             WaitingForPaymentPayload payload = new WaitingForPaymentPayload();
-            payload.setUserId(orderEntity.getUserId());
+            payload.setUserId(order.getUserId());
             payload.setOrderId(_orderId);
             payload.setAmount(payWithMoneyAmount);
             Message<WaitingForPaymentPayload> message = MessageBuilder.withPayload(payload).build();
@@ -202,15 +202,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void succeedInPayment(String _orderId) {
-        OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
-        orderEntity.setStatus(OrderStatusEnums.PAID);
-        orderRepository.save(orderEntity);
+        order.setStatus(OrderStatusEnums.PAID);
+        orderRepository.save(order);
 
         // 发送消息至delivery-service。
-        ArrangeShipmentPayload payload = modelMapper.map(orderEntity, ArrangeShipmentPayload.class);
-        payload.setOrderId(orderEntity.getId());
+        ArrangeShipmentPayload payload = modelMapper.map(order, ArrangeShipmentPayload.class);
+        payload.setOrderId(order.getId());
         Message<ArrangeShipmentPayload> message = MessageBuilder.withPayload(payload).build();
         arrangeShipmentProcessor.output().send(message);
     }
@@ -224,12 +224,12 @@ public class OrderServiceImpl implements OrderService {
         private List<ReservedProductDto> reservedProducts;
 
         OrderBuilder withUserId(String _userId) {
-            OrderEntity orderEntity = new OrderEntity();
-            orderEntity.setUserId(_userId);
-            orderEntity.setStatus(OrderStatusEnums.CREATED);
-            orderRepository.save(orderEntity);
+            Order order = new Order();
+            order.setUserId(_userId);
+            order.setStatus(OrderStatusEnums.CREATED);
+            orderRepository.save(order);
 
-            this.orderId = orderEntity.getId();
+            this.orderId = order.getId();
             return this;
         }
 
@@ -303,19 +303,19 @@ public class OrderServiceImpl implements OrderService {
 
         @Transactional
         private OrderDetailsDto build() {
-            OrderEntity orderEntity = Optional.ofNullable(orderRepository.findOne(orderId))
+            Order order = Optional.ofNullable(orderRepository.findOne(orderId))
                     .orElseThrow(() -> new RecordNotFoundException("order", orderId));
 
-            orderEntity.setConsignee(direction.getConsignee());
-            orderEntity.setAddress(direction.getAddress());
-            orderEntity.setPhoneNumber(direction.getPhoneNumber());
+            order.setConsignee(direction.getConsignee());
+            order.setAddress(direction.getAddress());
+            order.setPhoneNumber(direction.getPhoneNumber());
 
             BigDecimal totalAmountPerOrder = new BigDecimal("0");
             BigDecimal totalPointsPerOrder = new BigDecimal("0");
 
             for (ReservedProductDto reservedProduct : reservedProducts) {
-                ItemEntity itemEntity = modelMapper.map(reservedProduct, ItemEntity.class);
-                orderEntity.addItemEntity(itemEntity);
+                Item item = modelMapper.map(reservedProduct, Item.class);
+                order.addItem(item);
 
                 // 计算该种商品的总金额。
                 BigDecimal totalAmountPerItem = new BigDecimal(reservedProduct.getPrice() * reservedProduct.getQuantity());
@@ -330,12 +330,12 @@ public class OrderServiceImpl implements OrderService {
                 totalPointsPerOrder = totalPointsPerOrder.add(totalPointsPerItem);
             }
 
-            orderEntity.setTotalAmount(totalAmountPerOrder);
-            orderEntity.setRewardPoints(totalPointsPerOrder);
-            orderEntity.setStatus(OrderStatusEnums.RESERVED);
-            orderRepository.save(orderEntity);
+            order.setTotalAmount(totalAmountPerOrder);
+            order.setRewardPoints(totalPointsPerOrder);
+            order.setStatus(OrderStatusEnums.RESERVED);
+            orderRepository.save(order);
 
-            return modelMapper.map(orderEntity, OrderDetailsDto.class);
+            return modelMapper.map(order, OrderDetailsDto.class);
         }
 
     }

@@ -1,6 +1,6 @@
 package com.gavin.config;
 
-import com.gavin.entity.OrderEntity;
+import com.gavin.domain.Order;
 import com.gavin.model.dto.order.ItemDto;
 import com.gavin.model.dto.order.OrderDetailsDto;
 import org.modelmapper.ModelMapper;
@@ -19,8 +19,8 @@ public class ModelMapperConfiguration {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        modelMapper.createTypeMap(OrderEntity.class, OrderDetailsDto.class).setConverter(context -> {
-            OrderEntity source = context.getSource();
+        modelMapper.createTypeMap(Order.class, OrderDetailsDto.class).setConverter(context -> {
+            Order source = context.getSource();
             OrderDetailsDto destination = new OrderDetailsDto();
 
             destination.setId(source.getId());
@@ -33,7 +33,7 @@ public class ModelMapperConfiguration {
             destination.setPhoneNumber(source.getPhoneNumber());
 
             List<ItemDto> itemVos = new ArrayList<>();
-            source.getItemEntities().forEach(
+            source.getItems().forEach(
                     itemEntity -> {
                         ItemDto itemVo = new ItemDto();
                         itemVo.setId(itemEntity.getId());

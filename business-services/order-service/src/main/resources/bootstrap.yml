@@ -2,13 +2,8 @@ spring:
   application:
     name: order-service
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
-    registry-fetch-interval-seconds: 20
-  instance:
-    prefer-ip-address: true
+encrypt:
+  fail-on-error: false
 
 ---
 spring:
@@ -25,6 +20,14 @@ spring:
       allow-override: true
       fail-fast: true
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    registry-fetch-interval-seconds: 20
+  instance:
+    prefer-ip-address: true
+
 ---
 spring:
   profiles: test
@@ -38,3 +41,10 @@ spring:
       username: gavin
       password: gavin
       allow-override: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_SERVER_1_SERVICE_HOST}:${EUREKA_SERVER_1_SERVICE_PORT}/eureka/,http://${EUREKA_SERVER_2_SERVICE_HOST}:${EUREKA_SERVER_2_SERVICE_PORT}/eureka/
+  instance:
+    prefer-ip-address: true
