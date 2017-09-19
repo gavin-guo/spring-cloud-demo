@@ -1,4 +1,4 @@
-package com.gavin.entity;
+package com.gavin.domain;
 
 import com.gavin.enums.DeliveryStatusEnums;
 import lombok.Data;
@@ -10,50 +10,50 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "DELIVERY")
+@Table(name = "delivery")
 @DynamicInsert
 @DynamicUpdate
 @Data
-public class DeliveryEntity {
+public class Delivery {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @Column(name = "ID")
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "ORDER_ID")
+    @Column(name = "order_id")
     private String orderId;
 
-    @Column(name = "CONSIGNEE")
+    @Column(name = "consignee")
     private String consignee;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "ADDRESS")
+    @Column(name = "address")
     private String address;
 
     @ManyToOne
-    @JoinColumn(name = "CARRIER_ID", referencedColumnName = "ID")
-    private CarrierEntity carrierEntity;
+    @JoinColumn(name = "carrier_id", referencedColumnName = "id")
+    private Carrier carrier;
 
-    @Column(name = "TRACKING_NUMBER")
+    @Column(name = "tracking_number")
     private String trackingNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS")
+    @Column(name = "status")
     private DeliveryStatusEnums status;
 
     @Version
-    @Column(name = "VERSION")
+    @Column(name = "version")
     private Long version;
 
-    @Column(name = "CREATED_TIME", updatable = false)
+    @Column(name = "created_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
 
-    @Column(name = "MODIFIED_TIME", updatable = false)
+    @Column(name = "modified_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedTime;
 

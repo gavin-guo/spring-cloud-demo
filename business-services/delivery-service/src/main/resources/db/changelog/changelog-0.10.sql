@@ -1,37 +1,37 @@
 --liquibase formatted sql
 
 --changeset gavin:1
-DROP TABLE IF EXISTS `CARRIER`;
-CREATE TABLE `CARRIER` (
-  `ID`   CHAR(3)     NOT NULL,
-  `NAME` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `CARRIER_ID_UINDEX` (`ID`)
+drop table if exists `carrier`;
+create table `carrier` (
+  `id`   char(3)     not null,
+  `name` varchar(45) not null,
+  primary key (`id`),
+  unique key `carrier_id_uindex` (`id`)
 )
-  ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  engine = innodb
+  default charset = utf8;
 
-DROP TABLE IF EXISTS `DELIVERY`;
-CREATE TABLE `DELIVERY` (
-  `ID`              CHAR(36)     NOT NULL,
-  `ORDER_ID`        CHAR(36)     NOT NULL,
-  `CONSIGNEE`       VARCHAR(45)  NOT NULL,
-  `ADDRESS`         VARCHAR(100) NOT NULL,
-  `PHONE_NUMBER`    VARCHAR(20)  NOT NULL,
-  `CARRIER_ID`      CHAR(3)               DEFAULT NULL,
-  `TRACKING_NUMBER` VARCHAR(15)           DEFAULT NULL,
-  `STATUS`          VARCHAR(20)  NOT NULL,
-  `VERSION`         BIGINT(20)            DEFAULT NULL,
-  `CREATED_TIME`    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `MODIFIED_TIME`   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `DELIVERY_ID_UINDEX` (`ID`),
-  KEY `DELIVERY_CARRIER_ID_FK` (`CARRIER_ID`),
-  CONSTRAINT `DELIVERY_CARRIER_ID_FK` FOREIGN KEY (`CARRIER_ID`) REFERENCES `CARRIER` (`ID`)
+drop table if exists `delivery`;
+create table `delivery` (
+  `id`              char(36)     not null,
+  `order_id`        char(36)     not null,
+  `consignee`       varchar(45)  not null,
+  `address`         varchar(100) not null,
+  `phone_number`    varchar(20)  not null,
+  `carrier_id`      char(3)               default null,
+  `tracking_number` varchar(15)           default null,
+  `status`          varchar(20)  not null,
+  `version`         bigint(20)            default null,
+  `created_time`    timestamp    not null default current_timestamp,
+  `modified_time`   timestamp    not null default current_timestamp on update current_timestamp,
+  primary key (`id`),
+  unique key `delivery_id_uindex` (`id`),
+  key `delivery_carrier_id_fk` (`carrier_id`),
+  constraint `delivery_carrier_id_fk` foreign key (`carrier_id`) references `carrier` (`id`)
 )
-  ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  engine = innodb
+  default charset = utf8;
 
 --changeset gavin:2
-INSERT INTO CARRIER (ID, NAME) VALUES ('001', 'EMS');
-INSERT INTO CARRIER (ID, NAME) VALUES ('002', 'UPS');
+insert into carrier (id, name) values ('001', 'ems');
+insert into carrier (id, name) values ('002', 'ups');

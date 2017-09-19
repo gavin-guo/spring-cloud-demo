@@ -1,12 +1,12 @@
 package com.gavin.repository;
 
-import com.gavin.entity.DeliveryEntity;
+import com.gavin.domain.Delivery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DeliveryRepository extends JpaRepository<DeliveryEntity, String> {
+public interface DeliveryRepository extends JpaRepository<Delivery, String> {
 
-    DeliveryEntity findByOrderId(String _orderId);
+    Delivery findByOrderId(String _orderId);
 
 }

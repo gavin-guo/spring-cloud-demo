@@ -2,10 +2,10 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="persistenceUnit">
-        <class>com.gavin.entity.CarrierEntity</class>
-        <class>com.gavin.entity.DeliveryEntity</class>
+        <class>com.gavin.domain.Carrier</class>
+        <class>com.gavin.domain.Delivery</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/SCHEMA_DELIVERY"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/schema_delivery"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="root"/>

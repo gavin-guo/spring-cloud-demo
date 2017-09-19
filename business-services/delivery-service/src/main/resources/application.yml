@@ -1,15 +1,27 @@
+server:
+  port: 9107
+
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
-  default-schema: SCHEMA_DELIVERY
-  drop-first: true
+  default-schema: schema_delivery
+  drop-first: false
   enabled: true
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        arrange_shipment_input:
+          binder: rabbit
+          destination: arrangeShipment
+          group: default
+          content-type: application/json
+          consumer:
+            max-attempts: 3
 
 ---
 spring:
   profiles: development
-
-server:
-  port: 9070
 
 ---
 spring:
