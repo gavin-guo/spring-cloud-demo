@@ -1,9 +1,9 @@
 package com.gavin.client.product;
 
 import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.model.CustomResponseBody;
-import com.gavin.model.dto.order.ItemDto;
-import com.gavin.model.dto.product.ReservedProductDto;
+import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.dto.order.ItemDto;
+import com.gavin.dto.product.ReservedProductDto;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.gavin.client.point;
 
-import com.gavin.model.CustomResponseBody;
-import com.gavin.model.dto.point.FreezePointsDto;
+import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.dto.point.FreezePointsDto;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

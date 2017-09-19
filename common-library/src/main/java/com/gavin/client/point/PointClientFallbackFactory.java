@@ -1,8 +1,8 @@
 package com.gavin.client.point;
 
 import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.model.CustomResponseBody;
-import com.gavin.model.dto.point.FreezePointsDto;
+import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.dto.point.FreezePointsDto;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

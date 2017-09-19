@@ -1,8 +1,8 @@
 package com.gavin.client.address;
 
 import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.model.CustomResponseBody;
-import com.gavin.model.dto.address.AddressDto;
+import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.dto.address.AddressDto;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

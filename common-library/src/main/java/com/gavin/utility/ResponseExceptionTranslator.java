@@ -1,7 +1,7 @@
 package com.gavin.utility;
 
 import com.gavin.exception.CustomException;
-import com.gavin.model.CustomResponseBody;
+import com.gavin.dto.common.CustomResponseBody;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

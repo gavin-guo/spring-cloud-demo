@@ -2,7 +2,7 @@ package com.gavin.interceptor;
 
 import com.gavin.constants.RequestAttributeConstants;
 import com.gavin.constants.RequestHeaderConstants;
-import com.gavin.model.dto.security.CurrentUser;
+import com.gavin.dto.security.CurrentUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;

@@ -1,7 +1,7 @@
 package com.gavin.client.address;
 
-import com.gavin.model.CustomResponseBody;
-import com.gavin.model.dto.address.AddressDto;
+import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.dto.address.AddressDto;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

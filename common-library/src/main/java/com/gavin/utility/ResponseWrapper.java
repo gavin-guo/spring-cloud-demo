@@ -1,8 +1,8 @@
 package com.gavin.utility;
 
 import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.model.CustomResponseBody;
-import com.gavin.model.PageResult;
+import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.dto.common.PageResult;
 
 public class ResponseWrapper {
 

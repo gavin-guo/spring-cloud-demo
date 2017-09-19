@@ -1,8 +1,8 @@
 package com.gavin.client.product;
 
-import com.gavin.model.CustomResponseBody;
-import com.gavin.model.dto.order.ItemDto;
-import com.gavin.model.dto.product.ReservedProductDto;
+import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.dto.order.ItemDto;
+import com.gavin.dto.product.ReservedProductDto;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
