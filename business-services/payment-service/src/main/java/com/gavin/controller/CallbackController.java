@@ -1,6 +1,6 @@
 package com.gavin.controller;
 
-import com.gavin.model.dto.payment.NotifyPaidDto;
+import com.gavin.dto.payment.NotifyPaidDto;
 import com.gavin.service.PaymentService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

@@ -1,7 +1,7 @@
 package com.gavin.config;
 
 import com.gavin.domain.Address;
-import com.gavin.model.dto.address.AddressDto;
+import com.gavin.dto.address.AddressDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;

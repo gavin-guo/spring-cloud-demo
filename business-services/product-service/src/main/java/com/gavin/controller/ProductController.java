@@ -1,10 +1,10 @@
 package com.gavin.controller;
 
-import com.gavin.model.PageResult;
-import com.gavin.model.dto.order.ItemDto;
-import com.gavin.model.dto.product.CreateProductDto;
-import com.gavin.model.dto.product.ProductDto;
-import com.gavin.model.dto.product.ReservedProductDto;
+import com.gavin.dto.common.PageResult;
+import com.gavin.dto.order.ItemDto;
+import com.gavin.dto.product.CreateProductDto;
+import com.gavin.dto.product.ProductDto;
+import com.gavin.dto.product.ReservedProductDto;
 import com.gavin.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

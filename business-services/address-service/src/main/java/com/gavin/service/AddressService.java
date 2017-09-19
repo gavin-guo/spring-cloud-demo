@@ -1,7 +1,7 @@
 package com.gavin.service;
 
-import com.gavin.model.dto.address.AddressDto;
-import com.gavin.model.dto.address.RegisterAddressDto;
+import com.gavin.dto.address.AddressDto;
+import com.gavin.dto.address.RegisterAddressDto;
 
 public interface AddressService {
 

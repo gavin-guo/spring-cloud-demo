@@ -1,8 +1,8 @@
 package com.gavin.config;
 
 import com.gavin.domain.User;
-import com.gavin.model.dto.user.AuthorityDto;
-import com.gavin.model.dto.user.UserDto;
+import com.gavin.dto.user.AuthorityDto;
+import com.gavin.dto.user.UserDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;

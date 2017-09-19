@@ -2,7 +2,7 @@ package com.gavin.consumer;
 
 import com.gavin.base.MessageConsumer;
 import com.gavin.messaging.UserActivatedProcessor;
-import com.gavin.model.dto.point.ProducePointsDto;
+import com.gavin.dto.point.ProducePointsDto;
 import com.gavin.payload.UserActivatedPayload;
 import com.gavin.service.PointService;
 import com.google.common.base.Stopwatch;

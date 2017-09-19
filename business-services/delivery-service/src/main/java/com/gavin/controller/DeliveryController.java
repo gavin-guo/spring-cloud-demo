@@ -1,7 +1,7 @@
 package com.gavin.controller;
 
-import com.gavin.model.dto.delivery.AssignCarrierDto;
-import com.gavin.model.dto.delivery.DeliveryDto;
+import com.gavin.dto.delivery.AssignCarrierDto;
+import com.gavin.dto.delivery.DeliveryDto;
 import com.gavin.service.DeliveryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

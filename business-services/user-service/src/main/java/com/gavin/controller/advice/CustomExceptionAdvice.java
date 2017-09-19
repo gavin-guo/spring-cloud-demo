@@ -1,7 +1,7 @@
 package com.gavin.controller.advice;
 
 import com.gavin.exception.CustomException;
-import com.gavin.model.CustomResponseBody;
+import com.gavin.dto.common.CustomResponseBody;
 import com.gavin.utility.ResponseExceptionTranslator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

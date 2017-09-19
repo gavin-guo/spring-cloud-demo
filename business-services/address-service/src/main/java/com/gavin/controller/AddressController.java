@@ -1,8 +1,8 @@
 package com.gavin.controller;
 
 import com.gavin.constants.RequestHeaderConstants;
-import com.gavin.model.dto.address.AddressDto;
-import com.gavin.model.dto.address.RegisterAddressDto;
+import com.gavin.dto.address.AddressDto;
+import com.gavin.dto.address.RegisterAddressDto;
 import com.gavin.service.AddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

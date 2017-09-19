@@ -1,7 +1,7 @@
 package com.gavin.service;
 
-import com.gavin.model.dto.user.CreateUserDto;
-import com.gavin.model.dto.user.UserDto;
+import com.gavin.dto.user.CreateUserDto;
+import com.gavin.dto.user.UserDto;
 
 public interface UserService {
 

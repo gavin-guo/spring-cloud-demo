@@ -1,7 +1,7 @@
 package com.gavin.controller;
 
-import com.gavin.model.PageResult;
-import com.gavin.model.dto.payment.PaymentDto;
+import com.gavin.dto.common.PageResult;
+import com.gavin.dto.payment.PaymentDto;
 import com.gavin.service.PaymentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

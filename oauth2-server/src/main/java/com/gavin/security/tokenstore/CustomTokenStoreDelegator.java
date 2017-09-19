@@ -1,7 +1,7 @@
 package com.gavin.security.tokenstore;
 
-import com.gavin.model.dto.security.CurrentUser;
-import com.gavin.model.dto.security.CustomUser;
+import com.gavin.dto.security.CurrentUser;
+import com.gavin.dto.security.CustomUser;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.BoundValueOperations;

@@ -1,8 +1,8 @@
 package com.gavin.service;
 
-import com.gavin.model.PageResult;
-import com.gavin.model.dto.payment.NotifyPaidDto;
-import com.gavin.model.dto.payment.PaymentDto;
+import com.gavin.dto.common.PageResult;
+import com.gavin.dto.payment.NotifyPaidDto;
+import com.gavin.dto.payment.PaymentDto;
 import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;

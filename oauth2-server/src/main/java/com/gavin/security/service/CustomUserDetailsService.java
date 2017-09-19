@@ -2,9 +2,9 @@ package com.gavin.security.service;
 
 import com.gavin.client.UserClient;
 import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.model.CustomResponseBody;
-import com.gavin.model.dto.security.CustomUser;
-import com.gavin.model.dto.user.UserDto;
+import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.dto.security.CustomUser;
+import com.gavin.dto.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

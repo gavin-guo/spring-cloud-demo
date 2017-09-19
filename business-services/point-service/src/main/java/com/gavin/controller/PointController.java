@@ -1,6 +1,6 @@
 package com.gavin.controller;
 
-import com.gavin.model.dto.point.FreezePointsDto;
+import com.gavin.dto.point.FreezePointsDto;
 import com.gavin.service.PointService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

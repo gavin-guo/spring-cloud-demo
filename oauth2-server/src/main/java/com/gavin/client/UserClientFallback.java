@@ -1,8 +1,8 @@
 package com.gavin.client;
 
 import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.model.CustomResponseBody;
-import com.gavin.model.dto.user.UserDto;
+import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.dto.user.UserDto;
 import org.springframework.stereotype.Component;
 
 @Component
