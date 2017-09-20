@@ -1,13 +1,17 @@
 server:
   port: 9999
-  context-path: /uaa # 此处必须设定，否则无法获得token。
-
-#security:
-#  ignored: /css/**,/js/**,/favicon.ico,/webjars/**
+  context-path: /uaa # 此处必须设定否则无法获得token
 
 security:
+  user:
+    name: gavin
+    password: gavin
   basic:
     enabled: false
+
+#management:
+#  security:
+#    enabled: false
 
 feign:
   hystrix:

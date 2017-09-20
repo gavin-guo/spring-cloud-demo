@@ -12,6 +12,8 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     prefer-ip-address: true
+    statusPageUrlPath: /uaa/info
+    healthCheckUrlPath: /uaa/health
 
 ---
 spring:
@@ -23,3 +25,5 @@ eureka:
       defaultZone: http://${EUREKA_SERVER_1_SERVICE_HOST}:${EUREKA_SERVER_1_SERVICE_PORT}/eureka/,http://${EUREKA_SERVER_2_SERVICE_HOST}:${EUREKA_SERVER_2_SERVICE_PORT}/eureka/
   instance:
     prefer-ip-address: true
+    statusPageUrlPath: /uaa/info
+    healthCheckUrlPath: /uaa/health
