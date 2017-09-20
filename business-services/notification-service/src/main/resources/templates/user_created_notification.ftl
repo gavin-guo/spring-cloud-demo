@@ -6,7 +6,7 @@
 登录名：${param.loginName}<br>
 <br>
 请点击以下链接来激活您的帐号。<br>
-<a href="http://localhost:8000/users/activation?user_id=${param.userId}">http://localhost:8000/users/activation?user_id=${param.userId}</a>
+<a href="http://192.168.1.50:30000/users/activation?user_id=${param.userId}">http://www.gavin.com/users/activation?user_id=${param.userId}</a>
 <br>
 </body>
 </html>
