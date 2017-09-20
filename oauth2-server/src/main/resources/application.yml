@@ -13,9 +13,22 @@ feign:
   hystrix:
     enabled: true
 
+liquibase:
+  change-log: classpath:db/changelog/changelog.xml
+  default-schema: schema_auth
+  drop-first: false
+  enabled: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.gavin.client.UserClient: DEBUG
+
+---
 spring:
+  profiles: development
   redis:
-    host: ${REDIS_HOST:localhost}
+    host: localhost
     port: 6379
     database: 0
     pool:
@@ -26,17 +39,26 @@ spring:
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/SCHEMA_AUTH
+    url: jdbc:mysql://localhost:3306/schema_auth
     username: root
     password: root
 
-liquibase:
-  change-log: classpath:db/changelog/changelog.xml
-  default-schema: SCHEMA_AUTH
-  drop-first: true
-  enabled: true
+---
+spring:
+  profiles: test
+  redis:
+    host: ${REDIS_SERVICE_HOST}
+    port: ${REDIS_SERVICE_PORT}
+    database: 0
+    pool:
+      max-active: 10
+      max-idle: 10
+      max-wait: -1
+      min-idle: 0
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/schema_auth
+    username: root
+    password: root
 
-logging:
-  level:
-    org.springframework.security: DEBUG
-    com.gavin.client.UserClient: DEBUG
