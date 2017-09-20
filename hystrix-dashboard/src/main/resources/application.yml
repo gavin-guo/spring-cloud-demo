@@ -5,17 +5,20 @@ turbine:
   stream:
     port: 8989
 
+---
 spring:
+  profiles: development
   rabbitmq:
-    host: ${RABBITMQ_HOST:localhost}
+    host: localhost
     port: 5672
     username: guest
     password: guest
 
- # clusterNameExpression: new String("default")
-  # clusterNameExpression: 'default'
-
-#turbine:
-#  aggregator:
-#    clusterConfig: cloud-demo
-#  clusterNameExpression: metadata['cluster']
+---
+spring:
+  profiles: test
+  rabbitmq:
+    host: ${RABBITMQ_SERVICE_HOST}
+    port: ${RABBITMQ_SERVICE_PORT}
+    username: guest
+    password: guest
