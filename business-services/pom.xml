@@ -15,20 +15,20 @@
     </parent>
 
     <modules>
-        <module>user-service</module>
-        <module>address-service</module>
-        <module>point-service</module>
-        <module>product-service</module>
-        <module>order-service</module>
-        <module>payment-service</module>
-        <module>delivery-service</module>
-        <module>notification-service</module>
+        <module>user</module>
+        <module>address</module>
+        <module>point</module>
+        <module>product</module>
+        <module>order</module>
+        <module>payment</module>
+        <module>delivery</module>
+        <module>notification</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>com.gavin</groupId>
-            <artifactId>common-library</artifactId>
+            <artifactId>common</artifactId>
         </dependency>
 
         <dependency>

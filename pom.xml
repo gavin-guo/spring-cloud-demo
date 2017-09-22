@@ -18,14 +18,14 @@
     </parent>
 
     <modules>
-        <module>common-library</module>
+        <module>common</module>
         <module>business-services</module>
-        <module>eureka-server</module>
-        <module>config-server</module>
-        <module>zuul-server</module>
-        <module>oauth2-server</module>
-        <module>admin-server</module>
-        <module>zipkin-server</module>
+        <module>eureka</module>
+        <module>config</module>
+        <module>zuul</module>
+        <module>oauth</module>
+        <module>admin</module>
+        <module>zipkin</module>
         <module>hystrix-dashboard</module>
     </modules>
 
@@ -55,7 +55,7 @@
 
             <dependency>
                 <groupId>com.gavin</groupId>
-                <artifactId>common-library</artifactId>
+                <artifactId>common</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 

@@ -1,0 +1,68 @@
+server:
+  port: 9999
+  context-path: /uaa # 此处必须设定否则无法获得token
+
+security:
+  user:
+    name: gavin
+    password: gavin
+  basic:
+    enabled: false
+
+#management:
+#  security:
+#    enabled: false
+
+feign:
+  hystrix:
+    enabled: true
+
+liquibase:
+  change-log: classpath:db/changelog/changelog.xml
+  default-schema: schema_oauth
+  drop-first: false
+  enabled: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.gavin.client.UserClient: DEBUG
+
+---
+spring:
+  profiles: development
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    pool:
+      max-active: 10
+      max-idle: 10
+      max-wait: -1
+      min-idle: 0
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/schema_oauth
+    username: root
+    password: root
+
+---
+spring:
+  profiles: test
+  redis:
+    host: ${REDIS_SERVICE_HOST}
+    port: ${REDIS_SERVICE_PORT}
+    database: 0
+    pool:
+      max-active: 10
+      max-idle: 10
+      max-wait: -1
+      min-idle: 0
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/schema_oauth
+    username: root
+    password: root
+

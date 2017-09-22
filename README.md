@@ -23,10 +23,10 @@ http://localhost:9411
 
 | service | swagger-ui |
 | --- | --- |
-| user-service | http://localhost:9101/swagger-ui.html#/ |
-| point-service | http://localhost:9102/swagger-ui.html#/ |
-| address-service | http://localhost:9103/swagger-ui.html#/ |
-| product-service | http://localhost:9104/swagger-ui.html#/ |
-| order-service | http://localhost:9105/swagger-ui.html#/ |
-| payment-service | http://localhost:9106/swagger-ui.html#/ |
-| delivery-service | http://localhost:9107/swagger-ui.html#/ |
+| user | http://localhost:9101/swagger-ui.html#/ |
+| point | http://localhost:9102/swagger-ui.html#/ |
+| address | http://localhost:9103/swagger-ui.html#/ |
+| product | http://localhost:9104/swagger-ui.html#/ |
+| order | http://localhost:9105/swagger-ui.html#/ |
+| payment | http://localhost:9106/swagger-ui.html#/ |
+| delivery | http://localhost:9107/swagger-ui.html#/ |
