@@ -24,10 +24,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
         WaitingForPaymentProcessor.class,
         PaymentSucceededProcessor.class})
 @EnableSwagger2
-public class OrderServiceApplication {
+public class OrderApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OrderServiceApplication.class, args);
+        SpringApplication.run(OrderApplication.class, args);
     }
 
 }

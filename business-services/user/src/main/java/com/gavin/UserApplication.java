@@ -14,10 +14,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableBinding({UserCreatedProcessor.class, UserActivatedProcessor.class})
 @EnableJpaRepositories(basePackages = "com.gavin.repository.jpa")
 @EnableSwagger2
-public class UserServiceApplication {
+public class UserApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(UserServiceApplication.class, args);
+        SpringApplication.run(UserApplication.class, args);
     }
 
 }
