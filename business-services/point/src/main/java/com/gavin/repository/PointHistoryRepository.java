@@ -1,9 +1,9 @@
 package com.gavin.repository;
 
-import com.gavin.entity.PointHistoryEntity;
+import com.gavin.domain.PointHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PointHistoryRepository extends JpaRepository<PointHistoryEntity, String> {
+public interface PointHistoryRepository extends JpaRepository<PointHistory, String> {
 }

@@ -1,6 +1,6 @@
 package com.gavin.repository;
 
-import com.gavin.entity.PointEntity;
+import com.gavin.domain.Point;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,17 +10,17 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PointRepository extends JpaRepository<PointEntity, String> {
+public interface PointRepository extends JpaRepository<Point, String> {
 
-    @Query("select p from PointEntity p " +
+    @Query("select p from Point p " +
             "where p.userId = :userId " +
             "and to_days(p.expireDate) > to_days(current_date()) " +
             "and p.lockForOrderId is null"
     )
-    List<PointEntity> findUsableByAccountId(@Param("userId") String _userId, Sort _sort);
+    List<Point> findUsableByAccountId(@Param("userId") String _userId, Sort _sort);
 
-    List<PointEntity> findByLockForOrderId(String _lockForOrderId);
+    List<Point> findByLockForOrderId(String _lockForOrderId);
 
-    List<PointEntity> findByExpireDateLessThanEqual(String _today);
+    List<Point> findByExpireDateLessThanEqual(String _today);
 
 }

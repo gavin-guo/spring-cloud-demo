@@ -1,6 +1,6 @@
 package com.gavin.service.impl;
 
-import com.gavin.entity.PaymentEntity;
+import com.gavin.domain.Payment;
 import com.gavin.enums.PaymentStatusEnums;
 import com.gavin.exception.RecordNotFoundException;
 import com.gavin.messaging.PaymentSucceededProcessor;
@@ -40,13 +40,13 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String createPayment(String _userId, String _orderId, BigDecimal _amount) {
-        PaymentEntity paymentEntity = new PaymentEntity();
-        paymentEntity.setUserId(_userId);
-        paymentEntity.setOrderId(_orderId);
-        paymentEntity.setAmount(_amount);
-        paymentEntity.setStatus(PaymentStatusEnums.CREATED);
-        paymentRepository.save(paymentEntity);
-        return paymentEntity.getId();
+        Payment payment = new Payment();
+        payment.setUserId(_userId);
+        payment.setOrderId(_orderId);
+        payment.setAmount(_amount);
+        payment.setStatus(PaymentStatusEnums.CREATED);
+        paymentRepository.save(payment);
+        return payment.getId();
     }
 
     @Override
@@ -55,20 +55,20 @@ public class PaymentServiceImpl implements PaymentService {
         String paymentId = _notification.getPaymentId();
         BigDecimal amount = _notification.getAmount();
 
-        PaymentEntity paymentEntity = Optional.ofNullable(paymentRepository.findOne(paymentId))
+        Payment payment = Optional.ofNullable(paymentRepository.findOne(paymentId))
                 .orElseThrow(() -> new RecordNotFoundException("payment", paymentId));
 
         // 第三方支付平台反馈的支付成功金额与需要支付金额不一致。
-        if (amount.compareTo(paymentEntity.getAmount()) != 0) {
+        if (amount.compareTo(payment.getAmount()) != 0) {
             return;
         }
 
-        paymentEntity.setStatus(PaymentStatusEnums.PAID);
-        paymentRepository.save(paymentEntity);
+        payment.setStatus(PaymentStatusEnums.PAID);
+        paymentRepository.save(payment);
 
         // 发送消息至order。
         PaymentSucceededPayload payload = new PaymentSucceededPayload();
-        payload.setOrderId(paymentEntity.getOrderId());
+        payload.setOrderId(payment.getOrderId());
 
         Message<PaymentSucceededPayload> message = MessageBuilder.withPayload(payload).build();
         paymentSucceededProcessor.output().send(message);
@@ -76,12 +76,12 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PageResult<PaymentDto> findPaymentsByUserId(String _userId, PageRequest _pageRequest) {
-        Page<PaymentEntity> paymentEntities = paymentRepository.findByUserId(_userId, _pageRequest);
+        Page<Payment> paymentEntities = paymentRepository.findByUserId(_userId, _pageRequest);
 
         List<PaymentDto> paymentDtos = new ArrayList<>();
         paymentEntities.forEach(
-                paymentEntity -> {
-                    PaymentDto paymentDto = modelMapper.map(paymentEntity, PaymentDto.class);
+                payment -> {
+                    PaymentDto paymentDto = modelMapper.map(payment, PaymentDto.class);
                     paymentDtos.add(paymentDto);
                 }
         );

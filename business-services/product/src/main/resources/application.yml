@@ -3,8 +3,8 @@ server:
 
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
-  default-schema: SCHEMA_PRODUCT
-  drop-first: true
+  default-schema: schema_product
+  drop-first: false
   enabled: true
 
 spring:

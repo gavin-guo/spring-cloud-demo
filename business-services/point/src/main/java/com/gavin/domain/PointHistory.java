@@ -1,5 +1,6 @@
-package com.gavin.entity;
+package com.gavin.domain;
 
+import com.gavin.enums.PointActionEnums;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -10,40 +11,37 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "POINT")
+@Table(name = "point_history")
 @DynamicInsert
 @DynamicUpdate
 @Data
-public class PointEntity {
+public class PointHistory {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @Column(name = "ID")
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private String userId;
 
-    @Column(name = "AMOUNT")
+    @Column(name = "order_id")
+    private String orderId;
+
+    @Column(name = "amount")
     private BigDecimal amount;
 
-    @Column(name = "LOCK_FOR_ORDER_ID")
-    private String lockForOrderId;
-
-    @Column(name = "EXPIRE_DATE")
-    private String expireDate;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "action")
+    private PointActionEnums action;
 
     @Version
-    @Column(name = "VERSION")
+    @Column(name = "version")
     private Long version;
 
-    @Column(name = "CREATED_TIME", updatable = false)
+    @Column(name = "created_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
-
-    @Column(name = "MODIFIED_TIME", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modifiedTime;
 
 }

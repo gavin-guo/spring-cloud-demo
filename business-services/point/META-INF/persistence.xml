@@ -2,10 +2,10 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="persistenceUnit">
-        <class>com.gavin.entity.PointEntity</class>
-        <class>com.gavin.entity.PointHistoryEntity</class>
+        <class>com.gavin.domain.Point</class>
+        <class>com.gavin.domain.PointHistory</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/SCHEMA_POINT"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/schema_point"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="root"/>

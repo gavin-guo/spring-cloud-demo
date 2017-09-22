@@ -4,7 +4,7 @@ server:
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
   default-schema: schema_payment
-  drop-first: true
+  drop-first: false
   enabled: true
 
 spring:
