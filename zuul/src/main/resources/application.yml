@@ -66,3 +66,31 @@ hystrix:
           strategy: THREAD
           thread:
             timeoutInMilliseconds: 80000
+
+---
+spring:
+  profiles: development
+
+security:
+  oauth2:
+    client:
+      client-id: zuul
+      client-secret: secret
+      access-token-uri: http://localhost:9999/uaa/oauth/token
+      user-authorization-uri: http://localhost:9999/uaa/oauth/authorize
+    resource:
+      token-info-uri: http://localhost:9999/uaa/oauth/check_token
+
+---
+spring:
+  profiles: test
+
+security:
+  oauth2:
+    client:
+      client-id: zuul
+      client-secret: secret
+      access-token-uri: http://oauth:9999/uaa/oauth/token
+      user-authorization-uri: http://oauth:9999/uaa/oauth/authorize
+    resource:
+      token-info-uri: http://oauth:9999/uaa/oauth/check_token

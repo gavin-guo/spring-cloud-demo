@@ -1,9 +1,0 @@
-security:
-  oauth2:
-    client:
-      client-id: zuul
-      client-secret: secret
-      access-token-uri: http://${OAUTH_SERVICE_HOST}:${OAUTH_SERVICE_PORT}/uaa/oauth/token
-      user-authorization-uri: http://${OAUTH_SERVICE_HOST}:${OAUTH_SERVICE_PORT}/uaa/oauth/authorize
-    resource:
-      token-info-uri: http://${OAUTH_SERVICE_HOST}:${OAUTH_SERVICE_PORT}/uaa/oauth/check_token

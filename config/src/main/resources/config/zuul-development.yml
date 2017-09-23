@@ -1,9 +1,0 @@
-security:
-  oauth2:
-    client:
-      client-id: zuul
-      client-secret: secret
-      access-token-uri: http://localhost:9999/uaa/oauth/token
-      user-authorization-uri: http://localhost:9999/uaa/oauth/authorize
-    resource:
-      token-info-uri: http://localhost:9999/uaa/oauth/check_token
