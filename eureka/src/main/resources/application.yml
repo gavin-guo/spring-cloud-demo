@@ -1,8 +1,6 @@
 spring:
   application:
     name: eureka
-  profiles:
-    active: development
 
 management:
   security:
@@ -32,12 +30,10 @@ server:
 eureka:
   instance:
     hostname: peer1
-    prefer-ip-address: true
+    prefer-ip-address: false
   client:
     service-url:
       defaultZone: http://${EUREKA_2_SERVICE_HOST}:${EUREKA_2_SERVICE_PORT}/eureka/
-  server:
-    enable-self-preservation: false
 
 ---
 spring:
@@ -49,9 +45,7 @@ server:
 eureka:
   instance:
     hostname: peer2
-    prefer-ip-address: true
+    prefer-ip-address: false
   client:
     service-url:
       defaultZone: http://${EUREKA_1_SERVICE_HOST}:${EUREKA_1_SERVICE_PORT}/eureka/
-  server:
-    enable-self-preservation: false
