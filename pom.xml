@@ -19,7 +19,7 @@
 
     <modules>
         <module>common</module>
-        <module>business-services</module>
+        <module>services</module>
         <module>eureka</module>
         <module>config</module>
         <module>zuul</module>
