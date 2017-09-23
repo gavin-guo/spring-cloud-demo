@@ -29,7 +29,7 @@ server:
 
 eureka:
   instance:
-    hostname: peer1
+    hostname: eureka-1
     prefer-ip-address: false
   client:
     service-url:
@@ -44,7 +44,7 @@ server:
 
 eureka:
   instance:
-    hostname: peer2
+    hostname: eureka-2
     prefer-ip-address: false
   client:
     service-url:
