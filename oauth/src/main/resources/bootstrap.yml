@@ -22,7 +22,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://${EUREKA_1_SERVICE_HOST}:${EUREKA_1_SERVICE_PORT}/eureka/,http://${EUREKA_2_SERVICE_HOST}:${EUREKA_2_SERVICE_PORT}/eureka/
+      defaultZone: http://eureka-1:8761/eureka/, http://eureka-2:8762/eureka/
   instance:
     prefer-ip-address: true
     statusPageUrlPath: /uaa/info

@@ -62,7 +62,7 @@ spring:
       percentage: 1
   boot:
     admin:
-      url: http://${ADMIN_HOST:localhost}:8085
+      url: http://admin:8085
       client:
         enabled: false
         prefer-ip: true
