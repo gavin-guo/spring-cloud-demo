@@ -1,8 +1,11 @@
 package com.gavin.config;
 
+import com.gavin.client.user.UserClient;
+import com.gavin.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -55,6 +58,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
+    }
+
+    @Bean(name = "customUserDetailsService")
+    public CustomUserDetailsService customUserDetailsService(UserClient userClient) {
+        return new CustomUserDetailsService(userClient);
     }
 
 }

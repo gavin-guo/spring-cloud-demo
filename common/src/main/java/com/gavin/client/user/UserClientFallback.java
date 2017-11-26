@@ -1,4 +1,4 @@
-package com.gavin.client;
+package com.gavin.client.user;
 
 import com.gavin.constants.ResponseCodeConstants;
 import com.gavin.dto.common.CustomResponseBody;

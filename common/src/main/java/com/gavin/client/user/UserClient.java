@@ -1,4 +1,4 @@
-package com.gavin.client;
+package com.gavin.client.user;
 
 import com.gavin.dto.common.CustomResponseBody;
 import com.gavin.dto.user.UserDto;
