@@ -22,6 +22,8 @@
         <module>services</module>
         <module>eureka</module>
         <module>config</module>
+        <module>app</module>
+        <module>api</module>
         <module>zuul</module>
         <module>oauth</module>
         <module>admin</module>
