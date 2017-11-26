@@ -1,6 +1,6 @@
 spring:
   application:
-    name: admin
+    name: oauth
 
 ---
 spring:
@@ -12,6 +12,8 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     prefer-ip-address: true
+    statusPageUrlPath: /uaa/info
+    healthCheckUrlPath: /uaa/health
 
 ---
 spring:
@@ -20,6 +22,8 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-1:8761/eureka/,http://eureka-2:8762/eureka/
+      defaultZone: http://eureka-1:8761/eureka/, http://eureka-2:8762/eureka/
   instance:
     prefer-ip-address: true
+    statusPageUrlPath: /uaa/info
+    healthCheckUrlPath: /uaa/health
