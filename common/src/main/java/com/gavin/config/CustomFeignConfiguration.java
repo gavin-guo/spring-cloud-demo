@@ -22,12 +22,12 @@ public class CustomFeignConfiguration {
     @ConditionalOnMissingClass("com.gavin.config.AuthorizationServerConfiguration")
     public RequestInterceptor customRequestInterceptor() {
         return template -> {
-            String userId = CustomHystrixContext.getInstance().getUserId();
-
-            if (userId != null) {
-                log.debug("get userId from CustomHystrixContext: {}", userId);
-                template.header(RequestHeaderConstants.CURRENT_USER_ID, userId);
-            }
+//            String userId = CustomHystrixContext.getInstance().getUserId();
+//
+//            if (userId != null) {
+//                log.debug("get userId from CustomHystrixContext: {}", userId);
+//                template.header(RequestHeaderConstants.CURRENT_USER_ID, userId);
+//            }
 
         };
     }
