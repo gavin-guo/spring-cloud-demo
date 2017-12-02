@@ -5,6 +5,6 @@ package com.gavin.constants;
  */
 public interface RequestHeaderConstants {
 
-    String CURRENT_USER_ID = "x-user-id";
+    String X_USER_ID = "x_user_id";
 
 }

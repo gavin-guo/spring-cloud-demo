@@ -1,33 +1,35 @@
-package com.gavin.client.address;
+package com.gavin.common.client.point;
 
 import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.dto.address.AddressDto;
 import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.dto.point.FreezePointsDto;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 @Slf4j
-public class AddressClientFallbackFactory implements FallbackFactory<AddressClient> {
+public class PointClientFallbackFactory implements FallbackFactory<PointClient> {
 
     @Override
-    public AddressClient create(Throwable cause) {
-        return new AddressClient() {
+    public PointClient create(Throwable cause) {
+        return new PointClient() {
             @Override
-            public CustomResponseBody<AddressDto> findAddressById(String _addressId) {
+            public CustomResponseBody<BigDecimal> calculateUsableAmount(String _userId) {
                 log.error(cause.getMessage());
 
-                CustomResponseBody<AddressDto> response = new CustomResponseBody<>();
+                CustomResponseBody<BigDecimal> response = new CustomResponseBody<>();
                 response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
                 return response;
             }
 
             @Override
-            public CustomResponseBody<AddressDto> findDefaultAddress() {
+            public CustomResponseBody freezePoints(FreezePointsDto _freeze) {
                 log.error(cause.getMessage());
 
-                CustomResponseBody<AddressDto> response = new CustomResponseBody<>();
+                CustomResponseBody response = new CustomResponseBody<>();
                 response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
                 return response;
             }

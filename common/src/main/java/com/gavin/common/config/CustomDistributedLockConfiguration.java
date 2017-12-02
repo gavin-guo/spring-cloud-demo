@@ -1,4 +1,4 @@
-package com.gavin.config;
+package com.gavin.common.config;
 
 import com.gavin.lock.DistributedLockTemplate;
 import com.gavin.lock.redis.RedisLockTemplate;

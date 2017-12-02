@@ -23,7 +23,7 @@ public class UserInfoExtractorInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String userId = request.getHeader(RequestHeaderConstants.CURRENT_USER_ID);
+        String userId = request.getHeader(RequestHeaderConstants.X_USER_ID);
 
         if (userId == null) {
             return true;

@@ -1,4 +1,4 @@
-package com.gavin.config;
+package com.gavin.common.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;

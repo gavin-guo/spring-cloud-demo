@@ -22,7 +22,7 @@ public class UserIdPropagatorInterceptor implements HandlerInterceptor {
             HystrixRequestContext.initializeContext();
         }
 
-        String userId = request.getHeader(RequestHeaderConstants.CURRENT_USER_ID);
+        String userId = request.getHeader(RequestHeaderConstants.X_USER_ID);
         if (userId != null) {
             CustomHystrixContext.getInstance().setUserId(userId);
         }

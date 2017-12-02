@@ -1,4 +1,4 @@
-package com.gavin.config;
+package com.gavin.common.config;
 
 import com.gavin.interceptor.RequestLogEnhancerInterceptor;
 import com.gavin.interceptor.UserIdPropagatorInterceptor;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-@ConditionalOnMissingClass("com.gavin.config.AuthorizationServerConfiguration")
+@ConditionalOnMissingClass("com.gavin.common.config.AuthorizationServerConfiguration")
 public class CustomWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired

@@ -1,6 +1,6 @@
 package com.gavin.service;
 
-import com.gavin.client.user.UserClient;
+import com.gavin.common.client.user.UserClient;
 import com.gavin.constants.ResponseCodeConstants;
 import com.gavin.dto.common.CustomResponseBody;
 import com.gavin.dto.security.CustomUser;
@@ -32,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(_username);
         }
 
-        UserDto userDto = response.getRecord();
+        UserDto userDto = response.getData();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         userDto.getAuthorities().forEach(
@@ -42,6 +42,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         CustomUser customUser = new CustomUser(
                 userDto.getId(),
                 userDto.getLoginName(),
+                userDto.getNickName(),
                 userDto.getPassword(),
                 true,
                 true,

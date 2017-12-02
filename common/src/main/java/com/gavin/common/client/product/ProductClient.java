@@ -1,4 +1,4 @@
-package com.gavin.client.product;
+package com.gavin.common.client.product;
 
 import com.gavin.dto.common.CustomResponseBody;
 import com.gavin.dto.order.ItemDto;

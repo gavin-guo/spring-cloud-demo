@@ -1,4 +1,4 @@
-package com.gavin.client.address;
+package com.gavin.common.client.address;
 
 import com.gavin.dto.common.CustomResponseBody;
 import com.gavin.dto.address.AddressDto;

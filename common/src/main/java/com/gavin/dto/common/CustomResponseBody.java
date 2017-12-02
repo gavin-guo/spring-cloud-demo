@@ -9,15 +9,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "code",
         "message",
         "meta",
-        "record",
-        "records"})
+        "data"})
 @Data
 @NoArgsConstructor
 @ApiModel(value = "Response", description = "返回结果")
@@ -35,13 +33,9 @@ public class CustomResponseBody<T> implements Serializable {
     @ApiModelProperty(value = "元数据信息", position = 3)
     private Meta meta;
 
-    @JsonProperty("record")
+    @JsonProperty("data")
     @ApiModelProperty(value = "内容", position = 4)
-    private T record;
-
-    @JsonProperty("records")
-    @ApiModelProperty(value = "内容", position = 5)
-    private List<T> records;
+    private T data;
 
     @Data
     private class Meta {
@@ -60,6 +54,15 @@ public class CustomResponseBody<T> implements Serializable {
 
     }
 
+    public CustomResponseBody(String code) {
+        this.code = code;
+    }
+
+    public CustomResponseBody(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
     public void setTotalRecords(long totalRecords) {
         meta.setTotalRecords(totalRecords);
     }
@@ -75,9 +78,9 @@ public class CustomResponseBody<T> implements Serializable {
     public void setPageResult(PageResult<T> pageResult) {
         meta.setTotalRecords(pageResult.getTotalRecords());
         meta.setTotalPages(pageResult.getTotalPages());
-        meta.setCurrentPage(pageResult.currentPage);
+        meta.setCurrentPage(pageResult.getCurrentPage());
 
-        this.setRecords(pageResult.getRecords());
+        setData((T) pageResult.getRecords());
     }
 
 }

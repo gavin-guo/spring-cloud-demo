@@ -1,4 +1,4 @@
-package com.gavin.client.point;
+package com.gavin.common.client.point;
 
 import com.gavin.dto.common.CustomResponseBody;
 import com.gavin.dto.point.FreezePointsDto;
