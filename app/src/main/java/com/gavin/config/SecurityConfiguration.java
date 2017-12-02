@@ -1,6 +1,6 @@
 package com.gavin.config;
 
-import com.gavin.client.user.UserClient;
+import com.gavin.common.client.user.UserClient;
 import com.gavin.security.CustomAuthenticationEntryPoint;
 import com.gavin.security.CustomAuthenticationFailureHandler;
 import com.gavin.security.CustomAuthenticationSuccessHandler;
