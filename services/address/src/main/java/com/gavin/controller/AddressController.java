@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -35,10 +36,17 @@ public class AddressController {
         return addressService.findAddressById(_addressId);
     }
 
+    @RequestMapping(value = "/addresses", method = RequestMethod.GET)
+    @ApiOperation(value = "查询用户的所有地址")
+    public List<AddressDto> findAddresses(
+            @ApiParam(name = "user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId) {
+        return addressService.findAddressesByUserId(_userId);
+    }
+
     @RequestMapping(value = "/addresses/default", method = RequestMethod.GET)
     @ApiOperation(value = "查询用户的默认地址")
     public AddressDto findDefaultAddress(
-            @ApiParam(name = "user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.CURRENT_USER_ID) String _userId) {
+            @ApiParam(name = "user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId) {
         return addressService.findDefaultAddressByUserId(_userId);
     }
 

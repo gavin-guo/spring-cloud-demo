@@ -2,9 +2,9 @@ package com.gavin.service.impl;
 
 import com.gavin.domain.Address;
 import com.gavin.domain.District;
-import com.gavin.exception.RecordNotFoundException;
 import com.gavin.dto.address.AddressDto;
 import com.gavin.dto.address.RegisterAddressDto;
+import com.gavin.exception.RecordNotFoundException;
 import com.gavin.repository.jpa.AddressRepository;
 import com.gavin.repository.jpa.DistrictRepository;
 import com.gavin.service.AddressService;
@@ -14,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -52,6 +54,21 @@ public class AddressServiceImpl implements AddressService {
                 .orElseThrow(() -> new RecordNotFoundException("address", _addressId));
 
         return modelMapper.map(address, AddressDto.class);
+    }
+
+    @Override
+    public List<AddressDto> findAddressesByUserId(String _userId) {
+        List<Address> addresses = addressRepository.findByUserId(_userId);
+
+        List<AddressDto> addressDtos = new ArrayList<>();
+        addresses.forEach(
+                address -> {
+                    AddressDto addressDto = modelMapper.map(address, AddressDto.class);
+                    addressDtos.add(addressDto);
+                }
+        );
+
+        return addressDtos;
     }
 
     @Override
