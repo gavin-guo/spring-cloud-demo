@@ -6,9 +6,9 @@ zuul:
   sensitive-headers: Cookie,Set-Cookie,Authorization
   retryable: true
   routes:
-    oauth:
+    auth:
       path: /uaa/**
-      service-id: oauth
+      service-id: auth
       strip-prefix: false
     user:
       path: /users/**

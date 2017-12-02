@@ -3,7 +3,7 @@
 ## grant_type=authorization_code
 
 在浏览器地址栏中输入
-http://localhost:9999/uaa/oauth/authorize?client_id=acme&response_type=code&redirect_uri=http://www.baidu.com
+http://localhost:9999/uaa/auth/authorize?client_id=acme&response_type=code&redirect_uri=http://www.baidu.com
 
 页面会跳转到一个简易的登录画面，输入正确的用户名和密码，并且approve，验证成功后自动跳转到www.baidu.com。
 ![](https://raw.githubusercontent.com/gavin-guo/spring-cloud-demo/master/oauth/example-images/auth-1.png)

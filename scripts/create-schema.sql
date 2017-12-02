@@ -1,5 +1,5 @@
-DROP DATABASE schema_oauth;
-CREATE DATABASE `schema_oauth`
+DROP DATABASE schema_auth;
+CREATE DATABASE `schema_auth`
   CHARACTER SET 'utf8'
   COLLATE 'utf8_unicode_ci';
 

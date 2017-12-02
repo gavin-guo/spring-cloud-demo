@@ -19,7 +19,7 @@ feign:
 
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
-  default-schema: schema_oauth
+  default-schema: schema_auth
   drop-first: false
   enabled: true
 
@@ -43,7 +43,7 @@ spring:
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/schema_oauth
+    url: jdbc:mysql://localhost:3306/schema_auth
     username: root
     password: root
 
@@ -62,7 +62,7 @@ spring:
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/schema_oauth
+    url: jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/schema_auth
     username: root
     password: root
 
