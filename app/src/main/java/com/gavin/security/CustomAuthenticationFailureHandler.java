@@ -1,5 +1,10 @@
 package com.gavin.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gavin.constants.ResponseCodeConstants;
+import com.gavin.dto.common.CustomResponseBody;
+import org.apache.http.HttpStatus;
+import org.apache.http.entity.ContentType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -12,9 +17,16 @@ import java.io.IOException;
 @Component
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
+    private final static ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        super.onAuthenticationFailure(request, response, exception);
+        response.setStatus(HttpStatus.SC_UNAUTHORIZED);
+        response.setContentType(ContentType.APPLICATION_JSON.toString());
+
+        CustomResponseBody responseBody = new CustomResponseBody(ResponseCodeConstants.UNAUTHORIZED, exception.getMessage());
+
+        response.getWriter().write(objectMapper.writeValueAsString(responseBody));
     }
 
 }

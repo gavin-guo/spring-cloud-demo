@@ -1,6 +1,8 @@
 package com.gavin.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gavin.constants.ResponseCodeConstants;
+import com.gavin.dto.common.CustomResponseBody;
 import org.apache.http.HttpStatus;
 import org.apache.http.entity.ContentType;
 import org.springframework.security.core.AuthenticationException;
@@ -11,8 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
@@ -24,11 +24,9 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.setStatus(HttpStatus.SC_UNAUTHORIZED);
         response.setContentType(ContentType.APPLICATION_JSON.toString());
 
-        Map<String, String> map = new HashMap<>();
-        map.put("code", "401");
-        map.put("message", "unauthorized");
+        CustomResponseBody responseBody = new CustomResponseBody(ResponseCodeConstants.UNAUTHORIZED, e.getMessage());
 
-        response.getWriter().write(objectMapper.writeValueAsString(map));
+        response.getWriter().write(objectMapper.writeValueAsString(responseBody));
     }
 
 }

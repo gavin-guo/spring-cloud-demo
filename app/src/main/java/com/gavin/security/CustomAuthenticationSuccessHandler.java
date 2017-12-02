@@ -1,5 +1,9 @@
 package com.gavin.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gavin.constants.ResponseCodeConstants;
+import com.gavin.dto.common.CustomResponseBody;
+import org.apache.http.entity.ContentType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -18,11 +22,17 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private RequestCache requestCache = new HttpSessionRequestCache();
 
+    private final static ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
-        response.getWriter().write("success");
+        response.setContentType(ContentType.APPLICATION_JSON.toString());
+        CustomResponseBody responseBody = new CustomResponseBody();
+        responseBody.setCode(ResponseCodeConstants.OK);
+        responseBody.setMessage("Authentication Succeeded");
+        response.getWriter().write(objectMapper.writeValueAsString(responseBody));
 
         if (savedRequest == null) {
             clearAuthenticationAttributes(request);
