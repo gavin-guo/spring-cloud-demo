@@ -1,12 +1,12 @@
 package com.gavin.service.impl;
 
 import com.gavin.domain.Payment;
-import com.gavin.enums.PaymentStatusEnums;
-import com.gavin.exception.RecordNotFoundException;
-import com.gavin.messaging.PaymentSucceededProcessor;
 import com.gavin.dto.common.PageResult;
 import com.gavin.dto.payment.NotifyPaidDto;
 import com.gavin.dto.payment.PaymentDto;
+import com.gavin.enums.PaymentStatusEnums;
+import com.gavin.exception.RecordNotFoundException;
+import com.gavin.messaging.PaymentSucceededProcessor;
 import com.gavin.payload.PaymentSucceededPayload;
 import com.gavin.repository.PaymentRepository;
 import com.gavin.service.PaymentService;
@@ -76,10 +76,10 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PageResult<PaymentDto> findPaymentsByUserId(String _userId, PageRequest _pageRequest) {
-        Page<Payment> paymentEntities = paymentRepository.findByUserId(_userId, _pageRequest);
+        Page<Payment> payments = paymentRepository.findByUserId(_userId, _pageRequest);
 
         List<PaymentDto> paymentDtos = new ArrayList<>();
-        paymentEntities.forEach(
+        payments.forEach(
                 payment -> {
                     PaymentDto paymentDto = modelMapper.map(payment, PaymentDto.class);
                     paymentDtos.add(paymentDto);
@@ -87,8 +87,8 @@ public class PaymentServiceImpl implements PaymentService {
         );
 
         PageResult<PaymentDto> pageResult = new PageResult<>();
-        pageResult.setTotalElements(paymentEntities.getTotalElements());
-        pageResult.setTotalPages(paymentEntities.getTotalPages());
+        pageResult.setTotalRecords(payments.getTotalElements());
+        pageResult.setTotalPages(payments.getTotalPages());
         pageResult.setRecords(paymentDtos);
 
         return pageResult;

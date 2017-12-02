@@ -2,14 +2,14 @@ package com.gavin.service.impl;
 
 import com.gavin.domain.User;
 import com.gavin.domain.UserAuthority;
+import com.gavin.dto.user.CreateUserDto;
+import com.gavin.dto.user.UserDto;
 import com.gavin.enums.AuthorityEnums;
 import com.gavin.enums.UserStatusEnums;
 import com.gavin.exception.RecordNotFoundException;
 import com.gavin.exception.UserExistingException;
 import com.gavin.messaging.UserActivatedProcessor;
 import com.gavin.messaging.UserCreatedProcessor;
-import com.gavin.dto.user.CreateUserDto;
-import com.gavin.dto.user.UserDto;
 import com.gavin.payload.UserActivatedPayload;
 import com.gavin.payload.UserCreatedPayload;
 import com.gavin.repository.jpa.UserAuthorityRepository;
@@ -114,8 +114,8 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RecordNotFoundException("user", _userId));
 
         // 删除原来所有权限。
-        List<UserAuthority> userAuthorityEntities = user.getUserAuthorities();
-        userAuthorityRepository.delete(userAuthorityEntities);
+        List<UserAuthority> userAuthorities = user.getUserAuthorities();
+        userAuthorityRepository.delete(userAuthorities);
 
         user.setUserAuthorities(null);
 

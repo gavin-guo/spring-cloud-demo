@@ -30,9 +30,9 @@ public class ModelMapperConfiguration {
 
             List<AuthorityDto> authorityDtos = new ArrayList<>();
             source.getUserAuthorities().forEach(
-                    userAuthorityEntity -> {
+                    userAuthority -> {
                         AuthorityDto authorityDto = new AuthorityDto();
-                        authorityDto.setAuthority(userAuthorityEntity.getAuthority().name());
+                        authorityDto.setAuthority(userAuthority.getAuthority().name());
                         authorityDtos.add(authorityDto);
                     }
             );

@@ -3,13 +3,13 @@ package com.gavin.service.impl;
 import com.gavin.domain.Category;
 import com.gavin.domain.Product;
 import com.gavin.domain.ProductReservation;
-import com.gavin.exception.InsufficientInventoryException;
-import com.gavin.exception.RecordNotFoundException;
 import com.gavin.dto.common.PageResult;
 import com.gavin.dto.order.ItemDto;
 import com.gavin.dto.product.CreateProductDto;
 import com.gavin.dto.product.ProductDto;
 import com.gavin.dto.product.ReservedProductDto;
+import com.gavin.exception.InsufficientInventoryException;
+import com.gavin.exception.RecordNotFoundException;
 import com.gavin.repository.jpa.CategoryRepository;
 import com.gavin.repository.jpa.PointRewardPlanRepository;
 import com.gavin.repository.jpa.ProductRepository;
@@ -84,9 +84,9 @@ public class ProductServiceImpl implements ProductService {
         Category category = Optional.ofNullable(categoryRepository.findOne(_categoryId))
                 .orElseThrow(() -> new RecordNotFoundException("category", _categoryId));
 
-        Page<Product> productEntities = productRepository.findByCategoryId(_categoryId, _pageRequest);
+        Page<Product> products = productRepository.findByCategoryId(_categoryId, _pageRequest);
         List<ProductDto> productDtos = new ArrayList<>();
-        productEntities.forEach(
+        products.forEach(
                 product -> {
                     ProductDto productDto = modelMapper.map(product, ProductDto.class);
                     productDto.setCategoryName(category.getName());
@@ -96,8 +96,8 @@ public class ProductServiceImpl implements ProductService {
 
         PageResult<ProductDto> pageResult = new PageResult<>();
         pageResult.setRecords(productDtos);
-        pageResult.setTotalPages(productEntities.getTotalPages());
-        pageResult.setTotalElements(productEntities.getTotalElements());
+        pageResult.setTotalPages(products.getTotalPages());
+        pageResult.setTotalRecords(products.getTotalElements());
 
         return pageResult;
     }
@@ -107,8 +107,8 @@ public class ProductServiceImpl implements ProductService {
     public List<ReservedProductDto> reserveProducts(String _orderId, List<ItemDto> _items) {
         List<String> productIds = _items.stream().map(ItemDto::getProductId).collect(Collectors.toList());
 
-        List<Product> productEntities = productRepository.findAll(productIds);
-        Map<String, Product> productIdEntityMap = productEntities.stream().collect(
+        List<Product> products = productRepository.findAll(productIds);
+        Map<String, Product> productIdMap = products.stream().collect(
                 Collectors.toMap(Product::getId, product -> product));
 
         List<ReservedProductDto> reservedProductDtos = new ArrayList<>();
@@ -116,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
         _items.forEach(
                 item -> {
                     String productId = item.getProductId();
-                    Product product = productIdEntityMap.get(productId);
+                    Product product = productIdMap.get(productId);
 
                     // 订单中此商品的订购数超过库存。
                     if (item.getQuantity() > product.getStocks()) {
@@ -142,7 +142,7 @@ public class ProductServiceImpl implements ProductService {
 
                     // 查找该商品是否有处于有效期内的返点比例设置。
                     pointRewardPlanRepository.findApplicablePlanByProductId(productId)
-                            .ifPresent(pointRewardPlanEntity -> reservedProductDto.setRatio(pointRewardPlanEntity.getRatio()));
+                            .ifPresent(pointRewardPlan -> reservedProductDto.setRatio(pointRewardPlan.getRatio()));
 
                     reservedProductDtos.add(reservedProductDto);
                 }
@@ -156,20 +156,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public void cancelReservation(String _orderId) {
-        List<ProductReservation> productReservationEntities = productReservationRepository.findByOrderId(_orderId);
+        List<ProductReservation> productReservations = productReservationRepository.findByOrderId(_orderId);
 
-        List<String> productIds = productReservationEntities.stream()
+        List<String> productIds = productReservations.stream()
                 .map(ProductReservation::getProductId)
                 .collect(Collectors.toList());
 
-        List<Product> productEntities = productRepository.findAll(productIds);
+        List<Product> products = productRepository.findAll(productIds);
 
-        Map<String, Integer> itemQuantityMap = productReservationEntities.stream()
+        Map<String, Integer> itemQuantityMap = productReservations.stream()
                 .collect(Collectors.toMap(
                         ProductReservation::getProductId,
                         ProductReservation::getQuantity));
 
-        productEntities.forEach(
+        products.forEach(
                 product -> {
                     String productId = product.getId();
                     product.setStocks(product.getStocks() + itemQuantityMap.getOrDefault(productId, 0));
@@ -177,7 +177,7 @@ public class ProductServiceImpl implements ProductService {
                 }
         );
 
-        productReservationRepository.delete(productReservationEntities);
+        productReservationRepository.delete(productReservations);
     }
 
 }

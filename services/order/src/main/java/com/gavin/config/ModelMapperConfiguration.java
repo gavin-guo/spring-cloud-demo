@@ -34,11 +34,11 @@ public class ModelMapperConfiguration {
 
             List<ItemDto> itemVos = new ArrayList<>();
             source.getItems().forEach(
-                    itemEntity -> {
+                    item -> {
                         ItemDto itemVo = new ItemDto();
-                        itemVo.setId(itemEntity.getId());
-                        itemVo.setProductId(itemEntity.getProductId());
-                        itemVo.setQuantity(itemEntity.getQuantity());
+                        itemVo.setId(item.getId());
+                        itemVo.setProductId(item.getProductId());
+                        itemVo.setQuantity(item.getQuantity());
                         itemVos.add(itemVo);
                     }
             );

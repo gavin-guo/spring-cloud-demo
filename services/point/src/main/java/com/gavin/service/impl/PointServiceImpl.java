@@ -60,9 +60,9 @@ public class PointServiceImpl implements PointService {
 
     @Override
     public BigDecimal calculateUsableAmount(String _accountId) {
-        List<Point> pointEntities = pointRepository.findUsableByAccountId(_accountId, new Sort("id"));
+        List<Point> points = pointRepository.findUsableByAccountId(_accountId, new Sort("id"));
 
-        return pointEntities.stream()
+        return points.stream()
                 .map(Point::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
@@ -87,10 +87,10 @@ public class PointServiceImpl implements PointService {
         sortOrders.add(new Sort.Order(Sort.Direction.ASC, "amount"));
 
         // 获得可使用积分的列表。
-        List<Point> pointEntities = pointRepository.findUsableByAccountId(
+        List<Point> points = pointRepository.findUsableByAccountId(
                 _freeze.getUserId(), new Sort(sortOrders));
 
-        for (Point point : pointEntities) {
+        for (Point point : points) {
             if (point.getAmount().compareTo(requiredAmount) <= 0) {
                 // 锁定该积分记录。
                 point.setLockForOrderId(_freeze.getOrderId());
@@ -120,8 +120,8 @@ public class PointServiceImpl implements PointService {
     @Override
     @Transactional
     public void unfreezePoints(String _orderId) {
-        List<Point> pointEntities = pointRepository.findByLockForOrderId(_orderId);
-        pointEntities.forEach(
+        List<Point> points = pointRepository.findByLockForOrderId(_orderId);
+        points.forEach(
                 point -> {
                     // 解除积分记录的锁定标志。
                     point.setLockForOrderId(null);
@@ -134,22 +134,22 @@ public class PointServiceImpl implements PointService {
     @Override
     @Transactional
     public void consumePoints(String _orderId) {
-        List<Point> pointEntities = Optional.ofNullable(pointRepository.findByLockForOrderId(_orderId))
+        List<Point> points = Optional.ofNullable(pointRepository.findByLockForOrderId(_orderId))
                 .orElseThrow(() -> new RecordNotFoundException("point records which using by", _orderId));
 
         // 计算此次消费的积分总数量。
-        BigDecimal usedAmount = pointEntities.stream()
+        BigDecimal usedAmount = points.stream()
                 .map(Point::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         PointHistory pointHistory = new PointHistory();
-        pointHistory.setUserId(pointEntities.get(0).getUserId());
+        pointHistory.setUserId(points.get(0).getUserId());
         pointHistory.setOrderId(_orderId);
         pointHistory.setAmount(usedAmount);
         pointHistory.setAction(PointActionEnums.CONSUME);
         pointHistoryRepository.save(pointHistory);
 
-        pointRepository.delete(pointEntities);
+        pointRepository.delete(points);
         log.info("consume points for order({}) successfully. ", _orderId);
     }
 
@@ -158,17 +158,17 @@ public class PointServiceImpl implements PointService {
     public void cleanExpiredPoints() {
         // 检索出今天已过期的所有积分记录。
         String today = new DateTime().toString("yyyy-MM-dd");
-        List<Point> expiredPointEntities = pointRepository.findByExpireDateLessThanEqual(today);
+        List<Point> expiredPoints = pointRepository.findByExpireDateLessThanEqual(today);
 
         // 计算每一个用户被清除的过期积分数。
         Map<String, BigDecimal> userPointsMap =
-                expiredPointEntities.stream()
+                expiredPoints.stream()
                         .collect(Collectors.groupingBy(
                                 Point::getUserId,
                                 Collectors.reducing(BigDecimal.ZERO, Point::getAmount, BigDecimal::add)));
 
         // 删除所有过期积分的记录。
-        pointRepository.delete(expiredPointEntities);
+        pointRepository.delete(expiredPoints);
 
         // 记录到积分明细表。
         userPointsMap.forEach(

@@ -30,7 +30,7 @@ public class OrderController {
     @ApiOperation(value = "创建订单")
     public OrderDetailsDto createOrder(
             @ApiParam(name = "order", value = "订单信息", required = true) @Valid @RequestBody CreateOrderDto _order,
-            @RequestHeader(RequestHeaderConstants.CURRENT_USER_ID) String _userId) {
+            @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId) {
         return orderService.createOrder(_userId, _order);
     }
 
@@ -44,7 +44,7 @@ public class OrderController {
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     @ApiOperation(value = "分页查询当前用户的所有订单信息")
     public PageResult<OrderDto> findOrders(
-            @ApiParam(name = "x-user-id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.CURRENT_USER_ID) String _userId,
+            @ApiParam(name = "x-user-id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId,
             @ApiParam(name = "current_page", value = "当前页") @RequestParam(name = "current_page", defaultValue = "1") Integer _currentPage,
             @ApiParam(name = "page_size", value = "每页显示记录数") @RequestParam(name = "page_size", defaultValue = "10") Integer _pageSize) {
         PageRequest pageRequest = new PageRequest(

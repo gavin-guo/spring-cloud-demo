@@ -1,26 +1,26 @@
 package com.gavin.service.impl;
 
-import com.gavin.client.address.AddressClient;
-import com.gavin.client.point.PointClient;
-import com.gavin.client.product.ProductClient;
+import com.gavin.common.client.address.AddressClient;
+import com.gavin.common.client.point.PointClient;
+import com.gavin.common.client.product.ProductClient;
 import com.gavin.constants.ResponseCodeConstants;
 import com.gavin.domain.Item;
 import com.gavin.domain.Order;
 import com.gavin.dto.DirectionDto;
-import com.gavin.enums.OrderStatusEnums;
-import com.gavin.exception.*;
-import com.gavin.messaging.ArrangeShipmentProcessor;
-import com.gavin.messaging.CancelReservationProcessor;
-import com.gavin.messaging.WaitingForPaymentProcessor;
+import com.gavin.dto.address.AddressDto;
 import com.gavin.dto.common.CustomResponseBody;
 import com.gavin.dto.common.PageResult;
-import com.gavin.dto.address.AddressDto;
 import com.gavin.dto.order.CreateOrderDto;
 import com.gavin.dto.order.ItemDto;
 import com.gavin.dto.order.OrderDetailsDto;
 import com.gavin.dto.order.OrderDto;
 import com.gavin.dto.point.FreezePointsDto;
 import com.gavin.dto.product.ReservedProductDto;
+import com.gavin.enums.OrderStatusEnums;
+import com.gavin.exception.*;
+import com.gavin.messaging.ArrangeShipmentProcessor;
+import com.gavin.messaging.CancelReservationProcessor;
+import com.gavin.messaging.WaitingForPaymentProcessor;
 import com.gavin.payload.ArrangeShipmentPayload;
 import com.gavin.payload.CancelReservationPayload;
 import com.gavin.payload.WaitingForPaymentPayload;
@@ -96,10 +96,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public PageResult<OrderDto> findOrdersByUserId(String _userId, PageRequest _pageRequest) {
-        Page<Order> orderEntities = orderRepository.findByUserId(_userId, _pageRequest);
+        Page<Order> orders = orderRepository.findByUserId(_userId, _pageRequest);
 
         List<OrderDto> orderDtos = new ArrayList<>();
-        orderEntities.forEach(
+        orders.forEach(
                 order -> {
                     OrderDto orderDto = modelMapper.map(order, OrderDto.class);
                     orderDtos.add(orderDto);
@@ -107,9 +107,9 @@ public class OrderServiceImpl implements OrderService {
         );
 
         PageResult<OrderDto> pageResult = new PageResult<>();
+        pageResult.setTotalPages(orders.getTotalPages());
+        pageResult.setTotalRecords(orders.getTotalElements());
         pageResult.setRecords(orderDtos);
-        pageResult.setTotalPages(orderEntities.getTotalPages());
-        pageResult.setTotalElements(orderEntities.getTotalElements());
 
         return pageResult;
     }
@@ -169,7 +169,7 @@ public class OrderServiceImpl implements OrderService {
 
             // 调用积分服务冻结积分。
             CustomResponseBody responseBody = pointClient.freezePoints(freezePointsDto);
-            if (!ResponseCodeConstants.OK.equals(responseBody.getResultCode())) {
+            if (!ResponseCodeConstants.OK.equals(responseBody.getCode())) {
                 log.warn("call point-service to freeze points failed.");
                 throw new PointsFreezeException("freeze points failed.");
             }
@@ -263,17 +263,17 @@ public class OrderServiceImpl implements OrderService {
          */
         private DirectionDto getRecipientDirection(String _addressId) {
             // 调用地址服务查询收件人详细地址。
-            CustomResponseBody<AddressDto> addressResponse;
+            CustomResponseBody<AddressDto> responseBody;
             if (StringUtils.isNotBlank(_addressId)) {
-                addressResponse = addressClient.findAddressById(_addressId);
+                responseBody = addressClient.findAddressById(_addressId);
             } else {
-                addressResponse = addressClient.findDefaultAddress();
+                responseBody = addressClient.findDefaultAddress();
             }
 
-            if (!ResponseCodeConstants.OK.equals(addressResponse.getResultCode())) {
+            if (!ResponseCodeConstants.OK.equals(responseBody.getCode())) {
                 throw new AddressFetchException(String.format("can not fetch address(%s)", _addressId));
             }
-            AddressDto addressDto = addressResponse.getContents();
+            AddressDto addressDto = responseBody.getData();
 
             return modelMapper.map(addressDto, DirectionDto.class);
         }
@@ -287,9 +287,9 @@ public class OrderServiceImpl implements OrderService {
          */
         private List<ReservedProductDto> reserveProducts(String _orderId, List<ItemDto> _items) {
             // 调用商品服务尝试锁定库存。
-            CustomResponseBody<List<ReservedProductDto>> reservationResponse = productClient.reserveProducts(_orderId, _items);
+            CustomResponseBody<List<ReservedProductDto>> responseBody = productClient.reserveProducts(_orderId, _items);
 
-            if (ResponseCodeConstants.OK.equals(reservationResponse.getResultCode())) {
+            if (ResponseCodeConstants.OK.equals(responseBody.getCode())) {
                 String productIds = _items.stream()
                         .map(ItemDto::getProductId)
                         .collect(Collectors.joining(", "));
@@ -298,7 +298,7 @@ public class OrderServiceImpl implements OrderService {
                 log.error("reserve products failed.");
                 throw new ProductsReserveException("can not reserve products");
             }
-            return reservationResponse.getContents();
+            return responseBody.getData();
         }
 
         @Transactional
