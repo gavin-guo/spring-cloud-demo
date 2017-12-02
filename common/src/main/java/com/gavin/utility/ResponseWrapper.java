@@ -10,26 +10,24 @@ public class ResponseWrapper {
         if (body == null) {
             // when return type of controller method is void
             CustomResponseBody<Object> responseBody = new CustomResponseBody<>();
-            responseBody.setResultCode(ResponseCodeConstants.OK);
+            responseBody.setCode(ResponseCodeConstants.OK);
             return responseBody;
         } else if (body instanceof CustomResponseBody) {
             // already processed by ExceptionHandler
-            if (!((CustomResponseBody) body).getResultCode().equalsIgnoreCase(ResponseCodeConstants.OK)) {
+            if (!((CustomResponseBody) body).getCode().equalsIgnoreCase(ResponseCodeConstants.OK)) {
                 return body;
             }
         } else if (body instanceof PageResult) {
-            PageResult page = (PageResult) body;
+            PageResult pageResult = (PageResult) body;
             CustomResponseBody<Object> responseBody = new CustomResponseBody<>();
-            responseBody.setContents(page.getRecords());
-            responseBody.setTotalRecords(page.getTotalElements());
-            responseBody.setTotalPages(page.getTotalPages());
-            responseBody.setCurrentPage(page.getCurrentPage());
-            responseBody.setResultCode(ResponseCodeConstants.OK);
+            responseBody.setCode(ResponseCodeConstants.OK);
+            responseBody.setPageResult(pageResult);
+
             return responseBody;
         } else {
             CustomResponseBody<Object> responseBody = new CustomResponseBody<>();
-            responseBody.setResultCode(ResponseCodeConstants.OK);
-            responseBody.setContents(body);
+            responseBody.setCode(ResponseCodeConstants.OK);
+            responseBody.setRecord(body);
             return responseBody;
         }
 

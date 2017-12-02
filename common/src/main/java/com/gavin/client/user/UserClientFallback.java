@@ -11,7 +11,7 @@ public class UserClientFallback implements UserClient {
     @Override
     public CustomResponseBody<UserDto> loadUserByLoginName(String _loginName) {
         CustomResponseBody<UserDto> response = new CustomResponseBody<>();
-        response.setResultCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
+        response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
         return response;
     }
 

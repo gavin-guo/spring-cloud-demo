@@ -22,7 +22,7 @@ public class ProductClientFallbackFactory implements FallbackFactory<ProductClie
                 log.error(cause.getMessage());
 
                 CustomResponseBody<List<ReservedProductDto>> response = new CustomResponseBody<>();
-                response.setResultCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
+                response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
                 return response;
             }
         };

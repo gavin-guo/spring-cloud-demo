@@ -1,12 +1,12 @@
 package com.gavin.utility;
 
-import com.gavin.exception.CustomException;
 import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.exception.CustomException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-public class ResponseExceptionTranslator {
+public class ExceptionTranslator {
 
     public static ResponseEntity<CustomResponseBody> translate(Exception e) {
 
@@ -20,12 +20,12 @@ public class ResponseExceptionTranslator {
         HttpStatus httpStatus;
         if (e instanceof CustomException) {
             CustomException ce = (CustomException) e;
-            body.setResultCode(ce.getErrorCode());
-            body.setErrorMessage(ce.getMessage());
+            body.setCode(ce.getErrorCode());
+            body.setMessage(ce.getMessage());
             httpStatus = HttpStatus.valueOf(ce.getHttpCode());
         } else {
-            body.setResultCode("server_error");
-            body.setErrorMessage(e.getMessage());
+            body.setCode("server_error");
+            body.setMessage(e.getMessage());
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 

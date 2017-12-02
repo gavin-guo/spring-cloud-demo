@@ -28,11 +28,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String _username) throws UsernameNotFoundException {
 
         CustomResponseBody<UserDto> response = userClient.loadUserByLoginName(_username);
-        if (!response.getResultCode().equals(ResponseCodeConstants.OK)) {
+        if (!response.getCode().equals(ResponseCodeConstants.OK)) {
             throw new UsernameNotFoundException(_username);
         }
 
-        UserDto userDto = response.getContents();
+        UserDto userDto = response.getRecord();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         userDto.getAuthorities().forEach(

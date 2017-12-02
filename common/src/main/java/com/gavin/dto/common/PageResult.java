@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class PageResult<T> {
 
-    long totalElements;
+    long totalRecords;
 
     int totalPages;
 

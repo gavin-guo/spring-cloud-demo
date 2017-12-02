@@ -21,7 +21,7 @@ public class PointClientFallbackFactory implements FallbackFactory<PointClient> 
                 log.error(cause.getMessage());
 
                 CustomResponseBody<BigDecimal> response = new CustomResponseBody<>();
-                response.setResultCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
+                response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
                 return response;
             }
 
@@ -30,7 +30,7 @@ public class PointClientFallbackFactory implements FallbackFactory<PointClient> 
                 log.error(cause.getMessage());
 
                 CustomResponseBody response = new CustomResponseBody<>();
-                response.setResultCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
+                response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
                 return response;
             }
         };
