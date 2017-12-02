@@ -25,7 +25,7 @@
         <module>app</module>
         <module>api</module>
         <module>zuul</module>
-        <module>oauth</module>
+        <module>auth</module>
         <module>admin</module>
         <module>zipkin</module>
         <module>hystrix-dashboard</module>
