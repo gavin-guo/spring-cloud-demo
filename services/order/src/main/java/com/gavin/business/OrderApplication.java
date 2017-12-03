@@ -1,9 +1,9 @@
-package com.gavin;
+package com.gavin.business;
 
-import com.gavin.messaging.ArrangeShipmentProcessor;
-import com.gavin.messaging.CancelReservationProcessor;
-import com.gavin.messaging.PaymentSucceededProcessor;
-import com.gavin.messaging.WaitingForPaymentProcessor;
+import com.gavin.common.messaging.ArrangeShipmentProcessor;
+import com.gavin.common.messaging.CancelReservationProcessor;
+import com.gavin.common.messaging.PaymentSucceededProcessor;
+import com.gavin.common.messaging.WaitingForPaymentProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -13,9 +13,9 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.gavin.business", "com.gavin.common"})
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = ("com.gavin.common.client"))
 @EnableHystrix
 @EnableCaching
 @EnableBinding({

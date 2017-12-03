@@ -1,6 +1,6 @@
-package com.gavin.domain;
+package com.gavin.business.domain;
 
-import com.gavin.enums.OrderStatusEnums;
+import com.gavin.common.enums.OrderStatusEnums;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;

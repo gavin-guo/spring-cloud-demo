@@ -1,11 +1,11 @@
-package com.gavin.controller;
+package com.gavin.business.controller;
 
-import com.gavin.constants.RequestHeaderConstants;
-import com.gavin.dto.common.PageResult;
-import com.gavin.dto.order.CreateOrderDto;
-import com.gavin.dto.order.OrderDetailsDto;
-import com.gavin.dto.order.OrderDto;
-import com.gavin.service.OrderService;
+import com.gavin.common.constants.RequestHeaderConstants;
+import com.gavin.common.dto.common.PageResult;
+import com.gavin.common.dto.order.CreateOrderDto;
+import com.gavin.common.dto.order.OrderDetailsDto;
+import com.gavin.common.dto.order.OrderDto;
+import com.gavin.business.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -52,9 +52,7 @@ public class OrderController {
                 _pageSize,
                 new Sort(Sort.Direction.ASC, "id"));
 
-        PageResult<OrderDto> pageResult = orderService.findOrdersByUserId(_userId, pageRequest);
-        pageResult.setCurrentPage(_currentPage);
-        return pageResult;
+        return orderService.findOrdersByUserId(_userId, pageRequest);
     }
 
     @RequestMapping(value = "/orders/cancellation", method = RequestMethod.PUT)

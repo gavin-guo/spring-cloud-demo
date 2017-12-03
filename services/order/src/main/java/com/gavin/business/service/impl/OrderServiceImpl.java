@@ -1,31 +1,32 @@
-package com.gavin.service.impl;
+package com.gavin.business.service.impl;
 
 import com.gavin.common.client.address.AddressClient;
 import com.gavin.common.client.point.PointClient;
 import com.gavin.common.client.product.ProductClient;
-import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.domain.Item;
-import com.gavin.domain.Order;
-import com.gavin.dto.DirectionDto;
-import com.gavin.dto.address.AddressDto;
-import com.gavin.dto.common.CustomResponseBody;
-import com.gavin.dto.common.PageResult;
-import com.gavin.dto.order.CreateOrderDto;
-import com.gavin.dto.order.ItemDto;
-import com.gavin.dto.order.OrderDetailsDto;
-import com.gavin.dto.order.OrderDto;
-import com.gavin.dto.point.FreezePointsDto;
-import com.gavin.dto.product.ReservedProductDto;
-import com.gavin.enums.OrderStatusEnums;
-import com.gavin.exception.*;
-import com.gavin.messaging.ArrangeShipmentProcessor;
-import com.gavin.messaging.CancelReservationProcessor;
-import com.gavin.messaging.WaitingForPaymentProcessor;
-import com.gavin.payload.ArrangeShipmentPayload;
-import com.gavin.payload.CancelReservationPayload;
-import com.gavin.payload.WaitingForPaymentPayload;
-import com.gavin.repository.OrderRepository;
-import com.gavin.service.OrderService;
+import com.gavin.common.constants.ResponseCodeConstants;
+import com.gavin.common.exception.RecordNotFoundException;
+import com.gavin.business.domain.Item;
+import com.gavin.business.domain.Order;
+import com.gavin.business.dto.DirectionDto;
+import com.gavin.common.dto.address.AddressDto;
+import com.gavin.common.dto.common.CustomResponse;
+import com.gavin.common.dto.common.PageResult;
+import com.gavin.common.dto.order.CreateOrderDto;
+import com.gavin.common.dto.order.ItemDto;
+import com.gavin.common.dto.order.OrderDetailsDto;
+import com.gavin.common.dto.order.OrderDto;
+import com.gavin.common.dto.point.FreezePointsDto;
+import com.gavin.common.dto.product.ReservedProductDto;
+import com.gavin.common.enums.OrderStatusEnums;
+import com.gavin.business.exception.*;
+import com.gavin.common.messaging.ArrangeShipmentProcessor;
+import com.gavin.common.messaging.CancelReservationProcessor;
+import com.gavin.common.messaging.WaitingForPaymentProcessor;
+import com.gavin.common.payload.ArrangeShipmentPayload;
+import com.gavin.common.payload.CancelReservationPayload;
+import com.gavin.common.payload.WaitingForPaymentPayload;
+import com.gavin.business.repository.OrderRepository;
+import com.gavin.business.service.OrderService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -168,7 +169,7 @@ public class OrderServiceImpl implements OrderService {
             freezePointsDto.setAmount(_pointsAmount);
 
             // 调用积分服务冻结积分。
-            CustomResponseBody responseBody = pointClient.freezePoints(freezePointsDto);
+            CustomResponse responseBody = pointClient.freezePoints(freezePointsDto);
             if (!ResponseCodeConstants.OK.equals(responseBody.getCode())) {
                 log.warn("call point-service to freeze points failed.");
                 throw new PointsFreezeException("freeze points failed.");
@@ -263,7 +264,7 @@ public class OrderServiceImpl implements OrderService {
          */
         private DirectionDto getRecipientDirection(String _addressId) {
             // 调用地址服务查询收件人详细地址。
-            CustomResponseBody<AddressDto> responseBody;
+            CustomResponse<AddressDto> responseBody;
             if (StringUtils.isNotBlank(_addressId)) {
                 responseBody = addressClient.findAddressById(_addressId);
             } else {
@@ -287,7 +288,7 @@ public class OrderServiceImpl implements OrderService {
          */
         private List<ReservedProductDto> reserveProducts(String _orderId, List<ItemDto> _items) {
             // 调用商品服务尝试锁定库存。
-            CustomResponseBody<List<ReservedProductDto>> responseBody = productClient.reserveProducts(_orderId, _items);
+            CustomResponse<List<ReservedProductDto>> responseBody = productClient.reserveProducts(_orderId, _items);
 
             if (ResponseCodeConstants.OK.equals(responseBody.getCode())) {
                 String productIds = _items.stream()

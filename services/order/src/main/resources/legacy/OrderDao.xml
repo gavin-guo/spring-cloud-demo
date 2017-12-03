@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gavin.dao.OrderDao">
 
-    <insert id="create" parameterType="com.gavin.dto.domain.order.Order">
+    <insert id="create" parameterType="com.gavin.business.dto.domain.order.Order">
         <selectKey resultType="java.lang.Long" keyProperty="id">
             SELECT LAST_INSERT_ID()
         </selectKey>
@@ -23,7 +23,7 @@
         )
     </insert>
 
-    <resultMap id="orderModelMap" type="com.gavin.dto.response.order.OrderDetailModel">
+    <resultMap id="orderModelMap" type="com.gavin.business.dto.response.order.OrderDetailModel">
         <id property="order.id" column="order_id"/>
         <result property="order.accountId" column="account_id"/>
         <result property="order.addressId" column="address_id"/>
@@ -34,7 +34,7 @@
         <result property="order.rewardPoints" column="reward_points"/>
         <result property="order.createdTime" column="created_time"/>
         <result property="order.modifiedTime" column="modified_time"/>
-        <collection property="items" ofType="com.gavin.dto.domain.order.Item" javaType="ArrayList">
+        <collection property="items" ofType="com.gavin.business.dto.domain.order.Item" javaType="ArrayList">
             <id property="id" column="item_id"/>
             <result property="productId" column="product_id"/>
             <result property="quantity" column="quantity"/>
@@ -81,7 +81,7 @@
         WHERE `order`.account_id = ${accountId}
     </select>
 
-    <update id="update" parameterType="com.gavin.dto.domain.order.Order">
+    <update id="update" parameterType="com.gavin.business.dto.domain.order.Order">
         UPDATE `order`
         <set>
             <if test="addressId != null and addressId != '' ">
@@ -107,7 +107,7 @@
         WHERE id = ${id}
     </update>
 
-    <update id="updateStatus" parameterType="com.gavin.dto.domain.order.Order">
+    <update id="updateStatus" parameterType="com.gavin.business.dto.domain.order.Order">
         UPDATE `order`
         SET status        = ${status},
             modified_time = NOW()
