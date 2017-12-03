@@ -1,13 +1,13 @@
 package com.gavin;
 
-import com.gavin.messaging.UserCreatedProcessor;
+import com.gavin.common.messaging.UserCreatedProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.retry.annotation.EnableRetry;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.gavin.business", "com.gavin.common"})
 @EnableRetry
 @EnableBinding(UserCreatedProcessor.class)
 @EnableSwagger2

@@ -1,7 +1,7 @@
-package com.gavin.service.impl;
+package com.gavin.business.service.impl;
 
-import com.gavin.dto.UserCreatedMailDto;
-import com.gavin.service.MailService;
+import com.gavin.business.dto.UserCreatedMailDto;
+import com.gavin.business.service.MailService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;

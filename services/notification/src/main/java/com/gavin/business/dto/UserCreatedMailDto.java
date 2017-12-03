@@ -1,4 +1,4 @@
-package com.gavin.dto;
+package com.gavin.business.dto;
 
 import lombok.Data;
 

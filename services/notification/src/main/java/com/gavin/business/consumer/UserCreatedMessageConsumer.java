@@ -1,11 +1,11 @@
-package com.gavin.consumer;
+package com.gavin.business.consumer;
 
-import com.gavin.base.MessageConsumer;
-import com.gavin.dto.UserCreatedMailDto;
-import com.gavin.exception.EmailSendException;
-import com.gavin.messaging.UserCreatedProcessor;
-import com.gavin.payload.UserCreatedPayload;
-import com.gavin.service.MailService;
+import com.gavin.common.consumer.MessageConsumer;
+import com.gavin.common.messaging.UserCreatedProcessor;
+import com.gavin.business.dto.UserCreatedMailDto;
+import com.gavin.business.exception.EmailSendException;
+import com.gavin.common.payload.UserCreatedPayload;
+import com.gavin.business.service.MailService;
 import com.google.gson.Gson;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
