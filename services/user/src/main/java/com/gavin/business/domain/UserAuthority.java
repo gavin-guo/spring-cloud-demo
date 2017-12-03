@@ -1,6 +1,6 @@
 package com.gavin.business.domain;
 
-import com.gavin.enums.AuthorityEnums;
+import com.gavin.common.enums.AuthorityEnums;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 

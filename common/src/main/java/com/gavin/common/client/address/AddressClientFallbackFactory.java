@@ -1,8 +1,8 @@
 package com.gavin.common.client.address;
 
-import com.gavin.constants.ResponseCodeConstants;
-import com.gavin.dto.address.AddressDto;
-import com.gavin.dto.common.CustomResponseBody;
+import com.gavin.common.constants.ResponseCodeConstants;
+import com.gavin.common.dto.address.AddressDto;
+import com.gavin.common.dto.common.CustomResponse;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,19 +15,19 @@ public class AddressClientFallbackFactory implements FallbackFactory<AddressClie
     public AddressClient create(Throwable cause) {
         return new AddressClient() {
             @Override
-            public CustomResponseBody<AddressDto> findAddressById(String _addressId) {
+            public CustomResponse<AddressDto> findAddressById(String _addressId) {
                 log.error(cause.getMessage());
 
-                CustomResponseBody<AddressDto> response = new CustomResponseBody<>();
+                CustomResponse<AddressDto> response = new CustomResponse<>();
                 response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
                 return response;
             }
 
             @Override
-            public CustomResponseBody<AddressDto> findDefaultAddress() {
+            public CustomResponse<AddressDto> findDefaultAddress() {
                 log.error(cause.getMessage());
 
-                CustomResponseBody<AddressDto> response = new CustomResponseBody<>();
+                CustomResponse<AddressDto> response = new CustomResponse<>();
                 response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
                 return response;
             }

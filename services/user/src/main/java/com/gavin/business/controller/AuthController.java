@@ -1,6 +1,6 @@
 package com.gavin.business.controller;
 
-import com.gavin.dto.user.UserDto;
+import com.gavin.common.dto.user.UserDto;
 import com.gavin.business.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

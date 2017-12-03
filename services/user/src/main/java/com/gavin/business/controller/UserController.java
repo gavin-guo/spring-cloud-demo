@@ -1,7 +1,7 @@
 package com.gavin.business.controller;
 
-import com.gavin.dto.user.CreateUserDto;
-import com.gavin.dto.user.UserDto;
+import com.gavin.common.dto.user.CreateUserDto;
+import com.gavin.common.dto.user.UserDto;
 import com.gavin.business.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,6 +1,6 @@
 package com.gavin.business.exception;
 
-import com.gavin.exception.CustomException;
+import com.gavin.common.exception.CustomException;
 
 public class UserExistingException extends CustomException {
 

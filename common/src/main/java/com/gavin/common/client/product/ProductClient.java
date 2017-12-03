@@ -1,8 +1,8 @@
 package com.gavin.common.client.product;
 
-import com.gavin.dto.common.CustomResponseBody;
-import com.gavin.dto.order.ItemDto;
-import com.gavin.dto.product.ReservedProductDto;
+import com.gavin.common.dto.common.CustomResponse;
+import com.gavin.common.dto.order.ItemDto;
+import com.gavin.common.dto.product.ReservedProductDto;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import java.util.List;
 public interface ProductClient {
 
     @RequestMapping(value = "/products/reservation", method = RequestMethod.PUT)
-    CustomResponseBody<List<ReservedProductDto>> reserveProducts(
+    CustomResponse<List<ReservedProductDto>> reserveProducts(
             @RequestParam("order_id") String _orderId,
             @RequestBody List<ItemDto> _items);
 

@@ -1,7 +1,7 @@
 package com.gavin.common.config;
 
-import com.gavin.lock.DistributedLockTemplate;
-import com.gavin.lock.redis.RedisLockTemplate;
+import com.gavin.common.lock.DistributedLockTemplate;
+import com.gavin.common.lock.redis.RedisLockTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;

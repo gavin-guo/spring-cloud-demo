@@ -1,7 +1,7 @@
 package com.gavin.common.config;
 
-import com.gavin.interceptor.RequestLogEnhancerInterceptor;
-import com.gavin.interceptor.UserIdPropagatorInterceptor;
+import com.gavin.common.interceptor.RequestLogEnhancerInterceptor;
+import com.gavin.common.interceptor.UserIdPropagatorInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;

@@ -1,7 +1,7 @@
 package com.gavin.common.controller;
 
-import com.gavin.dto.common.CustomResponseBody;
-import com.gavin.exception.CustomException;
+import com.gavin.common.dto.common.CustomResponse;
+import com.gavin.common.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@RestControllerAdvice("com.gavin.controller")
+@RestControllerAdvice("com.gavin.business.controller")
 @Slf4j
 public class CustomExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<CustomResponseBody> handleException(Exception e) throws Exception {
+    public ResponseEntity<CustomResponse> handleException(Exception e) {
         log.info(String.format("handling exception: %s, %s.", e.getClass().getSimpleName(), e.getMessage()));
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Cache-Control", "no-store");
         headers.set("Pragma", "no-cache");
 
-        CustomResponseBody body = new CustomResponseBody();
+        CustomResponse body = new CustomResponse();
 
-        ResponseEntity<CustomResponseBody> response;
+        ResponseEntity<CustomResponse> response;
         HttpStatus httpStatus;
         if (e instanceof CustomException) {
             CustomException ce = (CustomException) e;
