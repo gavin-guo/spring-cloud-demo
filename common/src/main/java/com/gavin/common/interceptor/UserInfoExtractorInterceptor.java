@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * added to registry on {@link com.gavin.config.CustomWebMvcConfiguration}
+ * added to registry on {@link com.gavin.common.config.CustomWebMvcConfiguration}
  */
 @Slf4j
 @AllArgsConstructor

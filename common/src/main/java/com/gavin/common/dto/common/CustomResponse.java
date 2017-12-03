@@ -68,6 +68,10 @@ public class CustomResponse<T> implements Serializable {
     }
 
     public void setPageResult(PageResult<T> pageResult) {
+        if (meta == null) {
+            meta = new Meta();
+        }
+
         meta.setTotalRecords(pageResult.getTotalRecords());
         meta.setTotalPages(pageResult.getTotalPages());
 

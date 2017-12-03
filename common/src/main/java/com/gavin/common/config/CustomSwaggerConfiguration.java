@@ -21,7 +21,7 @@ public class CustomSwaggerConfiguration {
     public Docket customImplementation() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.gavin.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.gavin.business.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .directModelSubstitute(Timestamp.class, String.class)
