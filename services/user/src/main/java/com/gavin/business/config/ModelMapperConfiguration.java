@@ -1,6 +1,6 @@
-package com.gavin.config;
+package com.gavin.business.config;
 
-import com.gavin.domain.User;
+import com.gavin.business.domain.User;
 import com.gavin.dto.user.AuthorityDto;
 import com.gavin.dto.user.UserDto;
 import org.modelmapper.ModelMapper;

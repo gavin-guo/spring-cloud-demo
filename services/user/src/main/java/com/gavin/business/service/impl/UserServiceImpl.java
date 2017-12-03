@@ -1,20 +1,20 @@
-package com.gavin.service.impl;
+package com.gavin.business.service.impl;
 
-import com.gavin.domain.User;
-import com.gavin.domain.UserAuthority;
+import com.gavin.business.domain.User;
+import com.gavin.business.domain.UserAuthority;
 import com.gavin.dto.user.CreateUserDto;
 import com.gavin.dto.user.UserDto;
 import com.gavin.enums.AuthorityEnums;
 import com.gavin.enums.UserStatusEnums;
 import com.gavin.exception.RecordNotFoundException;
-import com.gavin.exception.UserExistingException;
+import com.gavin.business.exception.UserExistingException;
 import com.gavin.messaging.UserActivatedProcessor;
 import com.gavin.messaging.UserCreatedProcessor;
 import com.gavin.payload.UserActivatedPayload;
 import com.gavin.payload.UserCreatedPayload;
-import com.gavin.repository.jpa.UserAuthorityRepository;
-import com.gavin.repository.jpa.UserRepository;
-import com.gavin.service.UserService;
+import com.gavin.business.repository.UserAuthorityRepository;
+import com.gavin.business.repository.UserRepository;
+import com.gavin.business.service.UserService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

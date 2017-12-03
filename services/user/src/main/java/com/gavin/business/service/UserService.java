@@ -1,4 +1,4 @@
-package com.gavin.service;
+package com.gavin.business.service;
 
 import com.gavin.dto.user.CreateUserDto;
 import com.gavin.dto.user.UserDto;

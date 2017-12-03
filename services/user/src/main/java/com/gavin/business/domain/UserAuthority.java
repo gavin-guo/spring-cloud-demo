@@ -1,4 +1,4 @@
-package com.gavin.domain;
+package com.gavin.business.domain;
 
 import com.gavin.enums.AuthorityEnums;
 import lombok.Data;

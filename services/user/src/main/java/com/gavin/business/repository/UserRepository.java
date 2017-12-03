@@ -1,6 +1,6 @@
-package com.gavin.repository.jpa;
+package com.gavin.business.repository;
 
-import com.gavin.domain.User;
+import com.gavin.business.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

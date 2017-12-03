@@ -2,8 +2,8 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="persistenceUnit">
-        <class>com.gavin.domain.User</class>
-        <class>com.gavin.domain.UserAuthority</class>
+        <class>com.gavin.business.domain.User</class>
+        <class>com.gavin.business.domain.UserAuthority</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/schema_user"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

@@ -9,10 +9,10 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.gavin.business", "com.gavin.common"})
 @EnableDiscoveryClient
 @EnableBinding({UserCreatedProcessor.class, UserActivatedProcessor.class})
-@EnableJpaRepositories(basePackages = "com.gavin.repository.jpa")
+@EnableJpaRepositories(basePackages = "com.gavin.business.repository")
 @EnableSwagger2
 public class UserApplication {
 
