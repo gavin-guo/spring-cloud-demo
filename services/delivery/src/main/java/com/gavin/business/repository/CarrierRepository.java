@@ -1,6 +1,6 @@
-package com.gavin.repository;
+package com.gavin.business.repository;
 
-import com.gavin.domain.Carrier;
+import com.gavin.business.domain.Carrier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
