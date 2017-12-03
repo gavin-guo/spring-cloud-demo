@@ -1,10 +1,10 @@
-package com.gavin.service;
+package com.gavin.business.service;
 
-import com.gavin.dto.common.PageResult;
-import com.gavin.dto.order.ItemDto;
-import com.gavin.dto.product.CreateProductDto;
-import com.gavin.dto.product.ProductDto;
-import com.gavin.dto.product.ReservedProductDto;
+import com.gavin.common.dto.common.PageResult;
+import com.gavin.common.dto.order.ItemDto;
+import com.gavin.common.dto.product.CreateProductDto;
+import com.gavin.common.dto.product.ProductDto;
+import com.gavin.common.dto.product.ReservedProductDto;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;

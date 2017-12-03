@@ -1,6 +1,6 @@
-package com.gavin.repository.jpa;
+package com.gavin.business.repository;
 
-import com.gavin.domain.ProductReservation;
+import com.gavin.business.domain.ProductReservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

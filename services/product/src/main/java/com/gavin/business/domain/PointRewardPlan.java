@@ -1,4 +1,4 @@
-package com.gavin.domain;
+package com.gavin.business.domain;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
@@ -8,10 +8,10 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "product_reservation")
+@Table(name = "point_reward_plan")
 @DynamicInsert
 @Data
-public class ProductReservation {
+public class PointRewardPlan {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -19,14 +19,17 @@ public class ProductReservation {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "order_id")
-    private String orderId;
-
     @Column(name = "product_id")
     private String productId;
 
-    @Column(name = "quantity")
-    private Integer quantity;
+    @Column(name = "ratio")
+    private Float ratio;
+
+    @Column(name = "start_date")
+    private String startDate;
+
+    @Column(name = "end_date")
+    private String endDate;
 
     @Version
     @Column(name = "version")

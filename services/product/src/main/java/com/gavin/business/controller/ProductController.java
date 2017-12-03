@@ -1,11 +1,11 @@
-package com.gavin.controller;
+package com.gavin.business.controller;
 
-import com.gavin.dto.common.PageResult;
-import com.gavin.dto.order.ItemDto;
-import com.gavin.dto.product.CreateProductDto;
-import com.gavin.dto.product.ProductDto;
-import com.gavin.dto.product.ReservedProductDto;
-import com.gavin.service.ProductService;
+import com.gavin.common.dto.common.PageResult;
+import com.gavin.common.dto.order.ItemDto;
+import com.gavin.common.dto.product.CreateProductDto;
+import com.gavin.common.dto.product.ProductDto;
+import com.gavin.common.dto.product.ReservedProductDto;
+import com.gavin.business.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -52,9 +52,7 @@ public class ProductController {
                 new Sort(Sort.Direction.ASC, "id")
         );
 
-        PageResult<ProductDto> pageResult = productService.findProductByCategoryId(_categoryId, pageRequest);
-        pageResult.setCurrentPage(_currentPage);
-        return pageResult;
+        return productService.findProductByCategoryId(_categoryId, pageRequest);
     }
 
     @RequestMapping(value = "/products/reservation", method = RequestMethod.PUT)

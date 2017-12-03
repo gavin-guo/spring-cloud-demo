@@ -1,6 +1,6 @@
-package com.gavin.repository.jpa;
+package com.gavin.business.repository;
 
-import com.gavin.domain.Product;
+import com.gavin.business.domain.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

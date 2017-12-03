@@ -1,6 +1,6 @@
-package com.gavin.repository.jpa;
+package com.gavin.business.repository;
 
-import com.gavin.domain.PointRewardPlan;
+import com.gavin.business.domain.PointRewardPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

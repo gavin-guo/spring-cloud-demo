@@ -1,9 +1,9 @@
 package com.gavin.message.consumer;
 
-import com.gavin.base.MessageConsumer;
-import com.gavin.messaging.CancelReservationProcessor;
-import com.gavin.payload.CancelReservationPayload;
-import com.gavin.service.ProductService;
+import com.gavin.common.consumer.MessageConsumer;
+import com.gavin.common.messaging.CancelReservationProcessor;
+import com.gavin.common.payload.CancelReservationPayload;
+import com.gavin.business.service.ProductService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
