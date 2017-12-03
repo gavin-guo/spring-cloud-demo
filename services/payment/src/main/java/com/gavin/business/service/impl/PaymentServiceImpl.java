@@ -1,15 +1,15 @@
-package com.gavin.service.impl;
+package com.gavin.business.service.impl;
 
-import com.gavin.domain.Payment;
-import com.gavin.dto.common.PageResult;
-import com.gavin.dto.payment.NotifyPaidDto;
-import com.gavin.dto.payment.PaymentDto;
-import com.gavin.enums.PaymentStatusEnums;
-import com.gavin.exception.RecordNotFoundException;
-import com.gavin.messaging.PaymentSucceededProcessor;
-import com.gavin.payload.PaymentSucceededPayload;
-import com.gavin.repository.PaymentRepository;
-import com.gavin.service.PaymentService;
+import com.gavin.business.domain.Payment;
+import com.gavin.common.dto.common.PageResult;
+import com.gavin.common.dto.payment.NotifyPaidDto;
+import com.gavin.common.dto.payment.PaymentDto;
+import com.gavin.common.enums.PaymentStatusEnums;
+import com.gavin.common.exception.RecordNotFoundException;
+import com.gavin.common.messaging.PaymentSucceededProcessor;
+import com.gavin.common.payload.PaymentSucceededPayload;
+import com.gavin.business.repository.PaymentRepository;
+import com.gavin.business.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

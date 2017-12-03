@@ -1,9 +1,9 @@
-package com.gavin.consumer;
+package com.gavin.business.consumer;
 
-import com.gavin.base.MessageConsumer;
-import com.gavin.messaging.WaitingForPaymentProcessor;
-import com.gavin.payload.WaitingForPaymentPayload;
-import com.gavin.service.PaymentService;
+import com.gavin.common.consumer.MessageConsumer;
+import com.gavin.common.messaging.WaitingForPaymentProcessor;
+import com.gavin.common.payload.WaitingForPaymentPayload;
+import com.gavin.business.service.PaymentService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

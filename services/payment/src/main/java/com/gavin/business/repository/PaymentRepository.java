@@ -1,6 +1,6 @@
-package com.gavin.repository;
+package com.gavin.business.repository;
 
-import com.gavin.domain.Payment;
+import com.gavin.business.domain.Payment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,8 +1,8 @@
-package com.gavin.controller;
+package com.gavin.business.controller;
 
-import com.gavin.dto.common.PageResult;
-import com.gavin.dto.payment.PaymentDto;
-import com.gavin.service.PaymentService;
+import com.gavin.common.dto.common.PageResult;
+import com.gavin.common.dto.payment.PaymentDto;
+import com.gavin.business.service.PaymentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -31,9 +31,7 @@ public class PaymentController {
                 _pageSize,
                 new Sort(Sort.Direction.ASC, "id"));
 
-        PageResult<PaymentDto> pageResult = paymentService.findPaymentsByUserId(_userId, pageRequest);
-        pageResult.setCurrentPage(_currentPage);
-        return pageResult;
+        return paymentService.findPaymentsByUserId(_userId, pageRequest);
     }
 
 }

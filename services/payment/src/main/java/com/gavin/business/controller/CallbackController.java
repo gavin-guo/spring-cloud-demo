@@ -1,7 +1,7 @@
-package com.gavin.controller;
+package com.gavin.business.controller;
 
-import com.gavin.dto.payment.NotifyPaidDto;
-import com.gavin.service.PaymentService;
+import com.gavin.common.dto.payment.NotifyPaidDto;
+import com.gavin.business.service.PaymentService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
