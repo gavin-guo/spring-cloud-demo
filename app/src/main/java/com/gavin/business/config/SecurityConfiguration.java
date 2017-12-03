@@ -1,10 +1,10 @@
-package com.gavin.config;
+package com.gavin.business.config;
 
 import com.gavin.common.client.user.UserClient;
-import com.gavin.security.CustomAuthenticationEntryPoint;
-import com.gavin.security.CustomAuthenticationFailureHandler;
-import com.gavin.security.CustomAuthenticationSuccessHandler;
-import com.gavin.service.CustomUserDetailsService;
+import com.gavin.business.security.CustomAuthenticationEntryPoint;
+import com.gavin.business.security.CustomAuthenticationFailureHandler;
+import com.gavin.business.security.CustomAuthenticationSuccessHandler;
+import com.gavin.common.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;

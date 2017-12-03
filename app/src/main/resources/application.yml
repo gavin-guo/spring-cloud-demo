@@ -57,4 +57,4 @@ hystrix:
 logging:
   level:
     org.springframework.security: DEBUG
-    com.gavin.client.UserClient: DEBUG
+    com.gavin.common.client.UserClient: DEBUG

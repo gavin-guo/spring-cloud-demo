@@ -1,4 +1,4 @@
-package com.gavin;
+package com.gavin.business;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,7 @@
-package com.gavin.filter;
+package com.gavin.business.filter;
 
-import com.gavin.constants.RequestHeaderConstants;
-import com.gavin.dto.security.CustomUser;
+import com.gavin.common.constants.RequestHeaderConstants;
+import com.gavin.common.dto.security.CustomUser;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
