@@ -1,6 +1,6 @@
-package com.gavin.repository;
+package com.gavin.business.repository;
 
-import com.gavin.domain.PointHistory;
+import com.gavin.business.domain.PointHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

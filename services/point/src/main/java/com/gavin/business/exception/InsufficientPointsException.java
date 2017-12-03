@@ -1,4 +1,6 @@
-package com.gavin.exception;
+package com.gavin.business.exception;
+
+import com.gavin.common.exception.CustomException;
 
 /**
  * 可用积分数不足

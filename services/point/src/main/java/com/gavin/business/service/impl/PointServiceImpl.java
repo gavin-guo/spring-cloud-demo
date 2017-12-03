@@ -1,15 +1,15 @@
-package com.gavin.service.impl;
+package com.gavin.business.service.impl;
 
-import com.gavin.domain.Point;
-import com.gavin.domain.PointHistory;
-import com.gavin.dto.point.FreezePointsDto;
-import com.gavin.dto.point.ProducePointsDto;
-import com.gavin.enums.PointActionEnums;
-import com.gavin.exception.InsufficientPointsException;
-import com.gavin.exception.RecordNotFoundException;
-import com.gavin.repository.PointHistoryRepository;
-import com.gavin.repository.PointRepository;
-import com.gavin.service.PointService;
+import com.gavin.business.domain.Point;
+import com.gavin.business.domain.PointHistory;
+import com.gavin.common.dto.point.FreezePointsDto;
+import com.gavin.common.dto.point.ProducePointsDto;
+import com.gavin.common.enums.PointActionEnums;
+import com.gavin.business.exception.InsufficientPointsException;
+import com.gavin.common.exception.RecordNotFoundException;
+import com.gavin.business.repository.PointHistoryRepository;
+import com.gavin.business.repository.PointRepository;
+import com.gavin.business.service.PointService;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.modelmapper.ModelMapper;

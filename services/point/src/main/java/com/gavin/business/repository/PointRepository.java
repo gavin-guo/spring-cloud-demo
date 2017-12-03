@@ -1,6 +1,6 @@
-package com.gavin.repository;
+package com.gavin.business.repository;
 
-import com.gavin.domain.Point;
+import com.gavin.business.domain.Point;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

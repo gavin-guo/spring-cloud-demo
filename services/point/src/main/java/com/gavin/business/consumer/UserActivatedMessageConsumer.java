@@ -1,10 +1,10 @@
-package com.gavin.consumer;
+package com.gavin.business.consumer;
 
-import com.gavin.base.MessageConsumer;
-import com.gavin.messaging.UserActivatedProcessor;
-import com.gavin.dto.point.ProducePointsDto;
-import com.gavin.payload.UserActivatedPayload;
-import com.gavin.service.PointService;
+import com.gavin.common.consumer.MessageConsumer;
+import com.gavin.common.messaging.UserActivatedProcessor;
+import com.gavin.common.dto.point.ProducePointsDto;
+import com.gavin.common.payload.UserActivatedPayload;
+import com.gavin.business.service.PointService;
 import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;

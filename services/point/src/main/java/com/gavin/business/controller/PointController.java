@@ -1,7 +1,7 @@
-package com.gavin.controller;
+package com.gavin.business.controller;
 
-import com.gavin.dto.point.FreezePointsDto;
-import com.gavin.service.PointService;
+import com.gavin.common.dto.point.FreezePointsDto;
+import com.gavin.business.service.PointService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

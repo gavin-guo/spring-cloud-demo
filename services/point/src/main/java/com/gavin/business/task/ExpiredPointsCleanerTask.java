@@ -1,9 +1,9 @@
-package com.gavin.task;
+package com.gavin.business.task;
 
-import com.gavin.constants.DistributedLockKeyConstants;
-import com.gavin.lock.DistributedLockCallback;
-import com.gavin.lock.DistributedLockTemplate;
-import com.gavin.service.PointService;
+import com.gavin.common.constants.DistributedLockKeyConstants;
+import com.gavin.common.lock.DistributedLockCallback;
+import com.gavin.common.lock.DistributedLockTemplate;
+import com.gavin.business.service.PointService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
