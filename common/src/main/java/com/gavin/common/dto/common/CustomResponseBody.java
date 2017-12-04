@@ -9,17 +9,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "code",
         "message",
         "meta",
-        "data"})
+        "data",
+        "list"})
 @Data
 @NoArgsConstructor
 @ApiModel(value = "Response", description = "返回结果")
-public class CustomResponse<T> implements Serializable {
+public class CustomResponseBody<T> implements Serializable {
 
     @JsonProperty("code")
     @ApiModelProperty(value = "执行结果CODE", position = 1)
@@ -34,8 +36,12 @@ public class CustomResponse<T> implements Serializable {
     private Meta meta;
 
     @JsonProperty("data")
-    @ApiModelProperty(value = "内容", position = 4)
+    @ApiModelProperty(value = "单个内容", position = 4)
     private T data;
+
+    @JsonProperty("list")
+    @ApiModelProperty(value = "多个内容", position = 5)
+    private List<T> list;
 
     @Data
     private class Meta {
@@ -50,11 +56,11 @@ public class CustomResponse<T> implements Serializable {
 
     }
 
-    public CustomResponse(String code) {
+    public CustomResponseBody(String code) {
         this.code = code;
     }
 
-    public CustomResponse(String code, String message) {
+    public CustomResponseBody(String code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -75,7 +81,7 @@ public class CustomResponse<T> implements Serializable {
         meta.setTotalRecords(pageResult.getTotalRecords());
         meta.setTotalPages(pageResult.getTotalPages());
 
-        setData((T) pageResult.getRecords());
+        setList(pageResult.getRecords());
     }
 
 }

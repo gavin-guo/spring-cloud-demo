@@ -1,7 +1,7 @@
 package com.gavin.common.client.point;
 
 import com.gavin.common.constants.ResponseCodeConstants;
-import com.gavin.common.dto.common.CustomResponse;
+import com.gavin.common.dto.common.CustomResponseBody;
 import com.gavin.common.dto.point.FreezePointsDto;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -17,21 +17,21 @@ public class PointClientFallbackFactory implements FallbackFactory<PointClient> 
     public PointClient create(Throwable cause) {
         return new PointClient() {
             @Override
-            public CustomResponse<BigDecimal> calculateUsableAmount(String _userId) {
+            public CustomResponseBody<BigDecimal> calculateUsableAmount(String _userId) {
                 log.error(cause.getMessage());
 
-                CustomResponse<BigDecimal> response = new CustomResponse<>();
-                response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
-                return response;
+                CustomResponseBody<BigDecimal> responseBody = new CustomResponseBody<>();
+                responseBody.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
+                return responseBody;
             }
 
             @Override
-            public CustomResponse freezePoints(FreezePointsDto _freeze) {
+            public CustomResponseBody freezePoints(FreezePointsDto _freeze) {
                 log.error(cause.getMessage());
 
-                CustomResponse response = new CustomResponse<>();
-                response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
-                return response;
+                CustomResponseBody responseBody = new CustomResponseBody<>();
+                responseBody.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
+                return responseBody;
             }
         };
     }

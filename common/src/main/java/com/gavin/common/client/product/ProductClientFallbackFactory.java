@@ -1,7 +1,7 @@
 package com.gavin.common.client.product;
 
 import com.gavin.common.constants.ResponseCodeConstants;
-import com.gavin.common.dto.common.CustomResponse;
+import com.gavin.common.dto.common.CustomResponseBody;
 import com.gavin.common.dto.order.ItemDto;
 import com.gavin.common.dto.product.ReservedProductDto;
 import feign.hystrix.FallbackFactory;
@@ -18,12 +18,12 @@ public class ProductClientFallbackFactory implements FallbackFactory<ProductClie
     public ProductClient create(Throwable cause) {
         return new ProductClient() {
             @Override
-            public CustomResponse<List<ReservedProductDto>> reserveProducts(String _orderId, List<ItemDto> _items) {
+            public CustomResponseBody<ReservedProductDto> reserveProducts(String _orderId, List<ItemDto> _items) {
                 log.error(cause.getMessage());
 
-                CustomResponse<List<ReservedProductDto>> response = new CustomResponse<>();
-                response.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
-                return response;
+                CustomResponseBody<ReservedProductDto> responseBody = new CustomResponseBody<>();
+                responseBody.setCode(ResponseCodeConstants.REMOTE_CALL_FAILED);
+                return responseBody;
             }
         };
     }

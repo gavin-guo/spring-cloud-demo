@@ -1,7 +1,7 @@
-package com.gavin.common.controller;
+package com.gavin.common.advice;
 
 import com.gavin.common.constants.ResponseCodeConstants;
-import com.gavin.common.dto.common.CustomResponse;
+import com.gavin.common.dto.common.CustomResponseBody;
 import com.gavin.common.dto.common.PageResult;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -14,39 +14,28 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import java.util.List;
 
 @RestControllerAdvice("com.gavin.business.controller")
-public class CustomResponseAdvice implements ResponseBodyAdvice<Object> {
+public class CustomResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         // already processed by ExceptionHandler
-        if (returnType.getContainingClass() == CustomExceptionAdvice.class) {
-            return false;
-        } else {
-            return true;
-        }
+        return returnType.getContainingClass() != CustomExceptionAdvice.class;
     }
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+        CustomResponseBody<Object> responseBody = new CustomResponseBody<>(ResponseCodeConstants.OK);
+
         if (body == null) {
             // when return type of controller method is void
-            CustomResponse<Object> responseBody = new CustomResponse<>();
-            responseBody.setCode(ResponseCodeConstants.OK);
             return responseBody;
         } else if (body instanceof List) {
-            CustomResponse<Object> responseBody = new CustomResponse<>();
-            responseBody.setCode(ResponseCodeConstants.OK);
-            responseBody.setData(body);
+            responseBody.setList((List) body);
             return responseBody;
         } else if (body instanceof PageResult) {
-            PageResult pageResult = (PageResult) body;
-            CustomResponse<Object> responseBody = new CustomResponse<>();
-            responseBody.setCode(ResponseCodeConstants.OK);
-            responseBody.setPageResult(pageResult);
+            responseBody.setPageResult((PageResult) body);
             return responseBody;
         } else {
-            CustomResponse<Object> responseBody = new CustomResponse<>();
-            responseBody.setCode(ResponseCodeConstants.OK);
             responseBody.setData(body);
             return responseBody;
         }

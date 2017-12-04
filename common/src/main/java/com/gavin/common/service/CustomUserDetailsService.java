@@ -2,7 +2,7 @@ package com.gavin.common.service;
 
 import com.gavin.common.client.user.UserClient;
 import com.gavin.common.constants.ResponseCodeConstants;
-import com.gavin.common.dto.common.CustomResponse;
+import com.gavin.common.dto.common.CustomResponseBody;
 import com.gavin.common.dto.security.CustomUser;
 import com.gavin.common.dto.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +27,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String _username) throws UsernameNotFoundException {
 
-        CustomResponse<UserDto> response = userClient.loadUserByLoginName(_username);
-        if (!response.getCode().equals(ResponseCodeConstants.OK)) {
+        CustomResponseBody<UserDto> responseBody = userClient.loadUserByLoginName(_username);
+        if (!responseBody.getCode().equals(ResponseCodeConstants.OK)) {
             throw new UsernameNotFoundException(_username);
         }
 
-        UserDto userDto = response.getData();
+        UserDto userDto = responseBody.getData();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         userDto.getAuthorities().forEach(
