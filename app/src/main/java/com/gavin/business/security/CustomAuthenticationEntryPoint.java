@@ -2,7 +2,7 @@ package com.gavin.business.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gavin.common.constants.ResponseCodeConstants;
-import com.gavin.common.dto.common.CustomResponse;
+import com.gavin.common.dto.common.CustomResponseBody;
 import org.apache.http.HttpStatus;
 import org.apache.http.entity.ContentType;
 import org.springframework.security.core.AuthenticationException;
@@ -24,7 +24,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.setStatus(HttpStatus.SC_UNAUTHORIZED);
         response.setContentType(ContentType.APPLICATION_JSON.toString());
 
-        CustomResponse responseBody = new CustomResponse(ResponseCodeConstants.UNAUTHORIZED, e.getMessage());
+        CustomResponseBody responseBody = new CustomResponseBody(ResponseCodeConstants.UNAUTHORIZED, e.getMessage());
 
         response.getWriter().write(objectMapper.writeValueAsString(responseBody));
     }

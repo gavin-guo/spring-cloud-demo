@@ -2,7 +2,7 @@ package com.gavin.business.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gavin.common.constants.ResponseCodeConstants;
-import com.gavin.common.dto.common.CustomResponse;
+import com.gavin.common.dto.common.CustomResponseBody;
 import org.apache.http.entity.ContentType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -29,7 +29,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
         response.setContentType(ContentType.APPLICATION_JSON.toString());
-        CustomResponse responseBody = new CustomResponse();
+        CustomResponseBody responseBody = new CustomResponseBody();
         responseBody.setCode(ResponseCodeConstants.OK);
         responseBody.setMessage("Authentication Succeeded");
         response.getWriter().write(objectMapper.writeValueAsString(responseBody));
