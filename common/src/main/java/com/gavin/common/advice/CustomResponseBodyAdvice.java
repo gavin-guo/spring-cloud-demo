@@ -28,17 +28,15 @@ public class CustomResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
         if (body == null) {
             // when return type of controller method is void
-            return responseBody;
         } else if (body instanceof List) {
             responseBody.setList((List) body);
-            return responseBody;
         } else if (body instanceof PageResult) {
             responseBody.setPageResult((PageResult) body);
-            return responseBody;
         } else {
             responseBody.setData(body);
-            return responseBody;
         }
+
+        return responseBody;
     }
 
 }
