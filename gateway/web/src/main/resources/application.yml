@@ -1,0 +1,60 @@
+server:
+  port: 8001
+
+zuul:
+  ignored-services: '*'
+  sensitive-headers: Cookie,Set-Cookie,Authorization
+  retryable: true
+  routes:
+    auth:
+      path: /uaa/**
+      service-id: auth
+      strip-prefix: false
+    user:
+      path: /users/**
+      service-id: user
+      strip-prefix: false
+    address:
+      path: /addresses/**
+      service-id: address
+      strip-prefix: false
+    point:
+      path: /points/**
+      service-id: point
+      strip-prefix: false
+    product:
+      path: /products/**
+      service-id: product
+      strip-prefix: false
+    order:
+      path: /orders/**
+      service-id: order
+      strip-prefix: false
+    payment:
+      path: /payments/**
+      service-id: payment
+      strip-prefix: false
+    delivery:
+      path: /deliveries/**
+      service-id: delivery
+      strip-prefix: false
+
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 80000
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.gavin.common.client.UserClient: DEBUG
