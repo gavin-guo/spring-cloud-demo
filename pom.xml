@@ -25,9 +25,7 @@
         <module>config</module>
         <module>zuul</module>
         <module>auth</module>
-        <module>admin</module>
-        <module>zipkin</module>
-        <module>hystrix-dashboard</module>
+        <module>monitor</module>
     </modules>
 
     <properties>
