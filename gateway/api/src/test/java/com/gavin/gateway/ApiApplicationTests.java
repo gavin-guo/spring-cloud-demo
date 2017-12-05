@@ -1,4 +1,4 @@
-package com.gavin;
+package com.gavin.gateway;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
