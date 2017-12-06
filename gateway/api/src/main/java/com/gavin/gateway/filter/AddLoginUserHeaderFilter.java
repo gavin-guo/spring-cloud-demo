@@ -1,4 +1,4 @@
-package com.gavin.filter;
+package com.gavin.gateway.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;

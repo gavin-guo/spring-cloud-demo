@@ -23,8 +23,6 @@
         <module>gateway</module>
         <module>eureka</module>
         <module>config</module>
-        <module>zuul</module>
-        <module>auth</module>
         <module>monitor</module>
     </modules>
 

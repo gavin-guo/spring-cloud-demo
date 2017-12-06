@@ -1,21 +1,46 @@
 spring:
   application:
-    name: app
+    name: api
+
+encrypt:
+  fail-on-error: false
 
 ---
 spring:
   profiles: development
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config
+      profile: development
+      label: master
+      username: gavin
+      password: gavin
+      allow-override: true
+      fail-fast: true
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+    registry-fetch-interval-seconds: 20
   instance:
     prefer-ip-address: true
 
 ---
 spring:
   profiles: test
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config
+      profile: test
+      label: master
+      username: gavin
+      password: gavin
+      allow-override: true
 
 eureka:
   client:
