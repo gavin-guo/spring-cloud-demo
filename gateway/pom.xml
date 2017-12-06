@@ -17,6 +17,7 @@
     <modules>
         <module>web</module>
         <module>api</module>
+        <module>auth</module>
     </modules>
 
     <dependencies>

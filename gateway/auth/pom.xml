@@ -12,7 +12,7 @@
 
     <parent>
         <groupId>com.gavin</groupId>
-        <artifactId>spring-cloud-demo</artifactId>
+        <artifactId>gateway</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
