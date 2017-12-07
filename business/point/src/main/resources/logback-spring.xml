@@ -19,9 +19,6 @@
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <includeMdc>true</includeMdc>
             <customFields>
-                {
-                "env": "${env:-}"
-                }
             </customFields>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
