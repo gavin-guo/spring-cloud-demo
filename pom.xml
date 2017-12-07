@@ -32,7 +32,6 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Dalston.RELEASE</spring-cloud.version>
         <spring-boot-admin.version>1.5.0</spring-boot-admin.version>
-        <hibernate.validator.version>5.2.4.Final</hibernate.validator.version>
         <spotify.version>0.4.13</spotify.version>
         <lombok.version>1.16.10</lombok.version>
 
