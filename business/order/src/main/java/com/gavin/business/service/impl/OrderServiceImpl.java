@@ -100,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public PageResult<OrderDto> findOrdersByUserId(String _userId, PageRequest _pageRequest) {
-        Page<Order> orders = orderRepository.findByUserId(_userId, _pageRequest);
+        Page<Order> orders = orderRepository.findByUserIdAndStatusNot(_userId, OrderStatusEnums.ERROR, _pageRequest);
 
         List<OrderDto> orderDtos = new ArrayList<>();
         orders.forEach(

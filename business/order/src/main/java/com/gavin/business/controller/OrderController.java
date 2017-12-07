@@ -1,11 +1,11 @@
 package com.gavin.business.controller;
 
+import com.gavin.business.service.OrderService;
 import com.gavin.common.constants.RequestHeaderConstants;
 import com.gavin.common.dto.common.PageResult;
 import com.gavin.common.dto.order.CreateOrderDto;
 import com.gavin.common.dto.order.OrderDetailsDto;
 import com.gavin.common.dto.order.OrderDto;
-import com.gavin.business.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -44,7 +44,7 @@ public class OrderController {
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     @ApiOperation(value = "分页查询当前用户的所有订单信息")
     public PageResult<OrderDto> findOrders(
-            @ApiParam(name = "x-user-id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId,
+            @ApiParam(name = "x_user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId,
             @ApiParam(name = "current_page", value = "当前页") @RequestParam(name = "current_page", defaultValue = "1") Integer _currentPage,
             @ApiParam(name = "page_size", value = "每页显示记录数") @RequestParam(name = "page_size", defaultValue = "10") Integer _pageSize) {
         PageRequest pageRequest = new PageRequest(
