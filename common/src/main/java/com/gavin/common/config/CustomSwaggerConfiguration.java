@@ -29,12 +29,11 @@ public class CustomSwaggerConfiguration {
     }
 
     private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfoBuilder()
+        return new ApiInfoBuilder()
                 .title("Spring Cloud Demo REST APIs")
                 .description("Spring Cloud Demo提供的API接口")
                 .version("0.0.1")
                 .build();
-        return apiInfo;
     }
 
 }
