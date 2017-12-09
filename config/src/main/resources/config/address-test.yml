@@ -2,7 +2,7 @@ spring:
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/schema_address?useUnicode=true&amp;characterEncoding=utf8
+    url: jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/schema_address?useUnicode=true&useSSL=false&amp;characterEncoding=utf8
     username: root
     password: root
     dbcp2:
