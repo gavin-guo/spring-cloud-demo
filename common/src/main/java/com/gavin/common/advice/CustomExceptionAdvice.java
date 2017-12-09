@@ -56,7 +56,7 @@ public class CustomExceptionAdvice {
         } else {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
-            responseBody.setCode(ResponseCodeConstants.INTERNAL_SERVER_ERROR);
+            responseBody.setCode(ResponseCodeConstants.INTERNAL_ERROR);
             responseBody.setMessage(e.getMessage());
         }
 

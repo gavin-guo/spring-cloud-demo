@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +32,16 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
+    @Transactional
     @Override
     public AddressDto registerAddress(String _userId, RegisterAddressDto _address) {
         String districtId = _address.getDistrictId();
         District district = Optional.ofNullable(districtRepository.findOne(districtId))
                 .orElseThrow(() -> new RecordNotFoundException("district", districtId));
+
+        if (_address.getDefaultAddress()) {
+            addressRepository.clearDefaultAddress(_userId);
+        }
 
         Address address = modelMapper.map(_address, Address.class);
         address.setDistrict(district);

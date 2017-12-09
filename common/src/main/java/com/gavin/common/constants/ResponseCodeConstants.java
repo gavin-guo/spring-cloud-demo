@@ -5,23 +5,14 @@ package com.gavin.common.constants;
  */
 public interface ResponseCodeConstants {
 
-    /**
-     * 执行成功
-     */
     String OK = "ok";
 
-    /**
-     * 鉴权失败
-     */
     String UNAUTHORIZED = "unauthorized";
 
-    /**
-     * 调用远程服务失败
-     */
     String REMOTE_CALL_FAILED = "remote call failed";
 
     String BAD_REQUEST = "bad request";
 
-    String INTERNAL_SERVER_ERROR = "server error";
+    String INTERNAL_ERROR = "internal error";
 
 }

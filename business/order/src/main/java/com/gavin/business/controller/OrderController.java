@@ -29,8 +29,8 @@ public class OrderController {
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
     @ApiOperation(value = "创建订单")
     public OrderDetailsDto createOrder(
-            @ApiParam(name = "order", value = "订单信息", required = true) @Valid @RequestBody CreateOrderDto _order,
-            @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId) {
+            @ApiParam(name = "x_user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId,
+            @ApiParam(name = "order", value = "订单信息", required = true) @Valid @RequestBody CreateOrderDto _order) {
         return orderService.createOrder(_userId, _order);
     }
 
