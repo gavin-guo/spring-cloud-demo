@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, String> {
 
-    Address findByUserIdAndDefaultFlag(String _userId, boolean _defaultFlag);
+    Address findByUserIdAndDefaultAddress(String _userId, boolean _defaultAddress);
 
     List<Address> findByUserId(String _userId);
 

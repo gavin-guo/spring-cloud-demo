@@ -41,8 +41,8 @@ public class Address {
     @Column(name = "room")
     private String room;
 
-    @Column(name = "default_flag")
-    private boolean defaultFlag;
+    @Column(name = "default_address")
+    private boolean defaultAddress;
 
     @Column(name = "comment")
     private String comment;

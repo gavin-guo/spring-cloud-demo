@@ -52,10 +52,10 @@ public class RegisterAddressDto implements Serializable {
     @ApiModelProperty(value = "房间号", position = 8)
     private String room;
 
-    @JsonProperty("default_flag")
-    @NotNull(message = "default_flag不能为空")
+    @JsonProperty("default_address")
+    @NotNull(message = "default_address不能为空")
     @ApiModelProperty(value = "是否默认地址", position = 9)
-    private Boolean defaultFlag;
+    private Boolean defaultAddress;
 
     @JsonProperty("comment")
     @ApiModelProperty(value = "备注", position = 10)

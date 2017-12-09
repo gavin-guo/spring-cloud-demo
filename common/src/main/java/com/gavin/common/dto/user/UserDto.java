@@ -39,9 +39,6 @@ public class UserDto implements Serializable {
     @JsonProperty("grade")
     private Byte grade;
 
-    @JsonProperty("admin_flag")
-    private Boolean adminFlag;
-
     @JsonProperty("authorities")
     private List<AuthorityDto> authorities;
 

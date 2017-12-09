@@ -155,7 +155,7 @@
             <column name="room" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="default_flag" type="tinyint" defaultValueBoolean="false"/>
+            <column name="default_address" type="tinyint" defaultValueBoolean="false"/>
             <column name="comment" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>

@@ -34,6 +34,10 @@
         <spring-boot-admin.version>1.5.5</spring-boot-admin.version>
         <spotify.version>1.0.0</spotify.version>
         <lombok.version>1.16.18</lombok.version>
+        <swagger.version>2.7.0</swagger.version>
+        <liquibase.version>3.5.3</liquibase.version>
+        <logstash.version>4.7</logstash.version>
+        <modelmapper.version>0.7.7</modelmapper.version>
 
         <docker.registry>registry.gavin.com</docker.registry>
         <docker.registry.url>https://registry.gavin.com</docker.registry.url>
@@ -73,12 +77,12 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.16.10</version>
+                <version>${lombok.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.modelmapper</groupId>
                 <artifactId>modelmapper</artifactId>
-                <version>0.7.7</version>
+                <version>${modelmapper.version}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>
@@ -93,22 +97,22 @@
             <dependency>
                 <groupId>net.logstash.logback</groupId>
                 <artifactId>logstash-logback-encoder</artifactId>
-                <version>4.7</version>
+                <version>${logstash.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
-                <version>2.7.0</version>
+                <version>${swagger.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
-                <version>2.7.0</version>
+                <version>${swagger.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-core</artifactId>
-                <version>3.5.3</version>
+                <version>${liquibase.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

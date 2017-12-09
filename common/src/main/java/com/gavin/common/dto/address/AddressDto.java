@@ -16,7 +16,7 @@ import java.io.Serializable;
         "phoneNumber",
         "zipCode",
         "address",
-        "defaultFlag",
+        "defaultAddress",
         "comment"})
 @Data
 @ApiModel(value = "AddressDto", description = "地址信息")
@@ -40,8 +40,8 @@ public class AddressDto implements Serializable {
     @JsonProperty("address")
     private String address;
 
-    @JsonProperty("default_flag")
-    private Boolean defaultFlag;
+    @JsonProperty("default_address")
+    private Boolean defaultAddress;
 
     @JsonProperty("comment")
     private String comment;

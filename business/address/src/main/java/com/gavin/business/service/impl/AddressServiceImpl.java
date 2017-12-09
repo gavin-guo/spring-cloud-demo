@@ -2,12 +2,12 @@ package com.gavin.business.service.impl;
 
 import com.gavin.business.domain.Address;
 import com.gavin.business.domain.District;
-import com.gavin.common.dto.address.AddressDto;
-import com.gavin.common.dto.address.RegisterAddressDto;
-import com.gavin.common.exception.RecordNotFoundException;
 import com.gavin.business.repository.AddressRepository;
 import com.gavin.business.repository.DistrictRepository;
 import com.gavin.business.service.AddressService;
+import com.gavin.common.dto.address.AddressDto;
+import com.gavin.common.dto.address.RegisterAddressDto;
+import com.gavin.common.exception.RecordNotFoundException;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -73,7 +73,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressDto findDefaultAddressByUserId(String _userId) {
-        Address address = Optional.ofNullable(addressRepository.findByUserIdAndDefaultFlag(_userId, true))
+        Address address = Optional.ofNullable(addressRepository.findByUserIdAndDefaultAddress(_userId, true))
                 .orElseThrow(() -> new RecordNotFoundException("address", String.format("userId=%s", _userId)));
 
         return modelMapper.map(address, AddressDto.class);
