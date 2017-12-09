@@ -1,4 +1,4 @@
-package com.gavin.business.config;
+package com.gavin.auth.config;
 
 import com.gavin.common.client.user.UserClient;
 import com.gavin.common.service.CustomUserDetailsService;

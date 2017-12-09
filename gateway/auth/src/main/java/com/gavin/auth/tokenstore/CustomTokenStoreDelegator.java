@@ -1,4 +1,4 @@
-package com.gavin.business.security.tokenstore;
+package com.gavin.auth.tokenstore;
 
 import com.gavin.common.dto.security.CurrentUser;
 import com.gavin.common.dto.security.CustomUser;

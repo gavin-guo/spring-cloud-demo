@@ -1,6 +1,5 @@
-package com.gavin.business.config;
+package com.gavin.auth.config;
 
-import com.gavin.business.security.tokenstore.CustomTokenStoreDelegator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +20,7 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
 
@@ -32,7 +31,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private DataSource dataSource;
 
     @Autowired
-    @Qualifier("customRedisTemplate")
     private RedisTemplate redisTemplate;
 
     @Autowired
@@ -58,8 +56,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Bean
     public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
 //        return new InMemoryTokenStore();
-//        return new JdbcTokenStore(dataSource);
-        return new CustomTokenStoreDelegator(new RedisTokenStore(connectionFactory), redisTemplate);
+        return new JdbcTokenStore(dataSource);
+//        return new CustomTokenStoreDelegator(new RedisTokenStore(connectionFactory), redisTemplate);
     }
 
     @Bean
