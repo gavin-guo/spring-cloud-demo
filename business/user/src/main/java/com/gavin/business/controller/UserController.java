@@ -1,16 +1,18 @@
 package com.gavin.business.controller;
 
+import com.gavin.business.service.UserService;
 import com.gavin.common.dto.user.CreateUserDto;
 import com.gavin.common.dto.user.UserDto;
-import com.gavin.business.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -38,8 +40,14 @@ public class UserController {
     @ApiOperation(value = "授予用户权限")
     public void grantAuthorities(
             @ApiParam(name = "user_id", value = "对象用户", required = true) @RequestParam("user_id") String _userId,
-            @ApiParam(name = "authorities", value = "要赋予的权限", required = true) @Valid @RequestBody String[] _authorities) {
+            @ApiParam(name = "authorities", value = "要赋予的权限", required = true) @Valid @RequestBody List<String> _authorities) {
         userService.updateAuthorities(_userId, _authorities);
+    }
+
+    @RequestMapping(value = "/users/loading", method = RequestMethod.GET)
+    @ApiIgnore
+    public UserDto loadUserByLoginName(@RequestParam("login_name") String _loginName) {
+        return userService.findUserByLoginName(_loginName);
     }
 
 }

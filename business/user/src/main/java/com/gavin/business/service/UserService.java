@@ -3,6 +3,8 @@ package com.gavin.business.service;
 import com.gavin.common.dto.user.CreateUserDto;
 import com.gavin.common.dto.user.UserDto;
 
+import java.util.List;
+
 public interface UserService {
 
     /**
@@ -34,6 +36,6 @@ public interface UserService {
      * @param _userId
      * @param _authorities
      */
-    void updateAuthorities(String _userId, String[] _authorities);
+    void updateAuthorities(String _userId, List<String> _authorities);
 
 }

@@ -2,19 +2,19 @@ package com.gavin.business.service.impl;
 
 import com.gavin.business.domain.User;
 import com.gavin.business.domain.UserAuthority;
+import com.gavin.business.exception.UserExistingException;
+import com.gavin.business.repository.UserAuthorityRepository;
+import com.gavin.business.repository.UserRepository;
+import com.gavin.business.service.UserService;
 import com.gavin.common.dto.user.CreateUserDto;
 import com.gavin.common.dto.user.UserDto;
 import com.gavin.common.enums.AuthorityEnums;
 import com.gavin.common.enums.UserStatusEnums;
 import com.gavin.common.exception.RecordNotFoundException;
-import com.gavin.business.exception.UserExistingException;
 import com.gavin.common.messaging.UserActivatedProcessor;
 import com.gavin.common.messaging.UserCreatedProcessor;
 import com.gavin.common.payload.UserActivatedPayload;
 import com.gavin.common.payload.UserCreatedPayload;
-import com.gavin.business.repository.UserAuthorityRepository;
-import com.gavin.business.repository.UserRepository;
-import com.gavin.business.service.UserService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -25,7 +25,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,7 +108,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void updateAuthorities(String _userId, String[] _authorities) {
+    public void updateAuthorities(String _userId, List<String> _authorities) {
         User user = Optional.ofNullable(userRepository.findOne(_userId))
                 .orElseThrow(() -> new RecordNotFoundException("user", _userId));
 
@@ -119,14 +118,15 @@ public class UserServiceImpl implements UserService {
 
         user.setUserAuthorities(null);
 
-        if (_authorities != null && _authorities.length > 0) {
-            Arrays.stream(_authorities).forEach(
-                    authority -> {
-                        UserAuthority userAuthority = new UserAuthority();
-                        userAuthority.setAuthority(AuthorityEnums.valueOf(authority));
-                        user.addUserAuthority(userAuthority);
-                    }
-            );
+        if (_authorities != null && _authorities.size() > 0) {
+            _authorities.stream()
+                    .forEach(
+                            authority -> {
+                                UserAuthority userAuthority = new UserAuthority();
+                                userAuthority.setAuthority(AuthorityEnums.valueOf(authority));
+                                user.addUserAuthority(userAuthority);
+                            }
+                    );
         }
 
         userRepository.save(user);
