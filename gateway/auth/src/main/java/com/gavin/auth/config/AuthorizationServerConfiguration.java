@@ -1,5 +1,7 @@
 package com.gavin.auth.config;
 
+import com.gavin.common.client.user.UserClient;
+import com.gavin.common.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -53,33 +55,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Autowired
     private TokenStore tokenStore;
 
-    @Bean
-    public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
-//        return new InMemoryTokenStore();
-        return new JdbcTokenStore(dataSource);
-//        return new CustomTokenStoreDelegator(new RedisTokenStore(connectionFactory), redisTemplate);
-    }
-
-    @Bean
-    public ApprovalStore approvalStore() {
-        return new JdbcApprovalStore(dataSource);
-    }
-
-    @Bean
-    public AuthorizationCodeServices authorizationCodeServices() {
-        return new JdbcAuthorizationCodeServices(dataSource);
-    }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean(name = "customClientDetailsService")
-    public ClientDetailsService clientDetailsService() {
-        return new JdbcClientDetailsService(dataSource);
-    }
-
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
@@ -115,6 +90,38 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         security
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()");
+    }
+
+    @Bean
+    public TokenStore tokenStore(RedisConnectionFactory connectionFactory) {
+//        return new InMemoryTokenStore();
+        return new JdbcTokenStore(dataSource);
+//        return new CustomTokenStoreDelegator(new RedisTokenStore(connectionFactory), redisTemplate);
+    }
+
+    @Bean
+    public ApprovalStore approvalStore() {
+        return new JdbcApprovalStore(dataSource);
+    }
+
+    @Bean
+    public AuthorizationCodeServices authorizationCodeServices() {
+        return new JdbcAuthorizationCodeServices(dataSource);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean(name = "customClientDetailsService")
+    public ClientDetailsService clientDetailsService() {
+        return new JdbcClientDetailsService(dataSource);
+    }
+
+    @Bean(name = "customUserDetailsService")
+    public CustomUserDetailsService customUserDetailsService(UserClient userClient) {
+        return new CustomUserDetailsService(userClient);
     }
 
 }

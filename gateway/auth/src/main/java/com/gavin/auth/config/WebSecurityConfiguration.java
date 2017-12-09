@@ -26,43 +26,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-/*    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-*//*        http.antMatcher("*").authorizeRequests() // all requests are protected by default
-                .antMatchers("/", "/login**", "/webjars*").permitAll() // the home page and login endpoints are explicitly excluded
-                .anyRequest().authenticated() // all other endpoints require an authenticated user
-                .and()
-                .csrf().disable();*//*
-
-        http
-                .formLogin().loginPage("/login").permitAll()
-                .and()
-                .requestMatchers()
-                .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access")
-                .and()
-                .authorizeRequests()
-                .anyRequest().authenticated();
-    }*/
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-/*        auth.inMemoryAuthentication()
-                .withUser("gavin")
-                .password("gavin")
-                .authorities("READ")
-                .and()
-                .withUser("gaven")
-                .password("gaven")
-                .authorities("READ", "WRITE");*/
+
 
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
 
-    @Bean(name = "customUserDetailsService")
-    public CustomUserDetailsService customUserDetailsService(UserClient userClient) {
-        return new CustomUserDetailsService(userClient);
-    }
+
 
 }
