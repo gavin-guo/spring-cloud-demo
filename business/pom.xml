@@ -23,6 +23,7 @@
         <module>payment</module>
         <module>delivery</module>
         <module>notification</module>
+        <module>tenant</module>
     </modules>
 
     <dependencies>
