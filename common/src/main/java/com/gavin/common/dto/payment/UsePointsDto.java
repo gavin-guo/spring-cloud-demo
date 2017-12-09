@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class UsePointsDto implements Serializable {
 
     @JsonProperty("amount")
-    @NotNull(message = "amount不能为空")
+    @NotNull(message = "'amount' should not be null")
     private BigDecimal amount;
 
 }

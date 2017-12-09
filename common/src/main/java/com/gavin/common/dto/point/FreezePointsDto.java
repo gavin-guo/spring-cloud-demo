@@ -14,17 +14,17 @@ import java.math.BigDecimal;
 public class FreezePointsDto implements Serializable {
 
     @JsonProperty("user_id")
-    @NotNull(message = "user_id不能为空")
+    @NotNull(message = "'user_id' should not be null")
     @ApiModelProperty(value = "积分所属的用户ID", position = 1, required = true)
     private String userId;
 
     @JsonProperty("order_id")
-    @NotNull(message = "order_id不能为空")
+    @NotNull(message = "'order_id' should not be null")
     @ApiModelProperty(value = "关联的订单ID", position = 2, required = true)
     private String orderId;
 
     @JsonProperty("amount")
-    @NotNull(message = "amount不能为空")
+    @NotNull(message = "'amount' should not be null")
     @ApiModelProperty(value = "积分数量", position = 3, required = true)
     private BigDecimal amount;
 

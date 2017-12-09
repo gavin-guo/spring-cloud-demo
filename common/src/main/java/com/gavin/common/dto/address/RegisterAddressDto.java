@@ -13,47 +13,47 @@ import java.io.Serializable;
 public class RegisterAddressDto implements Serializable {
 
     @JsonProperty("user_id")
-    @NotNull(message = "account_id不能为空")
+    @NotNull(message = "'user_id' should not be null")
     @ApiModelProperty(value = "关联的账户ID", position = 1)
     private String userId;
 
     @JsonProperty("consignee")
-    @NotNull(message = "consignee不能为空")
+    @NotNull(message = "'consignee' should not be null")
     @ApiModelProperty(value = "收件人姓名", position = 2)
     private String consignee;
 
     @JsonProperty("phone_number")
-    @NotNull(message = "phoneNumber不能为空")
+    @NotNull(message = "'phone_number' should not be null")
     @ApiModelProperty(value = "联系电话", position = 3)
     private String phoneNumber;
 
     @JsonProperty("zip_code")
-    @NotNull(message = "zip_code不能为空")
+    @NotNull(message = "'zip_code' should not be null")
     @ApiModelProperty(value = "邮政编码", position = 4)
     private String zipCode;
 
     @JsonProperty("district_id")
-    @NotNull(message = "district_id不能为空")
+    @NotNull(message = "'district_id' should not be null")
     @ApiModelProperty(value = "行政区", position = 5)
     private String districtId;
 
     @JsonProperty("street")
-    @NotNull(message = "street不能为空")
+    @NotNull(message = "'street' should not be null")
     @ApiModelProperty(value = "街区", position = 6)
     private String street;
 
     @JsonProperty("building")
-    @NotNull(message = "building不能为空")
+    @NotNull(message = "'building' should not be null")
     @ApiModelProperty(value = "大楼", position = 7)
     private String building;
 
     @JsonProperty("room")
-    @NotNull(message = "room不能为空")
+    @NotNull(message = "'room' should not be null")
     @ApiModelProperty(value = "房间号", position = 8)
     private String room;
 
     @JsonProperty("default_address")
-    @NotNull(message = "default_address不能为空")
+    @NotNull(message = "'default_address' should not be null")
     @ApiModelProperty(value = "是否默认地址", position = 9)
     private Boolean defaultAddress;
 

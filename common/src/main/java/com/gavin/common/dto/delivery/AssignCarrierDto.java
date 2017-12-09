@@ -10,11 +10,11 @@ import java.io.Serializable;
 public class AssignCarrierDto implements Serializable {
 
     @JsonProperty("carrier_id")
-    @NotNull(message = "carrier_id不能为空")
+    @NotNull(message = "'carrier_id' should not be null")
     private String carrierId;
 
     @JsonProperty("tracking_number")
-    @NotNull(message = "tracking_number不能为空")
+    @NotNull(message = "'tracking_number' should not be null")
     private String trackingNumber;
 
 }

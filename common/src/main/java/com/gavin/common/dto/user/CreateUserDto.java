@@ -13,27 +13,27 @@ import java.io.Serializable;
 public class CreateUserDto implements Serializable {
 
     @JsonProperty("login_name")
-    @NotNull(message = "login_name不能为空")
+    @NotNull(message = "'login_name' should not be null")
     @ApiModelProperty(value = "登录名", position = 1, required = true)
     private String loginName;
 
     @JsonProperty("password")
-    @NotNull(message = "password不能为空")
+    @NotNull(message = "'password' should not be null")
     @ApiModelProperty(value = "密码", position = 2, required = true)
     private String password;
 
     @JsonProperty("nick_name")
-    @NotNull(message = "nick_name不能为空")
+    @NotNull(message = "'nick_name' should not be null")
     @ApiModelProperty(value = "昵称", position = 3, required = true)
     private String nickName;
 
     @JsonProperty("email")
-    @NotNull(message = "email不能为空")
+    @NotNull(message = "'email' should not be null")
     @ApiModelProperty(value = "联系邮箱", position = 4, required = true)
     private String email;
 
     @JsonProperty("phone")
-    @NotNull(message = "phone不能为空")
+    @NotNull(message = "'phone' should not be null")
     @ApiModelProperty(value = "联系电话", position = 5, required = true)
     private String phone;
 

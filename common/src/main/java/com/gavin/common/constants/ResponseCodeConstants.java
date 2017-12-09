@@ -18,6 +18,10 @@ public interface ResponseCodeConstants {
     /**
      * 调用远程服务失败
      */
-    String REMOTE_CALL_FAILED = "remote.call.failed";
+    String REMOTE_CALL_FAILED = "remote call failed";
+
+    String BAD_REQUEST = "bad request";
+
+    String INTERNAL_SERVER_ERROR = "server error";
 
 }

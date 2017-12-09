@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 public class NotifyPaidDto implements Serializable {
 
     @JsonProperty("payment_id")
-    @NotNull(message = "payment_id不能为空")
+    @NotNull(message = "'payment_id' should not be null")
     private String paymentId;
 
     @JsonProperty("amount")
-    @NotNull(message = "amount不能为空")
+    @NotNull(message = "'amount' should not be null")
     private BigDecimal amount;
 
 }

@@ -10,23 +10,23 @@ import java.io.Serializable;
 public class CreateProductDto implements Serializable {
 
     @JsonProperty("name")
-    @NotNull(message = "name不能为空")
+    @NotNull(message = "'name' should not be null")
     private String name;
 
     @JsonProperty("category_id")
-    @NotNull(message = "category_id不能为空")
+    @NotNull(message = "'category_id' should not be null")
     private String categoryId;
 
     @JsonProperty("price")
-    @NotNull(message = "price不能为空")
+    @NotNull(message = "'price' should not be null")
     private Float price;
 
     @JsonProperty("stocks")
-    @NotNull(message = "stock不能为空")
+    @NotNull(message = "'stock' should not be null")
     private Integer stocks;
 
     @JsonProperty("comment")
-    @NotNull(message = "comment不能为空")
+    @NotNull(message = "'comment' should not be null")
     private String comment;
 
 }

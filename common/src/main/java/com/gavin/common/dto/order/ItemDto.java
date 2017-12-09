@@ -21,12 +21,12 @@ public class ItemDto implements Serializable {
     private String id;
 
     @JsonProperty("product_id")
-    @NotNull(message = "product_id不能为空。")
+    @NotNull(message = "'product_id' should not be null")
     private String productId;
 
     @JsonProperty("quantity")
-    @NotNull(message = "quantity不能为空")
-    @Min(value = 1, message = "quantity不能小于1。")
+    @NotNull(message = "'quantity' should not be null")
+    @Min(value = 1, message = "'quantity' should larger than 1")
     private Integer quantity;
 
 }
