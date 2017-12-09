@@ -1,7 +1,8 @@
 package com.gavin.business.controller;
 
-import com.gavin.common.dto.point.FreezePointsDto;
 import com.gavin.business.service.PointService;
+import com.gavin.common.constants.RequestHeaderConstants;
+import com.gavin.common.dto.point.FreezePointsDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -23,7 +24,7 @@ public class PointController {
     @RequestMapping(value = "/points/calculation", method = RequestMethod.GET)
     @ApiOperation(value = "查询指定账户内当前可用积分数")
     public BigDecimal calculateUsableAmount(
-            @ApiParam(name = "account_id", value = "要查询的账户的ID", required = true) @RequestParam(value = "user_id") String _userId) {
+            @ApiParam(name = "x_user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId) {
         return pointService.calculateUsableAmount(_userId);
     }
 

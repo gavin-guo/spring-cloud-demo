@@ -10,10 +10,10 @@ public interface PointService {
     /**
      * 计算账户内可用的积分总数。
      *
-     * @param _accountId 账户ID
+     * @param _userId 用户ID
      * @return
      */
-    BigDecimal calculateUsableAmount(String _accountId);
+    BigDecimal calculateUsableAmount(String _userId);
 
     /**
      * 新增积分

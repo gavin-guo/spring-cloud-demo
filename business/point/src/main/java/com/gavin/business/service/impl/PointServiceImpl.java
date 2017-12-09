@@ -2,14 +2,14 @@ package com.gavin.business.service.impl;
 
 import com.gavin.business.domain.Point;
 import com.gavin.business.domain.PointHistory;
-import com.gavin.common.dto.point.FreezePointsDto;
-import com.gavin.common.dto.point.ProducePointsDto;
-import com.gavin.common.enums.PointActionEnums;
 import com.gavin.business.exception.InsufficientPointsException;
-import com.gavin.common.exception.RecordNotFoundException;
 import com.gavin.business.repository.PointHistoryRepository;
 import com.gavin.business.repository.PointRepository;
 import com.gavin.business.service.PointService;
+import com.gavin.common.dto.point.FreezePointsDto;
+import com.gavin.common.dto.point.ProducePointsDto;
+import com.gavin.common.enums.PointActionEnums;
+import com.gavin.common.exception.RecordNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.modelmapper.ModelMapper;
@@ -59,8 +59,8 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
-    public BigDecimal calculateUsableAmount(String _accountId) {
-        List<Point> points = pointRepository.findUsableByAccountId(_accountId, new Sort("id"));
+    public BigDecimal calculateUsableAmount(String _userId) {
+        List<Point> points = pointRepository.findUsableByAccountId(_userId, new Sort("id"));
 
         return points.stream()
                 .map(Point::getAmount)
