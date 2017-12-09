@@ -12,53 +12,48 @@ import java.io.Serializable;
 @ApiModel(value = "RegisterAddressDto", description = "地址登记信息")
 public class RegisterAddressDto implements Serializable {
 
-    @JsonProperty("user_id")
-    @NotNull(message = "'user_id' should not be null")
-    @ApiModelProperty(value = "关联的账户ID", position = 1)
-    private String userId;
-
     @JsonProperty("consignee")
     @NotNull(message = "'consignee' should not be null")
-    @ApiModelProperty(value = "收件人姓名", position = 2)
+    @ApiModelProperty(value = "收件人姓名", position = 1)
     private String consignee;
 
     @JsonProperty("phone_number")
     @NotNull(message = "'phone_number' should not be null")
-    @ApiModelProperty(value = "联系电话", position = 3)
+    @ApiModelProperty(value = "联系电话", position = 2)
     private String phoneNumber;
 
     @JsonProperty("zip_code")
     @NotNull(message = "'zip_code' should not be null")
-    @ApiModelProperty(value = "邮政编码", position = 4)
+    @ApiModelProperty(value = "邮政编码", position = 3)
     private String zipCode;
 
     @JsonProperty("district_id")
     @NotNull(message = "'district_id' should not be null")
-    @ApiModelProperty(value = "行政区", position = 5)
+    @ApiModelProperty(value = "行政区", position = 4)
     private String districtId;
 
     @JsonProperty("street")
     @NotNull(message = "'street' should not be null")
-    @ApiModelProperty(value = "街区", position = 6)
+    @ApiModelProperty(value = "街区", position = 5)
     private String street;
 
     @JsonProperty("building")
     @NotNull(message = "'building' should not be null")
-    @ApiModelProperty(value = "大楼", position = 7)
+    @ApiModelProperty(value = "大楼", position = 6)
     private String building;
 
     @JsonProperty("room")
     @NotNull(message = "'room' should not be null")
-    @ApiModelProperty(value = "房间号", position = 8)
+    @ApiModelProperty(value = "房间号", position = 7)
     private String room;
 
     @JsonProperty("default_address")
     @NotNull(message = "'default_address' should not be null")
-    @ApiModelProperty(value = "是否默认地址", position = 9)
+    @ApiModelProperty(value = "是否默认地址", position = 8)
     private Boolean defaultAddress;
 
     @JsonProperty("comment")
-    @ApiModelProperty(value = "备注", position = 10)
+    @ApiModelProperty(value = "备注", position = 9)
     private String comment;
 
 }

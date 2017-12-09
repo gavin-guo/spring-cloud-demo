@@ -32,13 +32,14 @@ public class AddressServiceImpl implements AddressService {
     private AddressRepository addressRepository;
 
     @Override
-    public AddressDto registerAddress(RegisterAddressDto _address) {
+    public AddressDto registerAddress(String _userId, RegisterAddressDto _address) {
         String districtId = _address.getDistrictId();
         District district = Optional.ofNullable(districtRepository.findOne(districtId))
                 .orElseThrow(() -> new RecordNotFoundException("district", districtId));
 
         Address address = modelMapper.map(_address, Address.class);
         address.setDistrict(district);
+        address.setUserId(_userId);
 
         addressRepository.save(address);
 

@@ -1,9 +1,9 @@
 package com.gavin.business.controller;
 
+import com.gavin.business.service.AddressService;
 import com.gavin.common.constants.RequestHeaderConstants;
 import com.gavin.common.dto.address.AddressDto;
 import com.gavin.common.dto.address.RegisterAddressDto;
-import com.gavin.business.service.AddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -25,8 +25,9 @@ public class AddressController {
     @RequestMapping(value = "/addresses", method = RequestMethod.POST)
     @ApiOperation(value = "登记单个地址")
     public AddressDto registerAddress(
+            @ApiParam(name = "x_user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId,
             @ApiParam(name = "address", value = "要登记的地址信息", required = true) @Valid @RequestBody RegisterAddressDto _address) {
-        return addressService.registerAddress(_address);
+        return addressService.registerAddress(_userId, _address);
     }
 
     @RequestMapping(value = "/addresses/{address_id}", method = RequestMethod.GET)
@@ -39,14 +40,14 @@ public class AddressController {
     @RequestMapping(value = "/addresses", method = RequestMethod.GET)
     @ApiOperation(value = "查询用户的所有地址")
     public List<AddressDto> findAddresses(
-            @ApiParam(name = "user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId) {
+            @ApiParam(name = "x_user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId) {
         return addressService.findAddressesByUserId(_userId);
     }
 
     @RequestMapping(value = "/addresses/default", method = RequestMethod.GET)
     @ApiOperation(value = "查询用户的默认地址")
     public AddressDto findDefaultAddress(
-            @ApiParam(name = "user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId) {
+            @ApiParam(name = "x_user_id", value = "用户ID", required = true) @RequestHeader(RequestHeaderConstants.X_USER_ID) String _userId) {
         return addressService.findDefaultAddressByUserId(_userId);
     }
 

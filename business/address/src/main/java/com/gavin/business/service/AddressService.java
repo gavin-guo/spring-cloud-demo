@@ -10,10 +10,11 @@ public interface AddressService {
     /**
      * 录入地址信息
      *
+     * @param _userId
      * @param _address
      * @return
      */
-    AddressDto registerAddress(RegisterAddressDto _address);
+    AddressDto registerAddress(String _userId, RegisterAddressDto _address);
 
     /**
      * 根据地址ID查询地址信息
