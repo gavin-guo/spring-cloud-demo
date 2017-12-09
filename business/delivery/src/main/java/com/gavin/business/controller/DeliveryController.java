@@ -1,8 +1,8 @@
 package com.gavin.business.controller;
 
+import com.gavin.business.service.DeliveryService;
 import com.gavin.common.dto.delivery.AssignCarrierDto;
 import com.gavin.common.dto.delivery.DeliveryDto;
-import com.gavin.business.service.DeliveryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -21,7 +21,7 @@ public class DeliveryController {
     @Autowired
     private DeliveryService deliveryService;
 
-    @RequestMapping(value = "/deliveries/assignment", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/deliveries/assignment", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "分配物流公司")
     public DeliveryDto assignCarrier(
             @ApiParam(name = "delivery_id", value = "物流记录ID", required = true) @RequestParam("delivery_id") String _deliveryId,
@@ -29,7 +29,7 @@ public class DeliveryController {
         return deliveryService.assignCarrier(_deliveryId, _assignment);
     }
 
-    @RequestMapping(value = "/deliveries/order/{order_id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/deliveries/order/{order_id}", method = RequestMethod.GET)
     @ApiOperation(value = "根据订单ID查询物流信息")
     public DeliveryDto findDeliveryByOrderId(
             @ApiParam(name = "order_id", value = "订单ID", required = true) @PathVariable("order_id") String _orderId) {
