@@ -8,7 +8,7 @@ CREATE TABLE `user` (
   `password`      VARCHAR(100) NOT NULL,
   `nick_name`     VARCHAR(45)  NOT NULL,
   `email`         VARCHAR(45)  NOT NULL,
-  `phone`         VARCHAR(45)       DEFAULT NULL,
+  `mobile_number` VARCHAR(45)       DEFAULT NULL,
   `status`        VARCHAR(20)  NOT NULL,
   `grade`         TINYINT(2)        DEFAULT 0,
   `version`       BIGINT(20)        DEFAULT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE `user_authority` (
   DEFAULT CHARSET = utf8;
 
 --changeset gavin:2
-INSERT INTO schema_user.user (id, login_name, password, nick_name, email, phone, status, grade, version, created_time, modified_time)
+INSERT INTO schema_user.user (id, login_name, PASSWORD, nick_name, email, mobile_number, STATUS, grade, version, created_time, modified_time)
 VALUES ('806f0ac6-a3e4-42a1-8dfc-1a3e56002881', 'gavin', '$2a$10$lZtZ84C7opaUODCAdYzhwuNOuGqpSVjZLiM/gcZiAqEDDI/Vfq/Vu',
 'gavin-guo', 'gavin.guo@msn.com', '13621670031', 'ENABLED', 1, 1,
 '2016-11-03 07:25:03', '2016-11-03 07:25:03');

@@ -26,7 +26,10 @@ public class ModelMapperConfiguration {
             destination.setId(source.getId());
             destination.setLoginName(source.getLoginName());
             destination.setPassword(source.getPassword());
+            destination.setNickName(source.getNickName());
             destination.setGrade(source.getGrade());
+            destination.setEmail(source.getEmail());
+            destination.setMobileNumber(source.getMobileNumber());
 
             List<AuthorityDto> authorityDtos = new ArrayList<>();
             source.getUserAuthorities().forEach(

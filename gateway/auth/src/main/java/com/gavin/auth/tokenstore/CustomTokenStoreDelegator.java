@@ -1,8 +1,10 @@
 package com.gavin.auth.tokenstore;
 
+import com.gavin.common.constants.RedisKeyConstants;
 import com.gavin.common.dto.security.CurrentUser;
 import com.gavin.common.dto.security.CustomUser;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,11 +17,11 @@ import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
 @AllArgsConstructor
+@Slf4j
 public class CustomTokenStoreDelegator implements TokenStore {
 
-    private static final String LOGIN_USER = "login_user:";
-
     private TokenStore delegate;
+
     private RedisTemplate<String, Object> redisTemplate;
 
     @Override
@@ -27,20 +29,23 @@ public class CustomTokenStoreDelegator implements TokenStore {
         OAuth2Authentication authentication = delegate.readAuthentication(token);
 
         Object principal = authentication.getUserAuthentication().getPrincipal();
-        CustomUser customUser = (CustomUser) principal;
+        if (principal instanceof CustomUser) {
+            CustomUser customUser = (CustomUser) principal;
 
-        CurrentUser currentUser = new CurrentUser();
-        BeanUtils.copyProperties(customUser, currentUser);
-        currentUser.setUserId(customUser.getUsername());
+            CurrentUser currentUser = new CurrentUser();
+            BeanUtils.copyProperties(customUser, currentUser);
+            currentUser.setUserName(customUser.getUsername());
 
-//        BoundHashOperations<String, String, Object> boundHashOperations
-//                = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
-//        boundHashOperations.put(token.getValue(), currentUser);
-//        boundHashOperations.expire(1, TimeUnit.HOURS);
+//            BoundHashOperations<String, String, Object> boundHashOperations
+//                    = redisTemplate.boundHashOps(RedisKeyConstants.USER_ID_TO_INFO);
+//            boundHashOperations.put(token.getValue(), currentUser);
+//            boundHashOperations.expire(1, TimeUnit.HOURS);
 
-        BoundValueOperations<String, Object> boundValueOperations = redisTemplate.boundValueOps("user-id:" + currentUser.getUserId());
-        boundValueOperations.setIfAbsent(currentUser);
-        boundValueOperations.expire(1, TimeUnit.HOURS);
+            BoundValueOperations<String, Object> boundValueOperations
+                    = redisTemplate.boundValueOps(String.format("%s:%s", RedisKeyConstants.USER_NAME_TO_INFO, currentUser.getUserName()));
+            boundValueOperations.setIfAbsent(currentUser);
+            boundValueOperations.expire(2, TimeUnit.HOURS);
+        }
 
         return authentication;
     }
@@ -53,24 +58,6 @@ public class CustomTokenStoreDelegator implements TokenStore {
     @Override
     public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
         delegate.storeAccessToken(token, authentication);
-
-        Object principal = authentication.getUserAuthentication().getPrincipal();
-        if (principal instanceof CustomUser) {
-            CustomUser customUser = (CustomUser) principal;
-
-            CurrentUser currentUser = new CurrentUser();
-            BeanUtils.copyProperties(customUser, currentUser);
-            currentUser.setUserId(customUser.getUsername());
-
-//            BoundHashOperations<String, String, Object> boundHashOperations
-//                    = redisTemplate.boundHashOps(LOGIN_USER + customUser.getUsername());
-//            boundHashOperations.put(token.getValue(), currentUser);
-//            boundHashOperations.expire(1, TimeUnit.HOURS);
-
-            BoundValueOperations<String, Object> boundValueOperations = redisTemplate.boundValueOps("user_id:" + currentUser.getUserId());
-            boundValueOperations.setIfAbsent(currentUser);
-            boundValueOperations.expire(1, TimeUnit.HOURS);
-        }
     }
 
     @Override

@@ -37,8 +37,8 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone")
-    private String phone;
+    @Column(name = "mobile_number")
+    private String mobileNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

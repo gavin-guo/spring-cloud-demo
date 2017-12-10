@@ -6,7 +6,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
-@SpringBootApplication(scanBasePackages = {"com.gavin.auth", "com.gavin.common.client"})
+@SpringBootApplication(scanBasePackages = {
+        "com.gavin.auth",
+        "com.gavin.common.client",
+        "com.gavin.common.config.redis"})
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = ("com.gavin.common.client"))
 @EnableAuthorizationServer

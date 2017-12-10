@@ -6,15 +6,16 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+        "com.gavin.gateway",
+        "com.gavin.common.config.redis"})
 @EnableDiscoveryClient
-@EnableResourceServer
 @EnableZuulProxy
+@EnableResourceServer
 public class ApiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ApiApplication.class, args);
     }
-
 
 }

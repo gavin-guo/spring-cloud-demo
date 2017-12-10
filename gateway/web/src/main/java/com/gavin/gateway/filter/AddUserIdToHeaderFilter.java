@@ -12,9 +12,9 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 
 @Component
 @Slf4j
-public class AddUserToHeaderFilter extends ZuulFilter {
+public class AddUserIdToHeaderFilter extends ZuulFilter {
 
-    private static final String USER_ID = "USER_ID";
+    private static final String USER_ID = "user_id";
 
     @Override
     public String filterType() {

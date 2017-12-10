@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 8002
 
 zuul:
   ignored-services: '*'
@@ -70,6 +70,15 @@ hystrix:
 ---
 spring:
   profiles: development
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    pool:
+      max-active: 10
+      max-idle: 10
+      max-wait: -1
+      min-idle: 0
 
 security:
   oauth2:
@@ -84,6 +93,15 @@ security:
 ---
 spring:
   profiles: test
+  redis:
+    host: ${REDIS_SERVICE_HOST}
+    port: ${REDIS_SERVICE_PORT}
+    database: 0
+    pool:
+      max-active: 10
+      max-idle: 10
+      max-wait: -1
+      min-idle: 0
 
 security:
   oauth2:
