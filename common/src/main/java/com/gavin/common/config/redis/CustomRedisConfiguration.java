@@ -1,4 +1,4 @@
-package com.gavin.common.config;
+package com.gavin.common.config.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

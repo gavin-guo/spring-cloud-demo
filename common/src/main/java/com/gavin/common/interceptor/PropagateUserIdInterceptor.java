@@ -1,5 +1,6 @@
 package com.gavin.common.interceptor;
 
+import com.gavin.common.config.interceptor.CustomWebMvcConfiguration;
 import com.gavin.common.constants.RequestHeaderConstants;
 import com.gavin.common.context.CustomHystrixContext;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * added to registry on {@link com.gavin.common.config.CustomWebMvcConfiguration}
+ * added to registry on {@link CustomWebMvcConfiguration}
  */
 @Slf4j
 public class PropagateUserIdInterceptor implements HandlerInterceptor {

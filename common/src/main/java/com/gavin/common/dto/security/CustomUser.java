@@ -11,8 +11,6 @@ public class CustomUser extends User {
 
     private String id;
 
-    private String loginName;
-
     private String nickName;
 
     private Byte grade;
@@ -36,7 +34,6 @@ public class CustomUser extends User {
                 authorities);
 
         this.id = id;
-        this.loginName = loginName;
         this.nickName = nickName;
         this.grade = grade;
     }

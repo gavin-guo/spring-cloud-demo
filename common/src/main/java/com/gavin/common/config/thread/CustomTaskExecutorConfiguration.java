@@ -1,4 +1,4 @@
-package com.gavin.common.config;
+package com.gavin.common.config.thread;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

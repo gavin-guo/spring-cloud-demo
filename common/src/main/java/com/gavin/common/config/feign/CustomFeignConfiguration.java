@@ -1,4 +1,4 @@
-package com.gavin.common.config;
+package com.gavin.common.config.feign;
 
 import com.gavin.common.constants.RequestHeaderConstants;
 import com.gavin.common.context.CustomHystrixContext;
