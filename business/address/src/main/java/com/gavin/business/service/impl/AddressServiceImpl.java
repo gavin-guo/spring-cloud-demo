@@ -8,7 +8,7 @@ import com.gavin.business.service.AddressService;
 import com.gavin.common.dto.address.AddressDto;
 import com.gavin.common.dto.address.RegisterAddressDto;
 import com.gavin.common.exception.RecordNotFoundException;
-import com.google.gson.Gson;
+import com.gavin.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class AddressServiceImpl implements AddressService {
         addressRepository.save(address);
 
         AddressDto addressDto = modelMapper.map(address, AddressDto.class);
-        log.debug("register address successfully. {}", new Gson().toJson(addressDto));
+        log.debug("register address successfully. {}", JsonUtils.toJson(addressDto));
 
         return addressDto;
     }

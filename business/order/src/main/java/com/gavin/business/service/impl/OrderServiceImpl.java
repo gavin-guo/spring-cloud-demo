@@ -30,7 +30,7 @@ import com.gavin.common.messaging.WaitingForPaymentProcessor;
 import com.gavin.common.payload.ArrangeShipmentPayload;
 import com.gavin.common.payload.CancelReservationPayload;
 import com.gavin.common.payload.WaitingForPaymentPayload;
-import com.google.gson.Gson;
+import com.gavin.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -86,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
                 .withItems(_order.getItems())
                 .build();
 
-        log.info("create order successfully. {}", new Gson().toJson(orderDetailsDto));
+        log.info("create order successfully. {}", JsonUtils.toJson(orderDetailsDto));
         return orderDetailsDto;
     }
 

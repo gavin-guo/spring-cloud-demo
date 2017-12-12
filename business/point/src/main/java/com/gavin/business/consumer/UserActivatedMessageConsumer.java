@@ -1,12 +1,12 @@
 package com.gavin.business.consumer;
 
-import com.gavin.common.consumer.MessageConsumer;
-import com.gavin.common.messaging.UserActivatedProcessor;
-import com.gavin.common.dto.point.ProducePointsDto;
-import com.gavin.common.payload.UserActivatedPayload;
 import com.gavin.business.service.PointService;
+import com.gavin.common.consumer.MessageConsumer;
+import com.gavin.common.dto.point.ProducePointsDto;
+import com.gavin.common.messaging.UserActivatedProcessor;
+import com.gavin.common.payload.UserActivatedPayload;
+import com.gavin.common.util.JsonUtils;
 import com.google.common.base.Stopwatch;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,7 +38,7 @@ public class UserActivatedMessageConsumer implements MessageConsumer<UserActivat
     @StreamListener(UserActivatedProcessor.INPUT)
     @Transactional
     public void receiveMessage(@Payload UserActivatedPayload _payload) {
-        log.info("received user_activated message. {}", new Gson().toJson(_payload));
+        log.info("received user_activated message. {}", JsonUtils.toJson(_payload));
 
         ProducePointsDto pointsDto = new ProducePointsDto();
         pointsDto.setUserId(_payload.getUserId());

@@ -1,10 +1,10 @@
-package com.gavin.message.consumer;
+package com.gavin.business.consumer;
 
+import com.gavin.business.service.ProductService;
 import com.gavin.common.consumer.MessageConsumer;
 import com.gavin.common.messaging.CancelReservationProcessor;
 import com.gavin.common.payload.CancelReservationPayload;
-import com.gavin.business.service.ProductService;
-import com.google.gson.Gson;
+import com.gavin.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,7 +30,7 @@ public class CancelReservationMessageConsumer implements MessageConsumer<CancelR
     @StreamListener(CancelReservationProcessor.INPUT)
     @Transactional
     public void receiveMessage(@Payload CancelReservationPayload _payload) {
-        log.info("received cancel_reservation message. {}", new Gson().toJson(_payload));
+        log.info("received cancel_reservation message. {}", JsonUtils.toJson(_payload));
 
         CompletableFuture
                 .runAsync(() -> productService.cancelReservation(_payload.getOrderId()), executor)

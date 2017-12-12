@@ -2,11 +2,13 @@ package com.gavin.common.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
+@Slf4j
 public class JsonUtils {
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
@@ -18,8 +20,13 @@ public class JsonUtils {
         objectMapper.setDateFormat(dateFormat);
     }
 
-    public static String toJson(Object obj) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(obj);
+    public static String toJson(Object obj) {
+        try {
+            return objectMapper.writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            log.error("failed to convert object{} to json.", obj);
+            return null;
+        }
     }
 
     public static Object parseText(String json, Class clazz) throws IOException {

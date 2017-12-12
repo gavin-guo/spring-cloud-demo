@@ -15,7 +15,7 @@ import com.gavin.common.messaging.UserActivatedProcessor;
 import com.gavin.common.messaging.UserCreatedProcessor;
 import com.gavin.common.payload.UserActivatedPayload;
 import com.gavin.common.payload.UserCreatedPayload;
-import com.google.gson.Gson;
+import com.gavin.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
 
         UserDto userDto = modelMapper.map(user, UserDto.class);
         userDto.setPassword(null);
-        log.info("create user successfully. {}", new Gson().toJson(userDto));
+        log.info("create user successfully. {}", JsonUtils.toJson(userDto));
 
         // 发送消息至notification。
         UserCreatedPayload payload = modelMapper.map(user, UserCreatedPayload.class);

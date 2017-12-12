@@ -1,10 +1,10 @@
 package com.gavin.business.consumer;
 
+import com.gavin.business.service.PaymentService;
 import com.gavin.common.consumer.MessageConsumer;
 import com.gavin.common.messaging.WaitingForPaymentProcessor;
 import com.gavin.common.payload.WaitingForPaymentPayload;
-import com.gavin.business.service.PaymentService;
-import com.google.gson.Gson;
+import com.gavin.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,7 +30,7 @@ public class WaitingForPaymentMessageConsumer implements MessageConsumer<Waiting
     @StreamListener(WaitingForPaymentProcessor.INPUT)
     @Transactional
     public void receiveMessage(@Payload WaitingForPaymentPayload _payload) {
-        log.info("received waiting_for_payment message. {}", new Gson().toJson(_payload));
+        log.info("received waiting_for_payment message. {}", JsonUtils.toJson(_payload));
 
         CompletableFuture
                 .supplyAsync(() -> paymentService.createPayment(

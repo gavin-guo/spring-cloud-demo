@@ -1,10 +1,10 @@
 package com.gavin.business.consumer;
 
+import com.gavin.business.service.DeliveryService;
 import com.gavin.common.consumer.MessageConsumer;
 import com.gavin.common.messaging.ArrangeShipmentProcessor;
 import com.gavin.common.payload.ArrangeShipmentPayload;
-import com.gavin.business.service.DeliveryService;
-import com.google.gson.Gson;
+import com.gavin.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,7 +30,7 @@ public class ArrangeShipmentMessageConsumer implements MessageConsumer<ArrangeSh
     @StreamListener(ArrangeShipmentProcessor.INPUT)
     @Transactional
     public void receiveMessage(@Payload ArrangeShipmentPayload _payload) {
-        log.info("received arrange_shipment message. {}", new Gson().toJson(_payload));
+        log.info("received arrange_shipment message. {}", JsonUtils.toJson(_payload));
 
         CompletableFuture
                 .runAsync(() -> deliveryService.createDelivery(

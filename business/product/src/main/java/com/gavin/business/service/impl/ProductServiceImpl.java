@@ -3,19 +3,19 @@ package com.gavin.business.service.impl;
 import com.gavin.business.domain.Category;
 import com.gavin.business.domain.Product;
 import com.gavin.business.domain.ProductReservation;
-import com.gavin.common.dto.common.PageResult;
-import com.gavin.common.dto.order.ItemDto;
-import com.gavin.common.dto.product.CreateProductDto;
-import com.gavin.common.dto.product.ProductDto;
-import com.gavin.common.dto.product.ReservedProductDto;
 import com.gavin.business.exception.InsufficientInventoryException;
-import com.gavin.common.exception.RecordNotFoundException;
 import com.gavin.business.repository.CategoryRepository;
 import com.gavin.business.repository.PointRewardPlanRepository;
 import com.gavin.business.repository.ProductRepository;
 import com.gavin.business.repository.ProductReservationRepository;
 import com.gavin.business.service.ProductService;
-import com.google.gson.Gson;
+import com.gavin.common.dto.common.PageResult;
+import com.gavin.common.dto.order.ItemDto;
+import com.gavin.common.dto.product.CreateProductDto;
+import com.gavin.common.dto.product.ProductDto;
+import com.gavin.common.dto.product.ReservedProductDto;
+import com.gavin.common.exception.RecordNotFoundException;
+import com.gavin.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
         ProductDto productDto = modelMapper.map(product, ProductDto.class);
         productDto.setCategoryName(category.getName());
 
-        log.info("create product successfully. {}", new Gson().toJson(productDto));
+        log.info("create product successfully. {}", JsonUtils.toJson(productDto));
 
         return productDto;
     }
@@ -148,7 +148,7 @@ public class ProductServiceImpl implements ProductService {
                 }
         );
 
-        log.info("reserve products successfully. {}", new Gson().toJson(reservedProductDtos));
+        log.info("reserve products successfully. {}", JsonUtils.toJson(reservedProductDtos));
 
         return reservedProductDtos;
     }

@@ -1,12 +1,12 @@
 package com.gavin.business.consumer;
 
-import com.gavin.common.consumer.MessageConsumer;
-import com.gavin.common.messaging.UserCreatedProcessor;
 import com.gavin.business.dto.UserCreatedMailDto;
 import com.gavin.business.exception.EmailSendException;
-import com.gavin.common.payload.UserCreatedPayload;
 import com.gavin.business.service.MailService;
-import com.google.gson.Gson;
+import com.gavin.common.consumer.MessageConsumer;
+import com.gavin.common.messaging.UserCreatedProcessor;
+import com.gavin.common.payload.UserCreatedPayload;
+import com.gavin.common.util.JsonUtils;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -40,7 +40,7 @@ public class UserCreatedMessageConsumer implements MessageConsumer<UserCreatedPa
     @StreamListener(UserCreatedProcessor.INPUT)
     @Transactional
     public void receiveMessage(@Payload UserCreatedPayload _payload) {
-        log.info("received user_created message ({}).", new Gson().toJson(_payload));
+        log.info("received user_created message ({}).", JsonUtils.toJson(_payload));
 
         UserCreatedMailDto mailDto = modelMapper.map(_payload, UserCreatedMailDto.class);
 

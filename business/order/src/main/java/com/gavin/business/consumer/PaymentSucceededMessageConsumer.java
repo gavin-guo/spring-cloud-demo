@@ -1,10 +1,10 @@
 package com.gavin.business.consumer;
 
+import com.gavin.business.service.OrderService;
 import com.gavin.common.consumer.MessageConsumer;
 import com.gavin.common.messaging.PaymentSucceededProcessor;
 import com.gavin.common.payload.PaymentSucceededPayload;
-import com.gavin.business.service.OrderService;
-import com.google.gson.Gson;
+import com.gavin.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,7 +30,7 @@ public class PaymentSucceededMessageConsumer implements MessageConsumer<PaymentS
     @StreamListener(PaymentSucceededProcessor.INPUT)
     @Transactional
     public void receiveMessage(@Payload PaymentSucceededPayload _payload) {
-        log.info("received payment_succeeded message. {}", new Gson().toJson(_payload));
+        log.info("received payment_succeeded message. {}", JsonUtils.toJson(_payload));
 
         CompletableFuture
                 .runAsync(() ->
