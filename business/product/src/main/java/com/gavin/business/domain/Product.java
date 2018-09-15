@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -28,10 +29,7 @@ public class Product {
     private String categoryId;
 
     @Column(name = "price")
-    private Float price;
-
-    @Column(name = "stocks")
-    private Integer stocks;
+    private BigDecimal price;
 
     @Column(name = "comment")
     private String comment;
@@ -43,9 +41,5 @@ public class Product {
     @Column(name = "created_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
-
-    @Column(name = "modified_time", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modifiedTime;
 
 }

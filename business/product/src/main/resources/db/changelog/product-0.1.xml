@@ -1,0 +1,137 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create table category" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring-cloud-demo" tableName="category"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="category">
+            <column name="id" type="varchar(10)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="parent_id" type="varchar(10)"/>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="initialize table category" author="gavin-guo">
+        <preConditions>
+            <tableIsEmpty tableName="category"/>
+        </preConditions>
+
+        <loadData tableName="category" file="classpath:db/changelog/data/category.csv" quotchar="'"/>
+    </changeSet>
+
+    <changeSet id="create table product" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring-cloud-demo" tableName="product"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="product">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="varchar(10)"/>
+            <column name="price" type="decimal(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="varchar(100)"/>
+            <column name="version" type="bigint(20)"/>
+            <column name="created_time" type="datetime" defaultValueComputed="current_timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="initialize table product" author="gavin-guo">
+        <preConditions>
+            <tableIsEmpty tableName="product"/>
+        </preConditions>
+
+        <loadData tableName="product" file="classpath:db/changelog/data/product.csv" quotchar="'"/>
+    </changeSet>
+
+    <changeSet id="create table product_stock" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring-cloud-demo" tableName="product_stock"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="product_stock">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stocks" type="int(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create table point_reward_plan" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring-cloud-demo" tableName="point_reward_plan"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="point_reward_plan">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ratio" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="char(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="char(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="bigint(20)"/>
+            <column name="created_time" type="datetime" defaultValueComputed="current_timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create table product_reservation" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring-cloud-demo" tableName="product_reservation"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="product_reservation">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="int(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="bigint(20)"/>
+            <column name="created_time" type="datetime" defaultValueComputed="current_timestamp"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

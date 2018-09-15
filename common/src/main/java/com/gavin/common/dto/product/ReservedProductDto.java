@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
@@ -17,7 +18,7 @@ public class ReservedProductDto implements Serializable {
     private Integer quantity;
 
     @JsonProperty("price")
-    private Float price;
+    private BigDecimal price;
 
     @JsonProperty("ratio")
     private Float ratio;

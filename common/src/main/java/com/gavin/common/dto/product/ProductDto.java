@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -15,10 +16,8 @@ import java.util.Date;
         "categoryId",
         "categoryName",
         "price",
-        "stocks",
         "comment",
-        "createdTime",
-        "modifiedTime"})
+        "createdTime"})
 @Data
 public class ProductDto implements Serializable {
 
@@ -35,18 +34,12 @@ public class ProductDto implements Serializable {
     private String categoryName;
 
     @JsonProperty("price")
-    private Float price;
-
-    @JsonProperty("stocks")
-    private Integer stocks;
+    private BigDecimal price;
 
     @JsonProperty("comment")
     private String comment;
 
     @JsonProperty("created_time")
     private Date createdTime;
-
-    @JsonProperty("modified_time")
-    private Date modifiedTime;
 
 }

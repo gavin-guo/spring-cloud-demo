@@ -3,11 +3,9 @@ package com.gavin.business.service.impl;
 import com.gavin.business.domain.Category;
 import com.gavin.business.domain.Product;
 import com.gavin.business.domain.ProductReservation;
+import com.gavin.business.domain.ProductStock;
 import com.gavin.business.exception.InsufficientInventoryException;
-import com.gavin.business.repository.CategoryRepository;
-import com.gavin.business.repository.PointRewardPlanRepository;
-import com.gavin.business.repository.ProductRepository;
-import com.gavin.business.repository.ProductReservationRepository;
+import com.gavin.business.repository.*;
 import com.gavin.business.service.ProductService;
 import com.gavin.common.dto.common.PageResult;
 import com.gavin.common.dto.order.ItemDto;
@@ -44,6 +42,9 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Autowired
+    private ProductStockRepository productStockRepository;
+
+    @Autowired
     private ProductReservationRepository productReservationRepository;
 
     @Autowired
@@ -58,6 +59,11 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = modelMapper.map(_product, Product.class);
         productRepository.save(product);
+
+        ProductStock productStock = new ProductStock();
+        productStock.setProductId(product.getId());
+        productStock.setStocks(_product.getStocks());
+        productStockRepository.save(productStock);
 
         ProductDto productDto = modelMapper.map(product, ProductDto.class);
         productDto.setCategoryName(category.getName());
@@ -108,24 +114,29 @@ public class ProductServiceImpl implements ProductService {
         List<String> productIds = _items.stream().map(ItemDto::getProductId).collect(Collectors.toList());
 
         List<Product> products = productRepository.findAll(productIds);
-        Map<String, Product> productIdMap = products.stream().collect(
+        Map<String, Product> productMap = products.stream().collect(
                 Collectors.toMap(Product::getId, product -> product));
+
+        List<ProductStock> productStocks = productStockRepository.findAllByProductIdIn(productIds);
+        Map<String, ProductStock> productStockMap = productStocks.stream().collect(
+                Collectors.toMap(ProductStock::getProductId, productStock -> productStock));
 
         List<ReservedProductDto> reservedProductDtos = new ArrayList<>();
 
         _items.forEach(
                 item -> {
                     String productId = item.getProductId();
-                    Product product = productIdMap.get(productId);
+                    Product product = productMap.get(productId);
+                    ProductStock productStock = productStockMap.get(productId);
 
                     // 订单中此商品的订购数超过库存。
-                    if (item.getQuantity() > product.getStocks()) {
-                        log.warn("{} of product({}) on order, but {} in stock.", item.getQuantity(), product.getName(), product.getStocks());
+                    if (item.getQuantity() > productStock.getStocks()) {
+                        log.warn("{} of product({}) on order, but {} in stock.", item.getQuantity(), product.getName(), productStock.getStocks());
                         throw new InsufficientInventoryException(String.format("product %s is insufficient.", product.getName()));
                     }
 
                     // 从该商品的库存中冻结与订单相应的数目。
-                    product.setStocks(product.getStocks() - item.getQuantity());
+                    productStock.setStocks(productStock.getStocks() - item.getQuantity());
                     productRepository.save(product);
 
                     // 记录到预约信息表中。
@@ -162,18 +173,18 @@ public class ProductServiceImpl implements ProductService {
                 .map(ProductReservation::getProductId)
                 .collect(Collectors.toList());
 
-        List<Product> products = productRepository.findAll(productIds);
+        List<ProductStock> productStocks = productStockRepository.findAllByProductIdIn(productIds);
 
         Map<String, Integer> itemQuantityMap = productReservations.stream()
                 .collect(Collectors.toMap(
                         ProductReservation::getProductId,
                         ProductReservation::getQuantity));
 
-        products.forEach(
-                product -> {
-                    String productId = product.getId();
-                    product.setStocks(product.getStocks() + itemQuantityMap.getOrDefault(productId, 0));
-                    productRepository.save(product);
+        productStocks.forEach(
+                productStock -> {
+                    String productId = productStock.getId();
+                    productStock.setStocks(productStock.getStocks() + itemQuantityMap.getOrDefault(productId, 0));
+                    productStockRepository.save(productStock);
                 }
         );
 

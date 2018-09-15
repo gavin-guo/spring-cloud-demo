@@ -1,0 +1,54 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create table point" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring-cloud-demo" tableName="point"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="point">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="decimal(10, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="associated_order_id" type="varchar(50)"/>
+            <column name="expire_date" type="char(10)"/>
+            <column name="version" type="bigint(20)"/>
+            <column name="created_time" type="datetime" defaultValueComputed="current_timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create table point_history" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring-cloud-demo" tableName="point_history"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="point_history">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="varchar(50)"/>
+            <column name="amount" type="decimal(10, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="action" type="varchar(20)"/>
+            <column name="version" type="bigint(20)"/>
+            <column name="created_time" type="datetime" defaultValueComputed="current_timestamp"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Data
 public class CreateProductDto implements Serializable {
@@ -19,7 +20,7 @@ public class CreateProductDto implements Serializable {
 
     @JsonProperty("price")
     @NotNull(message = "'price' should not be null")
-    private Float price;
+    private BigDecimal price;
 
     @JsonProperty("stocks")
     @NotNull(message = "'stock' should not be null")

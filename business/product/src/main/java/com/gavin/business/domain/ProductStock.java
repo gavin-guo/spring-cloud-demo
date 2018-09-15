@@ -1,14 +1,16 @@
 package com.gavin.business.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "category")
+@Table(name = "product_stock")
+@DynamicInsert
 @Data
-public class Category {
+public class ProductStock {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -16,10 +18,10 @@ public class Category {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "parent_id")
-    private String parentId;
+    @Column(name = "product_id")
+    private String productId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "stocks")
+    private Integer stocks;
 
 }
