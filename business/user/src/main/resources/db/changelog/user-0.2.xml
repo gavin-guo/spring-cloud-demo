@@ -1,15 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="create table country" author="gavin">
+    <changeSet id="create table country" author="gavin-guo">
         <preConditions>
             <not>
-                <tableExists tableName="country"/>
+                <tableExists schemaName="spring-cloud-demo" tableName="country"/>
             </not>
         </preConditions>
 
@@ -23,19 +20,18 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="initialize table country" author="gavin">
+    <changeSet id="initialize table country" author="gavin-guo">
         <preConditions>
             <tableIsEmpty tableName="country"/>
         </preConditions>
 
-        <loadData tableName="country" encoding="UTF-8" file="classpath:db/changelog/data/country.csv" separator=","
-                  quotchar="'"/>
+        <loadData tableName="country" file="classpath:db/changelog/data/country.csv" quotchar="'"/>
     </changeSet>
 
-    <changeSet id="create table province" author="gavin">
+    <changeSet id="create table province" author="gavin-guo">
         <preConditions>
             <not>
-                <tableExists tableName="province"/>
+                <tableExists schemaName="spring-cloud-demo" tableName="province"/>
             </not>
         </preConditions>
 
@@ -52,19 +48,18 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="initialize table province" author="gavin">
+    <changeSet id="initialize table province" author="gavin-guo">
         <preConditions>
             <tableIsEmpty tableName="province"/>
         </preConditions>
 
-        <loadData tableName="province" encoding="UTF-8" file="classpath:db/changelog/data/province.csv" separator=","
-                  quotchar="'"/>
+        <loadData tableName="province" file="classpath:db/changelog/data/province.csv" quotchar="'"/>
     </changeSet>
 
-    <changeSet id="create table city" author="gavin">
+    <changeSet id="create table city" author="gavin-guo">
         <preConditions>
             <not>
-                <tableExists tableName="city"/>
+                <tableExists schemaName="spring-cloud-demo" tableName="city"/>
             </not>
         </preConditions>
 
@@ -82,19 +77,18 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="initialize table city" author="gavin">
+    <changeSet id="initialize table city" author="gavin-guo">
         <preConditions>
             <tableIsEmpty tableName="city"/>
         </preConditions>
 
-        <loadData tableName="city" encoding="UTF-8" file="classpath:db/changelog/data/city.csv" separator=","
-                  quotchar="'"/>
+        <loadData tableName="city" file="classpath:db/changelog/data/city.csv" quotchar="'"/>
     </changeSet>
 
-    <changeSet id="create table district" author="gavin">
+    <changeSet id="create table district" author="gavin-guo">
         <preConditions>
             <not>
-                <tableExists tableName="district"/>
+                <tableExists schemaName="spring-cloud-demo" tableName="district"/>
             </not>
         </preConditions>
 
@@ -111,27 +105,26 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="initialize table district" author="gavin">
+    <changeSet id="initialize table district" author="gavin-guo">
         <preConditions>
             <tableIsEmpty tableName="district"/>
         </preConditions>
 
-        <loadData tableName="district" encoding="UTF-8" file="classpath:db/changelog/data/district.csv" separator=","
-                  quotchar="'"/>
+        <loadData tableName="district" file="classpath:db/changelog/data/district.csv" quotchar="'"/>
     </changeSet>
 
-    <changeSet id="create table address" author="gavin">
+    <changeSet id="create table address" author="gavin-guo">
         <preConditions>
             <not>
-                <tableExists tableName="address"/>
+                <tableExists schemaName="spring-cloud-demo" tableName="address"/>
             </not>
         </preConditions>
 
         <createTable tableName="address">
-            <column name="id" type="char(36)">
+            <column name="id" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="char(36)">
+            <column name="user_id" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="consignee" type="varchar(45)">
@@ -162,13 +155,12 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="initialize table address" author="gavin">
+    <changeSet id="initialize table address" author="gavin-guo">
         <preConditions>
             <tableIsEmpty tableName="address"/>
         </preConditions>
 
-        <loadData tableName="address" encoding="UTF-8" file="classpath:db/changelog/data/address.csv" separator=","
-                  quotchar="'"/>
+        <loadData tableName="address" file="classpath:db/changelog/data/address.csv" quotchar="'"/>
     </changeSet>
 
 </databaseChangeLog>

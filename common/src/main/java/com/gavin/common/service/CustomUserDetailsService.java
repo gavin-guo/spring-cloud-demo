@@ -48,8 +48,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 true,
                 true,
                 true,
-                authorities,
-                userDto.getGrade());
+                authorities);
 
         return customUser;
     }

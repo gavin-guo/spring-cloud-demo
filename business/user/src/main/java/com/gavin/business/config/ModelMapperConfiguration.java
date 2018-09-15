@@ -1,6 +1,8 @@
 package com.gavin.business.config;
 
+import com.gavin.business.domain.Address;
 import com.gavin.business.domain.User;
+import com.gavin.common.dto.address.AddressDto;
 import com.gavin.common.dto.user.AuthorityDto;
 import com.gavin.common.dto.user.UserDto;
 import org.modelmapper.ModelMapper;
@@ -27,9 +29,8 @@ public class ModelMapperConfiguration {
             destination.setLoginName(source.getLoginName());
             destination.setPassword(source.getPassword());
             destination.setNickName(source.getNickName());
-            destination.setGrade(source.getGrade());
             destination.setEmail(source.getEmail());
-            destination.setMobileNumber(source.getMobileNumber());
+            destination.setPhoneNumber(source.getPhoneNumber());
 
             List<AuthorityDto> authorityDtos = new ArrayList<>();
             source.getUserAuthorities().forEach(
@@ -41,6 +42,33 @@ public class ModelMapperConfiguration {
             );
             destination.setAuthorities(authorityDtos);
 
+            return destination;
+        });
+
+        modelMapper.createTypeMap(Address.class, AddressDto.class).setConverter(context -> {
+            Address source = context.getSource();
+            AddressDto destination = new AddressDto();
+
+            destination.setId(source.getId());
+            destination.setUserId(source.getUserId());
+            destination.setConsignee(source.getConsignee());
+            destination.setPhoneNumber(source.getPhoneNumber());
+            destination.setZipCode(source.getZipCode());
+            destination.setDefaultAddress(source.isDefaultAddress());
+            destination.setComment(source.getComment());
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(source.getDistrict().getCity().getProvince().getCountry().getName());
+            stringBuilder.append(source.getDistrict().getCity().getProvince().getName());
+            if (!source.getDistrict().getCity().isMunicipality()) {
+                stringBuilder.append(source.getDistrict().getCity().getName());
+            }
+            stringBuilder.append(source.getDistrict().getName());
+            stringBuilder.append(source.getStreet());
+            stringBuilder.append(source.getBuilding());
+            stringBuilder.append(source.getRoom());
+
+            destination.setAddress(stringBuilder.toString());
             return destination;
         });
 

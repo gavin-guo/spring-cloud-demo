@@ -4,8 +4,13 @@
     <persistence-unit name="persistenceUnit">
         <class>com.gavin.business.domain.User</class>
         <class>com.gavin.business.domain.UserAuthority</class>
+        <class>com.gavin.business.domain.Address</class>
+        <class>com.gavin.business.domain.City</class>
+        <class>com.gavin.business.domain.Country</class>
+        <class>com.gavin.business.domain.District</class>
+        <class>com.gavin.business.domain.Province</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/schema_user"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/spring-cloud-demo"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
         </properties>
     </persistence-unit>

@@ -14,7 +14,7 @@ import java.util.List;
         "loginName",
         "nickName",
         "email",
-        "mobile_number"})
+        "phone_number"})
 @Data
 public class UserDto implements Serializable {
 
@@ -33,11 +33,8 @@ public class UserDto implements Serializable {
     @JsonProperty("email")
     private String email;
 
-    @JsonProperty("mobile_number")
-    private String mobileNumber;
-
-    @JsonProperty("grade")
-    private Byte grade;
+    @JsonProperty("phone_number")
+    private String phoneNumber;
 
     @JsonProperty("authorities")
     private List<AuthorityDto> authorities;

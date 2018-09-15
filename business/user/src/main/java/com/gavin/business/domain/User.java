@@ -37,15 +37,12 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "mobile_number")
-    private String mobileNumber;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private UserStatusEnums status;
-
-    @Column(name = "grade")
-    private Byte grade;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UserAuthority> userAuthorities;
@@ -57,10 +54,6 @@ public class User {
     @Column(name = "created_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
-
-    @Column(name = "modified_time", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modifiedTime;
 
     public UserAuthority addUserAuthority(UserAuthority userAuthority) {
         if (CollectionUtils.isEmpty(userAuthorities)) {

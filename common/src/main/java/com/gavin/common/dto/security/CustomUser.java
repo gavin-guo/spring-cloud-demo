@@ -13,8 +13,6 @@ public class CustomUser extends User {
 
     private String nickName;
 
-    private Byte grade;
-
     public CustomUser(String id,
                       String loginName,
                       String nickName,
@@ -23,8 +21,7 @@ public class CustomUser extends User {
                       boolean accountNonExpired,
                       boolean credentialsNonExpired,
                       boolean accountNonLocked,
-                      Collection<? extends GrantedAuthority> authorities,
-                      Byte grade) {
+                      Collection<? extends GrantedAuthority> authorities) {
         super(loginName,
                 password,
                 enabled,
@@ -35,7 +32,6 @@ public class CustomUser extends User {
 
         this.id = id;
         this.nickName = nickName;
-        this.grade = grade;
     }
 
 }

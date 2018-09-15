@@ -1,0 +1,76 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create table user" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring-cloud-demo" tableName="user"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="user">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login_name" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nick_name" type="varchar(20)"/>
+            <column name="email" type="varchar(50)"/>
+            <column name="phone_number" type="varchar(20)"/>
+            <column name="status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="bigint(20)"/>
+            <column name="created_time" type="datetime" defaultValueComputed="current_timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="initialize table user" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists schemaName="spring-cloud-demo" tableName="user"/>
+                <sqlCheck expectedResult="0">select count(*) from user</sqlCheck>
+            </and>
+        </preConditions>
+
+        <loadData tableName="user" file="classpath:db/changelog/data/user.csv" quotchar="'"/>
+    </changeSet>
+
+    <changeSet id="create table user_authority" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring-cloud-demo" tableName="user_authority"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="user_authority">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="initialize table user_authority" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists schemaName="spring-cloud-demo" tableName="user_authority"/>
+                <sqlCheck expectedResult="0">select count(*) from user_authority</sqlCheck>
+            </and>
+        </preConditions>
+
+        <loadData tableName="user_authority" file="classpath:db/changelog/data/user_authority.csv" quotchar="'"/>
+    </changeSet>
+
+</databaseChangeLog>
