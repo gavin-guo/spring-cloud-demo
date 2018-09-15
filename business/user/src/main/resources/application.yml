@@ -28,6 +28,18 @@ spring:
           content-type: application/json
           producer:
             required-groups: default
+        user_activated_input:
+          binder: rabbit
+          destination: userActivated
+          group: default
+          content-type: application/json
+          consumer:
+            max-attempts: 3
+
+# 积分有效期限,单位:日
+points:
+  period: 60
+  user-activated-rewards: 1000
 
 ---
 spring:

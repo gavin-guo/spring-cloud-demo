@@ -9,9 +9,13 @@
         <class>com.gavin.business.domain.Country</class>
         <class>com.gavin.business.domain.District</class>
         <class>com.gavin.business.domain.Province</class>
+        <class>com.gavin.business.domain.Point</class>
+        <class>com.gavin.business.domain.PointHistory</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/spring-cloud-demo"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="root"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -15,11 +15,11 @@ public interface PointRepository extends JpaRepository<Point, String> {
     @Query("select p from Point p " +
             "where p.userId = :userId " +
             "and to_days(p.expireDate) > to_days(current_date()) " +
-            "and p.lockForOrderId is null"
+            "and p.associatedOrderId is null"
     )
     List<Point> findUsableByAccountId(@Param("userId") String _userId, Sort _sort);
 
-    List<Point> findByLockForOrderId(String _lockForOrderId);
+    List<Point> findByAssociatedOrderId(String _associatedOrderId);
 
     List<Point> findByExpireDateLessThanEqual(String _today);
 

@@ -93,7 +93,7 @@ public class PointServiceImpl implements PointService {
         for (Point point : points) {
             if (point.getAmount().compareTo(requiredAmount) <= 0) {
                 // 锁定该积分记录。
-                point.setLockForOrderId(_freeze.getOrderId());
+                point.setAssociatedOrderId(_freeze.getOrderId());
                 pointRepository.save(point);
 
                 requiredAmount = requiredAmount.subtract(point.getAmount());
@@ -106,7 +106,7 @@ public class PointServiceImpl implements PointService {
                 pointRepository.save(newPoint);
 
                 point.setAmount(requiredAmount);
-                point.setLockForOrderId(_freeze.getOrderId());
+                point.setAssociatedOrderId(_freeze.getOrderId());
                 pointRepository.save(point);
                 break;
             }
@@ -120,11 +120,11 @@ public class PointServiceImpl implements PointService {
     @Override
     @Transactional
     public void unfreezePoints(String _orderId) {
-        List<Point> points = pointRepository.findByLockForOrderId(_orderId);
+        List<Point> points = pointRepository.findByAssociatedOrderId(_orderId);
         points.forEach(
                 point -> {
                     // 解除积分记录的锁定标志。
-                    point.setLockForOrderId(null);
+                    point.setAssociatedOrderId(null);
                     pointRepository.save(point);
                 }
         );
@@ -134,7 +134,7 @@ public class PointServiceImpl implements PointService {
     @Override
     @Transactional
     public void consumePoints(String _orderId) {
-        List<Point> points = Optional.ofNullable(pointRepository.findByLockForOrderId(_orderId))
+        List<Point> points = Optional.ofNullable(pointRepository.findByAssociatedOrderId(_orderId))
                 .orElseThrow(() -> new RecordNotFoundException("point records which using by", _orderId));
 
         // 计算此次消费的积分总数量。

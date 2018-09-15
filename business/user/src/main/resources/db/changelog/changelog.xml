@@ -5,5 +5,6 @@
 
     <include file="classpath:db/changelog/user-0.1.xml"/>
     <include file="classpath:db/changelog/user-0.2.xml"/>
+    <include file="classpath:db/changelog/user-0.3.xml"/>
 
 </databaseChangeLog>

@@ -16,13 +16,11 @@
 
     <modules>
         <module>user</module>
-        <module>point</module>
         <module>product</module>
         <module>order</module>
         <module>payment</module>
         <module>delivery</module>
         <module>notification</module>
-        <!--<module>tenant</module>-->
     </modules>
 
     <dependencies>

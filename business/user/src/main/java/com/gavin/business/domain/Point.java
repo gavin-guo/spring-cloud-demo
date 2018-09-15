@@ -28,8 +28,8 @@ public class Point {
     @Column(name = "amount")
     private BigDecimal amount;
 
-    @Column(name = "lock_for_order_id")
-    private String lockForOrderId;
+    @Column(name = "associated_order_id")
+    private String associatedOrderId;
 
     @Column(name = "expire_date")
     private String expireDate;
@@ -41,9 +41,5 @@ public class Point {
     @Column(name = "created_time", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
-
-    @Column(name = "modified_time", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modifiedTime;
 
 }
