@@ -81,6 +81,14 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="initialize table product_stock" author="gavin-guo">
+        <preConditions>
+            <tableIsEmpty tableName="product_stock"/>
+        </preConditions>
+
+        <loadData tableName="product_stock" file="classpath:db/changelog/data/product_stock.csv" quotchar="'"/>
+    </changeSet>
+
     <changeSet id="create table point_reward_plan" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>

@@ -1,7 +1,7 @@
 package com.gavin.business.service;
 
-import com.gavin.common.dto.address.AddressDto;
-import com.gavin.common.dto.address.RegisterAddressDto;
+import com.gavin.common.dto.user.AddressDto;
+import com.gavin.common.dto.user.RegisterAddressDto;
 
 import java.util.List;
 

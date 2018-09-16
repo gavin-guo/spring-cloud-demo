@@ -20,12 +20,8 @@
             <column name="status" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
-            <column name="total_amount" type="decimal(10, 2)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="reward_points" type="decimal(10, 2)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="total_amount" type="decimal(10, 2)"/>
+            <column name="reward_points" type="decimal(10, 2)"/>
             <column name="consignee" type="varchar(50)"/>
             <column name="address" type="varchar(100)"/>
             <column name="phone_number" type="varchar(20)"/>
@@ -133,9 +129,7 @@
             <column name="phone_number" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
-            <column name="carrier_id" type="char(3)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="carrier_id" type="char(3)"/>
             <column name="tracking_number" type="varchar(15)"/>
             <column name="status" type="varchar(20)">
                 <constraints nullable="false"/>

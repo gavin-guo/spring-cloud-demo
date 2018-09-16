@@ -1,7 +1,7 @@
 package com.gavin.business.service;
 
-import com.gavin.common.dto.point.FreezePointsDto;
-import com.gavin.common.dto.point.ProducePointsDto;
+import com.gavin.common.dto.user.FreezePointsDto;
+import com.gavin.common.dto.user.ProducePointsDto;
 
 import java.math.BigDecimal;
 

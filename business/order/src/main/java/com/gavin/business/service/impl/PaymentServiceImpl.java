@@ -2,8 +2,8 @@ package com.gavin.business.service.impl;
 
 import com.gavin.business.domain.Payment;
 import com.gavin.common.dto.common.PageResult;
-import com.gavin.common.dto.payment.NotifyPaidDto;
-import com.gavin.common.dto.payment.PaymentDto;
+import com.gavin.common.dto.order.NotifyPaidDto;
+import com.gavin.common.dto.order.PaymentDto;
 import com.gavin.common.enums.PaymentStatusEnums;
 import com.gavin.common.exception.RecordNotFoundException;
 import com.gavin.common.messaging.PaymentSucceededProcessor;

@@ -2,8 +2,8 @@ package com.gavin.business.controller;
 
 import com.gavin.business.service.AddressService;
 import com.gavin.common.constants.RequestHeaderConstants;
-import com.gavin.common.dto.address.AddressDto;
-import com.gavin.common.dto.address.RegisterAddressDto;
+import com.gavin.common.dto.user.AddressDto;
+import com.gavin.common.dto.user.RegisterAddressDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @Api(value = "/addresses", description = "地址相关API")
+@RequestMapping("/users")
 public class AddressController {
 
     @Autowired

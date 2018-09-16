@@ -2,7 +2,7 @@ package com.gavin.business.config;
 
 import com.gavin.business.domain.Address;
 import com.gavin.business.domain.User;
-import com.gavin.common.dto.address.AddressDto;
+import com.gavin.common.dto.user.AddressDto;
 import com.gavin.common.dto.user.AuthorityDto;
 import com.gavin.common.dto.user.UserDto;
 import org.modelmapper.ModelMapper;

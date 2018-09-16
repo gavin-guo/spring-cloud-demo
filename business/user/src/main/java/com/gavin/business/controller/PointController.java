@@ -2,7 +2,7 @@ package com.gavin.business.controller;
 
 import com.gavin.business.service.PointService;
 import com.gavin.common.constants.RequestHeaderConstants;
-import com.gavin.common.dto.point.FreezePointsDto;
+import com.gavin.common.dto.user.FreezePointsDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 @RestController
 @Slf4j
 @Api(value = "/points", description = "积分相关API")
+@RequestMapping("/users")
 public class PointController {
 
     @Autowired

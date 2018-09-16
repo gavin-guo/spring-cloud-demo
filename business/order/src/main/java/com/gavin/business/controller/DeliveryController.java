@@ -1,8 +1,8 @@
 package com.gavin.business.controller;
 
 import com.gavin.business.service.DeliveryService;
-import com.gavin.common.dto.delivery.AssignCarrierDto;
-import com.gavin.common.dto.delivery.DeliveryDto;
+import com.gavin.common.dto.order.AssignCarrierDto;
+import com.gavin.common.dto.order.DeliveryDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -16,6 +16,7 @@ import javax.validation.Valid;
 @RestController
 @Slf4j
 @Api(value = "/deliveries", description = "物流相关API")
+@RequestMapping("/orders")
 public class DeliveryController {
 
     @Autowired

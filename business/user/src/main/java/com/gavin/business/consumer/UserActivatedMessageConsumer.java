@@ -2,7 +2,7 @@ package com.gavin.business.consumer;
 
 import com.gavin.business.service.PointService;
 import com.gavin.common.consumer.MessageConsumer;
-import com.gavin.common.dto.point.ProducePointsDto;
+import com.gavin.common.dto.user.ProducePointsDto;
 import com.gavin.common.messaging.UserActivatedProcessor;
 import com.gavin.common.payload.UserActivatedPayload;
 import com.gavin.common.util.JsonUtils;

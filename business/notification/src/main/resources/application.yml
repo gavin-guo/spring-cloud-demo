@@ -1,9 +1,6 @@
 server:
   port: 9104
 
-liquibase:
-  enabled: false
-
 spring:
   mail:
     host: smtp.yeah.net

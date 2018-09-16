@@ -3,7 +3,7 @@ package com.gavin.business.controller;
 import com.gavin.business.service.PaymentService;
 import com.gavin.common.constants.RequestHeaderConstants;
 import com.gavin.common.dto.common.PageResult;
-import com.gavin.common.dto.payment.PaymentDto;
+import com.gavin.common.dto.order.PaymentDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @Api(value = "/payments", description = "支付相关API")
+@RequestMapping("/orders")
 public class PaymentController {
 
     @Autowired

@@ -9,19 +9,18 @@ import com.gavin.business.exception.PointsFreezeException;
 import com.gavin.business.exception.ProductsReserveException;
 import com.gavin.business.repository.OrderRepository;
 import com.gavin.business.service.OrderService;
-import com.gavin.common.client.address.AddressClient;
-import com.gavin.common.client.point.PointClient;
 import com.gavin.common.client.product.ProductClient;
+import com.gavin.common.client.user.UserClient;
 import com.gavin.common.constants.ResponseCodeConstants;
-import com.gavin.common.dto.address.AddressDto;
 import com.gavin.common.dto.common.CustomResponseBody;
 import com.gavin.common.dto.common.PageResult;
 import com.gavin.common.dto.order.CreateOrderDto;
 import com.gavin.common.dto.order.ItemDto;
 import com.gavin.common.dto.order.OrderDetailsDto;
 import com.gavin.common.dto.order.OrderDto;
-import com.gavin.common.dto.point.FreezePointsDto;
 import com.gavin.common.dto.product.ReservedProductDto;
+import com.gavin.common.dto.user.AddressDto;
+import com.gavin.common.dto.user.FreezePointsDto;
 import com.gavin.common.enums.OrderStatusEnums;
 import com.gavin.common.exception.RecordNotFoundException;
 import com.gavin.common.messaging.ArrangeShipmentProcessor;
@@ -58,13 +57,10 @@ public class OrderServiceImpl implements OrderService {
     private ModelMapper modelMapper;
 
     @Autowired
-    private AddressClient addressClient;
-
-    @Autowired
     private ProductClient productClient;
 
     @Autowired
-    private PointClient pointClient;
+    private UserClient userClient;
 
     @Autowired
     private ArrangeShipmentProcessor arrangeShipmentProcessor;
@@ -172,7 +168,7 @@ public class OrderServiceImpl implements OrderService {
             freezePointsDto.setAmount(_pointsAmount);
 
             // 调用积分服务冻结积分。
-            CustomResponseBody responseBody = pointClient.freezePoints(freezePointsDto);
+            CustomResponseBody responseBody = userClient.freezePoints(freezePointsDto);
             if (!ResponseCodeConstants.OK.equals(responseBody.getCode())) {
                 log.warn("call point-service to freeze points failed.");
                 throw new PointsFreezeException("freeze points failed.");
@@ -269,9 +265,9 @@ public class OrderServiceImpl implements OrderService {
             // 调用地址服务查询收件人详细地址。
             CustomResponseBody<AddressDto> responseBody;
             if (StringUtils.isNotBlank(_addressId)) {
-                responseBody = addressClient.findAddressById(_addressId);
+                responseBody = userClient.findAddressById(_addressId);
             } else {
-                responseBody = addressClient.findDefaultAddress();
+                responseBody = userClient.findDefaultAddress();
             }
 
             if (!ResponseCodeConstants.OK.equals(responseBody.getCode())) {

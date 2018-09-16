@@ -1,7 +1,7 @@
 package com.gavin.business.service;
 
-import com.gavin.common.dto.delivery.AssignCarrierDto;
-import com.gavin.common.dto.delivery.DeliveryDto;
+import com.gavin.common.dto.order.AssignCarrierDto;
+import com.gavin.common.dto.order.DeliveryDto;
 
 public interface DeliveryService {
 
