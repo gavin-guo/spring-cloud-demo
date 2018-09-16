@@ -32,9 +32,9 @@ public class CreateUserDto implements Serializable {
     @ApiModelProperty(value = "联系邮箱", position = 4, required = true)
     private String email;
 
-    @JsonProperty("mobile_number")
-    @NotNull(message = "'mobile_number' should not be null")
+    @JsonProperty("phone_number")
+    @NotNull(message = "'phone_number' should not be null")
     @ApiModelProperty(value = "联系电话", position = 5, required = true)
-    private String mobileNumber;
+    private String phoneNumber;
 
 }
