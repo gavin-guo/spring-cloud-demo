@@ -1,0 +1,106 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create table oauth_access_token" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring_cloud_demo" tableName="oauth_access_token"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="oauth_access_token">
+            <column name="token_id" type="varchar(256)"/>
+            <column name="token" type="blob"/>
+            <column name="authentication_id" type="varchar(256)"/>
+            <column name="user_name" type="varchar(256)"/>
+            <column name="client_id" type="varchar(256)"/>
+            <column name="authentication" type="blob"/>
+            <column name="refresh_token" type="varchar(256)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create table oauth_refresh_token" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring_cloud_demo" tableName="oauth_refresh_token"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="oauth_refresh_token">
+            <column name="token_id" type="varchar(256)"/>
+            <column name="token" type="blob"/>
+            <column name="authentication" type="blob"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create table oauth_approvals" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring_cloud_demo" tableName="oauth_approvals"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="oauth_approvals">
+            <column name="userid" type="varchar(256)"/>
+            <column name="clientid" type="varchar(256)"/>
+            <column name="scope" type="varchar(256)"/>
+            <column name="status" type="varchar(10)"/>
+            <column name="expiresat" type="timestamp"/>
+            <column name="lastmodifiedat" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create table oauth_code" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring_cloud_demo" tableName="oauth_code"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="oauth_code">
+            <column name="code" type="varchar(256)"/>
+            <column name="authentication" type="blob"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create table oauth_client_details" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring_cloud_demo" tableName="oauth_client_details"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="oauth_client_details">
+            <column name="client_id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="resource_ids" type="varchar(256)"/>
+            <column name="client_secret" type="varchar(256)"/>
+            <column name="scope" type="varchar(256)"/>
+            <column name="authorized_grant_types" type="varchar(256)"/>
+            <column name="web_server_redirect_uri" type="varchar(256)"/>
+            <column name="authorities" type="varchar(256)"/>
+            <column name="access_token_validity" type="int(11)"/>
+            <column name="refresh_token_validity" type="int(11)"/>
+            <column name="additional_information" type="varchar(4096)"/>
+            <column name="autoapprove" type="varchar(45)" defaultValue="true"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="initialize table oauth_client_details" author="gavin-guo">
+        <preConditions>
+            <tableIsEmpty tableName="oauth_client_details"/>
+        </preConditions>
+
+        <sql>
+            insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types,
+            web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information,
+            autoapprove)
+            values ('api', null, 'secret', 'api-scope', 'authorization_code,password,refresh_token,client_credentials',
+            '', 'role_client, role_trusted_client', '30000', '30000', null, 'false');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
