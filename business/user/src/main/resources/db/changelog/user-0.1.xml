@@ -33,10 +33,7 @@
 
     <changeSet id="initialize table user" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
-            <and>
-                <tableExists schemaName="spring_cloud_demo" tableName="user"/>
-                <sqlCheck expectedResult="0">select count(*) from user</sqlCheck>
-            </and>
+            <tableIsEmpty tableName="user"/>
         </preConditions>
 
         <loadData tableName="user" file="classpath:db/changelog/data/user.csv" quotchar="'"/>
@@ -64,10 +61,7 @@
 
     <changeSet id="initialize table user_authority" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
-            <and>
-                <tableExists schemaName="spring_cloud_demo" tableName="user_authority"/>
-                <sqlCheck expectedResult="0">select count(*) from user_authority</sqlCheck>
-            </and>
+            <tableIsEmpty tableName="user_authority"/>
         </preConditions>
 
         <loadData tableName="user_authority" file="classpath:db/changelog/data/user_authority.csv" quotchar="'"/>

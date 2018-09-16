@@ -85,4 +85,64 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="create table carrier" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring_cloud_demo" tableName="carrier"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="carrier">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="initialize table carrier" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <tableIsEmpty tableName="carrier"/>
+        </preConditions>
+
+        <loadData tableName="carrier" file="classpath:db/changelog/data/carrier.csv" quotchar="'"/>
+    </changeSet>
+
+    <changeSet id="create table delivery" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring_cloud_demo" tableName="delivery"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="delivery">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="consignee" type="varchar(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="carrier_id" type="char(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tracking_number" type="varchar(15)"/>
+            <column name="status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="bigint(20)"/>
+            <column name="created_time" type="datetime" defaultValueComputed="current_timestamp"/>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

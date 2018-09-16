@@ -18,8 +18,6 @@
         <module>user</module>
         <module>product</module>
         <module>order</module>
-        <module>payment</module>
-        <module>delivery</module>
         <module>notification</module>
     </modules>
 

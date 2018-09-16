@@ -53,6 +53,13 @@ spring:
           content-type: application/json
           producer:
             required-groups: default
+        arrange_shipment_input:
+          binder: rabbit
+          destination: arrangeShipment
+          group: default
+          content-type: application/json
+          consumer:
+            max-attempts: 3
     loadbalancer:
       retry:
         enabled: true
