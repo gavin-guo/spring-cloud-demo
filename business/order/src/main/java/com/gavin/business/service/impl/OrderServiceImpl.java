@@ -322,7 +322,7 @@ public class OrderServiceImpl implements OrderService {
                 order.addItem(item);
 
                 // 计算该种商品的总金额。
-                BigDecimal totalAmountPerItem = new BigDecimal(reservedProduct.getPrice() * reservedProduct.getQuantity());
+                BigDecimal totalAmountPerItem = reservedProduct.getPrice().multiply(new BigDecimal(reservedProduct.getQuantity()));
 
                 // 计算该种商品可获得的积分数。
                 BigDecimal totalPointsPerItem = new BigDecimal("0");

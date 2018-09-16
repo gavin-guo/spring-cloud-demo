@@ -3,7 +3,7 @@ server:
 
 liquibase:
   change-log: classpath:db/changelog/changelog.xml
-  default-schema: spring-cloud-demo
+  default-schema: spring_cloud_demo
   drop-first: false
   enabled: true
 

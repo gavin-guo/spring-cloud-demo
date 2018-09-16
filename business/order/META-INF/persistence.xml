@@ -4,8 +4,9 @@
     <persistence-unit name="persistenceUnit">
         <class>com.gavin.business.domain.Item</class>
         <class>com.gavin.business.domain.Order</class>
+        <class>com.gavin.business.domain.Payment</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/schema_order"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/spring_cloud_demo"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="root"/>

@@ -6,7 +6,7 @@
     <changeSet id="create table point" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="point"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="point"/>
             </not>
         </preConditions>
 
@@ -30,7 +30,7 @@
     <changeSet id="create table point_history" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="point_history"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="point_history"/>
             </not>
         </preConditions>
 

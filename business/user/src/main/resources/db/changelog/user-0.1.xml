@@ -6,7 +6,7 @@
     <changeSet id="create table user" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="user"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="user"/>
             </not>
         </preConditions>
 
@@ -34,7 +34,7 @@
     <changeSet id="initialize table user" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <and>
-                <tableExists schemaName="spring-cloud-demo" tableName="user"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="user"/>
                 <sqlCheck expectedResult="0">select count(*) from user</sqlCheck>
             </and>
         </preConditions>
@@ -45,7 +45,7 @@
     <changeSet id="create table user_authority" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="user_authority"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="user_authority"/>
             </not>
         </preConditions>
 
@@ -65,7 +65,7 @@
     <changeSet id="initialize table user_authority" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <and>
-                <tableExists schemaName="spring-cloud-demo" tableName="user_authority"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="user_authority"/>
                 <sqlCheck expectedResult="0">select count(*) from user_authority</sqlCheck>
             </and>
         </preConditions>

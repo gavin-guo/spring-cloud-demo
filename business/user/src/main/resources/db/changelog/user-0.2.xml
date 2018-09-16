@@ -6,7 +6,7 @@
     <changeSet id="create table country" author="gavin-guo">
         <preConditions>
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="country"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="country"/>
             </not>
         </preConditions>
 
@@ -31,7 +31,7 @@
     <changeSet id="create table province" author="gavin-guo">
         <preConditions>
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="province"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="province"/>
             </not>
         </preConditions>
 
@@ -59,7 +59,7 @@
     <changeSet id="create table city" author="gavin-guo">
         <preConditions>
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="city"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="city"/>
             </not>
         </preConditions>
 
@@ -88,7 +88,7 @@
     <changeSet id="create table district" author="gavin-guo">
         <preConditions>
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="district"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="district"/>
             </not>
         </preConditions>
 
@@ -116,7 +116,7 @@
     <changeSet id="create table address" author="gavin-guo">
         <preConditions>
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="address"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="address"/>
             </not>
         </preConditions>
 

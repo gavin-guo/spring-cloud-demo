@@ -6,7 +6,7 @@
     <changeSet id="create table category" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="category"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="category"/>
             </not>
         </preConditions>
 
@@ -32,7 +32,7 @@
     <changeSet id="create table product" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="product"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="product"/>
             </not>
         </preConditions>
 
@@ -64,7 +64,7 @@
     <changeSet id="create table product_stock" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="product_stock"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="product_stock"/>
             </not>
         </preConditions>
 
@@ -84,7 +84,7 @@
     <changeSet id="create table point_reward_plan" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="point_reward_plan"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="point_reward_plan"/>
             </not>
         </preConditions>
 
@@ -112,7 +112,7 @@
     <changeSet id="create table product_reservation" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="product_reservation"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="product_reservation"/>
             </not>
         </preConditions>
 

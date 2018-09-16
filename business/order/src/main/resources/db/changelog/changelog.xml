@@ -5,5 +5,4 @@
 
     <include file="classpath:db/changelog/order-0.1.xml"/>
 
-
 </databaseChangeLog>

@@ -3,49 +3,83 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="create table point" author="gavin-guo">
+    <changeSet id="create table order" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="point"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="order"/>
             </not>
         </preConditions>
 
-        <createTable tableName="point">
+        <createTable tableName="order">
             <column name="id" type="varchar(50)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="amount" type="decimal(10, 0)">
+            <column name="status" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
-            <column name="associated_order_id" type="varchar(50)"/>
-            <column name="expire_date" type="char(10)"/>
+            <column name="total_amount" type="decimal(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reward_points" type="decimal(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="consignee" type="varchar(50)"/>
+            <column name="address" type="varchar(100)"/>
+            <column name="phone_number" type="varchar(20)"/>
             <column name="version" type="bigint(20)"/>
             <column name="created_time" type="datetime" defaultValueComputed="current_timestamp"/>
         </createTable>
     </changeSet>
 
-    <changeSet id="create table point_history" author="gavin-guo">
+    <changeSet id="create table item" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="spring-cloud-demo" tableName="point_history"/>
+                <tableExists schemaName="spring_cloud_demo" tableName="item"/>
             </not>
         </preConditions>
 
-        <createTable tableName="point_history">
+        <createTable tableName="item">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="int(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create table payment" author="gavin-guo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="spring_cloud_demo" tableName="payment"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="payment">
             <column name="id" type="varchar(50)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="order_id" type="varchar(50)"/>
-            <column name="amount" type="decimal(10, 0)">
+            <column name="order_id" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="action" type="varchar(20)"/>
+            <column name="amount" type="decimal(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
             <column name="version" type="bigint(20)"/>
             <column name="created_time" type="datetime" defaultValueComputed="current_timestamp"/>
         </createTable>

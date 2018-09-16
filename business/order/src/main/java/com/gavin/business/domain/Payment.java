@@ -44,8 +44,4 @@ public class Payment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
 
-    @Column(name = "modified_time", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modifiedTime;
-
 }
