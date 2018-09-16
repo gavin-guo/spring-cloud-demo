@@ -1,4 +1,4 @@
-package com.gavin.common.dto.point;
+package com.gavin.common.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
@@ -10,8 +10,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-@ApiModel(value = "FreezePointsDto", description = "冻结积分信息")
-public class FreezePointsDto implements Serializable {
+@ApiModel(value = "ProducePointsDto", description = "新增积分信息")
+public class ProducePointsDto implements Serializable {
 
     @JsonProperty("user_id")
     @NotNull(message = "'user_id' should not be null")
@@ -20,7 +20,7 @@ public class FreezePointsDto implements Serializable {
 
     @JsonProperty("order_id")
     @NotNull(message = "'order_id' should not be null")
-    @ApiModelProperty(value = "关联的订单ID", position = 2, required = true)
+    @ApiModelProperty(value = "产生积分的订单ID", position = 2, required = true)
     private String orderId;
 
     @JsonProperty("amount")

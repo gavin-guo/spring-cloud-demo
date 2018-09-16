@@ -1,4 +1,4 @@
-package com.gavin.common.dto.point;
+package com.gavin.common.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

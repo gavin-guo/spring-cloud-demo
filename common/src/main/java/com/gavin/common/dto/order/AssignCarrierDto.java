@@ -1,4 +1,4 @@
-package com.gavin.common.dto.delivery;
+package com.gavin.common.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
