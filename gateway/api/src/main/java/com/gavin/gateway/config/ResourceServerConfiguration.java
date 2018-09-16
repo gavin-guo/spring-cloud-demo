@@ -11,6 +11,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {/**/
         http
                 .authorizeRequests()
+                .antMatchers("/uaa/oauth/token").permitAll()
+                .antMatchers("/users/activation").permitAll()
                 .antMatchers("/users/**").hasAuthority("AUTHORITY_SUPER")
                 .antMatchers("/addresses/**").hasAuthority("AUTHORITY_SUPER")
                 .antMatchers("/points/**").hasAuthority("AUTHORITY_SUPER")

@@ -14,14 +14,6 @@ zuul:
       path: /users/**
       service-id: user
       strip-prefix: false
-    address:
-      path: /addresses/**
-      service-id: address
-      strip-prefix: false
-    point:
-      path: /points/**
-      service-id: point
-      strip-prefix: false
     product:
       path: /products/**
       service-id: product
@@ -29,14 +21,6 @@ zuul:
     order:
       path: /orders/**
       service-id: order
-      strip-prefix: false
-    payment:
-      path: /payments/**
-      service-id: payment
-      strip-prefix: false
-    delivery:
-      path: /deliveries/**
-      service-id: delivery
       strip-prefix: false
 
 ribbon:

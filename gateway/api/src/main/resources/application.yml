@@ -3,7 +3,7 @@ server:
 
 zuul:
   ignored-services: '*'
-  sensitive-headers: Cookie,Set-Cookie,Authorization
+  sensitive-headers: Cookie,Set-Cookie
   retryable: true
   routes:
     auth:
@@ -14,14 +14,6 @@ zuul:
       path: /users/**
       service-id: user
       strip-prefix: false
-    address:
-      path: /addresses/**
-      service-id: address
-      strip-prefix: false
-    point:
-      path: /points/**
-      service-id: point
-      strip-prefix: false
     product:
       path: /products/**
       service-id: product
@@ -29,14 +21,6 @@ zuul:
     order:
       path: /orders/**
       service-id: order
-      strip-prefix: false
-    payment:
-      path: /payments/**
-      service-id: payment
-      strip-prefix: false
-    delivery:
-      path: /deliveries/**
-      service-id: delivery
       strip-prefix: false
 
 logging:
@@ -50,7 +34,6 @@ management:
 security:
   basic:
     enabled: false
-  ignored: /users/activation,/uaa/auth/token/**
 
 ribbon:
   ConnectTimeout: 60000
