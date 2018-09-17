@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-config
+  namespace: demo
+data:
+  spring_profiles_active: k8s
+  mysql_host: 192.168.1.80
+  mysql_port: 3306
+  mysql_user: root
+  mysql_password: root
+  redis_host: 192.168.1.80
+  redis_port: 6379
+  rabbitmq_host: 192.168.1.80
+  rabbitmq_port: 5672
+  kafka_host: 192.168.1.80
+  kafka_port: 9092
+  zookeeper_host: 192.168.1.80
+  zookeeper_port: 2181

@@ -13,14 +13,14 @@ spring:
       defaultBinder: kafka
       kafka:
         binder:
-          zkNodes: ${ZOOKEEPER_SERVICE_HOST}
-          defaultZkPort: ${ZOOKEEPER_SERVICE_PORT}
-          brokers: ${KAFKA_SERVICE_HOST}
-          defaultBrokerPort: ${KAFKA_SERVICE_PORT}
+          zkNodes: ${zookeeper_host}
+          defaultZkPort: ${zookeeper_port}
+          brokers: ${kafka_host}
+          defaultBrokerPort: ${kafka_port}
           autoCreateTopics: true
   rabbitmq:
-    host: ${RABBITMQ_SERVICE_HOST}
-    port: ${RABBITMQ_SERVICE_PORT}
+    host: ${rabbitmq_host}
+    port: ${rabbitmq_port}
     username: guest
     password: guest
     publisher-confirms: true
@@ -37,8 +37,8 @@ spring:
         enabled: true
         max-attempts: 3
   redis:
-    host: ${REDIS_SERVICE_HOST}
-    port: ${REDIS_SERVICE_PORT}
+    host: ${redis_host}
+    port: ${redis_port}
     database: 0
     pool:
       max-active: 10

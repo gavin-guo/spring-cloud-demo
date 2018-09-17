@@ -2,9 +2,9 @@ spring:
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/schema_notification?useUnicode=true&useSSL=false&amp;characterEncoding=utf8
-    username: root
-    password: root
+    url: jdbc:mysql://${mysql_host}:${mysql_port}/spring_cloud_demo?useUnicode=true&useSSL=false&amp;characterEncoding=utf8
+    username: ${mysql_user}
+    password: ${mysql_password}
     dbcp2:
       test-while-idle: true
       validation-query: SELECT 1

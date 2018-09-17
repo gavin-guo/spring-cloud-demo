@@ -13,13 +13,13 @@ spring:
       defaultBinder: kafka
       kafka:
         binder:
-          zkNodes: ${KAFKA_HOST:localhost}
+          zkNodes: localhost
           defaultZkPort: 2181
-          brokers: ${KAFKA_HOST:localhost}
+          brokers: localhost
           defaultBrokerPort: 9092
           autoCreateTopics: true
   rabbitmq:
-    host: ${RABBITMQ_HOST:localhost}
+    host: localhost
     port: 5672
     username: guest
     password: guest
@@ -37,7 +37,7 @@ spring:
         enabled: true
         max-attempts: 3
   redis:
-    host: ${REDIS_HOST:localhost}
+    host: localhost
     port: 6379
     database: 0
     pool:

@@ -22,6 +22,20 @@ eureka:
 
 ---
 spring:
+  profiles: k8s
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    lease-renewal-interval-in-seconds: 10
+
+---
+spring:
   profiles: peer1
 
 server:

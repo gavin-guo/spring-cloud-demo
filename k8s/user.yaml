@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: demo
+  name: user
+  labels:
+    app: user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      imagePullSecrets:
+      - name: registry-secret
+      volumes:
+      - name: log-volume
+        hostPath:
+          path: /data
+          type: Directory
+      containers:
+      - name: user
+        image: registry.gavin.com/user:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9101
+        envFrom:
+        - configMapRef:
+            name: test-config
+        volumeMounts:
+        - mountPath: /opt/log/stash
+          name: log-volume
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 9101
+        initialDelaySeconds: 15
+        timeoutSeconds: 1
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo
+  name: user
+spec:
+  type: NodePort
+  selector:
+    app: user
+  ports:
+  - port: 9101
+    nodePort: 39101

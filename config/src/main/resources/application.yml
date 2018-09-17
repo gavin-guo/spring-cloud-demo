@@ -10,8 +10,8 @@ spring:
         native:
           search-locations: classpath:/config
   rabbitmq:
-    host: ${RABBITMQ_SERVICE_HOST}
-    port: ${RABBITMQ_SERVICE_PORT}
+    host: ${rabbitmq_host}
+    port: ${rabbitmq_port}
     username: guest
     password: guest
 

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: demo
+  name: discovery
+  labels:
+    app: discovery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery
+  template:
+    metadata:
+      labels:
+        app: discovery
+    spec:
+      imagePullSecrets:
+      - name: registry-secret
+      containers:
+      - name: discovery
+        image: registry.gavin.com/eureka:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8761
+        envFrom:
+        - configMapRef:
+            name: test-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo
+  name: discovery
+spec:
+  type: NodePort
+  selector:
+    app: discovery
+  ports:
+  - port: 8761
+    nodePort: 38761

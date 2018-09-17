@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: demo
+  name: config
+  labels:
+    app: config
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config
+  template:
+    metadata:
+      labels:
+        app: config
+    spec:
+      imagePullSecrets:
+      - name: registry-secret
+      containers:
+      - name: config
+        image: registry.gavin.com/config:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8888
+        envFrom:
+        - configMapRef:
+            name: test-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo
+  name: config
+spec:
+  type: NodePort
+  selector:
+    app: config
+  ports:
+  - port: 88888888
+    nodePort: 38888
