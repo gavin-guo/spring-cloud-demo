@@ -19,7 +19,8 @@ public class CustomResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         // already processed by ExceptionHandler
-        return returnType.getContainingClass() != CustomExceptionAdvice.class;
+        return (returnType.getContainingClass() != CustomExceptionAdvice.class)
+                && (!returnType.getMethod().getName().equals("ping"));
     }
 
     @Override
