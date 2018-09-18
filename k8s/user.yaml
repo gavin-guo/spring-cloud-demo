@@ -30,7 +30,7 @@ spec:
         - containerPort: 9101
         envFrom:
         - configMapRef:
-            name: test-config
+            name: demo-config
         volumeMounts:
         - mountPath: /opt/log/stash
           name: log-volume

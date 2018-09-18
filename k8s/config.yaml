@@ -25,7 +25,7 @@ spec:
         - containerPort: 8888
         envFrom:
         - configMapRef:
-            name: test-config
+            name: demo-config
 
 ---
 apiVersion: v1
@@ -38,5 +38,5 @@ spec:
   selector:
     app: config
   ports:
-  - port: 88888888
-    nodePort: 38888
+  - port: 8888
+    nodePort: 30888
