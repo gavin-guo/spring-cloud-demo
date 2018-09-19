@@ -23,9 +23,17 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8888
-        envFrom:
-        - configMapRef:
-            name: demo-config
+        env:
+        - name: rabbitmq_host
+          valueFrom:
+            configMapKeyRef:
+              name: demo-config
+              key: rabbitmq_host
+        - name: rabbitmq_port
+          valueFrom:
+            configMapKeyRef:
+              name: demo-config
+              key: rabbitmq_port
 
 ---
 apiVersion: v1
