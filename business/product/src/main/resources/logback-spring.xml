@@ -28,19 +28,16 @@
     </appender>
 
     <root level="info">
-        <appender-ref ref="console"/>
+        <appender-ref ref="logstash"/>
     </root>
     ​
     <springProfile name="development">
-        <logger name="com.gavin" level="debug">
+        <root level="info">
             <appender-ref ref="console"/>
-            <appender-ref ref="logstash"/>
-        </logger>
+        </root>
 
-        <logger name="org.springframework" level="info"/>
+        <logger name="com.gavin" level="debug"/>
     </springProfile>
-
-    <logger name="com.gavin" level="debug"/>
 
     <logger name="org.hibernate" level="error"/>
 
