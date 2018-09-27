@@ -30,7 +30,7 @@ eureka:
 
 ---
 spring:
-  profiles: test
+  profiles: k8s
   cloud:
     config:
       discovery:
@@ -45,6 +45,6 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-1:8761/eureka/,http://eureka-2:8762/eureka/
+      defaultZone: http://discovery:8761/eureka/
   instance:
     prefer-ip-address: true

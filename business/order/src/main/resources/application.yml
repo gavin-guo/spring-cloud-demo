@@ -77,4 +77,4 @@ spring:
 
 ---
 spring:
-  profiles: test
+  profiles: k8s

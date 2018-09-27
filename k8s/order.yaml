@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: demo
-  name: user
+  name: order
   labels:
-    app: user
+    app: order
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: user
+      app: order
   template:
     metadata:
       labels:
-        app: user
+        app: order
     spec:
       imagePullSecrets:
       - name: registry-secret
@@ -23,12 +23,12 @@ spec:
           path: /opt/log/stash
           type: Directory
       containers:
-      - name: user
-        image: registry.gavin.com/user:latest
+      - name: order
+        image: registry.gavin.com/order:latest
         imagePullPolicy: Always
         ports:
         - name: rest-port
-          containerPort: 9101
+          containerPort: 9103
         envFrom:
         - configMapRef:
             name: demo-config
@@ -47,9 +47,9 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: demo
-  name: user
+  name: order
 spec:
   selector:
-    app: user
+    app: order
   ports:
-  - port: 9101
+  - port: 9103

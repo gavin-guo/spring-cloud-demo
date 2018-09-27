@@ -75,10 +75,10 @@ security:
 
 ---
 spring:
-  profiles: test
+  profiles: k8s
   redis:
-    host: ${REDIS_SERVICE_HOST}
-    port: ${REDIS_SERVICE_PORT}
+    host: ${redis_host}
+    port: ${redis_port}
     database: 0
     pool:
       max-active: 10
@@ -91,7 +91,7 @@ security:
     client:
       client-id: api
       client-secret: secret
-      access-token-uri: http://oauth:9999/uaa/oauth/token
-      user-authorization-uri: http://oauth:9999/uaa/oauth/authorize
+      access-token-uri: http://auth:9999/uaa/oauth/token
+      user-authorization-uri: http://auth:9999/uaa/oauth/authorize
     resource:
-      token-info-uri: http://oauth:9999/uaa/oauth/check_token
+      token-info-uri: http://auth:9999/uaa/oauth/check_token
