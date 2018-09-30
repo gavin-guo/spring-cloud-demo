@@ -117,6 +117,14 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="initialize table point_reward_plan" author="gavin-guo">
+        <preConditions>
+            <tableIsEmpty tableName="point_reward_plan"/>
+        </preConditions>
+
+        <loadData tableName="point_reward_plan" file="classpath:db/changelog/data/point_reward_plan.csv" quotchar="'"/>
+    </changeSet>
+
     <changeSet id="create table product_reservation" author="gavin-guo">
         <preConditions onFail="MARK_RAN">
             <not>
