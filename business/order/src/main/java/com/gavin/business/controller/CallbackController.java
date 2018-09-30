@@ -25,7 +25,7 @@ public class CallbackController {
     @ApiOperation(value = "供第三方支付平台调用，接收支付结果通知")
     public void callback(
             @ApiParam(name = "notification", value = "通知信息", required = true) @Valid @RequestBody NotifyPaidDto _notification) {
-        paymentService.calledByThirdParty(_notification);
+        paymentService.paid(_notification);
     }
 
 }

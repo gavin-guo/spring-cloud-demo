@@ -15,7 +15,7 @@ spring:
       bindings:
         user_created_input:
           binder: rabbit
-          destination: userCreated
+          destination: user-created
           group: default
           content-type: application/json
           consumer:

@@ -29,7 +29,7 @@ public class PaymentSucceededMessageConsumer implements MessageConsumer<PaymentS
 
     @StreamListener(PaymentSucceededProcessor.INPUT)
     @Transactional
-    public void receiveMessage(@Payload PaymentSucceededPayload _payload) {
+    public void consumeMessage(@Payload PaymentSucceededPayload _payload) {
         log.info("received payment_succeeded message. {}", JsonUtils.toJson(_payload));
 
         CompletableFuture

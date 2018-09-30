@@ -32,6 +32,6 @@ public interface PaymentService {
      *
      * @param _notification
      */
-    void calledByThirdParty(NotifyPaidDto _notification);
+    void paid(NotifyPaidDto _notification);
 
 }

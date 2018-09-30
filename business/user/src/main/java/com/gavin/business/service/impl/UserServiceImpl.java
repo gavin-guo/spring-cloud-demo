@@ -11,26 +11,31 @@ import com.gavin.common.dto.user.UserDto;
 import com.gavin.common.enums.AuthorityEnums;
 import com.gavin.common.enums.UserStatusEnums;
 import com.gavin.common.exception.RecordNotFoundException;
-import com.gavin.common.messaging.UserActivatedProcessor;
+import com.gavin.common.messaging.RewardPointsProcessor;
 import com.gavin.common.messaging.UserCreatedProcessor;
-import com.gavin.common.payload.UserActivatedPayload;
+import com.gavin.common.payload.RewardPointsPayload;
 import com.gavin.common.payload.UserCreatedPayload;
 import com.gavin.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
+
+    @Value("${points.user-activated-rewards}")
+    private Integer rewards;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -45,7 +50,7 @@ public class UserServiceImpl implements UserService {
     private UserCreatedProcessor userCreatedProcessor;
 
     @Autowired
-    private UserActivatedProcessor userActivatedProcessor;
+    private RewardPointsProcessor rewardPointsProcessor;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -80,7 +85,7 @@ public class UserServiceImpl implements UserService {
         UserCreatedPayload payload = modelMapper.map(user, UserCreatedPayload.class);
         payload.setUserId(user.getId());
         Message<UserCreatedPayload> message = MessageBuilder.withPayload(payload).build();
-        userCreatedProcessor.output().send(message);
+        userCreatedProcessor.producer().send(message);
 
         return userDto;
     }
@@ -100,10 +105,12 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         // 发送消息至point。
-        UserActivatedPayload payload = new UserActivatedPayload();
+        RewardPointsPayload payload = new RewardPointsPayload();
         payload.setUserId(_userId);
-        Message<UserActivatedPayload> message = MessageBuilder.withPayload(payload).build();
-        userActivatedProcessor.output().send(message);
+        payload.setAmount(new BigDecimal(rewards));
+        payload.setReason("new user activated");
+        Message<RewardPointsPayload> message = MessageBuilder.withPayload(payload).build();
+        rewardPointsProcessor.producer().send(message);
     }
 
     @Override

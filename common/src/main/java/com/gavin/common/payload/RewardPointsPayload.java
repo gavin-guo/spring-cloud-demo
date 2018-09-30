@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class WaitingForPaymentPayload implements Serializable {
+public class RewardPointsPayload implements Serializable {
 
     @JsonProperty("event_id")
     private String eventId;
@@ -15,10 +15,10 @@ public class WaitingForPaymentPayload implements Serializable {
     @JsonProperty("user_id")
     private String userId;
 
-    @JsonProperty("order_id")
-    private String orderId;
-
     @JsonProperty("amount")
     private BigDecimal amount;
+
+    @JsonProperty("reason")
+    private String reason;
 
 }

@@ -1,7 +1,7 @@
 package com.gavin.business.service;
 
 import com.gavin.common.dto.user.FreezePointsDto;
-import com.gavin.common.dto.user.ProducePointsDto;
+import com.gavin.common.dto.user.RewardPointsDto;
 
 import java.math.BigDecimal;
 
@@ -21,7 +21,7 @@ public interface PointService {
      * @param _production 新增积分信息
      * @return
      */
-    void addPoints(ProducePointsDto _production);
+    void addPoints(RewardPointsDto _production);
 
     /**
      * 由于在订单中使用积分抵扣而预先冻结积分

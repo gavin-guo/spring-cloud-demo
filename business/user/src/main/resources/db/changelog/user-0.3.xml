@@ -46,6 +46,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="action" type="varchar(20)"/>
+            <column name="reason" type="varchar(100)"/>
             <column name="version" type="bigint(20)"/>
             <column name="created_time" type="datetime" defaultValueComputed="current_timestamp"/>
         </createTable>

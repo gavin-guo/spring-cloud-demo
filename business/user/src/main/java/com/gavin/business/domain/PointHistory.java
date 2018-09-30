@@ -36,6 +36,9 @@ public class PointHistory {
     @Column(name = "action")
     private PointActionEnums action;
 
+    @Column(name = "reason")
+    private String reason;
+
     @Version
     @Column(name = "version")
     private Long version;

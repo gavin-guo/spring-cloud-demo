@@ -9,16 +9,16 @@ import org.springframework.messaging.SubscribableChannel;
  * 通知用户已激活的消息通道。
  * user -> point
  */
-public interface UserActivatedProcessor {
+public interface RewardPointsProcessor {
 
-    String INPUT = "user_activated_input";
+    String INPUT = "reward_points_input";
 
-    String OUTPUT = "user_activated_output";
+    String OUTPUT = "reward_points_output";
 
-    @Output(UserActivatedProcessor.OUTPUT)
-    MessageChannel output();
+    @Output(RewardPointsProcessor.OUTPUT)
+    MessageChannel producer();
 
-    @Input(UserActivatedProcessor.INPUT)
-    SubscribableChannel input();
+    @Input(RewardPointsProcessor.INPUT)
+    SubscribableChannel consumer();
 
 }

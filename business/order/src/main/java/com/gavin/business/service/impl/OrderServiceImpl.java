@@ -23,12 +23,12 @@ import com.gavin.common.dto.user.AddressDto;
 import com.gavin.common.dto.user.FreezePointsDto;
 import com.gavin.common.enums.OrderStatusEnums;
 import com.gavin.common.exception.RecordNotFoundException;
-import com.gavin.common.messaging.ArrangeShipmentProcessor;
 import com.gavin.common.messaging.CancelReservationProcessor;
-import com.gavin.common.messaging.WaitingForPaymentProcessor;
-import com.gavin.common.payload.ArrangeShipmentPayload;
+import com.gavin.common.messaging.RewardPointsProcessor;
+import com.gavin.common.messaging.WaitingPaymentProcessor;
 import com.gavin.common.payload.CancelReservationPayload;
-import com.gavin.common.payload.WaitingForPaymentPayload;
+import com.gavin.common.payload.RewardPointsPayload;
+import com.gavin.common.payload.WaitingPaymentPayload;
 import com.gavin.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -63,13 +63,13 @@ public class OrderServiceImpl implements OrderService {
     private UserClient userClient;
 
     @Autowired
-    private ArrangeShipmentProcessor arrangeShipmentProcessor;
-
-    @Autowired
     private CancelReservationProcessor cancelReservationProcessor;
 
     @Autowired
-    private WaitingForPaymentProcessor waitingForPaymentProcessor;
+    private WaitingPaymentProcessor waitingPaymentProcessor;
+
+    @Autowired
+    private RewardPointsProcessor rewardPointsProcessor;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -148,7 +148,7 @@ public class OrderServiceImpl implements OrderService {
         CancelReservationPayload payload = new CancelReservationPayload();
         payload.setOrderId(_orderId);
         Message<CancelReservationPayload> message = MessageBuilder.withPayload(payload).build();
-        cancelReservationProcessor.output().send(message);
+        cancelReservationProcessor.producer().send(message);
 
         updateOrderStatus(_orderId, OrderStatusEnums.CANCELED);
         log.info("cancel order({}) successfully. ", _orderId);
@@ -190,12 +190,12 @@ public class OrderServiceImpl implements OrderService {
             orderRepository.save(order);
 
             // 发送消息至payment。
-            WaitingForPaymentPayload payload = new WaitingForPaymentPayload();
+            WaitingPaymentPayload payload = new WaitingPaymentPayload();
             payload.setUserId(order.getUserId());
             payload.setOrderId(_orderId);
             payload.setAmount(payWithMoneyAmount);
-            Message<WaitingForPaymentPayload> message = MessageBuilder.withPayload(payload).build();
-            waitingForPaymentProcessor.output().send(message);
+            Message<WaitingPaymentPayload> message = MessageBuilder.withPayload(payload).build();
+            waitingPaymentProcessor.producer().send(message);
         }
     }
 
@@ -205,14 +205,18 @@ public class OrderServiceImpl implements OrderService {
         Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
-        order.setStatus(OrderStatusEnums.PAID);
+        order.setStatus(OrderStatusEnums.COMPLETED);
         orderRepository.save(order);
 
-        // 发送消息至delivery。
-        ArrangeShipmentPayload payload = modelMapper.map(order, ArrangeShipmentPayload.class);
-        payload.setOrderId(order.getId());
-        Message<ArrangeShipmentPayload> message = MessageBuilder.withPayload(payload).build();
-        arrangeShipmentProcessor.output().send(message);
+        if (order.getRewardPoints() != null) {
+            RewardPointsPayload payload = new RewardPointsPayload();
+            payload.setUserId(order.getUserId());
+            payload.setAmount(order.getRewardPoints());
+            payload.setReason(String.format("reward for order %s", order.getId()));
+            Message<RewardPointsPayload> message = MessageBuilder.withPayload(payload).build();
+            rewardPointsProcessor.producer().send(message);
+        }
+
     }
 
     private class OrderBuilder {

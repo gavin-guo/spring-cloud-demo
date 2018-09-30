@@ -9,16 +9,16 @@ import org.springframework.messaging.SubscribableChannel;
  * 要求支付的消息通道。
  * order -> payment
  */
-public interface WaitingForPaymentProcessor {
+public interface WaitingPaymentProcessor {
 
-    String INPUT = "waiting_for_payment_input";
+    String INPUT = "waiting_payment_input";
 
-    String OUTPUT = "waiting_for_payment_output";
+    String OUTPUT = "waiting_payment_output";
 
-    @Output(WaitingForPaymentProcessor.OUTPUT)
-    MessageChannel output();
+    @Output(WaitingPaymentProcessor.OUTPUT)
+    MessageChannel producer();
 
-    @Input(WaitingForPaymentProcessor.INPUT)
-    SubscribableChannel input();
+    @Input(WaitingPaymentProcessor.INPUT)
+    SubscribableChannel consumer();
 
 }

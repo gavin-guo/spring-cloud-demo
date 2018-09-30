@@ -4,23 +4,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Data
-public class ArrangeShipmentPayload implements Serializable {
+public class WaitingPaymentPayload implements Serializable {
 
     @JsonProperty("event_id")
     private String eventId;
 
+    @JsonProperty("user_id")
+    private String userId;
+
     @JsonProperty("order_id")
     private String orderId;
 
-    @JsonProperty("consignee")
-    private String consignee;
-
-    @JsonProperty("address")
-    private String address;
-
-    @JsonProperty("phone_number")
-    private String phoneNumber;
+    @JsonProperty("amount")
+    private BigDecimal amount;
 
 }

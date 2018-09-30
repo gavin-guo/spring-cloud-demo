@@ -16,21 +16,21 @@ spring:
       bindings:
         user_created_output:
           binder: rabbit
-          destination: userCreated
+          destination: user-created
           group: default
           content-type: application/json
           producer:
             required-groups: default
-        user_activated_output:
+        reward_points_output:
           binder: rabbit
-          destination: userActivated
+          destination: reward-points
           group: default
           content-type: application/json
           producer:
             required-groups: default
-        user_activated_input:
+        reward_points_input:
           binder: rabbit
-          destination: userActivated
+          destination: reward-points
           group: default
           content-type: application/json
           consumer:

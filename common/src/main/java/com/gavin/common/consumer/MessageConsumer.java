@@ -12,6 +12,6 @@ public interface MessageConsumer<T> {
      *
      * @param payload
      */
-    void receiveMessage(T payload);
+    void consumeMessage(T payload);
 
 }

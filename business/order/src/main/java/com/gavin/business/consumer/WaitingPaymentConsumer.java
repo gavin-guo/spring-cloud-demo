@@ -2,8 +2,8 @@ package com.gavin.business.consumer;
 
 import com.gavin.business.service.PaymentService;
 import com.gavin.common.consumer.MessageConsumer;
-import com.gavin.common.messaging.WaitingForPaymentProcessor;
-import com.gavin.common.payload.WaitingForPaymentPayload;
+import com.gavin.common.messaging.WaitingPaymentProcessor;
+import com.gavin.common.payload.WaitingPaymentPayload;
 import com.gavin.common.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.concurrent.Executor;
 
 @Component
 @Slf4j
-public class WaitingForPaymentMessageConsumer implements MessageConsumer<WaitingForPaymentPayload> {
+public class WaitingPaymentConsumer implements MessageConsumer<WaitingPaymentPayload> {
 
     @Autowired
     @Qualifier("poolTaskExecutor")
@@ -27,9 +27,9 @@ public class WaitingForPaymentMessageConsumer implements MessageConsumer<Waiting
     @Autowired
     private PaymentService paymentService;
 
-    @StreamListener(WaitingForPaymentProcessor.INPUT)
+    @StreamListener(WaitingPaymentProcessor.INPUT)
     @Transactional
-    public void receiveMessage(@Payload WaitingForPaymentPayload _payload) {
+    public void consumeMessage(@Payload WaitingPaymentPayload _payload) {
         log.info("received waiting_for_payment message. {}", JsonUtils.toJson(_payload));
 
         CompletableFuture
@@ -43,7 +43,7 @@ public class WaitingForPaymentMessageConsumer implements MessageConsumer<Waiting
                         , executor)
                 .exceptionally(e -> {
                     log.error(e.getMessage(), e);
-                    log.debug("create payment for order({}) failed.", _payload.getOrderId());
+                    log.error("create payment for order({}) failed.", _payload.getOrderId());
 
                     return null;
                 });

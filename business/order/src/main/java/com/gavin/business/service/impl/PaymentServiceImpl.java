@@ -1,6 +1,8 @@
 package com.gavin.business.service.impl;
 
 import com.gavin.business.domain.Payment;
+import com.gavin.business.repository.PaymentRepository;
+import com.gavin.business.service.PaymentService;
 import com.gavin.common.dto.common.PageResult;
 import com.gavin.common.dto.order.NotifyPaidDto;
 import com.gavin.common.dto.order.PaymentDto;
@@ -8,8 +10,6 @@ import com.gavin.common.enums.PaymentStatusEnums;
 import com.gavin.common.exception.RecordNotFoundException;
 import com.gavin.common.messaging.PaymentSucceededProcessor;
 import com.gavin.common.payload.PaymentSucceededPayload;
-import com.gavin.business.repository.PaymentRepository;
-import com.gavin.business.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional
-    public void calledByThirdParty(NotifyPaidDto _notification) {
+    public void paid(NotifyPaidDto _notification) {
         String paymentId = _notification.getPaymentId();
         BigDecimal amount = _notification.getAmount();
 
@@ -60,6 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         // 第三方支付平台反馈的支付成功金额与需要支付金额不一致。
         if (amount.compareTo(payment.getAmount()) != 0) {
+            log.warn("paid amount are not equal to expected.");
             return;
         }
 
@@ -71,7 +72,7 @@ public class PaymentServiceImpl implements PaymentService {
         payload.setOrderId(payment.getOrderId());
 
         Message<PaymentSucceededPayload> message = MessageBuilder.withPayload(payload).build();
-        paymentSucceededProcessor.output().send(message);
+        paymentSucceededProcessor.producer().send(message);
     }
 
     @Override

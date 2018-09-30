@@ -16,9 +16,9 @@ public interface PaymentSucceededProcessor {
     String OUTPUT = "payment_succeeded_output";
 
     @Output(PaymentSucceededProcessor.OUTPUT)
-    MessageChannel output();
+    MessageChannel producer();
 
     @Input(PaymentSucceededProcessor.INPUT)
-    SubscribableChannel input();
+    SubscribableChannel consumer();
 
 }

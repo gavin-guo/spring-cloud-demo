@@ -1,6 +1,6 @@
 package com.gavin.business;
 
-import com.gavin.common.messaging.UserActivatedProcessor;
+import com.gavin.common.messaging.RewardPointsProcessor;
 import com.gavin.common.messaging.UserCreatedProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication(scanBasePackages = {"com.gavin.business", "com.gavin.common"})
 @EnableDiscoveryClient
-@EnableBinding({UserCreatedProcessor.class, UserActivatedProcessor.class})
+@EnableBinding({UserCreatedProcessor.class, RewardPointsProcessor.class})
 @EnableJpaRepositories(basePackages = "com.gavin.business.repository")
 @EnableScheduling
 @EnableSwagger2

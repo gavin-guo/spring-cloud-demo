@@ -13,53 +13,46 @@ spring:
       bindings:
         cancel_reservation_output:
           binder: rabbit
-          destination: cancelReservation
+          destination: cancel-reservation
           group: default
           content-type: application/json
           producer:
             required-groups: default
-        waiting_for_payment_output:
+        waiting_payment_output:
           binder: rabbit
-          destination: waitingForPayment
-          group: default
-          content-type: application/json
-          producer:
-            required-groups: default
-        arrange_shipment_output:
-          binder: rabbit
-          destination: arrangeShipment
+          destination: waiting-payment
           group: default
           content-type: application/json
           producer:
             required-groups: default
         payment_succeeded_input:
           binder: rabbit
-          destination: paymentSucceeded
+          destination: payment-succeeded
           group: default
           content-type: application/json
           consumer:
             max-attempts: 3
-        waiting_for_payment_input:
+        waiting_payment_input:
           binder: rabbit
-          destination: waitingForPayment
+          destination: waiting-payment
           group: default
           content-type: application/json
           consumer:
             max-attempts: 3
         payment_succeeded_output:
           binder: rabbit
-          destination: paymentSucceeded
+          destination: payment-succeeded
           group: default
           content-type: application/json
           producer:
             required-groups: default
-        arrange_shipment_input:
+        reward_points_output:
           binder: rabbit
-          destination: arrangeShipment
+          destination: reward-points
           group: default
           content-type: application/json
-          consumer:
-            max-attempts: 3
+          producer:
+            required-groups: default
     loadbalancer:
       retry:
         enabled: true

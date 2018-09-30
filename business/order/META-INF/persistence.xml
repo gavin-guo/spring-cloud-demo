@@ -5,8 +5,6 @@
         <class>com.gavin.business.domain.Item</class>
         <class>com.gavin.business.domain.Order</class>
         <class>com.gavin.business.domain.Payment</class>
-        <class>com.gavin.business.domain.Carrier</class>
-        <class>com.gavin.business.domain.Delivery</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/spring_cloud_demo"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

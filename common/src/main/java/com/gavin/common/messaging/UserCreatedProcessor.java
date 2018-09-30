@@ -16,9 +16,9 @@ public interface UserCreatedProcessor {
     String OUTPUT = "user_created_output";
 
     @Output(UserCreatedProcessor.OUTPUT)
-    MessageChannel output();
+    MessageChannel producer();
 
     @Input(UserCreatedProcessor.INPUT)
-    SubscribableChannel input();
+    SubscribableChannel consumer();
 
 }

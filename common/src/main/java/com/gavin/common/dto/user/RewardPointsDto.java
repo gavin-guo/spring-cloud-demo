@@ -10,8 +10,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-@ApiModel(value = "ProducePointsDto", description = "新增积分信息")
-public class ProducePointsDto implements Serializable {
+@ApiModel(value = "RewardPointsDto", description = "新增积分信息")
+public class RewardPointsDto implements Serializable {
 
     @JsonProperty("user_id")
     @NotNull(message = "'user_id' should not be null")
@@ -27,5 +27,9 @@ public class ProducePointsDto implements Serializable {
     @NotNull(message = "'amount' should not be null")
     @ApiModelProperty(value = "积分数量", position = 3, required = true)
     private BigDecimal amount;
+
+    @JsonProperty("reason")
+    @ApiModelProperty(value = "积分产生理由", position = 4)
+    private String reason;
 
 }

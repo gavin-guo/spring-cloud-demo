@@ -7,7 +7,7 @@ import com.gavin.business.repository.PointHistoryRepository;
 import com.gavin.business.repository.PointRepository;
 import com.gavin.business.service.PointService;
 import com.gavin.common.dto.user.FreezePointsDto;
-import com.gavin.common.dto.user.ProducePointsDto;
+import com.gavin.common.dto.user.RewardPointsDto;
 import com.gavin.common.enums.PointActionEnums;
 import com.gavin.common.exception.RecordNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,7 @@ public class PointServiceImpl implements PointService {
 
     @Override
     @Transactional
-    public void addPoints(ProducePointsDto _production) {
+    public void addPoints(RewardPointsDto _production) {
         Point point = modelMapper.map(_production, Point.class);
         String expireDate = new DateTime().plusDays(period).toString("yyyy-MM-dd");
         point.setExpireDate(expireDate);

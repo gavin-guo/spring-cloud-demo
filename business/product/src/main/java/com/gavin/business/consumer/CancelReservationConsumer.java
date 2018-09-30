@@ -18,7 +18,7 @@ import java.util.concurrent.Executor;
 
 @Component
 @Slf4j
-public class CancelReservationMessageConsumer implements MessageConsumer<CancelReservationPayload> {
+public class CancelReservationConsumer implements MessageConsumer<CancelReservationPayload> {
 
     @Autowired
     @Qualifier("poolTaskExecutor")
@@ -29,7 +29,7 @@ public class CancelReservationMessageConsumer implements MessageConsumer<CancelR
 
     @StreamListener(CancelReservationProcessor.INPUT)
     @Transactional
-    public void receiveMessage(@Payload CancelReservationPayload _payload) {
+    public void consumeMessage(@Payload CancelReservationPayload _payload) {
         log.info("received cancel_reservation message. {}", JsonUtils.toJson(_payload));
 
         CompletableFuture

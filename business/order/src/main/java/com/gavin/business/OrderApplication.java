@@ -1,9 +1,9 @@
 package com.gavin.business;
 
-import com.gavin.common.messaging.ArrangeShipmentProcessor;
 import com.gavin.common.messaging.CancelReservationProcessor;
 import com.gavin.common.messaging.PaymentSucceededProcessor;
-import com.gavin.common.messaging.WaitingForPaymentProcessor;
+import com.gavin.common.messaging.RewardPointsProcessor;
+import com.gavin.common.messaging.WaitingPaymentProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -19,9 +19,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableHystrix
 @EnableCaching
 @EnableBinding({
-        ArrangeShipmentProcessor.class,
+        RewardPointsProcessor.class,
         CancelReservationProcessor.class,
-        WaitingForPaymentProcessor.class,
+        WaitingPaymentProcessor.class,
         PaymentSucceededProcessor.class})
 @EnableSwagger2
 public class OrderApplication {

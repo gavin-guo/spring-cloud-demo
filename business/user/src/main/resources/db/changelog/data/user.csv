@@ -1,2 +1,2 @@
-id                                    ,login_name,password                                                      ,nick_name,status ,version,created_time
-'806f0ac6-a3e4-42a1-8dfc-1a3e56002881','gavin','$2a$10$lZtZ84C7opaUODCAdYzhwuNOuGqpSVjZLiM/gcZiAqEDDI/Vfq/Vu','gavin',ENABLED,1      ,'2016-11-03 07:25:03'
+id,login_name,password,nick_name,status,version,created_time
+'806f0ac6-a3e4-42a1-8dfc-1a3e56002881','gavin','$2a$10$lZtZ84C7opaUODCAdYzhwuNOuGqpSVjZLiM/gcZiAqEDDI/Vfq/Vu','gavin',ENABLED,1,'2016-11-03 07:25:03'

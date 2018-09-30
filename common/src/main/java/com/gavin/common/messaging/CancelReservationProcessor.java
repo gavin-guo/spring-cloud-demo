@@ -16,9 +16,9 @@ public interface CancelReservationProcessor {
     String OUTPUT = "cancel_reservation_output";
 
     @Output(CancelReservationProcessor.OUTPUT)
-    MessageChannel output();
+    MessageChannel producer();
 
     @Input(CancelReservationProcessor.INPUT)
-    SubscribableChannel input();
+    SubscribableChannel consumer();
 
 }
