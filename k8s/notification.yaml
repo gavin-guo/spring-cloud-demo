@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: demo
+  name: notification
+  labels:
+    app: notification
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification
+  template:
+    metadata:
+      labels:
+        app: notification
+    spec:
+      imagePullSecrets:
+      - name: registry-secret
+      volumes:
+      - name: log-volume
+        hostPath:
+          path: /opt/log/stash
+          type: Directory
+      containers:
+      - name: notification
+        image: registry.gavin.com/notification:latest
+        imagePullPolicy: Always
+        ports:
+        - name: rest-port
+          containerPort: 9104
+        envFrom:
+        - configMapRef:
+            name: demo-config
+        volumeMounts:
+        - mountPath: /opt/log/stash
+          name: log-volume
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: rest-port
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo
+  name: notification
+spec:
+  selector:
+    app: notification
+  ports:
+  - port: 9104
