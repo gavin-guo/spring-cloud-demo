@@ -190,7 +190,7 @@
         </pluginManagement>
     </build>
 
-    <distributionManagement>
+    <!--<distributionManagement>
         <repository>
             <id>nexus</id>
             <name>Releases</name>
@@ -201,9 +201,9 @@
             <name>Snapshot</name>
             <url>http://nexus.gavin.com:8081/repository/maven-snapshots</url>
         </snapshotRepository>
-    </distributionManagement>
+    </distributionManagement>-->
 
-    <repositories>
+    <!--<repositories>
         <repository>
             <id>nexus-releases</id>
             <name>Releases</name>
@@ -226,6 +226,6 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-    </repositories>
+    </repositories>-->
 
 </project>
