@@ -5,6 +5,7 @@ metadata:
   namespace: demo
 data:
   spring_profiles_active: k8s
+  liquibase_enable: "false"
   mysql_host: "192.168.1.80"
   mysql_port: "3306"
   mysql_user: "gavin"

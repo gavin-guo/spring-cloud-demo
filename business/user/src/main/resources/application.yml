@@ -5,7 +5,7 @@ liquibase:
   change-log: classpath:db/changelog/changelog.xml
   default-schema: spring_cloud_demo
   drop-first: false
-  enabled: true
+  enabled: ${liquibase_enable:true}
 
 spring:
   messages:
