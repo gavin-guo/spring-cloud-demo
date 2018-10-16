@@ -3,9 +3,6 @@ kind: Ingress
 metadata:
   name: api-ingress
   namespace: demo
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/use-regex: true
 spec:
   rules:
   - host: scdemo.com
