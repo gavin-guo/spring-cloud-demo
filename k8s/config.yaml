@@ -42,9 +42,7 @@ metadata:
   namespace: demo
   name: config
 spec:
-  type: NodePort
   selector:
     app: config
   ports:
   - port: 8888
-    nodePort: 30888

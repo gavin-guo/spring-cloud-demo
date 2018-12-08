@@ -34,9 +34,7 @@ metadata:
   namespace: demo
   name: discovery
 spec:
-  type: NodePort
   selector:
     app: discovery
   ports:
   - port: 8761
-    nodePort: 30761
