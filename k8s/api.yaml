@@ -43,9 +43,7 @@ metadata:
   namespace: demo
   name: api
 spec:
-  type: NodePort
   selector:
     app: api
   ports:
   - port: 8002
-    nodePort: 30802

@@ -9,5 +9,5 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: api
-          servicePort: 8002
+          serviceName: discovery
+          servicePort: 8761
