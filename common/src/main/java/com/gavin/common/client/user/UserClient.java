@@ -1,10 +1,10 @@
 package com.gavin.common.client.user;
 
-import com.gavin.common.dto.user.AddressDto;
 import com.gavin.common.dto.common.CustomResponseBody;
+import com.gavin.common.dto.user.AddressDto;
 import com.gavin.common.dto.user.FreezePointsDto;
 import com.gavin.common.dto.user.UserDto;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
