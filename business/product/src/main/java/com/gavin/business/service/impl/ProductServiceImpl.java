@@ -25,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public ProductDto createProduct(CreateProductDto _product) {
         String categoryId = _product.getCategoryId();
-        Category category = Optional.ofNullable(categoryRepository.findOne(categoryId))
+        Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RecordNotFoundException("category", categoryId));
 
         Product product = modelMapper.map(_product, Product.class);
@@ -75,11 +74,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto findProductById(String _productId) {
-        Product product = Optional.ofNullable(productRepository.findOne(_productId))
+        Product product = productRepository.findById(_productId)
                 .orElseThrow(() -> new RecordNotFoundException("product", _productId));
 
         ProductDto productDto = modelMapper.map(product, ProductDto.class);
-        Category category = categoryRepository.findOne(product.getCategoryId());
+        Category category = categoryRepository.findById(product.getCategoryId()).orElse(null);
         productDto.setCategoryName(category.getName());
 
         return productDto;
@@ -87,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PageResult<ProductDto> findProductByCategoryId(String _categoryId, PageRequest _pageRequest) {
-        Category category = Optional.ofNullable(categoryRepository.findOne(_categoryId))
+        Category category = categoryRepository.findById(_categoryId)
                 .orElseThrow(() -> new RecordNotFoundException("category", _categoryId));
 
         Page<Product> products = productRepository.findByCategoryId(_categoryId, _pageRequest);
@@ -113,7 +112,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ReservedProductDto> reserveProducts(String _orderId, List<ItemDto> _items) {
         List<String> productIds = _items.stream().map(ItemDto::getProductId).collect(Collectors.toList());
 
-        List<Product> products = productRepository.findAll(productIds);
+        List<Product> products = productRepository.findAllById(productIds);
         Map<String, Product> productMap = products.stream().collect(
                 Collectors.toMap(Product::getId, product -> product));
 
@@ -188,7 +187,7 @@ public class ProductServiceImpl implements ProductService {
                 }
         );
 
-        productReservationRepository.delete(productReservations);
+        productReservationRepository.deleteAll(productReservations);
     }
 
 }

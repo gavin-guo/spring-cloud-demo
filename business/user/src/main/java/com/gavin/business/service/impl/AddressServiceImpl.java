@@ -36,7 +36,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressDto registerAddress(String _userId, RegisterAddressDto _address) {
         String districtId = _address.getDistrictId();
-        District district = Optional.ofNullable(districtRepository.findOne(districtId))
+        District district = districtRepository.findById(districtId)
                 .orElseThrow(() -> new RecordNotFoundException("district", districtId));
 
         if (_address.getDefaultAddress()) {
@@ -57,7 +57,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressDto findAddressById(String _addressId) {
-        Address address = Optional.ofNullable(addressRepository.findOne(_addressId))
+        Address address = addressRepository.findById(_addressId)
                 .orElseThrow(() -> new RecordNotFoundException("address", _addressId));
 
         return modelMapper.map(address, AddressDto.class);

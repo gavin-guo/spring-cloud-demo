@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -55,7 +54,7 @@ public class PaymentServiceImpl implements PaymentService {
         String paymentId = _notification.getPaymentId();
         BigDecimal amount = _notification.getAmount();
 
-        Payment payment = Optional.ofNullable(paymentRepository.findOne(paymentId))
+        Payment payment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new RecordNotFoundException("payment", paymentId));
 
         // 第三方支付平台反馈的支付成功金额与需要支付金额不一致。

@@ -46,7 +46,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -88,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDetailsDto findOrderById(String _orderId) {
-        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = orderRepository.findById(_orderId)
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
         return modelMapper.map(order, OrderDetailsDto.class);
@@ -116,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public DirectionDto findDirectionByOrderId(String _orderId) {
-        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = orderRepository.findById(_orderId)
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
         return modelMapper.map(order, DirectionDto.class);
@@ -124,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void updateOrderStatus(String _orderId, OrderStatusEnums _status) {
-        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = orderRepository.findById(_orderId)
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
         order.setStatus(_status);
@@ -134,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void cancelOrder(String _orderId) {
-        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = orderRepository.findById(_orderId)
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
         OrderStatusEnums[] cancelableOrderStatus = new OrderStatusEnums[]{
@@ -157,7 +156,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void payOrder(String _orderId, BigDecimal _pointsAmount) {
-        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = orderRepository.findById(_orderId)
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
         // 用户选择使用积分抵扣。
@@ -202,7 +201,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void succeedInPayment(String _orderId) {
-        Order order = Optional.ofNullable(orderRepository.findOne(_orderId))
+        Order order = orderRepository.findById(_orderId)
                 .orElseThrow(() -> new RecordNotFoundException("order", _orderId));
 
         order.setStatus(OrderStatusEnums.COMPLETED);
@@ -307,7 +306,7 @@ public class OrderServiceImpl implements OrderService {
 
         @Transactional
         private OrderDetailsDto build() {
-            Order order = Optional.ofNullable(orderRepository.findOne(orderId))
+            Order order = orderRepository.findById(orderId)
                     .orElseThrow(() -> new RecordNotFoundException("order", orderId));
 
             order.setConsignee(direction.getConsignee());

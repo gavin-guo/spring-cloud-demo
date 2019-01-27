@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void activateUser(String _userId) {
-        User user = Optional.ofNullable(userRepository.findOne(_userId))
+        User user = userRepository.findById(_userId)
                 .orElseThrow(() -> new RecordNotFoundException("user", _userId));
 
         // 该用户已经被激活。
@@ -116,12 +116,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateAuthorities(String _userId, List<String> _authorities) {
-        User user = Optional.ofNullable(userRepository.findOne(_userId))
+        User user = userRepository.findById(_userId)
                 .orElseThrow(() -> new RecordNotFoundException("user", _userId));
 
         // 删除原来所有权限。
         List<UserAuthority> userAuthorities = user.getUserAuthorities();
-        userAuthorityRepository.delete(userAuthorities);
+        userAuthorityRepository.deleteAll(userAuthorities);
 
         user.setUserAuthorities(null);
 

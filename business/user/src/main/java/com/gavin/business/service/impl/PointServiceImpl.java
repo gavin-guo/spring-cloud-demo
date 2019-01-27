@@ -149,7 +149,7 @@ public class PointServiceImpl implements PointService {
         pointHistory.setAction(PointActionEnums.CONSUME);
         pointHistoryRepository.save(pointHistory);
 
-        pointRepository.delete(points);
+        pointRepository.deleteAll(points);
         log.info("consume points for order({}) successfully. ", _orderId);
     }
 
@@ -168,7 +168,7 @@ public class PointServiceImpl implements PointService {
                                 Collectors.reducing(BigDecimal.ZERO, Point::getAmount, BigDecimal::add)));
 
         // 删除所有过期积分的记录。
-        pointRepository.delete(expiredPoints);
+        pointRepository.deleteAll(expiredPoints);
 
         // 记录到积分明细表。
         userPointsMap.forEach(
