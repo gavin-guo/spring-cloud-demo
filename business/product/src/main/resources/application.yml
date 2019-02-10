@@ -1,13 +1,12 @@
 server:
   port: 9102
 
-liquibase:
-  change-log: classpath:db/changelog/changelog.xml
-  default-schema: spring_cloud_demo
-  drop-first: false
-  enabled: ${liquibase_enable:true}
-
 spring:
+  liquibase:
+    change-log: classpath:db/changelog/changelog.xml
+    default-schema: spring_cloud_demo
+    drop-first: false
+    enabled: ${liquibase_enable:true}
   cloud:
     stream:
       bindings:

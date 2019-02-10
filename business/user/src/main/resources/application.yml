@@ -1,13 +1,12 @@
 server:
   port: 9101
 
-liquibase:
-  change-log: classpath:db/changelog/changelog.xml
-  default-schema: spring_cloud_demo
-  drop-first: false
-  enabled: ${liquibase_enable:true}
-
 spring:
+  liquibase:
+    change-log: classpath:db/changelog/changelog.xml
+    default-schema: spring_cloud_demo
+    drop-first: false
+    enabled: ${liquibase_enable:true}
   messages:
     basename: i18n/messages
     cache-seconds: 3600
