@@ -33,9 +33,9 @@
         <spring-boot-admin.version>1.5.5</spring-boot-admin.version>
         <spotify.version>1.0.0</spotify.version>
         <lombok.version>1.16.18</lombok.version>
-        <swagger.version>2.7.0</swagger.version>
+        <swagger.version>2.9.2</swagger.version>
         <liquibase.version>3.5.3</liquibase.version>
-        <logstash.version>4.7</logstash.version>
+        <logstash.version>5.3</logstash.version>
         <modelmapper.version>0.7.7</modelmapper.version>
 
         <docker.registry>registry.gavin.com</docker.registry>
