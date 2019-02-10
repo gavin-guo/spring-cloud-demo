@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication(scanBasePackages = {"com.gavin.business", "com.gavin.common"})
 @EnableRetry
 @EnableBinding(UserCreatedProcessor.class)
-@EnableSwagger2
+//@EnableSwagger2
 public class NotificationApplication {
 
     public static void main(String[] args) {
