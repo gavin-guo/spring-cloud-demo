@@ -71,6 +71,11 @@
             <artifactId>jedis</artifactId>
             <version>3.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>5.1.4.RELEASE</version>
+        </dependency>
     </dependencies>
 
 </project>
