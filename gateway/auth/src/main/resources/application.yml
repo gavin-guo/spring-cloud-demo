@@ -1,6 +1,7 @@
 server:
   port: 9999
-  context-path: /uaa # 此处必须设定否则无法获得token
+  servlet:
+    context-path: /uaa # 此处必须设定否则无法获得token
 
 security:
   user:

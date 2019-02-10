@@ -38,6 +38,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private RedisTemplate redisTemplate;
 
     @Autowired
+    @Qualifier("authenticationManager")
     private AuthenticationManager authenticationManager;
 
     @Autowired
