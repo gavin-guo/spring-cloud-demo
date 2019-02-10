@@ -23,7 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
         CancelReservationProcessor.class,
         WaitingPaymentProcessor.class,
         PaymentSucceededProcessor.class})
-@EnableSwagger2
+//@EnableSwagger2
 public class OrderApplication {
 
     public static void main(String[] args) {

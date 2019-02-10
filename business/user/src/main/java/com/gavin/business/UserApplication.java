@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableBinding({UserCreatedProcessor.class, RewardPointsProcessor.class})
 @EnableJpaRepositories(basePackages = "com.gavin.business.repository")
 @EnableScheduling
-@EnableSwagger2
+//@EnableSwagger2
 public class UserApplication {
 
     public static void main(String[] args) {

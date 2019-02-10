@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableDiscoveryClient
 @EnableBinding(CancelReservationProcessor.class)
 @EnableJpaRepositories(basePackages = "com.gavin.business.repository")
-@EnableSwagger2
+//@EnableSwagger2
 public class ProductApplication {
 
     public static void main(String[] args) {
